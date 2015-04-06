@@ -5,3 +5,4 @@ src/main/generated-sources/
 .settings
 .proyect
 /target/
+/bin/
