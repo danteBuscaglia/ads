@@ -14,5 +14,15 @@ class PersonaTestSuite {
 		
 		Assert.assertEquals(23.10f, santiago.imc, 0.05f)
 	}
+	@Test
+	def void juaniIMC()
+	{
+		val juani= new Persona()
+		
+		juani.peso= 70.0f
+		juani.altura= 1.82f
+		
+		Assert.assertEquals(21.13f, juani.imc,0.05f)
+	}
 	
 }
