@@ -49,4 +49,103 @@ class PersonaTestSuite {
 		Assert.assertEquals(22.21f, juanPablo.imc, 0.01f)
 	}
 	
+	@Test
+	def void unaPersonaTieneImcPromedio()
+	{
+		val persona = new Persona()
+		
+		persona.peso = 74.0f
+		persona.altura = 1.79f
+		
+		Assert.assertTrue(persona.tieneImcPromedio)
+	}
+	
+	@Test
+	def void unaPersonaConImcPromedioNoTieneCondicionesPreexistentesYSigueRutinaSaludable()
+	{
+		val persona = new Persona()
+		
+		persona.peso = 74.0f
+		persona.altura = 1.79f
+		
+		Assert.assertTrue(persona.sigueRutinaSaludable)
+		
+	}
+	
+	@Test
+	def void unaPersonaSinImcPromedioNoSigueRutinaSaludable()
+	{
+		val persona = new Persona()
+		
+		persona.peso = 740.0f
+		persona.altura = 1.79f
+
+		Assert.assertFalse(persona.sigueRutinaSaludable)
+		
+	}
+	
+	@Test
+	def void unaPersonaConIMCPromedioSubsanaTodasLasCondicionesPreexistentes()
+	{
+		var persona = new Persona()
+		persona.peso = 74.0f
+		persona.altura = 1.79f
+		
+		persona.agregarCondPreexistente(new Vegano())
+		persona.agregarCondPreexistente(new Hipertenso())
+		persona.agregarCondPreexistente(new Diabetico())
+		persona.agregarCondPreexistente(new Celiaco())
+		
+		persona.agregarPreferencia(Preferencia.FRUTA)
+		persona.rutina = "INTENSIVO"
+
+		Assert.assertTrue(persona.sigueRutinaSaludable)
+		
+	}
+	
+	@Test
+	def void unaPersonaConIMCPromedioNoSubsanaHipertension()
+	{
+		var persona = new Persona()
+		
+		persona.peso = 74.0f
+		persona.altura = 1.79f
+		
+		persona.agregarCondPreexistente(new Hipertenso())
+
+		persona.rutina = "LEVE"
+		
+		Assert.assertFalse(persona.sigueRutinaSaludable)
+		
+	}
+	
+	@Test
+	def void unaPersonaConIMCPromedioNoSubsanaVeganismo()
+	{
+		var persona = new Persona()
+		
+		persona.peso = 74.0f
+		persona.altura = 1.79f
+		
+		persona.agregarCondPreexistente(new Vegano())
+
+		persona.agregarPreferencia(Preferencia.VERDURA)
+		
+		Assert.assertFalse(persona.sigueRutinaSaludable)
+		
+	}
+	
+	@Test
+	def void unaPersonaConIMCPromedioNoSubsanaDiabetes()
+	{
+		var persona = new Persona()
+		
+		persona.peso = 74.0f
+		persona.altura = 1.79f
+		
+		persona.agregarCondPreexistente(new Diabetico())
+		
+		Assert.assertFalse(persona.sigueRutinaSaludable)
+		
+	}
 }
