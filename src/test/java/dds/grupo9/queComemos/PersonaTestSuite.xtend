@@ -148,4 +148,29 @@ class PersonaTestSuite {
 		Assert.assertFalse(persona.sigueRutinaSaludable)
 		
 	}
+	
+	@Test
+	def void unaPersonaAgregaUnaReceta(){
+		val persona= new Persona()
+		val receta = new Receta()
+		receta.agregarIngrediente(new Ingrediente())
+		receta.calorias=500
+		
+		
+		Assert.assertTrue(persona.agregarReceta(receta))
+		
+	}
+	
+	@Test
+	
+	def void unaPersonaNoPuedeAgregarUnaReceta(){
+		
+		val persona= new Persona()
+		val receta = new Receta()
+		receta.agregarIngrediente(new Ingrediente())
+		receta.calorias=50000
+		
+		Assert.assertFalse(persona.agregarReceta(receta))
+		
+	}
 }

@@ -15,7 +15,7 @@ class Persona {
 	val Collection<Preferencia> disgustos = newHashSet() /*Disgustos de un Usuario */
 	var Collection<CondPreexistente> condicionesPreexistentes = newHashSet() /* Condicionantes de un Usuario */
 	@Accessors String rutina /* Tipo de rutina que lleva a cabo el Usuario */
-
+    val Collection<Receta> recetas= newHashSet() /*Recetas de un Usuario */
 	
 	def float imc(){		/* IMC: índice de masa corporal, calculado como (peso/estatura^2) */
 		peso / (altura**2) as float
@@ -53,5 +53,10 @@ class Persona {
 	
 	def agregarDisgusto(Preferencia preferencia){ /* Agrega una preferencia a la colección */
 		disgustos.add(preferencia)
+	}
+	def agregarReceta(Receta receta){ /*Agrega una receta a la colección si cumple con las condiciones */
+		    if(receta.recetaValida){
+		 	recetas.add(receta)
+		 	}
 	}
 }
