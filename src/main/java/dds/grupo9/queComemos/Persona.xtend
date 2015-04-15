@@ -13,7 +13,7 @@ class Persona {
 	@Accessors long fechaNacimiento		/* Fecha de nacimiento de un Usuario */
 	val Collection<Preferencia> gustos = newHashSet() /* Gustos de un Usuario */
 	val Collection<Preferencia> disgustos = newHashSet() /*Disgustos de un Usuario */
-	var Collection<CondPreexistente> condicionesPreexistentes = newHashSet() /* Condicionantes de un Usuario */
+	val Collection<CondPreexistente> condicionesPreexistentes = newHashSet() /* Condicionantes de un Usuario */
 	@Accessors String rutina /* Tipo de rutina que lleva a cabo el Usuario */
     val Collection<Receta> recetas= newHashSet() /*Recetas de un Usuario */
 	

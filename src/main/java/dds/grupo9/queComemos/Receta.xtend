@@ -9,17 +9,14 @@ class Receta {
     @Accessors String explicacion /*Pasos a seguir en la receta */
     @Accessors int calorias /*Calorías de la receta (A modificar) */
     @Accessors String dificultad /*Dificultad de la receta */
-    val Collection<Ingrediente> ingredientes= newHashSet() /*Ingredientes de la receta */
-    val Collection <Condimento> condimentos= newHashSet() /*Condimentos de la receta */
+    var Collection<Ingrediente> ingredientes= newHashSet() /*Ingredientes de la receta */
     val Collection <Estacion> temporadasCorrespondientes = newHashSet() /*Temporadas a las que corresponde la receta */
    
    def agregarIngrediente(Ingrediente ingrediente)/*Agrega un ingrediente a la lista de la receta*/{
    	ingredientes.add(ingrediente)
    } 
-   def agregarCondimento(Condimento condimento){ /*Agrega un condimento a la lista de la receta */
-   	condimentos.add(condimento)
-   }
    
+  
    def recetaValida(){ /*Evalúa si una receta cumple con las condiciones para considerarse como tal */
    	(this.tieneIngredientes && this.contieneCaloriasRazonables) 
    	
@@ -32,5 +29,25 @@ class Receta {
   def contieneCaloriasRazonables(){ /*Define límites de calorías para una receta */
   	calorias>10 && calorias <5000
   }
+  
+  def tieneIngrediente(String nombreIngrediente){ /* Evalúa si dado el nombre de un ingrediente, la receta lo contiene */
+  	!(filtrarPorNombre(nombreIngrediente)).isEmpty
+  	
    
+  }
+  
+  def gramosDeAzucar(){ /* Calcula los gramos de azucar de la receta, sumando los gramos de cada ingrediente al contador */
+    
+  	
+  	 }
+  	 
+  def filtrarPorNombre(String nombreIngrediente){  
+  	ingredientes.filter[ingrediente|ingrediente.soyYo(nombreIngrediente)]
+  	
+  }
+  
+  def recetaInadecuadaPara (Collection<CondPreexistente> condiciones){ /*Muestra las condiciones para la que una receta es inadecuada */
+  	condiciones.filter[condicion|condicion.recetaNoRecomendada(this)]
+  	
+  	}
     }

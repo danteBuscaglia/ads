@@ -173,4 +173,7 @@ class PersonaTestSuite {
 		Assert.assertFalse(persona.agregarReceta(receta))
 		
 	}
+	
+		
+	
 }
