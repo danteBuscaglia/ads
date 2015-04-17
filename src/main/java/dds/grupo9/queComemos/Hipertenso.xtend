@@ -10,4 +10,9 @@ class Hipertenso implements CondPreexistente {
        override boolean recetaNoRecomendada(Receta receta){
         receta.tieneIngrediente("sal") || receta.tieneIngrediente("caldo")
        }
+       
+       override boolean verificaDatosSegunCondicion(Persona persona){/* Verifica que usuarios hipertensos indiquen al menos una preferencia */
+       	persona.tienePreferencias
+       }
+       
 }

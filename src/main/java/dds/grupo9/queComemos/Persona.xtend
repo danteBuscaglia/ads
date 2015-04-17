@@ -3,13 +3,12 @@ package dds.grupo9.queComemos
 import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.Collection
 
-
 class Persona {
 	
 	@Accessors float peso	/* Peso de un Usuario */
 	@Accessors float altura		/* Altura de un Usuario */
 	@Accessors String nombre	/* Nombre de un Usuario */
-	@Accessors boolean sexo		/* Sexo de un Usuario: T: Masculino y F: Femenino */
+	@Accessors String sexo		/* Sexo de un Usuario: M/m: Masculino y F/f: Femenino */
 	@Accessors long fechaNacimiento		/* Fecha de nacimiento de un Usuario */
 	val Collection<Preferencia> gustos = newHashSet() /* Gustos de un Usuario */
 	val Collection<Preferencia> disgustos = newHashSet() /*Disgustos de un Usuario */
@@ -17,18 +16,27 @@ class Persona {
 	@Accessors String rutina /* Tipo de rutina que lleva a cabo el Usuario */
     val Collection<Receta> recetas= newHashSet() /*Recetas de un Usuario */
 	
+	new (){
+		nombre = "sinNombre"
+		fechaNacimiento = -1
+		peso = -1
+		altura = -1 
+		rutina = "sinRutina"
+		sexo = "sinSexo"
+		
+	}
+	
 	def float imc(){		/* IMC: índice de masa corporal, calculado como (peso/estatura^2) */
 		peso / (altura**2) as float
 	}
 	
 	def usuarioValido(){ /* Verifica si una persona es un Usuario válido */
-		/*Usuario válido cumple con:
-		 - campos obligatorios: nombre, peso, altura, fecha de nacimiento, rutina
-		 - el nombre tiene más de 4 caracteres
-		 - si el usuario es diabético, debe indicar el sexo
-		 - si el usuario es hipertenso o diabético, debe indicar al menos una preferencia
-		 - si el usuario es vegano no puede aparecer ninguna de estas palabras como preferencia: “pollo”, “carne”, “chivito”, “chori”
-		 - la fecha de nacimiento debe ser una fecha anterior a la del día de hoy*/
+		(this.completaCamposObligatorios && 
+			nombre.length > 4 && 
+			condicionesPreexistentes.forall[condicion | condicion.verificaDatosSegunCondicion(this)]
+			 && this.fechaValida(new Fecha())
+			 
+		)
 	}
 	
 	def sigueRutinaSaludable(){ /* Evalúa si un Usuario sigue o no una rutina saludable */
@@ -59,4 +67,26 @@ class Persona {
 		 	recetas.add(receta)
 		 	}
 	}
+	
+	def tienePreferencias() {
+		gustos.length > 0
+	}
+	
+	def indicaSexo() {
+		sexo != "sinSexo"
+	}
+	
+	def prefiereNoComer(Collection<Preferencia> alimentos) {
+		alimentos.forall[alimento| !(gustos.contains(alimento))]
+	}
+	
+	def fechaValida(Fecha fecha){
+		fecha.actualizarFecha
+		fecha.fechaDeHoy > fechaNacimiento
+	}
+	
+	def completaCamposObligatorios(){
+		(nombre != "sinNombre" && fechaNacimiento != -1 && peso != -1 && altura != -1 && rutina != "sinRutina")
+	}
+	
 }

@@ -3,6 +3,7 @@ package dds.grupo9.queComemos
 import org.junit.Test
 import org.junit.Assert
 
+
 class PersonaTestSuite {
 
 	@Test
@@ -173,6 +174,102 @@ class PersonaTestSuite {
 		Assert.assertFalse(persona.agregarReceta(receta))
 		
 	}
+	
+	@Test
+	def void unaPersonaEsUnUsuarioValido()
+	{
+		var persona = new Persona()
+		
+		persona.nombre = "El Enzo"
+		persona.peso = 74.0f
+		persona.altura = 1.79f
+		persona.rutina = "INTENSIVO"
+		persona.fechaNacimiento = 19611112
+		persona.sexo = 'M'
+		
+		persona.agregarCondPreexistente(new Hipertenso())
+		persona.agregarCondPreexistente(new Diabetico())
+		persona.agregarCondPreexistente(new Vegano())
+		persona.agregarCondPreexistente(new Celiaco())
+		persona.agregarPreferencia(Preferencia.VERDURA)
+		persona.agregarPreferencia(Preferencia.MELON)
+		
+		Assert.assertTrue(persona.usuarioValido)
+		
+	}
+	
+	@Test
+	def void unaPersonaNoCompletaTodosSusDatosBasicos()
+	{
+		var persona = new Persona()
+		
+		persona.nombre = ""
+		persona.peso = 74.0f
+		persona.altura = 1.79f
+		persona.rutina = "INTENSIVO"
+		persona.fechaNacimiento = 19611112
+
+
+		Assert.assertFalse(persona.usuarioValido)
+		
+	}
+
+	@Test
+	def void unaPersonaNacioDepuesDelDiaDeLaFecha()
+	{
+		var persona = new Persona()
+		
+		persona.nombre = "El Enzo"
+		persona.peso = 74.0f
+		persona.altura = 1.79f
+		persona.rutina = "INTENSIVO"
+		persona.fechaNacimiento = 20201212
+		persona.sexo = 'M'
+
+		Assert.assertFalse(persona.usuarioValido)
+		
+	}	
+
+	@Test
+	def void unaPersonaNoIndicaSexo()
+	{
+		var persona = new Persona()
+
+		Assert.assertFalse(persona.indicaSexo)
+		
+	}	
+	
+	@Test
+	def void unVeganoQuePrefiereComerCarneNoEsValido()
+	{
+		var persona = new Persona()
+		
+		persona.nombre = "El Enzo"
+		persona.peso = 74.0f
+		persona.altura = 1.79f
+		persona.rutina = "INTENSIVO"
+		persona.fechaNacimiento = 19611112
+		persona.sexo = 'M'
+		
+		persona.agregarCondPreexistente(new Hipertenso())
+		persona.agregarCondPreexistente(new Diabetico())
+		persona.agregarCondPreexistente(new Vegano())
+		persona.agregarCondPreexistente(new Celiaco())
+		persona.agregarPreferencia(Preferencia.CARNE)
+		persona.agregarPreferencia(Preferencia.MELON)
+		
+		Assert.assertFalse(persona.usuarioValido)
+		
+	}	
+	/*@Test
+	def void fecha()
+	{
+		var Fecha fecha = new Fecha()
+		fecha.actualizarFecha
+		Assert.assertEquals(20150416,fecha.fechaDeHoy)
+		
+	}*/
+	
 	
 		
 	

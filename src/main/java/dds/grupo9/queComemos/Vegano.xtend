@@ -3,16 +3,24 @@ package dds.grupo9.queComemos
 import java.util.Collection
 
 class Vegano implements CondPreexistente {
-	override boolean subsanaCondicion(Collection<Preferencia> gustos, String rutina, float peso){
+	    var Collection<Preferencia> carnes = newHashSet()
+	
+	new(){
+		carnes.add(Preferencia.POLLO)
+		carnes.add(Preferencia.CARNE)
+		carnes.add(Preferencia.CHIVITO)
+		carnes.add(Preferencia.CHORI)
+	}
+	override boolean subsanaCondicion(Collection<Preferencia> gustos, String rutina, float peso){ /*Verifica si logra subsanar el veganismo, se logra si le gustan las frutas */
 		gustos.contains(Preferencia.FRUTA)
-	} /*Verifica si logra subsanar su condición, para los veganos esto se logra si le gustan las frutas */
+	} 
+	
     override boolean recetaNoRecomendada(Receta receta){
     	receta.tieneIngrediente("chori") || receta.tieneIngrediente("pollo") || receta.tieneIngrediente("chivito") || receta.tieneIngrediente("carne")
     	
-    	
     }
-
-   
-   
+    override boolean verificaDatosSegunCondicion(Persona persona){ /* Verifica que el usuario no tenga como preferencia: “pollo”, “carne”, “chivito”, “chori” */
+    	persona.prefiereNoComer(carnes)
+    } 
    
 }
