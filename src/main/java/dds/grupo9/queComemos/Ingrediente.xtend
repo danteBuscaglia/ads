@@ -6,17 +6,13 @@ class Ingrediente {
 	
 	@Accessors String nombre
 	@Accessors int cantidad
-	@Accessors Integer cantAzucar
 	
 	
 	def boolean soyYo(String nombreIngrediente){ /*Devuelve true si el nombre del ingrediente es igual al pasado por parametro */
-		
-	nombre == nombreIngrediente
-}
-    def int sumarAzucar(int valorAnterior){
-       valorAnterior+=cantAzucar
-    	
-    	
+		nombre == nombreIngrediente
+	}
+    
+    def boolean tieneMuchoAzucar(){
+		soyYo("azucar") && cantidad > 100
     }
-
 }

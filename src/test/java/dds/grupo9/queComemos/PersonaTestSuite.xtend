@@ -176,6 +176,52 @@ class PersonaTestSuite {
 	}
 	
 	@Test
+	
+	def void unDiabeticoNoPuedeConsumirEstaReceta(){
+		
+		val persona = new Persona()
+		val receta = new Receta()
+		val azucar = new Ingrediente()
+		val diabetico = new Diabetico()
+		azucar.nombre = "azucar"
+		azucar.cantidad = 150
+		receta.agregarIngrediente(azucar)
+		receta.calorias=500
+		persona.agregarCondPreexistente(diabetico)
+		
+		Assert.assertTrue(diabetico.recetaNoRecomendada(receta))
+	}
+	
+	@Test
+	
+	def void soloUnCeliacoPuedeConsumirEstaReceta(){
+		
+		val vegano = new Vegano()
+		val hipertenso = new Hipertenso()
+		val diabetico = new Diabetico()
+		val celiaco = new Celiaco()
+		val receta = new Receta()
+		val azucar = new Ingrediente()
+		val sal = new Ingrediente()
+		val carne = new Ingrediente()
+		azucar.nombre = "azucar"
+		azucar.cantidad = 150
+		sal.nombre = "sal"
+		sal.cantidad = 15
+		carne.nombre = "carne"
+		carne.cantidad = 30
+		receta.agregarIngrediente(azucar)
+		receta.agregarIngrediente(sal)
+		receta.agregarIngrediente(carne)
+		receta.calorias=500
+				
+		Assert.assertTrue(vegano.recetaNoRecomendada(receta))
+		Assert.assertTrue(diabetico.recetaNoRecomendada(receta))
+		Assert.assertTrue(hipertenso.recetaNoRecomendada(receta))
+		Assert.assertFalse(celiaco.recetaNoRecomendada(receta))
+	}
+	
+	@Test
 	def void unaPersonaEsUnUsuarioValido()
 	{
 		var persona = new Persona()

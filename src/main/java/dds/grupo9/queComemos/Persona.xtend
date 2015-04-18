@@ -15,6 +15,7 @@ class Persona {
 	val Collection<CondPreexistente> condicionesPreexistentes = newHashSet() /* Condicionantes de un Usuario */
 	@Accessors String rutina /* Tipo de rutina que lleva a cabo el Usuario */
     val Collection<Receta> recetas= newHashSet() /*Recetas de un Usuario */
+	val Collection<RecetaPublica> recetasPublicas = newHashSet() /* Recetas públicas de un usuario */
 	
 	new (){
 		nombre = "sinNombre"
@@ -23,7 +24,6 @@ class Persona {
 		altura = -1 
 		rutina = "sinRutina"
 		sexo = "sinSexo"
-		
 	}
 	
 	def float imc(){		/* IMC: índice de masa corporal, calculado como (peso/estatura^2) */
@@ -33,10 +33,8 @@ class Persona {
 	def usuarioValido(){ /* Verifica si una persona es un Usuario válido */
 		(this.completaCamposObligatorios && 
 			nombre.length > 4 && 
-			condicionesPreexistentes.forall[condicion | condicion.verificaDatosSegunCondicion(this)]
-			 && this.fechaValida(new Fecha())
-			 
-		)
+			condicionesPreexistentes.forall[condicion | condicion.verificaDatosSegunCondicion(this)] && 
+			this.fechaValida(new Fecha()))
 	}
 	
 	def sigueRutinaSaludable(){ /* Evalúa si un Usuario sigue o no una rutina saludable */
@@ -62,10 +60,12 @@ class Persona {
 	def agregarDisgusto(Preferencia preferencia){ /* Agrega una preferencia a la colección */
 		disgustos.add(preferencia)
 	}
+	
 	def agregarReceta(Receta receta){ /*Agrega una receta a la colección si cumple con las condiciones */
-		    if(receta.recetaValida){
+	    if(receta.recetaValida){
+		 	receta.crearDuenio(this);
 		 	recetas.add(receta)
-		 	}
+	 	}
 	}
 	
 	def tienePreferencias() {

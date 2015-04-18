@@ -4,9 +4,9 @@ import java.util.Collection
 
 interface CondPreexistente {
 	 
-		def boolean subsanaCondicion(Collection<Preferencia> gustos, String rutina, float peso) 
+	def boolean subsanaCondicion(Collection<Preferencia> gustos, String rutina, float peso) 
 		
-        def boolean recetaNoRecomendada(Receta receta)
+    def boolean recetaNoRecomendada(Receta receta)
 
-        def boolean verificaDatosSegunCondicion(Persona persona) 
+	def boolean verificaDatosSegunCondicion(Persona persona) 
 }
