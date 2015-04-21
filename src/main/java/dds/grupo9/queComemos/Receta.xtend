@@ -3,7 +3,7 @@ package dds.grupo9.queComemos
 import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.Collection
 
-class Receta {
+ class Receta {
 	
 	@Accessors String nombre /*Nombre del plato */
     @Accessors String explicacion /*Pasos a seguir en la receta */
@@ -53,4 +53,19 @@ class Receta {
   	def puedeVermeOModificarme(Persona persona){
   		duenio == persona
   	}
+	
+	def damePreparacion() {
+	
+	this.explicacion
+	}
+	
+   def agregarSubreceta(Receta c){
+   	
+   	 }
+   	 
+   	def dameIngredientes(){
+   		
+   		return ingredientes
+   	} 
+	
 }
