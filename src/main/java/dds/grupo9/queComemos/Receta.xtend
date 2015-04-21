@@ -10,11 +10,11 @@ import java.util.Collection
     @Accessors int calorias /*Calorías de la receta (A modificar) */
     @Accessors String dificultad /*Dificultad de la receta */
     var Persona duenio /* Usuario que sube la receta */
-    var Collection<Ingrediente> ingredientes= newHashSet() /*Ingredientes de la receta */
-    val Collection <Estacion> temporadasCorrespondientes = newHashSet() /*Temporadas a las que corresponde la receta */
-    var Collection <CondPreexistente> condiciones = newHashSet() /* Condiciones preexistentes */
+    val Collection<Ingrediente> ingredientes= newHashSet() /*Ingredientes de la receta */
+    val Collection<Estacion> temporadasCorrespondientes = newHashSet() /*Temporadas a las que corresponde la receta */
+    var Collection<CondPreexistente> condiciones = newHashSet() /* Condiciones preexistentes */
    
-   	def agregarIngrediente(Ingrediente ingrediente)/*Agrega un ingrediente a la lista de la receta*/{
+   	def agregarIngrediente(Ingrediente ingrediente){/*Agrega un ingrediente a la lista de la receta*/
    		ingredientes.add(ingrediente)
    	} 
    
@@ -56,7 +56,7 @@ import java.util.Collection
 	
 	def damePreparacion() {
 	
-	this.explicacion
+		explicacion
 	}
 	
    def agregarSubreceta(Receta c){
@@ -65,7 +65,7 @@ import java.util.Collection
    	 
    	def dameIngredientes(){
    		
-   		return ingredientes
-   	} 
+   		ingredientes
+   	}
 	
 }

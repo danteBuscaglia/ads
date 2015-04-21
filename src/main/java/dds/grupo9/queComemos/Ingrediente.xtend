@@ -7,7 +7,13 @@ class Ingrediente {
 	@Accessors String nombre
 	@Accessors int cantidad
 	
-	
+	new (){
+		
+	}
+	new (String nombreIng, int cantidadIng){
+		nombre = nombreIng
+		cantidad = cantidadIng
+	}
 	def boolean soyYo(String nombreIngrediente){ /*Devuelve true si el nombre del ingrediente es igual al pasado por parametro */
 		nombre == nombreIngrediente
 	}

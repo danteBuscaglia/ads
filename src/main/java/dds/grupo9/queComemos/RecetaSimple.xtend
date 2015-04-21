@@ -1,9 +1,9 @@
 package dds.grupo9.queComemos
 
+
 class RecetaSimple extends Receta {
-	
-	
-override	def damePreparacion(){
+		
+	override damePreparacion(){
 		
 		this.explicacion
 	}
