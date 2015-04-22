@@ -20,18 +20,6 @@ class RecetaTestSuite {
 	
 	@Test
 	
-	def void cualquierPersonaPuedeVerOModificarUnaRecetaPublica(){
-		
-		var persona = new Persona()
-		var persona2 = new Persona()
-		var recetaPublica = new RecetaPublica()
-		
-		Assert.assertTrue(recetaPublica.puedeVermeOModificarme(persona))
-		Assert.assertTrue(recetaPublica.puedeVermeOModificarme(persona2))
-	}
-	
-	@Test
-	
 	def void unaPersonaPuedeVerOModificarUnaRecetaDada(){
 		
 		var persona = new Persona()
@@ -72,9 +60,7 @@ class RecetaTestSuite {
 		Assert.assertTrue(recetaCompuesta.dameIngredientes.contains(ingrediente4))
 
 	}
+	
 		
-	
-	
-	
 	
 }

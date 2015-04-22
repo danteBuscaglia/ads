@@ -15,8 +15,8 @@ class Persona {
 	val Collection<CondPreexistente> condicionesPreexistentes = newHashSet() /* Condicionantes de un Usuario */
 	@Accessors String rutina /* Tipo de rutina que lleva a cabo el Usuario */
     val Collection<Receta> recetas= newHashSet() /*Recetas de un Usuario */
-	val Collection<RecetaPublica> recetasPublicas = newHashSet() /* Recetas públicas de un usuario */
-	
+    
+        	
 	new (){
 		nombre = "sinNombre"
 		fechaNacimiento = -1
@@ -66,6 +66,12 @@ class Persona {
 		 	receta.crearDuenio(this);
 		 	recetas.add(receta)
 	 	}
+	}
+	
+	def modificarReceta (Receta receta, Modificacion modificacion){
+		if(receta.puedeVermeOModificarme(this)){
+			receta.sufrirCambios(this, modificacion)
+		}
 	}
 	
 	def tienePreferencias() {

@@ -307,6 +307,7 @@ class PersonaTestSuite {
 		Assert.assertFalse(persona.usuarioValido)
 		
 	}	
+	
 	/*@Test
 	def void fecha()
 	{

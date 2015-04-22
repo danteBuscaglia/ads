@@ -13,10 +13,15 @@ import java.util.Collection
     val Collection<Ingrediente> ingredientes= newHashSet() /*Ingredientes de la receta */
     val Collection<Estacion> temporadasCorrespondientes = newHashSet() /*Temporadas a las que corresponde la receta */
     var Collection<CondPreexistente> condiciones = newHashSet() /* Condiciones preexistentes */
-   
+    
+       
    	def agregarIngrediente(Ingrediente ingrediente){/*Agrega un ingrediente a la lista de la receta*/
    		ingredientes.add(ingrediente)
    	} 
+   	
+   	def eliminarIngrediente(Ingrediente ingrediente){
+   		ingredientes.remove(ingrediente)
+   	}
    
 	def recetaValida(){ /*Evalúa si una receta cumple con las condiciones para considerarse como tal */
    		(this.tieneIngredientes && this.contieneCaloriasRazonables) 
@@ -51,20 +56,36 @@ import java.util.Collection
   	}
   	
   	def puedeVermeOModificarme(Persona persona){
-  		duenio == persona
-  	}
+		if(this.esPrivada()){
+			duenio == persona
+		} 
+		else {
+			true
+		}
+	}
+	
+	def esPrivada(){
+		this.duenio != null
+	}
+		
+	def sufrirCambios(Persona persona, Modificacion modificacion){
+		modificacion.ejecutar(this);
+  		if(!(this.esPrivada())){
+  			var recetaCopia = new Receta()
+  			recetaCopia = this
+  			persona.agregarReceta(recetaCopia)
+  		}
+	} 	
 	
 	def damePreparacion() {
-	
 		explicacion
 	}
 	
-   def agregarSubreceta(Receta c){
+   	def agregarSubreceta(Receta c){
    	
-   	 }
+   	}
    	 
    	def dameIngredientes(){
-   		
    		ingredientes
    	}
 	
