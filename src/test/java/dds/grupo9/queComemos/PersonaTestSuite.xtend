@@ -86,7 +86,7 @@ class PersonaTestSuite {
 	}
 	
 	@Test
-	def void unaPersonaConIMCPromedioSubsanaTodasLasCondicionesPreexistentes()
+	def void unaPersonaConIMCPromedioYQueSubsanaTodasLasCondicionesPreexistentes()
 	{
 		var persona = new Persona()
 		persona.peso = 74.0f
@@ -105,7 +105,7 @@ class PersonaTestSuite {
 	}
 	
 	@Test
-	def void unaPersonaConIMCPromedioNoSubsanaHipertension()
+	def void unaPersonaConIMCPromedioYQueNoSubsanaHipertension()
 	{
 		var persona = new Persona()
 		
@@ -121,7 +121,7 @@ class PersonaTestSuite {
 	}
 	
 	@Test
-	def void unaPersonaConIMCPromedioNoSubsanaVeganismo()
+	def void unaPersonaConIMCPromedioYQueNoSubsanaVeganismo()
 	{
 		var persona = new Persona()
 		
@@ -137,7 +137,7 @@ class PersonaTestSuite {
 	}
 	
 	@Test
-	def void unaPersonaConIMCPromedioNoSubsanaDiabetes()
+	def void unaPersonaConIMCPromedioYQueNoSubsanaDiabetes()
 	{
 		var persona = new Persona()
 		
@@ -153,34 +153,33 @@ class PersonaTestSuite {
 	@Test
 	def void unaPersonaAgregaUnaReceta(){
 		val persona= new Persona()
-		val receta = new Receta()
+		val receta = new RecetaSimple()
 		receta.agregarIngrediente(new Ingrediente())
 		receta.calorias=500
+		persona.agregarReceta(receta)
 		
-		
-		Assert.assertTrue(persona.agregarReceta(receta))
+		Assert.assertTrue(persona.tieneXRecetas(1))
 		
 	}
 	
 	@Test
-	
 	def void unaPersonaNoPuedeAgregarUnaReceta(){
 		
 		val persona= new Persona()
-		val receta = new Receta()
+		val receta = new RecetaSimple()
 		receta.agregarIngrediente(new Ingrediente())
 		receta.calorias=50000
+		persona.agregarReceta(receta)
 		
-		Assert.assertFalse(persona.agregarReceta(receta))
+		Assert.assertTrue(persona.tieneXRecetas(0))
 		
 	}
 	
 	@Test
-	
 	def void unDiabeticoNoPuedeConsumirEstaReceta(){
 		
 		val persona = new Persona()
-		val receta = new Receta()
+		val receta = new RecetaSimple()
 		val azucar = new Ingrediente()
 		val diabetico = new Diabetico()
 		azucar.nombre = "azucar"
@@ -193,33 +192,43 @@ class PersonaTestSuite {
 	}
 	
 	@Test
+	def void unaRecetaTieneCarneYAzucarYSal(){
 	
-	def void soloUnCeliacoPuedeConsumirEstaReceta(){
+		val receta = new RecetaSimple()
+
+		receta.agregarIngrediente(new Ingrediente("azucar", 150))
+		receta.agregarIngrediente(new Ingrediente("sal", 15))
+		receta.agregarIngrediente(new Ingrediente("carne", 300))
+		
+		receta.calorias=500
+				
+		Assert.assertTrue(receta.tieneIngrediente("carne"))	
+		Assert.assertTrue(receta.tieneIngrediente("sal"))	
+		Assert.assertTrue(receta.tieneIngrediente("azucar"))	
+	}
+	
+	@Test
+	def void unaRecetaConMuchaAzucarYSalYCarneSoloPuedeSerConsumidaPorUnCeliaco(){
 		
 		val vegano = new Vegano()
 		val hipertenso = new Hipertenso()
 		val diabetico = new Diabetico()
 		val celiaco = new Celiaco()
-		val receta = new Receta()
-		val azucar = new Ingrediente()
-		val sal = new Ingrediente()
-		val carne = new Ingrediente()
-		azucar.nombre = "azucar"
-		azucar.cantidad = 150
-		sal.nombre = "sal"
-		sal.cantidad = 15
-		carne.nombre = "carne"
-		carne.cantidad = 30
-		receta.agregarIngrediente(azucar)
-		receta.agregarIngrediente(sal)
-		receta.agregarIngrediente(carne)
+		val receta = new RecetaSimple()
+		
+		receta.agregarIngrediente(new Ingrediente("azucar", 150))
+		receta.agregarIngrediente(new Ingrediente("sal", 15))
+		receta.agregarIngrediente(new Ingrediente("carne", 300))
+		
 		receta.calorias=500
 				
-		Assert.assertTrue(vegano.recetaNoRecomendada(receta))
+
+		Assert.assertFalse(celiaco.recetaNoRecomendada(receta))		
 		Assert.assertTrue(diabetico.recetaNoRecomendada(receta))
 		Assert.assertTrue(hipertenso.recetaNoRecomendada(receta))
-		Assert.assertFalse(celiaco.recetaNoRecomendada(receta))
-	}
+		Assert.assertTrue(vegano.recetaNoRecomendada(receta))
+
+	}	
 	
 	@Test
 	def void unaPersonaEsUnUsuarioValido()

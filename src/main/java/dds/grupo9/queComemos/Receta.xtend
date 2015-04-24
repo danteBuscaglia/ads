@@ -3,20 +3,55 @@ package dds.grupo9.queComemos
 import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.Collection
 
- class Receta {
+abstract class Receta {
 	
 	@Accessors String nombre /*Nombre del plato */
     @Accessors String explicacion /*Pasos a seguir en la receta */
     @Accessors int calorias /*Calorías de la receta (A modificar) */
     @Accessors String dificultad /*Dificultad de la receta */
     var Persona duenio /* Usuario que sube la receta */
-    val Collection<Ingrediente> ingredientes= newHashSet() /*Ingredientes de la receta */
-    val Collection<Estacion> temporadasCorrespondientes = newHashSet() /*Temporadas a las que corresponde la receta */
+    var Collection<Ingrediente> ingredientes= newHashSet() /*Ingredientes de la receta */
+    var Collection<Estacion> temporadasCorrespondientes = newHashSet() /*Temporadas a las que corresponde la receta */
     var Collection<CondPreexistente> condiciones = newHashSet() /* Condiciones preexistentes */
     
+    def getIngredientes(){
+		this.ingredientes
+	}
+	
+	def getTemporadasCorrespondientes(){
+		this.temporadasCorrespondientes
+	}
+	
+	def getCondiciones(){
+		this.condiciones
+	}
+	
+	def getDuenio(){
+		this.duenio
+	}
+	
+	def setIngredientes(Collection<Ingrediente> i){
+		this.ingredientes = i
+	}
+	
+	def setTemporadasCorrespondientes(Collection<Estacion> tc){
+		this.temporadasCorrespondientes = tc
+	}
+	
+	def setCondiciones(Collection<CondPreexistente> c){
+		this.condiciones = c
+	}
+	
+	def setDuenio(Persona d){
+		this.duenio = d
+	}
        
    	def agregarIngrediente(Ingrediente ingrediente){/*Agrega un ingrediente a la lista de la receta*/
    		ingredientes.add(ingrediente)
+   	} 
+   	
+   	def agregarTodosLosIngrediente(Collection<Ingrediente> ingredientesParaAgregar ){/*Agrega un ingrediente a la lista de la receta*/
+   		ingredientes.addAll(ingredientesParaAgregar)
    	} 
    	
    	def eliminarIngrediente(Ingrediente ingrediente){
@@ -35,15 +70,15 @@ import java.util.Collection
   		calorias>10 && calorias <5000
   	}
   
- 	def tieneIngrediente(String nombreIngrediente){ /* Evalúa si dado el nombre de un ingrediente, la receta lo contiene */
-  		!(filtrarPorNombre(nombreIngrediente)).isEmpty
+  	def tieneMasDeUnaCantidadDe(int cantidadMax, Ingrediente ingredienteBuscado){ /* Calcula si la receta tiene más de X gramos de un determinado Ingrediente */
+    	(ingredientes.filter[ingrediente | ingrediente.tieneMasDeLoPermitidoDe(cantidadMax, ingredienteBuscado)]).size > 0
   	}
-  
-  	def tieneMuchoIngredienteAzucar(){ /* Calcula si la receta tiene más de 100 gramos de azúcar */
-    	(ingredientes.filter[ingred | ingred.tieneMuchoAzucar()]).size > 0
+  	
+  	def tieneIngrediente(String nombreIngrediente){ /* Evalúa si dado el nombre de un ingrediente, la receta lo contiene */
+  		!filtrarIngredientesPorNombre(nombreIngrediente).isEmpty
   	}
   	 
-  	def filtrarPorNombre(String nombreIngrediente){  
+  	def filtrarIngredientesPorNombre(String nombreIngrediente){  
   		ingredientes.filter[ingrediente|ingrediente.soyYo(nombreIngrediente)]
   	}
   
@@ -69,24 +104,23 @@ import java.util.Collection
 	}
 		
 	def sufrirCambios(Persona persona, Modificacion modificacion){
-		modificacion.ejecutar(this);
-  		if(!(this.esPrivada())){
-  			var recetaCopia = new Receta()
-  			recetaCopia = this
+		if(!esPrivada){
+			var recetaCopia = this.copiaReceta(persona)
   			persona.agregarReceta(recetaCopia)
+  			modificacion.ejecutar(recetaCopia)
   		}
-	} 	
+  		else
+  		{
+  			modificacion.ejecutar(this)
+  		}
+	}
 	
-	def damePreparacion() {
-		explicacion
+	def Receta copiaReceta(Persona persona){
+		
 	}
 	
    	def agregarSubreceta(Receta c){
    	
-   	}
-   	 
-   	def dameIngredientes(){
-   		ingredientes
    	}
 	
 }

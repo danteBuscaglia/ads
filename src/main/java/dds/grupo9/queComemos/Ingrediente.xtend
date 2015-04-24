@@ -18,7 +18,7 @@ class Ingrediente {
 		nombre == nombreIngrediente
 	}
     
-    def boolean tieneMuchoAzucar(){
-		soyYo("azucar") && cantidad > 100
+    def boolean tieneMasDeLoPermitidoDe(int cantidadMax, Ingrediente ingrediente){
+		soyYo(ingrediente.nombre) && cantidad > cantidadMax
     }
 }

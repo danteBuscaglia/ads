@@ -4,23 +4,25 @@ import java.util.Collection
 class RecetaCompuesta extends Receta {
 	
 	var Collection <Receta> subrecetas = newHashSet()
-	var Collection<Ingrediente> misIngredientes= newHashSet() /*Ingredientes de la receta */
-	    
-  override agregarSubreceta(Receta receta){ /*Agrega una subreceta a la receta compuesta e incorpora sus ingredientes */
-  	
-  	     subrecetas.add(receta)
-  	     misIngredientes.addAll(receta.dameIngredientes)
-  	}
-  	
-	
-   override damePreparacion () {
-   	
-   		this.explicacion
-   }
+   	 
+  	override agregarSubreceta(Receta receta){ /*Agrega una subreceta a la receta compuesta e incorpora sus ingredientes */
  
-   	override dameIngredientes(){ /*Las recetas compuestas tendran una lista propia de ingredientes que se irá componiendo en la medida que se le agreguen subrecetas */
-   		
-   		misIngredientes
-   	}
+  	     subrecetas.add(receta)
+  	     this.agregarTodosLosIngrediente(receta.ingredientes)
+  	}
 	
+	override Receta copiaReceta(Persona persona){
+		var recetaCopia = new RecetaCompuesta
+		recetaCopia.nombre = nombre
+		recetaCopia.explicacion = explicacion
+		recetaCopia.calorias = calorias
+		recetaCopia.dificultad = dificultad
+		recetaCopia.subrecetas = subrecetas
+		recetaCopia.ingredientes = ingredientes
+		recetaCopia.duenio = persona
+		recetaCopia.temporadasCorrespondientes = temporadasCorrespondientes
+		recetaCopia.condiciones = condiciones
+		
+		return recetaCopia
+	}
  }

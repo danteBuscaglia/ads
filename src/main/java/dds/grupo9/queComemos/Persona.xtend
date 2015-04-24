@@ -26,6 +26,17 @@ class Persona {
 		sexo = "sinSexo"
 	}
 	
+	def getGustos(){
+		this.gustos
+	}
+	
+	def getDisgustos(){
+		this.disgustos
+	}
+	
+	def getRecetas(){
+		this.recetas
+	}		
 	def float imc(){		/* IMC: índice de masa corporal, calculado como (peso/estatura^2) */
 		peso / (altura**2) as float
 	}
@@ -63,7 +74,7 @@ class Persona {
 	
 	def agregarReceta(Receta receta){ /*Agrega una receta a la colección si cumple con las condiciones */
 	    if(receta.recetaValida){
-		 	receta.crearDuenio(this);
+		 	receta.duenio = this
 		 	recetas.add(receta)
 	 	}
 	}
@@ -93,6 +104,10 @@ class Persona {
 	
 	def completaCamposObligatorios(){
 		(nombre != "sinNombre" && fechaNacimiento != -1 && peso != -1 && altura != -1 && rutina != "sinRutina")
+	}
+	
+	def tieneXRecetas(int cantidadRecetas) {
+		recetas.length == cantidadRecetas
 	}
 	
 }
