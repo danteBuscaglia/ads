@@ -162,7 +162,8 @@ class PersonaTestSuite {
 		
 	}
 	
-	@Test
+	@Test (expected = RuntimeException)
+	
 	def void unaPersonaNoPuedeAgregarUnaReceta(){
 		
 		val persona= new Persona()
@@ -171,12 +172,12 @@ class PersonaTestSuite {
 		receta.calorias=50000
 		persona.agregarReceta(receta)
 		
-		Assert.assertTrue(persona.tieneXRecetas(0))
+		Assert.assertTrue(persona.tieneXRecetas(1))
 		
 	}
 	
 	@Test
-	def void unDiabeticoNoPuedeConsumirEstaReceta(){
+	def void unDiabeticoNoPuedeConsumirUnaRecetaConAzucar(){
 		
 		val persona = new Persona()
 		val receta = new RecetaSimple()
@@ -188,7 +189,7 @@ class PersonaTestSuite {
 		receta.calorias=500
 		persona.agregarCondPreexistente(diabetico)
 		
-		Assert.assertTrue(diabetico.recetaNoRecomendada(receta))
+		Assert.assertTrue(persona.recetaNoRecomendada(receta))
 	}
 	
 	@Test
@@ -208,11 +209,30 @@ class PersonaTestSuite {
 	}
 	
 	@Test
+	
+	def void unVeganoYUnHipertensoNoPuedenConsumirUnaRecetaConSalYCarne(){
+	
+	    val receta = new RecetaSimple()
+	    val persona = new Persona()
+	    val vegano= new Vegano()
+	    val hipertenso = new Hipertenso()
+	    
+	    receta.agregarIngrediente(new Ingrediente("sal",10))
+	    receta.agregarIngrediente(new Ingrediente("carne",200))
+	    
+	    receta.calorias=400
+	    
+	    persona.agregarCondPreexistente(vegano)
+	    persona.agregarCondPreexistente(hipertenso)
+	    
+	    Assert.assertTrue(persona.recetaNoRecomendada(receta))
+	    	
+	    
+	}
+	@Test
 	def void unaRecetaConMuchaAzucarYSalYCarneSoloPuedeSerConsumidaPorUnCeliaco(){
 		
-		val vegano = new Vegano()
-		val hipertenso = new Hipertenso()
-		val diabetico = new Diabetico()
+		val persona = new Persona()
 		val celiaco = new Celiaco()
 		val receta = new RecetaSimple()
 		
@@ -221,12 +241,12 @@ class PersonaTestSuite {
 		receta.agregarIngrediente(new Ingrediente("carne", 300))
 		
 		receta.calorias=500
+		
+		persona.agregarCondPreexistente(celiaco)
 				
 
-		Assert.assertFalse(celiaco.recetaNoRecomendada(receta))		
-		Assert.assertTrue(diabetico.recetaNoRecomendada(receta))
-		Assert.assertTrue(hipertenso.recetaNoRecomendada(receta))
-		Assert.assertTrue(vegano.recetaNoRecomendada(receta))
+		Assert.assertFalse(persona.recetaNoRecomendada(receta))		
+		
 
 	}	
 	

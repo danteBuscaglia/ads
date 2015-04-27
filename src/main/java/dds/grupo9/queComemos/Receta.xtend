@@ -84,6 +84,7 @@ abstract class Receta {
   
   	def recetaInadecuadaPara (){ /*Muestra las condiciones para la que una receta es inadecuada */
   		condiciones.filter[condicion|condicion.recetaNoRecomendada(this)]
+  		
   	}
   	
   	def crearDuenio(Persona persona){

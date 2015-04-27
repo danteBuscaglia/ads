@@ -77,12 +77,18 @@ class Persona {
 		 	receta.duenio = this
 		 	recetas.add(receta)
 	 	}
+	 	else throw new RuntimeException("La receta no es válida")
+	}
+	
+	def recetaNoRecomendada(Receta receta){ /* Evalúa si dada una receta, esta es recomendada para la persona o no */
+		condicionesPreexistentes.exists[c|c.recetaNoRecomendada(receta)]
 	}
 	
 	def modificarReceta (Receta receta, Modificacion modificacion){
 		if(receta.puedeVermeOModificarme(this)){
 			receta.sufrirCambios(this, modificacion)
 		}
+		else throw new RuntimeException("No puede modificar esta receta")
 	}
 	
 	def tienePreferencias() {
