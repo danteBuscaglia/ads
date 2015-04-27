@@ -8,7 +8,7 @@ class RecetaCompuesta extends Receta {
   	override agregarSubreceta(Receta receta){ /*Agrega una subreceta a la receta compuesta e incorpora sus ingredientes */
  
   	     subrecetas.add(receta)
-  	     this.agregarTodosLosIngrediente(receta.ingredientes)
+  	     this.agregarTodosLosIngredientes(receta.ingredientes)
   	}
 	
 	override Receta copiaReceta(Persona persona){

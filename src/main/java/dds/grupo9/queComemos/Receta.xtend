@@ -50,12 +50,16 @@ abstract class Receta {
    		ingredientes.add(ingrediente)
    	} 
    	
-   	def agregarTodosLosIngrediente(Collection<Ingrediente> ingredientesParaAgregar ){/*Agrega un ingrediente a la lista de la receta*/
+   	def agregarTodosLosIngredientes(Collection<Ingrediente> ingredientesParaAgregar ){/*Agrega un ingrediente a la lista de la receta*/
    		ingredientes.addAll(ingredientesParaAgregar)
    	} 
    	
    	def eliminarIngrediente(Ingrediente ingrediente){
    		ingredientes.remove(ingrediente)
+   	}
+   	
+   	def eliminarTodosLosIngredientes(Collection<Ingrediente> ingredientesParaRemover){
+   		ingredientes.removeAll(ingredientesParaRemover)
    	}
    
 	def recetaValida(){ /*Evalúa si una receta cumple con las condiciones para considerarse como tal */
@@ -107,8 +111,8 @@ abstract class Receta {
 	def sufrirCambios(Persona persona, Modificacion modificacion){
 		if(!esPrivada){
 			var recetaCopia = this.copiaReceta(persona)
-  			persona.agregarReceta(recetaCopia)
-  			modificacion.ejecutar(recetaCopia)
+			persona.agregarReceta(recetaCopia)
+  		    modificacion.ejecutar(recetaCopia)
   		}
   		else
   		{

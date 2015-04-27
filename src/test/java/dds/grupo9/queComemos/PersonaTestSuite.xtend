@@ -251,6 +251,82 @@ class PersonaTestSuite {
 	}	
 	
 	@Test
+	def void unaPersonaPuedeModificarSuPropiaRecetaPrivada(){
+		val persona= new Persona()
+		val receta= new RecetaSimple()
+		receta.duenio=persona
+		
+		Assert.assertTrue(receta.puedeVermeOModificarme(persona))
+		
+		
+	}
+	
+	@Test
+	def void unaPersonaNoPuedeModificarLaRecetaPrivadaDeOtra(){
+		val duenioDeReceta = new Persona()
+		val otraPersona = new Persona()
+		val receta = new RecetaSimple()
+		receta.duenio=duenioDeReceta
+		
+		Assert.assertFalse(receta.puedeVermeOModificarme(otraPersona))
+		
+		}
+		
+	@Test
+	def void unaPersonaPuedeModificarUnaRecetaPublica(){
+		val persona= new Persona()
+		val receta = new RecetaSimple()
+		
+		Assert.assertTrue(receta.puedeVermeOModificarme(persona))
+		
+	}	
+	
+	@Test
+	def void unaPersonaAgregaIngredientesAUnaReceta(){
+		
+		val persona = new Persona()
+		val receta = new RecetaSimple()
+		val modificacion = new modAgregarIngredientes()
+		receta.agregarIngrediente(new Ingrediente ("papa",100))
+		receta.calorias=400
+		
+		modificacion.ingredienteAAgregar(new Ingrediente("sal",10))
+		
+		persona.modificarReceta(receta,modificacion)
+		
+		Assert.assertTrue(receta.ingredientes.length==2)
+	}
+	
+	/* @Test
+	def void siUnaPersonaModificaUnaRecetaPublicaLaOtraPersonaNoVeLosCambios(){
+		
+		val persona = new Persona()
+		val persona2 = new Persona()
+		val receta= new RecetaSimple()
+		val modificacion = new modAgregarIngredientes()
+		
+		receta.agregarIngrediente(new Ingrediente("fideos",200))
+		receta.agregarIngrediente(new Ingrediente("agua",100))
+		receta.agregarIngrediente(new Ingrediente("manteca",25))
+		receta.agregarIngrediente(new Ingrediente("leche",50))
+		
+		modificacion.ingredienteAAgregar(new Ingrediente("casancrem",40))
+		
+		persona.modificarReceta(receta,modificacion)
+		
+		
+		Assert.assert
+		
+		 
+		
+		
+		
+		
+	}
+	
+	*/
+	
+	@Test
 	def void unaPersonaEsUnUsuarioValido()
 	{
 		var persona = new Persona()
@@ -290,7 +366,7 @@ class PersonaTestSuite {
 	}
 
 	@Test
-	def void unaPersonaNacioDepuesDelDiaDeLaFecha()
+	def void unaPersonaNacioDespuesDelDiaDeLaFecha()
 	{
 		var persona = new Persona()
 		
