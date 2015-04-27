@@ -113,6 +113,7 @@ abstract class Receta {
 			var recetaCopia = this.copiaReceta(persona)
 			persona.agregarReceta(recetaCopia)
   		    modificacion.ejecutar(recetaCopia)
+  		    
   		}
   		else
   		{

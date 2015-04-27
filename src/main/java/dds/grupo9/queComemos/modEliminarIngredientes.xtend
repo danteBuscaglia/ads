@@ -10,7 +10,8 @@ class modEliminarIngredientes implements Modificacion {
 		receta.eliminarTodosLosIngredientes(ingredientes)
 	}
 	
-	def ingredienteAEliminar(Ingrediente ingrediente){
+	def ingredienteAEliminarDeLaReceta(Ingrediente ingrediente,Receta receta){
+	if(receta.tieneIngrediente(ingrediente.nombre))
 	ingredientes.add(ingrediente)
 	}
 }
