@@ -72,7 +72,7 @@ class Persona {
 		disgustos.add(preferencia)
 	}
 	
-	def agregarReceta(Receta receta){ /*Agrega una receta a la colección si cumple con las condiciones */
+	def void agregarReceta(Receta receta){ /*Agrega una receta a la colección si cumple con las condiciones */
 	    if(receta.recetaValida){
 		 	receta.duenio = this
 		 	recetas.add(receta)

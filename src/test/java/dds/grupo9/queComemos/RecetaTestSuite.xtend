@@ -105,7 +105,8 @@ class RecetaTestSuite {
 		receta.agregarIngrediente(sal)
 		receta.calorias=400
 		
-		modificacion.ingrediente = sal
+		modificacion.ingrediente = new Ingrediente("sal")
+		/* Nótese que no es necesario conocer exactamente el objeto ingrediente a eliminar, sino solo el nombre */
 		
 		persona.modificarReceta(receta,modificacion)
 		

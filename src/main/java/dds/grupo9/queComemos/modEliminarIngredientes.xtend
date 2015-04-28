@@ -10,7 +10,7 @@ class modEliminarIngredientes implements Modificacion {
 	
 	override def ejecutar(Receta receta){
 		if(receta.tieneIngrediente(ingrediente.nombre)){
-			receta.eliminarIngrediente(ingrediente)
+			receta.eliminarIngredientesPorNombre(ingrediente.nombre)
 		}
 		else throw new RuntimeException("La receta no contiene ese ingrediente")
 	}

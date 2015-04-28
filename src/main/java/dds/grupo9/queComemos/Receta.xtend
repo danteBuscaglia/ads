@@ -61,6 +61,10 @@ abstract class Receta {
    	def eliminarTodosLosIngredientes(Collection<Ingrediente> ingredientesParaRemover){
    		ingredientes.removeAll(ingredientesParaRemover)
    	}
+   		
+	def eliminarIngredientesPorNombre(String nombreIngrediente){
+		ingredientes.removeAll(this.filtrarIngredientesPorNombre(nombreIngrediente))
+	}
    
 	def recetaValida(){ /*Evalúa si una receta cumple con las condiciones para considerarse como tal */
    		(this.tieneIngredientes && this.contieneCaloriasRazonables) 
@@ -112,7 +116,7 @@ abstract class Receta {
 		this.duenio != null
 	}
 		
-	def sufrirCambios(Persona persona, Modificacion modificacion){
+	def void sufrirCambios(Persona persona, Modificacion modificacion){
 		if(!esPrivada){
 			var recetaCopia = this.copiaReceta(persona)
 			persona.agregarReceta(recetaCopia)
@@ -131,6 +135,5 @@ abstract class Receta {
 	
    	def agregarSubreceta(Receta c){
    	
-   	}
-	
+   	}	
 }
