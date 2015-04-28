@@ -54,7 +54,9 @@ class RecetaTestSuite {
 	}
 	
 	@Test
+	
 	def void unaPersonaNoPuedeModificarLaRecetaPrivadaDeOtra(){
+	
 		val duenioDeReceta = new Persona()
 		val otraPersona = new Persona()
 		val receta = new RecetaSimple()
@@ -62,40 +64,60 @@ class RecetaTestSuite {
 		
 		Assert.assertFalse(receta.puedeVermeOModificarme(otraPersona))
 		
-		}
+	}
 		
-		@Test
+	@Test
+	
 	def void unaPersonaPuedeModificarUnaRecetaPublica(){
+	
 		val persona= new Persona()
 		val receta = new RecetaSimple()
 		
 		Assert.assertTrue(receta.puedeVermeOModificarme(persona))
+	}
 		
-		
-		}
-		
-		@Test
+	@Test
+	
 	def void unaPersonaAgregaIngredientesAUnaReceta(){
 		
 		val persona = new Persona()
 		val receta = new RecetaSimple()
-		val modificacion = new modAgregarIngredientes()
+		var modificacion = new modAgregarIngredientes()
 		receta.agregarIngrediente(new Ingrediente ("papa",100))
+		modificacion.ingrediente = new Ingrediente("sal", 10)
 		receta.calorias=400
-		
-		modificacion.ingredienteAAgregar(new Ingrediente("sal",10))
 		
 		persona.modificarReceta(receta,modificacion)
 		
-		Assert.assertTrue(receta.ingredientes.length==2)
+		Assert.assertEquals(receta.cantidadDeIngredientes(), 2)
 	}
 	
-	/* @Test
+	@Test
+	
+	def void unaPersonaEliminaIngredienteDeUnaReceta(){
+		
+		val persona = new Persona()
+		val receta = new RecetaSimple()
+		val modificacion = new modEliminarIngredientes()
+		val papa = new Ingrediente("papa",100)
+		val sal = new Ingrediente("sal",10)
+		receta.agregarIngrediente(papa)
+		receta.agregarIngrediente(sal)
+		receta.calorias=400
+		
+		modificacion.ingrediente = sal
+		
+		persona.modificarReceta(receta,modificacion)
+		
+		Assert.assertEquals(receta.cantidadDeIngredientes(), 1)
+	}
+	
+	/*@Test
 	def void siUnaPersonaModificaUnaRecetaPublicaLaOtraPersonaNoVeLosCambios(){
 		
 		val persona = new Persona()
 		val persona2 = new Persona()
-		val receta= new RecetaSimple()
+		val receta = new RecetaSimple()
 		val modificacion = new modAgregarIngredientes()
 		
 		receta.agregarIngrediente(new Ingrediente("fideos",200))
@@ -103,14 +125,28 @@ class RecetaTestSuite {
 		receta.agregarIngrediente(new Ingrediente("manteca",25))
 		receta.agregarIngrediente(new Ingrediente("leche",50))
 		
-		modificacion.ingredienteAAgregar(new Ingrediente("casancrem",40))
+		modificacion.ingrediente = new Ingrediente("casancrem",40)
 		
 		persona.modificarReceta(receta,modificacion)
 		
+		Assert.assertFalse(receta.tieneIngrediente("casancrem"))
+	}	
+	*/
+	
+	@Test (expected = RuntimeException)
+	
+	def void unaRecetaSimpleNoPuedeTenerSubrecetas(){
+		var recetaSimple1 = new RecetaSimple()
+		var recetaSimple2 = new RecetaSimple()
 		
-		Assert.assert
+		recetaSimple1.agregarIngrediente(new Ingrediente("pollo", 1))
+		recetaSimple2.agregarIngrediente(new Ingrediente("papa", 8))
 		
-		*/
+		recetaSimple1.agregarSubreceta(recetaSimple2)
+		
+		Assert.assertTrue(recetaSimple1.tieneIngrediente("papa"))
+	}
+	
 	@Test
 	
 	def void unaRecetaCompuestaReutilizaDosRecetasSimples(){

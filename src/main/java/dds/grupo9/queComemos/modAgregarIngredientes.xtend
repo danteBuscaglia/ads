@@ -1,16 +1,15 @@
 package dds.grupo9.queComemos
 
-import java.util.Collection
-
 class modAgregarIngredientes implements Modificacion {
 	
-	var Collection <Ingrediente> ingredientes = newHashSet()
+	var Ingrediente ingrediente
+
+	def setIngrediente(Ingrediente i){
+		ingrediente = i	
+	}	
 	
 	override def ejecutar(Receta receta){
-	 receta.agregarTodosLosIngredientes(ingredientes)
+		receta.agregarIngrediente(ingrediente)
 	}
 	
-    def ingredienteAAgregar(Ingrediente ingrediente){
-    ingredientes.add(ingrediente)
-	}
 }

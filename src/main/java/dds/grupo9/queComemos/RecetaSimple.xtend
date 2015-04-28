@@ -7,7 +7,7 @@ class RecetaSimple extends Receta {
 		throw new RuntimeException("Las recetas simples no pueden tener subrecetas")
    	}
    	
-   		override Receta copiaReceta(Persona persona){
+   	override Receta copiaReceta(Persona persona){
 		var recetaCopia = new RecetaSimple
 		recetaCopia.nombre = nombre
 		recetaCopia.explicacion = explicacion

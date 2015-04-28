@@ -1,17 +1,17 @@
 package dds.grupo9.queComemos
 
-import java.util.Collection
-
 class modEliminarIngredientes implements Modificacion {
 	
-	var Collection <Ingrediente> ingredientes = newHashSet()
+	var Ingrediente ingrediente
 	
-	override def ejecutar(Receta receta){
-		receta.eliminarTodosLosIngredientes(ingredientes)
+	def setIngrediente(Ingrediente i){
+		ingrediente = i	
 	}
 	
-	def ingredienteAEliminarDeLaReceta(Ingrediente ingrediente,Receta receta){
-	if(receta.tieneIngrediente(ingrediente.nombre))
-	ingredientes.add(ingrediente)
+	override def ejecutar(Receta receta){
+		if(receta.tieneIngrediente(ingrediente.nombre)){
+			receta.eliminarIngrediente(ingrediente)
+		}
+		else throw new RuntimeException("La receta no contiene ese ingrediente")
 	}
 }

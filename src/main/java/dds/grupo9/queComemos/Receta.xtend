@@ -91,6 +91,10 @@ abstract class Receta {
   		
   	}
   	
+  	def cantidadDeIngredientes(){
+  		ingredientes.length
+  	}
+  	
   	def crearDuenio(Persona persona){
   		duenio = persona
   	}
