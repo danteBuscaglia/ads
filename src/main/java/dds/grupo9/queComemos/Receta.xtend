@@ -14,6 +14,7 @@ abstract class Receta {
     var Collection<Estacion> temporadasCorrespondientes = newHashSet() /*Temporadas a las que corresponde la receta */
     var Collection<CondPreexistente> condiciones = newHashSet() /* Condiciones preexistentes */
     
+    
     def getIngredientes(){
 		this.ingredientes
 	}
@@ -103,9 +104,9 @@ abstract class Receta {
   		duenio = persona
   	}
   	
-  	def puedeVermeOModificarme(Persona persona){
+  	def boolean puedeVermeOModificarme(Persona persona){
 		if(this.esPrivada()){
-			duenio == persona
+			duenio == persona || persona.leCompartenLaReceta(this)
 		} 
 		else {
 			true

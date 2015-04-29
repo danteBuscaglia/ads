@@ -10,12 +10,12 @@ class Persona {
 	@Accessors String nombre	/* Nombre de un Usuario */
 	@Accessors String sexo		/* Sexo de un Usuario: M/m: Masculino y F/f: Femenino */
 	@Accessors long fechaNacimiento		/* Fecha de nacimiento de un Usuario */
-	val Collection<Preferencia> gustos = newHashSet() /* Gustos de un Usuario */
-	val Collection<Preferencia> disgustos = newHashSet() /*Disgustos de un Usuario */
-	val Collection<CondPreexistente> condicionesPreexistentes = newHashSet() /* Condicionantes de un Usuario */
+	var Collection<Preferencia> gustos = newHashSet() /* Gustos de un Usuario */
+	var Collection<Preferencia> disgustos = newHashSet() /*Disgustos de un Usuario */
+	var Collection<CondPreexistente> condicionesPreexistentes = newHashSet() /* Condicionantes de un Usuario */
 	@Accessors String rutina /* Tipo de rutina que lleva a cabo el Usuario */
-    val Collection<Receta> recetas= newHashSet() /*Recetas de un Usuario */
-    
+    var Collection<Receta> recetas= newHashSet() /*Recetas de un Usuario */
+    var Collection<GrupoDePersonas> grupos = newHashSet()
         	
 	new (){
 		nombre = "sinNombre"
@@ -36,11 +36,12 @@ class Persona {
 	
 	def getRecetas(){
 		this.recetas
-	}		
+	}
+	/*Entrega 0 */		
 	def float imc(){		/* IMC: índice de masa corporal, calculado como (peso/estatura^2) */
 		peso / (altura**2) as float
 	}
-	
+	/*Entrega 1 */
 	def usuarioValido(){ /* Verifica si una persona es un Usuario válido */
 		(this.completaCamposObligatorios && 
 			nombre.length > 4 && 
@@ -116,4 +117,18 @@ class Persona {
 		recetas.length == cantidadRecetas
 	}
 	
-}
+     /*Entrega 2 */
+	def leCompartenLaReceta(Receta receta) {
+		grupos.exists[g|g.incluyeDuenioDeReceta(receta)]
+		
+		}
+		
+	def agregarGrupo(GrupoDePersonas grupo){
+		
+		grupos.add(grupo)
+	}
+		
+		 
+		
+	}
+	

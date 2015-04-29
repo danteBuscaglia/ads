@@ -202,7 +202,34 @@ class RecetaTestSuite {
 		Assert.assertTrue(recetaCompuestaNivel2.tieneIngrediente("salsaDeSoja"))
 
 	}
+	@Test
+	
+	def unaPersonaPuedeVerLaRecetaDeUnCompañeroDeGrupo(){
+		val persona = new Persona()
+		val persona2= new Persona()
+		val grupo = new GrupoDePersonas("Los Pibes")
+		val receta = new RecetaSimple()
+		
+		grupo.agregarAGrupo(persona)
+		grupo.agregarAGrupo(persona2)
+		
+		receta.agregarIngrediente(new Ingrediente("sal",10))
+		receta.agregarIngrediente(new Ingrediente("carne",100))
+		receta.calorias=150
+		persona.agregarReceta(receta)
+		
+		Assert.assertTrue(receta.puedeVermeOModificarme(persona2))
+		
+	}	
+		
+		
+		
+		
+		
+		
+		
+	}
+	
 	
 		
 	
-}

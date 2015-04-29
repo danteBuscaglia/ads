@@ -322,7 +322,8 @@ class PersonaTestSuite {
 		
 		Assert.assertFalse(persona.usuarioValido)
 		
-	}	
+		}
+	
 	
 	/*@Test
 	def void fecha()
@@ -332,8 +333,7 @@ class PersonaTestSuite {
 		Assert.assertEquals(20150416,fecha.fechaDeHoy)
 		
 	}*/
-	
+	}
 	
 		
 	
-}
