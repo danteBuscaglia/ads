@@ -9,11 +9,14 @@ abstract class Receta {
     @Accessors String explicacion /*Pasos a seguir en la receta */
     @Accessors int calorias /*Calorías de la receta (A modificar) */
     @Accessors String dificultad /*Dificultad de la receta */
-    var Persona duenio /* Usuario que sube la receta */
+    @Accessors Persona duenio /* Usuario que sube la receta */
     var Collection<Ingrediente> ingredientes= newHashSet() /*Ingredientes de la receta */
     var Collection<Estacion> temporadasCorrespondientes = newHashSet() /*Temporadas a las que corresponde la receta */
     var Collection<CondPreexistente> condiciones = newHashSet() /* Condiciones preexistentes */
     
+    new (){
+    	duenio = null
+    }
     
     def getIngredientes(){
 		this.ingredientes
@@ -27,10 +30,6 @@ abstract class Receta {
 		this.condiciones
 	}
 	
-	def getDuenio(){
-		this.duenio
-	}
-	
 	def setIngredientes(Collection<Ingrediente> i){
 		this.ingredientes = i
 	}
@@ -42,16 +41,12 @@ abstract class Receta {
 	def setCondiciones(Collection<CondPreexistente> c){
 		this.condiciones = c
 	}
-	
-	def setDuenio(Persona d){
-		this.duenio = d
-	}
        
    	def agregarIngrediente(Ingrediente ingrediente){/*Agrega un ingrediente a la lista de la receta*/
    		ingredientes.add(ingrediente)
    	} 
    	
-   	def agregarTodosLosIngredientes(Collection<Ingrediente> ingredientesParaAgregar ){/*Agrega un ingrediente a la lista de la receta*/
+   	def agregarTodosLosIngredientes(Collection<Ingrediente> ingredientesParaAgregar ){/*Agrega ingredientes a la lista de la receta*/
    		ingredientes.addAll(ingredientesParaAgregar)
    	} 
    	
@@ -122,7 +117,6 @@ abstract class Receta {
 			var recetaCopia = this.copiaReceta(persona)
 			persona.agregarReceta(recetaCopia)
   		    modificacion.ejecutar(recetaCopia)
-  		    
   		}
   		else
   		{
@@ -130,11 +124,20 @@ abstract class Receta {
   		}
 	}
 	
-	def Receta copiaReceta(Persona persona){
-		
+	def agregarCondiciones(Collection<CondPreexistente> condicionesParaAgregar){
+		condiciones.addAll(condicionesParaAgregar)
 	}
 	
-   	def agregarSubreceta(Receta c){
-   	
-   	}	
+	def agregarTemporadas(Collection<Estacion> temporadasParaAgregar){
+		temporadasCorrespondientes.addAll(temporadasParaAgregar)
+	}
+	
+	def cantidadIngredientes(){
+		ingredientes.size
+	}
+		
+	def Receta copiaReceta(Persona persona)
+	
+   	def void agregarSubreceta(Receta c)
+	
 }

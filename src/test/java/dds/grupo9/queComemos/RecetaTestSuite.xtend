@@ -78,10 +78,11 @@ class RecetaTestSuite {
 		
 	@Test
 	
-	def void unaPersonaAgregaIngredientesAUnaReceta(){
+	def void unaPersonaQueAgregaIngredienteAUnaRecetaPropiaLograModificarlaSinGenerarUnaCopia(){
 		
 		val persona = new Persona()
 		val receta = new RecetaSimple()
+		receta.duenio = persona
 		var modificacion = new modAgregarIngredientes()
 		receta.agregarIngrediente(new Ingrediente ("papa",100))
 		modificacion.ingrediente = new Ingrediente("sal", 10)
@@ -94,10 +95,11 @@ class RecetaTestSuite {
 	
 	@Test
 	
-	def void unaPersonaEliminaIngredienteDeUnaReceta(){
+	def void unaPersonaQueEliminaIngredienteAUnaRecetaPropiaLograModificarlaSinGenerarUnaCopia(){
 		
 		val persona = new Persona()
 		val receta = new RecetaSimple()
+		receta.duenio = persona
 		val modificacion = new modEliminarIngredientes()
 		val papa = new Ingrediente("papa",100)
 		val sal = new Ingrediente("sal",10)
@@ -113,6 +115,70 @@ class RecetaTestSuite {
 		Assert.assertEquals(receta.cantidadDeIngredientes(), 1)
 	}
 	
+	@Test
+	
+	def void unaPersonaQueModificaUnaRecetaPublicaIncorporaComoPropiaUnaReceta(){
+		
+		val persona = new Persona()
+		val receta = new RecetaSimple()
+		val modificacion = new modEliminarIngredientes()
+		val papa = new Ingrediente("papa",100)
+		val sal = new Ingrediente("sal",10)
+		receta.agregarIngrediente(papa)
+		receta.agregarIngrediente(sal)
+		receta.calorias=400
+		
+		modificacion.ingrediente = new Ingrediente("sal")
+		
+		persona.modificarReceta(receta,modificacion)
+		
+		Assert.assertTrue(persona.tieneXRecetas(1))
+	}	
+
+	@Test
+	
+	def void unaPersonaQueEliminaIngredienteDeUnaRecetaPublicaIncorporaComoPropiaUnaRecetaConMenosIngredientes(){
+		
+		val persona = new Persona()
+		val receta = new RecetaSimple()
+		receta.nombre = "papasALaCrema"
+		val modificacion = new modEliminarIngredientes()
+		val papa = new Ingrediente("papa",100)
+		val crema = new Ingrediente("crema",25)
+		val sal = new Ingrediente("sal",10)
+		receta.agregarIngrediente(papa)
+		receta.agregarIngrediente(crema)
+		receta.agregarIngrediente(sal)
+		receta.calorias=600
+		
+		modificacion.ingrediente = new Ingrediente("sal")
+		persona.modificarReceta(receta,modificacion)
+		
+		Assert.assertTrue(persona.tieneXRecetas(1))
+		Assert.assertEquals(2, persona.cantidadIngredientesReceta("papasALaCrema"))
+	}
+	
+		@Test
+	
+	def void unaPersonaQueAgregaIngredienteDeUnaRecetaPublicaIncorporaComoPropiaUnaRecetaConMasIngredientes(){
+		
+		val persona = new Persona()
+		val receta = new RecetaSimple()
+		receta.nombre = "papasALaCrema"
+		val modificacion = new modAgregarIngredientes()
+		val papa = new Ingrediente("papa",100)
+		val crema = new Ingrediente("crema",25)
+		receta.agregarIngrediente(papa)
+		receta.agregarIngrediente(crema)
+		receta.calorias=600
+		
+		modificacion.ingrediente = new Ingrediente("sal",10)
+		persona.modificarReceta(receta,modificacion)
+		
+		Assert.assertTrue(persona.tieneXRecetas(1))
+		Assert.assertEquals(3, persona.cantidadIngredientesReceta("papasALaCrema"))
+	}
+		
 	/*@Test
 	def void siUnaPersonaModificaUnaRecetaPublicaLaOtraPersonaNoVeLosCambios(){
 		
@@ -131,8 +197,8 @@ class RecetaTestSuite {
 		persona.modificarReceta(receta,modificacion)
 		
 		Assert.assertFalse(receta.tieneIngrediente("casancrem"))
-	}	
-	*/
+	}*/	
+	
 	
 	@Test (expected = RuntimeException)
 	
@@ -222,7 +288,23 @@ class RecetaTestSuite {
 		
 	}	
 		
+	@Test
+	
+	def laCopiaDeUnaRecetaSimpleCopiaTodosSusAtributosExceptoElDuenioQueSeVeModificado(){
+		val persona = new Persona()
+		persona.nombre = "juan"
+		val receta = new RecetaSimple()
+		var recetaCopia = new RecetaSimple()
+		val papa = new Ingrediente("papa",100)
+		val sal = new Ingrediente("sal",10)
+		receta.agregarIngrediente(papa)
+		receta.agregarIngrediente(sal)
+		recetaCopia = receta.copiaReceta(persona)
 		
+		Assert.assertTrue(recetaCopia.tieneIngrediente("sal"))
+		Assert.assertTrue(recetaCopia.tieneIngrediente("papa"))
+		Assert.assertEquals(persona, recetaCopia.duenio)
+	}		
 		
 		
 		

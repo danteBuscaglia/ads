@@ -5,24 +5,43 @@ class RecetaCompuesta extends Receta {
 	
 	var Collection <Receta> subrecetas = newHashSet()
    	 
+   	def getSubrecetas(){
+   		this.subrecetas
+   	} 
+   	
+   	override getIngredientes(){
+		this.ingredientesDinamicos
+   	}
+	
+	def ingredientesDinamicos() {
+		var Collection <Ingrediente> ingredientesDinamicos = newHashSet()
+   		for(subreceta:subrecetas)
+   		ingredientesDinamicos.addAll(subreceta.ingredientes)
+   		return ingredientesDinamicos
+	}
+	
+	override filtrarIngredientesPorNombre(String nombreIngrediente){  
+  		this.ingredientesDinamicos.filter[ingrediente|ingrediente.soyYo(nombreIngrediente)]
+  	}
+   	 
   	override agregarSubreceta(Receta receta){ /*Agrega una subreceta a la receta compuesta e incorpora sus ingredientes */
- 
   	     subrecetas.add(receta)
-  	     this.agregarTodosLosIngredientes(receta.ingredientes)
+  	}
+  	
+  	def agregarTodasLasSubrecetas(RecetaCompuesta recetaCompuesta){
+  		subrecetas.addAll(recetaCompuesta.subrecetas)
   	}
 	
-	override Receta copiaReceta(Persona persona){
+	override RecetaCompuesta copiaReceta(Persona persona){
 		var recetaCopia = new RecetaCompuesta
 		recetaCopia.nombre = nombre
 		recetaCopia.explicacion = explicacion
 		recetaCopia.calorias = calorias
 		recetaCopia.dificultad = dificultad
-		recetaCopia.subrecetas = subrecetas
-		recetaCopia.ingredientes = ingredientes
+		recetaCopia.agregarTodasLasSubrecetas(this)
 		recetaCopia.duenio = persona
-		recetaCopia.temporadasCorrespondientes = temporadasCorrespondientes
-		recetaCopia.condiciones = condiciones
-		
+		recetaCopia.agregarTemporadas(temporadasCorrespondientes)
+		recetaCopia.agregarCondiciones(condiciones)
 		return recetaCopia
 	}
  }

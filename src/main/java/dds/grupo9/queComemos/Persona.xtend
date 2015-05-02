@@ -116,7 +116,15 @@ class Persona {
 	def tieneXRecetas(int cantidadRecetas) {
 		recetas.length == cantidadRecetas
 	}
+
+	def getReceta(String nombreReceta){
+		(recetas.findFirst[receta| receta.nombre == nombreReceta])
+	}	
 	
+	def cantidadIngredientesReceta(String nombreReceta){
+		getReceta(nombreReceta).cantidadIngredientes
+	}
+		
      /*Entrega 2 */
 	def leCompartenLaReceta(Receta receta) {
 		grupos.exists[g|g.incluyeDuenioDeReceta(receta)]
@@ -127,8 +135,8 @@ class Persona {
 		
 		grupos.add(grupo)
 	}
+	
+			 
 		
-		 
-		
-	}
+}
 	
