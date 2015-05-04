@@ -20,11 +20,11 @@ class RecetaCompuesta extends Receta {
    		return ingredientesDinamicos
 	}
 	
-	override filtrarIngredientesPorNombre(String nombreIngrediente){  
+	override filtrarIngredientesPorNombre(Preferencia nombreIngrediente){  
   		this.ingredientesDinamicos.filter[ingrediente|ingrediente.soyYo(nombreIngrediente)]
   	}
    	 
-  	override agregarSubreceta(Receta receta){ /*Agrega una subreceta a la receta compuesta e incorpora sus ingredientes */
+  	override agregarSubreceta(Receta receta){ /*Agrega una subreceta a la receta compuesta */
   	     subrecetas.add(receta)
   	}
   	
@@ -32,16 +32,10 @@ class RecetaCompuesta extends Receta {
   		subrecetas.addAll(recetaCompuesta.subrecetas)
   	}
 	
-	override RecetaCompuesta copiaReceta(Persona persona){
+	def RecetaCompuesta copiaReceta(Persona persona){
 		var recetaCopia = new RecetaCompuesta
-		recetaCopia.nombre = nombre
-		recetaCopia.explicacion = explicacion
-		recetaCopia.calorias = calorias
-		recetaCopia.dificultad = dificultad
 		recetaCopia.agregarTodasLasSubrecetas(this)
-		recetaCopia.duenio = persona
-		recetaCopia.agregarTemporadas(temporadasCorrespondientes)
-		recetaCopia.agregarCondiciones(condiciones)
+		super.copiaReceta(recetaCopia, persona)
 		return recetaCopia
 	}
  }

@@ -14,7 +14,7 @@ class Diabetico implements CondPreexistente {
 	}
       
     override recetaNoRecomendada(Receta receta){	
-    	receta.tieneMasDeUnaCantidadDe(cantidadAzucarPermitida, new Ingrediente("azucar", 0))        
+    	receta.tieneMasDeUnaCantidadDe(cantidadAzucarPermitida, new Ingrediente(Preferencia.AZUCAR, 0))        
     }
 
     override boolean verificaDatosSegunCondicion(Persona persona){ /* Verifica que usuarios diabéticos indiquen el sexo  y al menos una preferencia */

@@ -183,7 +183,7 @@ class PersonaTestSuite {
 		val receta = new RecetaSimple()
 		val azucar = new Ingrediente()
 		val diabetico = new Diabetico()
-		azucar.nombre = "azucar"
+		azucar.nombre = Preferencia.AZUCAR
 		azucar.cantidad = 150
 		receta.agregarIngrediente(azucar)
 		receta.calorias=500
@@ -203,8 +203,8 @@ class PersonaTestSuite {
 	    val vegano= new Vegano()
 	    val hipertenso = new Hipertenso()
 	    
-	    receta.agregarIngrediente(new Ingrediente("sal",10))
-	    receta.agregarIngrediente(new Ingrediente("carne",200))
+	    receta.agregarIngrediente(new Ingrediente(Preferencia.SAL,10))
+	    receta.agregarIngrediente(new Ingrediente(Preferencia.CARNE,200))
 	    
 	    receta.calorias=400
 	    
@@ -222,9 +222,9 @@ class PersonaTestSuite {
 		val celiaco = new Celiaco()
 		val receta = new RecetaSimple()
 		
-		receta.agregarIngrediente(new Ingrediente("azucar", 150))
-		receta.agregarIngrediente(new Ingrediente("sal", 15))
-		receta.agregarIngrediente(new Ingrediente("carne", 300))
+		receta.agregarIngrediente(new Ingrediente(Preferencia.AZUCAR, 150))
+		receta.agregarIngrediente(new Ingrediente(Preferencia.SAL, 15))
+		receta.agregarIngrediente(new Ingrediente(Preferencia.CARNE, 300))
 		
 		receta.calorias=500
 		
@@ -333,7 +333,7 @@ class PersonaTestSuite {
 		Assert.assertEquals(20150416,fecha.fechaDeHoy)
 		
 	}*/
-	}
+}
 	
 		
 	

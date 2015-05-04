@@ -100,8 +100,12 @@ class Persona {
 		sexo != "sinSexo"
 	}
 	
-	def prefiereNoComer(Collection<Preferencia> alimentos) {
-		alimentos.forall[alimento| !(gustos.contains(alimento))]
+	def prefiereNoComer(Collection<Ingrediente> alimentos) {
+		alimentos.forall[alimento| !(gustos.contains(alimento.nombre))]
+	}
+	
+	def noLeDisguta(Preferencia unaPreferencia) {
+		!disgustos.contains(unaPreferencia)
 	}
 	
 	def fechaValida(Fecha fecha){
@@ -126,17 +130,17 @@ class Persona {
 	}
 		
      /*Entrega 2 */
-	def leCompartenLaReceta(Receta receta) {
-		grupos.exists[g|g.incluyeDuenioDeReceta(receta)]
-		
-		}
-		
-	def agregarGrupo(GrupoDePersonas grupo){
-		
-		grupos.add(grupo)
+	def perteneceAUnGrupo(GrupoDePersonas grupo){
+		grupos.contains(grupo)
 	}
 	
-			 
+	def comprateGrupoCon(Persona persona) {
+		grupos.exists[g|g.incluyeA(persona)] /*Podria ser también persona.perteneceAUnGrupo(g) */	
+	}	
+		
+	def agregarGrupo(GrupoDePersonas grupo){
+		grupos.add(grupo)
+	}		 
 		
 }
 	

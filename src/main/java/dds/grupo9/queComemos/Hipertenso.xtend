@@ -6,8 +6,8 @@ class Hipertenso implements CondPreexistente {
 	var Collection<Ingrediente> prescripcionesMedicas = newHashSet()
 	
 	new(){
-    	prescripcionesMedicas.add(new Ingrediente("sal",0))
-    	prescripcionesMedicas.add(new Ingrediente("caldo",0))
+    	prescripcionesMedicas.add(new Ingrediente(Preferencia.SAL,0))
+    	prescripcionesMedicas.add(new Ingrediente(Preferencia.CALDO,0))
 	}
 	
 	def getPrescripcionesMedicas(){

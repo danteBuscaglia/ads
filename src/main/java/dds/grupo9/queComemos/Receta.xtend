@@ -3,7 +3,7 @@ package dds.grupo9.queComemos
 import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.Collection
 
-abstract class Receta {
+abstract class Receta{
 	
 	@Accessors String nombre /*Nombre del plato */
     @Accessors String explicacion /*Pasos a seguir en la receta */
@@ -31,15 +31,15 @@ abstract class Receta {
 	}
 	
 	def setIngredientes(Collection<Ingrediente> i){
-		this.ingredientes = i
+		ingredientes.addAll(i)
 	}
 	
 	def setTemporadasCorrespondientes(Collection<Estacion> tc){
-		this.temporadasCorrespondientes = tc
+		temporadasCorrespondientes.addAll(tc)
 	}
 	
 	def setCondiciones(Collection<CondPreexistente> c){
-		this.condiciones = c
+		condiciones.addAll(c)
 	}
        
    	def agregarIngrediente(Ingrediente ingrediente){/*Agrega un ingrediente a la lista de la receta*/
@@ -58,7 +58,7 @@ abstract class Receta {
    		ingredientes.removeAll(ingredientesParaRemover)
    	}
    		
-	def eliminarIngredientesPorNombre(String nombreIngrediente){
+	def eliminarIngredientesPorNombre(Preferencia nombreIngrediente){
 		ingredientes.removeAll(this.filtrarIngredientesPorNombre(nombreIngrediente))
 	}
    
@@ -78,11 +78,11 @@ abstract class Receta {
     	(ingredientes.filter[ingrediente | ingrediente.tieneMasDeLoPermitidoDe(cantidadMax, ingredienteBuscado)]).size > 0
   	}
   	
-  	def tieneIngrediente(String nombreIngrediente){ /* Evalúa si dado el nombre de un ingrediente, la receta lo contiene */
+  	def tieneIngrediente(Preferencia nombreIngrediente){ /* Evalúa si dado el nombre de un ingrediente, la receta lo contiene */
   		!filtrarIngredientesPorNombre(nombreIngrediente).isEmpty
   	}
   	 
-  	def filtrarIngredientesPorNombre(String nombreIngrediente){  
+  	def filtrarIngredientesPorNombre(Preferencia nombreIngrediente){  
   		ingredientes.filter[ingrediente|ingrediente.soyYo(nombreIngrediente)]
   	}
   
@@ -101,7 +101,7 @@ abstract class Receta {
   	
   	def boolean puedeVermeOModificarme(Persona persona){
 		if(this.esPrivada()){
-			duenio == persona || persona.leCompartenLaReceta(this)
+			duenio == persona || persona.comprateGrupoCon(this.duenio) /*persona.leCompartenLaReceta(this)*/
 		} 
 		else {
 			true
@@ -136,8 +136,34 @@ abstract class Receta {
 		ingredientes.size
 	}
 		
-	def Receta copiaReceta(Persona persona)
+	def Receta copiaReceta(Receta recetaCopia, Persona persona){
+		recetaCopia.nombre = nombre
+		recetaCopia.explicacion = explicacion
+		recetaCopia.calorias = calorias
+		recetaCopia.dificultad = dificultad
+		recetaCopia.duenio = persona
+		recetaCopia.agregarTemporadas(temporadasCorrespondientes)
+		recetaCopia.agregarCondiciones(condiciones)
+		return recetaCopia
+	}
 	
    	def void agregarSubreceta(Receta c)
+	
+	/*Entrega 2 Punto 1. Invocar con: receta.puedeSerSugeridaA(unaPresona/unGrupo) es polimórfica */
+	def puedeSerSugeridaA(Persona unaPersona){
+		this.noContieneIngredientesQueLeDisgustenA(unaPersona)	&& !unaPersona.recetaNoRecomendada(this)
+	}
+	
+	def puedeSerSugeridaA(GrupoDePersonas unGrupo){
+		this.contieneAlgunIngredienteQuePrefiereElGrupo(unGrupo) && unGrupo.laRecetaEsApropiadaParaTodos(this)	
+	}
+	
+	def noContieneIngredientesQueLeDisgustenA(Persona persona){
+		ingredientes.forall[persona.noLeDisguta(it.nombre)]
+	}
+	
+	def contieneAlgunIngredienteQuePrefiereElGrupo(GrupoDePersonas unGrupo){
+		ingredientes.exists[unGrupo.leGusta(it.nombre)] 
+	}
 	
 }
