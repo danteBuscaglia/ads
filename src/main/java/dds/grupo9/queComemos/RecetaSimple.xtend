@@ -4,13 +4,13 @@ package dds.grupo9.queComemos
 class RecetaSimple extends Receta {
 	
 	override agregarSubreceta(Receta c){
-		throw new RuntimeException("Las recetas simples no pueden tener subrecetas")
+		throw new NoEsValidoException("Las recetas simples no pueden tener subrecetas")
    	}
    	
-   	def RecetaSimple copiaReceta(Persona persona){
+   	override RecetaSimple copiaReceta(Persona persona){
 		var recetaCopia = new RecetaSimple
 		recetaCopia.agregarTodosLosIngredientes(ingredientes)
-		super.copiaReceta(recetaCopia, persona)
+		super.copiarAtributosComunes(recetaCopia, persona)
 		return recetaCopia
 	}
 }

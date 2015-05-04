@@ -16,6 +16,7 @@ abstract class Receta{
     
     new (){
     	duenio = null
+    	
     }
     
     def getIngredientes(){
@@ -91,9 +92,6 @@ abstract class Receta{
   		
   	}
   	
-  	def cantidadDeIngredientes(){
-  		ingredientes.length
-  	}
   	
   	def crearDuenio(Persona persona){
   		duenio = persona
@@ -136,8 +134,12 @@ abstract class Receta{
 		ingredientes.size
 	}
 		
-	def Receta copiaReceta(Receta recetaCopia, Persona persona){
-		recetaCopia.nombre = nombre
+	def Receta copiaReceta(Persona persona) 
+	
+	def void agregarSubreceta(Receta c)	
+		
+	def Receta copiarAtributosComunes(Receta recetaCopia, Persona persona){
+			recetaCopia.nombre = nombre
 		recetaCopia.explicacion = explicacion
 		recetaCopia.calorias = calorias
 		recetaCopia.dificultad = dificultad
@@ -145,9 +147,8 @@ abstract class Receta{
 		recetaCopia.agregarTemporadas(temporadasCorrespondientes)
 		recetaCopia.agregarCondiciones(condiciones)
 		return recetaCopia
-	}
-	
-   	def void agregarSubreceta(Receta c)
+			
+		}
 	
 	/*Entrega 2 Punto 1. Invocar con: receta.puedeSerSugeridaA(unaPresona/unGrupo) es polimórfica */
 	def puedeSerSugeridaA(Persona unaPersona){
@@ -165,5 +166,10 @@ abstract class Receta{
 	def contieneAlgunIngredienteQuePrefiereElGrupo(GrupoDePersonas unGrupo){
 		ingredientes.exists[unGrupo.leGusta(it.nombre)] 
 	}
+	
+	
+	
+	
+	
 	
 }

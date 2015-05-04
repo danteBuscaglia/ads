@@ -158,11 +158,11 @@ class PersonaTestSuite {
 		receta.calorias=500
 		persona.agregarReceta(receta)
 		
-		Assert.assertTrue(persona.tieneXRecetas(1))
+		Assert.assertTrue(persona.tieneXRecetasPropias(1))
 		
 	}
 	
-	@Test (expected = RuntimeException)
+	@Test (expected = NoEsValidoException)
 	
 	def void unaPersonaNoPuedeAgregarUnaReceta(){
 		
@@ -172,7 +172,7 @@ class PersonaTestSuite {
 		receta.calorias=50000
 		persona.agregarReceta(receta)
 		
-		Assert.assertTrue(persona.tieneXRecetas(1))
+		Assert.assertTrue(persona.tieneXRecetasPropias(1))
 		
 	}
 	
@@ -333,7 +333,9 @@ class PersonaTestSuite {
 		Assert.assertEquals(20150416,fecha.fechaDeHoy)
 		
 	}*/
-}
+
 	
 		
+	
+	}
 	

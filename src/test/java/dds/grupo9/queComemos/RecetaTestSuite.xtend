@@ -90,7 +90,7 @@ class RecetaTestSuite {
 		
 		persona.modificarReceta(receta,modificacion)
 		
-		Assert.assertEquals(receta.cantidadDeIngredientes(), 2)
+		Assert.assertEquals(receta.cantidadIngredientes(), 2)
 	}
 	
 	@Test
@@ -112,7 +112,7 @@ class RecetaTestSuite {
 		
 		persona.modificarReceta(receta,modificacion)
 		
-		Assert.assertEquals(receta.cantidadDeIngredientes(), 1)
+		Assert.assertEquals(receta.cantidadIngredientes(), 1)
 	}
 	
 	@Test
@@ -132,7 +132,7 @@ class RecetaTestSuite {
 		
 		persona.modificarReceta(receta,modificacion)
 		
-		Assert.assertTrue(persona.tieneXRecetas(1))
+		Assert.assertTrue(persona.tieneXRecetasPropias(1))
 	}	
 
 	@Test
@@ -154,7 +154,7 @@ class RecetaTestSuite {
 		modificacion.ingrediente = new Ingrediente(Preferencia.SAL)
 		persona.modificarReceta(receta,modificacion)
 		
-		Assert.assertTrue(persona.tieneXRecetas(1))
+		Assert.assertTrue(persona.tieneXRecetasPropias(1))
 		Assert.assertEquals(2, persona.cantidadIngredientesReceta("papasALaCrema"))
 	}
 	
@@ -175,32 +175,12 @@ class RecetaTestSuite {
 		modificacion.ingrediente = new Ingrediente(Preferencia.SAL,10)
 		persona.modificarReceta(receta,modificacion)
 		
-		Assert.assertTrue(persona.tieneXRecetas(1))
+		Assert.assertTrue(persona.tieneXRecetasPropias(1))
 		Assert.assertEquals(3, persona.cantidadIngredientesReceta("papasALaCrema"))
 	}
-		
-	/*@Test
-	def void siUnaPersonaModificaUnaRecetaPublicaLaOtraPersonaNoVeLosCambios(){
-		
-		val persona = new Persona()
-		val persona2 = new Persona()
-		val receta = new RecetaSimple()
-		val modificacion = new modAgregarIngredientes()
-		
-		receta.agregarIngrediente(new Ingrediente("fideos",200))
-		receta.agregarIngrediente(new Ingrediente("agua",100))
-		receta.agregarIngrediente(new Ingrediente("manteca",25))
-		receta.agregarIngrediente(new Ingrediente("leche",50))
-		
-		modificacion.ingrediente = new Ingrediente("casancrem",40)
-		
-		persona.modificarReceta(receta,modificacion)
-		
-		Assert.assertFalse(receta.tieneIngrediente("casancrem"))
-	}*/	
 	
 	
-	@Test (expected = RuntimeException)
+	@Test (expected = NoEsValidoException)
 	
 	def void unaRecetaSimpleNoPuedeTenerSubrecetas(){
 		var recetaSimple1 = new RecetaSimple()
@@ -309,7 +289,7 @@ class RecetaTestSuite {
 	
 	@Test
 	
-	def unaRecetaQueNoContieneIngredientesQueLeDisgutenAUnaPersonaNiIngredientesQueNoSeanPermitidosPorSusCondicionesPreexistentesPuedeSerSurgeridaAEsaPersona(){	
+	def unaRecetaQueNoContieneIngredientesQueLeDisgutenAUnaPersonaNiIngredientesQueNoSeanPermitidosPorSusCondicionesPreexistentesPuedeSerSugeridaAEsaPersona(){	
 		val persona = new Persona()
 		persona.nombre = "Paul"
 		persona.agregarCondPreexistente(new Vegano)
@@ -350,7 +330,7 @@ class RecetaTestSuite {
 	}	
 	
 	@Test
-	def unaRecetaQueCotieeneAlgunIngredienteQueLeGusteAlGrupoYQueNoContieneIngredientesQueSeanPermitidosParaAlgunIntegrantePuedeSerSugeridaAUnGrupo(){	
+	def unaRecetaQueContieneAlgunIngredienteQueLeGusteAlGrupoYQueNoContieneIngredientesQueNoSeanPermitidosParaAlgunIntegrantePuedeSerSugeridaAUnGrupo(){	
 		val persona = new Persona()
 		persona.agregarCondPreexistente(new Hipertenso)
 		val persona2= new Persona()

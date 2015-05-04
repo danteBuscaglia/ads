@@ -32,10 +32,10 @@ class RecetaCompuesta extends Receta {
   		subrecetas.addAll(recetaCompuesta.subrecetas)
   	}
 	
-	def RecetaCompuesta copiaReceta(Persona persona){
+	override RecetaCompuesta copiaReceta(Persona persona){
 		var recetaCopia = new RecetaCompuesta
 		recetaCopia.agregarTodasLasSubrecetas(this)
-		super.copiaReceta(recetaCopia, persona)
+		super.copiarAtributosComunes(recetaCopia, persona)
 		return recetaCopia
 	}
  }

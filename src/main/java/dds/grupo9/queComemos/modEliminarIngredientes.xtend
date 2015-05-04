@@ -12,6 +12,6 @@ class modEliminarIngredientes implements Modificacion {
 		if(receta.tieneIngrediente(ingrediente.nombre)){
 			receta.eliminarIngredientesPorNombre(ingrediente.nombre)
 		}
-		else throw new RuntimeException("La receta no contiene ese ingrediente")
+		else throw new NoLoTieneException("La receta no contiene ese ingrediente")
 	}
 }

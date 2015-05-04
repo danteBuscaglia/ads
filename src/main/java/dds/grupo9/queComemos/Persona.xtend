@@ -14,9 +14,9 @@ class Persona {
 	var Collection<Preferencia> disgustos = newHashSet() /*Disgustos de un Usuario */
 	var Collection<CondPreexistente> condicionesPreexistentes = newHashSet() /* Condicionantes de un Usuario */
 	@Accessors String rutina /* Tipo de rutina que lleva a cabo el Usuario */
-    var Collection<Receta> recetas= newHashSet() /*Recetas de un Usuario */
+    var Collection<Receta> recetasPropias= newHashSet() /*Recetas de un Usuario */
     var Collection<GrupoDePersonas> grupos = newHashSet()
-        	
+      	
 	new (){
 		nombre = "sinNombre"
 		fechaNacimiento = -1
@@ -35,7 +35,7 @@ class Persona {
 	}
 	
 	def getRecetas(){
-		this.recetas
+		this.recetasPropias
 	}
 	/*Entrega 0 */		
 	def float imc(){		/* IMC: índice de masa corporal, calculado como (peso/estatura^2) */
@@ -76,9 +76,9 @@ class Persona {
 	def void agregarReceta(Receta receta){ /*Agrega una receta a la colección si cumple con las condiciones */
 	    if(receta.recetaValida){
 		 	receta.duenio = this
-		 	recetas.add(receta)
+		 	recetasPropias.add(receta)
 	 	}
-	 	else throw new RuntimeException("La receta no es válida")
+	 	else throw new NoEsValidoException("La receta no es válida")
 	}
 	
 	def recetaNoRecomendada(Receta receta){ /* Evalúa si dada una receta, esta es recomendada para la persona o no */
@@ -89,7 +89,7 @@ class Persona {
 		if(receta.puedeVermeOModificarme(this)){
 			receta.sufrirCambios(this, modificacion)
 		}
-		else throw new RuntimeException("No puede modificar esta receta")
+		else throw new NoLoPuedeModificarException("No puede modificar esta receta")
 	}
 	
 	def tienePreferencias() {
@@ -117,12 +117,13 @@ class Persona {
 		(nombre != "sinNombre" && fechaNacimiento != -1 && peso != -1 && altura != -1 && rutina != "sinRutina")
 	}
 	
-	def tieneXRecetas(int cantidadRecetas) {
-		recetas.length == cantidadRecetas
+	def tieneXRecetasPropias(int cantidadRecetas) {
+		recetasPropias.length == cantidadRecetas
 	}
+	
 
 	def getReceta(String nombreReceta){
-		(recetas.findFirst[receta| receta.nombre == nombreReceta])
+		(recetasPropias.findFirst[receta| receta.nombre == nombreReceta])
 	}	
 	
 	def cantidadIngredientesReceta(String nombreReceta){
@@ -141,6 +142,8 @@ class Persona {
 	def agregarGrupo(GrupoDePersonas grupo){
 		grupos.add(grupo)
 	}		 
+	
+	
 		
 }
 	
