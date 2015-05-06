@@ -9,15 +9,22 @@ abstract class Receta{
     @Accessors String explicacion /*Pasos a seguir en la receta */
     @Accessors int calorias /*Calorías de la receta (A modificar) */
     @Accessors String dificultad /*Dificultad de la receta */
-    @Accessors Persona duenio /* Usuario que sube la receta */
     var Collection<Ingrediente> ingredientes= newHashSet() /*Ingredientes de la receta */
     var Collection<Estacion> temporadasCorrespondientes = newHashSet() /*Temporadas a las que corresponde la receta */
     var Collection<CondPreexistente> condiciones = newHashSet() /* Condiciones preexistentes */
+    var PrivacidadReceta privacidad /* Condición de privacidad de la receta (publica o privada) */
     
     new (){
-    	duenio = null
+    	
+    	privacidad = new RecetaPublica ()
     	
     }
+    
+    def creadaPor (Persona persona){
+    	privacidad = new RecetaPrivada(persona)
+    	
+    }
+    
     
     def getIngredientes(){
 		this.ingredientes
@@ -93,34 +100,15 @@ abstract class Receta{
   	}
   	
   	
-  	def crearDuenio(Persona persona){
-  		duenio = persona
-  	}
-  	
-  	def boolean puedeVermeOModificarme(Persona persona){
-		if(this.esPrivada()){
-			duenio == persona || persona.comprateGrupoCon(this.duenio) /*persona.leCompartenLaReceta(this)*/
-		} 
-		else {
-			true
-		}
+  	def boolean puedeVerOModificarReceta(Persona persona){
+		privacidad.puedeVermeOModificarme(persona)
 	}
 	
-	def esPrivada(){
-		this.duenio != null
-	}
 		
 	def void sufrirCambios(Persona persona, Modificacion modificacion){
-		if(!esPrivada){
-			var recetaCopia = this.copiaReceta(persona)
-			persona.agregarReceta(recetaCopia)
-  		    modificacion.ejecutar(recetaCopia)
+		privacidad.cambiosDeReceta(persona,modificacion,this)
   		}
-  		else
-  		{
-  			modificacion.ejecutar(this)
-  		}
-	}
+	
 	
 	def agregarCondiciones(Collection<CondPreexistente> condicionesParaAgregar){
 		condiciones.addAll(condicionesParaAgregar)
@@ -143,7 +131,6 @@ abstract class Receta{
 		recetaCopia.explicacion = explicacion
 		recetaCopia.calorias = calorias
 		recetaCopia.dificultad = dificultad
-		recetaCopia.duenio = persona
 		recetaCopia.agregarTemporadas(temporadasCorrespondientes)
 		recetaCopia.agregarCondiciones(condiciones)
 		return recetaCopia

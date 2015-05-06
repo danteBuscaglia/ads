@@ -49,7 +49,7 @@ class RecetaTestSuite {
 		receta.calorias = 3000
 		persona.agregarReceta(receta)
 		
-		Assert.assertTrue(receta.puedeVermeOModificarme(persona))
+		Assert.assertTrue(receta.puedeVerOModificarReceta(persona))
 		
 	}
 	
@@ -60,9 +60,9 @@ class RecetaTestSuite {
 		val duenioDeReceta = new Persona()
 		val otraPersona = new Persona()
 		val receta = new RecetaSimple()
-		receta.duenio=duenioDeReceta
+		receta.creadaPor(duenioDeReceta)
 		
-		Assert.assertFalse(receta.puedeVermeOModificarme(otraPersona))
+		Assert.assertFalse(receta.puedeVerOModificarReceta(otraPersona))
 		
 	}
 		
@@ -73,7 +73,7 @@ class RecetaTestSuite {
 		val persona= new Persona()
 		val receta = new RecetaSimple()
 		
-		Assert.assertTrue(receta.puedeVermeOModificarme(persona))
+		Assert.assertTrue(receta.puedeVerOModificarReceta(persona))
 	}
 		
 	@Test
@@ -82,7 +82,7 @@ class RecetaTestSuite {
 		
 		val persona = new Persona()
 		val receta = new RecetaSimple()
-		receta.duenio = persona
+		receta.creadaPor(persona)
 		var modificacion = new modAgregarIngredientes()
 		receta.agregarIngrediente(new Ingrediente (Preferencia.PAPA,100))
 		modificacion.ingrediente = new Ingrediente(Preferencia.SAL, 10)
@@ -99,7 +99,7 @@ class RecetaTestSuite {
 		
 		val persona = new Persona()
 		val receta = new RecetaSimple()
-		receta.duenio = persona
+		receta.creadaPor(persona)
 		val modificacion = new modEliminarIngredientes()
 		val papa = new Ingrediente(Preferencia.PAPA,100)
 		val sal = new Ingrediente(Preferencia.SAL,10)
@@ -249,23 +249,7 @@ class RecetaTestSuite {
 
 	}
 		
-	@Test
 	
-	def laCopiaDeUnaRecetaSimpleCopiaTodosSusAtributosExceptoElDuenioQueSeVeModificado(){
-		val persona = new Persona()
-		persona.nombre = "juan"
-		val receta = new RecetaSimple()
-		var recetaCopia = new RecetaSimple()
-		val papa = new Ingrediente(Preferencia.PAPA,100)
-		val sal = new Ingrediente(Preferencia.SAL,10)
-		receta.agregarIngrediente(papa)
-		receta.agregarIngrediente(sal)
-		recetaCopia = receta.copiaReceta(persona)
-		
-		Assert.assertTrue(recetaCopia.tieneIngrediente(Preferencia.SAL))
-		Assert.assertTrue(recetaCopia.tieneIngrediente(Preferencia.PAPA))
-		Assert.assertEquals(persona, recetaCopia.duenio)
-	}		
 		
 	@Test
 	
@@ -283,7 +267,7 @@ class RecetaTestSuite {
 		receta.calorias=150
 		persona.agregarReceta(receta)
 		
-		Assert.assertTrue(receta.puedeVermeOModificarme(persona2))
+		Assert.assertTrue(receta.puedeVerOModificarReceta(persona2))
 		
 	}
 	

@@ -16,6 +16,7 @@ class Persona {
 	@Accessors String rutina /* Tipo de rutina que lleva a cabo el Usuario */
     var Collection<Receta> recetasPropias= newHashSet() /*Recetas de un Usuario */
     var Collection<GrupoDePersonas> grupos = newHashSet()
+    var Collection<Receta> historial = newHashSet()
       	
 	new (){
 		nombre = "sinNombre"
@@ -73,10 +74,10 @@ class Persona {
 		disgustos.add(preferencia)
 	}
 	
+	
 	def void agregarReceta(Receta receta){ /*Agrega una receta a la colección si cumple con las condiciones */
 	    if(receta.recetaValida){
-		 	receta.duenio = this
-		 	recetasPropias.add(receta)
+		 recetasPropias.add(receta)
 	 	}
 	 	else throw new NoEsValidoException("La receta no es válida")
 	}
@@ -86,7 +87,7 @@ class Persona {
 	}
 	
 	def modificarReceta (Receta receta, Modificacion modificacion){
-		if(receta.puedeVermeOModificarme(this)){
+		if(receta.puedeVerOModificarReceta(this)){
 			receta.sufrirCambios(this, modificacion)
 		}
 		else throw new NoLoPuedeModificarException("No puede modificar esta receta")
@@ -135,7 +136,7 @@ class Persona {
 		grupos.contains(grupo)
 	}
 	
-	def comprateGrupoCon(Persona persona) {
+	def comparteGrupoCon(Persona persona) {
 		grupos.exists[g|g.incluyeA(persona)] /*Podria ser también persona.perteneceAUnGrupo(g) */	
 	}	
 		
@@ -144,6 +145,5 @@ class Persona {
 	}		 
 	
 	
-		
 }
 	
