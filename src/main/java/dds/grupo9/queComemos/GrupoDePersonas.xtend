@@ -8,6 +8,7 @@ class GrupoDePersonas {
 	@Accessors String nombre
 	var Collection <Preferencia> gustos = newHashSet()
 	var Collection <Persona> integrantes = newHashSet()
+	var Collection <Receta> recetasEnComun = newHashSet()
 	
 	new(String nombreGrupo){
 		nombre=nombreGrupo
@@ -21,6 +22,16 @@ class GrupoDePersonas {
 	def getIntegrantes(){
 		this.integrantes
 	}
+	
+	def getRecetas(){
+		this.recetasEnComun
+	}
+	
+	def int cantidadDeRecetas(){
+		recetasEnComun.size
+		
+	}
+	
 	
 	def agregarPreferencia(Preferencia preferencia){
 		gustos.add(preferencia)
@@ -43,4 +54,8 @@ class GrupoDePersonas {
 		integrantes.forall[!it.recetaNoRecomendada(receta)]
 	}
 	
+	def listarRecetasDeGrupo(){
+		integrantes.forEach[i|i.agregarSusRecetas(recetasEnComun)]
+		return recetasEnComun
+	}
 }

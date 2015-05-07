@@ -3,6 +3,7 @@ package dds.grupo9.queComemos
 import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.Collection
 
+
 class Persona {
 	
 	@Accessors float peso	/* Peso de un Usuario */
@@ -17,6 +18,7 @@ class Persona {
     var Collection<Receta> recetasPropias= newHashSet() /*Recetas de un Usuario */
     var Collection<GrupoDePersonas> grupos = newHashSet()
     var Collection<Receta> historial = newHashSet()
+    var RepoRecetas repositorio
       	
 	new (){
 		nombre = "sinNombre"
@@ -76,9 +78,10 @@ class Persona {
 	
 	
 	def void agregarReceta(Receta receta){ /*Agrega una receta a la colección si cumple con las condiciones */
-	    if(receta.recetaValida){
-		 recetasPropias.add(receta)
-	 	}
+	    if(receta.recetaValida)
+	     
+	     recetasPropias.add(receta)
+	 	
 	 	else throw new NoEsValidoException("La receta no es válida")
 	}
 	
@@ -142,8 +145,24 @@ class Persona {
 		
 	def agregarGrupo(GrupoDePersonas grupo){
 		grupos.add(grupo)
+	}
+	
+	def recetasDeGrupo(){
+		val Collection<Receta> lista= newHashSet
+		grupos.forEach[g|lista.addAll(g.listarRecetasDeGrupo)]
+		return lista
+	}
+	
+	def void agregarSusRecetas(Collection<Receta> recetas){
+		recetas.addAll(recetasPropias)
 	}		 
 	
+	def listarTodasSusRecetas(){
+		var lista = newHashSet
+		lista.addAll(recetasPropias,recetasDeGrupo,repositorio.getRecetas)
+		
+		return lista
+	}
 	
 }
 	

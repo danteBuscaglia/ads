@@ -2,6 +2,9 @@ package dds.grupo9.queComemos
 
 class RecetaPublica implements PrivacidadReceta {
 	
+	
+	
+	
 	override puedeVermeOModificarme(Persona persona){
 		
 		true
@@ -11,6 +14,6 @@ class RecetaPublica implements PrivacidadReceta {
 	
 	    var recetaCopia = receta.copiaReceta(persona)
 	    persona.agregarReceta(recetaCopia)
-  	    modificacion.ejecutar(recetaCopia)
+	    modificacion.ejecutar(recetaCopia)
 	}
 }

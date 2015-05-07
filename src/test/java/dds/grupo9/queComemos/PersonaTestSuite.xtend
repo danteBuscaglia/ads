@@ -153,10 +153,11 @@ class PersonaTestSuite {
 	@Test
 	def void unaPersonaAgregaUnaReceta(){
 		val persona= new Persona()
-		val receta = new RecetaSimple()
+		val receta = new RecetaSimple(persona)
 		receta.agregarIngrediente(new Ingrediente())
 		receta.calorias=500
 		persona.agregarReceta(receta)
+		
 		
 		Assert.assertTrue(persona.tieneXRecetasPropias(1))
 		
@@ -167,10 +168,11 @@ class PersonaTestSuite {
 	def void unaPersonaNoPuedeAgregarUnaReceta(){
 		
 		val persona= new Persona()
-		val receta = new RecetaSimple()
+		val receta = new RecetaSimple(persona)
 		receta.agregarIngrediente(new Ingrediente())
 		receta.calorias=50000
 		persona.agregarReceta(receta)
+		
 		
 		Assert.assertTrue(persona.tieneXRecetasPropias(1))
 		
@@ -180,7 +182,7 @@ class PersonaTestSuite {
 	def void unDiabeticoNoPuedeConsumirUnaRecetaConAzucar(){
 		
 		val persona = new Persona()
-		val receta = new RecetaSimple()
+		val receta = new RecetaSimple(new RepoRecetas())
 		val azucar = new Ingrediente()
 		val diabetico = new Diabetico()
 		azucar.nombre = Preferencia.AZUCAR
@@ -198,7 +200,7 @@ class PersonaTestSuite {
 	
 	def void unVeganoYUnHipertensoNoPuedenConsumirUnaRecetaConSalYCarne(){
 	
-	    val receta = new RecetaSimple()
+	    val receta = new RecetaSimple(new RepoRecetas())
 	    val persona = new Persona()
 	    val vegano= new Vegano()
 	    val hipertenso = new Hipertenso()
@@ -220,7 +222,7 @@ class PersonaTestSuite {
 		
 		val persona = new Persona()
 		val celiaco = new Celiaco()
-		val receta = new RecetaSimple()
+		val receta = new RecetaSimple(new RepoRecetas())
 		
 		receta.agregarIngrediente(new Ingrediente(Preferencia.AZUCAR, 150))
 		receta.agregarIngrediente(new Ingrediente(Preferencia.SAL, 15))
@@ -335,6 +337,34 @@ class PersonaTestSuite {
 	}*/
 
 	
+	@Test
+	
+	def void unaPersonaTieneAccesoAUnaRecetaPropiaYUnaRecetaPublicaYUnaRecetaDeUnCompanieroDeGrupo(){
+		val persona= new Persona()
+		val persona2= new Persona()
+		val grupo = new GrupoDePersonas("Los Pibes")
+	    grupo.agregarAGrupo(persona)
+	    grupo.agregarAGrupo(persona2)
+	    
+	    val repositorio = new RepoRecetas()
+	    val receta= new RecetaSimple(persona)
+	    receta.agregarIngrediente(new Ingrediente(Preferencia.CARNE,100))
+	    receta.calorias=500
+	    persona.agregarReceta(receta)
+	    val receta2= new RecetaSimple(repositorio)
+	    receta2.agregarIngrediente(new Ingrediente(Preferencia.CHORI,100))
+	    receta2.calorias=700
+	    val receta3= new RecetaSimple(persona2)
+	    receta3.agregarIngrediente(new Ingrediente(Preferencia.POLLO,100))
+	    receta3.calorias=800
+	    persona2.agregarReceta(receta3)
+	    
+	    
+	    
+	    
+	    
+	    Assert.assertEquals(persona.listarTodasSusRecetas.size,3)
+	}
 		
 	
 	}

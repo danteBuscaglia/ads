@@ -2,7 +2,7 @@ package dds.grupo9.queComemos
 
 import java.util.Collection
 
-class RepositorioPublico implements RepositorioDeRecetas {
+class RepoRecetas  {
 	
 	var Collection <Receta> recetasPublicas = newHashSet()
 	def tieneRecetaPublica(String nombreReceta){
@@ -10,16 +10,21 @@ class RepositorioPublico implements RepositorioDeRecetas {
 		
 	}
 	
-	override agregarRecetaPublica(Receta receta){
+	def agregarRecetaPublica(Receta receta){
 		recetasPublicas.add(receta)
 	}
 	
 		
-	override quitarRecetaPublica(Receta receta){
+	def quitarRecetaPublica(Receta receta){
 		if(tieneRecetaPublica(receta.nombre))
 		recetasPublicas.remove(receta)
-		else throw new NoLoTieneException ("El usuario no contiene esta receta publica")
+		else throw new NoLoTieneException ("No existe esta receta publica")
 		
+	}
+	
+	def getRecetas(){
+		
+		this.recetasPublicas
 	}
    	
 }

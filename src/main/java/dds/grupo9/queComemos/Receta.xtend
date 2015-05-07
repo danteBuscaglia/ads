@@ -14,17 +14,23 @@ abstract class Receta{
     var Collection<CondPreexistente> condiciones = newHashSet() /* Condiciones preexistentes */
     var PrivacidadReceta privacidad /* Condición de privacidad de la receta (publica o privada) */
     
-    new (){
+    new (RepoRecetas repositorio){
     	
     	privacidad = new RecetaPublica ()
+    	repositorio.agregarRecetaPublica(this)
     	
     }
-    
-    def creadaPor (Persona persona){
+    new(Persona persona){
     	privacidad = new RecetaPrivada(persona)
     	
     }
     
+    
+    
+    def cambioAPrivada(Persona persona){
+    	
+    	privacidad= new RecetaPrivada(persona)
+    }
     
     def getIngredientes(){
 		this.ingredientes

@@ -3,6 +3,15 @@ package dds.grupo9.queComemos
 
 class RecetaSimple extends Receta {
 	
+	new(Persona persona){
+		super(persona)
+	}
+	
+	
+	
+	new(RepoRecetas repositorio) {
+		super(repositorio)
+	}
 	
 	
 	override agregarSubreceta(Receta c){
@@ -10,7 +19,7 @@ class RecetaSimple extends Receta {
    	}
    	
    	override RecetaSimple copiaReceta(Persona persona){
-		var recetaCopia = new RecetaSimple
+		var recetaCopia = new RecetaSimple(persona)
 		recetaCopia.agregarTodosLosIngredientes(ingredientes)
 		super.copiarAtributosComunes(recetaCopia, persona)
 		return recetaCopia

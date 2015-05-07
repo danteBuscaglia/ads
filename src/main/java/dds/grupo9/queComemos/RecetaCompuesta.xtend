@@ -4,6 +4,15 @@ import java.util.Collection
 class RecetaCompuesta extends Receta {
 	
 	var Collection <Receta> subrecetas = newHashSet()
+	
+	new(RepoRecetas repositorio) {
+		super(repositorio)
+	}
+	
+	new(Persona persona){
+		super(persona)
+	}
+	
    	 
    	def getSubrecetas(){
    		this.subrecetas
@@ -33,7 +42,7 @@ class RecetaCompuesta extends Receta {
   	}
 	
 	override RecetaCompuesta copiaReceta(Persona persona){
-		var recetaCopia = new RecetaCompuesta
+		var recetaCopia = new RecetaCompuesta(persona)
 		recetaCopia.agregarTodasLasSubrecetas(this)
 		super.copiarAtributosComunes(recetaCopia, persona)
 		return recetaCopia
