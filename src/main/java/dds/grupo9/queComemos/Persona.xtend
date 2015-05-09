@@ -19,6 +19,7 @@ class Persona {
     var Collection<GrupoDePersonas> grupos = newHashSet()
     var Collection<Receta> historial = newHashSet()
     var RepoRecetas repositorio
+    var Collection<Receta> recetasFavoritas = newHashSet()
       	
 	new (){
 		nombre = "sinNombre"
@@ -39,7 +40,12 @@ class Persona {
 	
 	def getRecetas(){
 		this.recetasPropias
-	}
+		}
+		
+	def getRecetasFavoritas(){
+		this.recetasFavoritas
+	}	
+	
 	/*Entrega 0 */		
 	def float imc(){		/* IMC: índice de masa corporal, calculado como (peso/estatura^2) */
 		peso / (altura**2) as float
@@ -70,6 +76,12 @@ class Persona {
 	
 	def agregarPreferencia(Preferencia preferencia){ /* Agrega una preferencia a la colección */
 		gustos.add(preferencia)
+	}
+	
+	def marcarRecetaComoFavorita(Receta receta){/*agrega una receta a favoritos si puede verla */
+		if(receta.puedeVerOModificarReceta(this))
+		      recetasFavoritas.add(receta)
+		      else throw new NoPuedeAgregarException("no se puede agregar la receta a favoritos")
 	}
 	
 	def agregarDisgusto(Preferencia preferencia){ /* Agrega una preferencia a la colección */
