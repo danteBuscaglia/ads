@@ -10,8 +10,10 @@ class RepoRecetas  {
 		
 	}
 	
-	def agregarRecetaPublica(Receta receta){
+	def void agregarRecetaPublica(Receta receta){
+		
 		recetasPublicas.add(receta)
+		
 	}
 	
 		

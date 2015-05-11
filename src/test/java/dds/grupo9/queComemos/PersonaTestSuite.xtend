@@ -339,7 +339,7 @@ class PersonaTestSuite {
 	
 	@Test
 	
-	def void unaPersonaTieneAccesoAUnaRecetaPropiaYUnaRecetaPublicaYUnaRecetaDeUnCompanieroDeGrupo(){
+	def void unaPersonaTieneEnSuListaDeRecetasTotalesUnaRecetaPropiaYUnaRecetaPublicaYUnaRecetaDeUnCompañeroDeGrupo(){
 		val persona= new Persona()
 		val persona2= new Persona()
 		val grupo = new GrupoDePersonas("Los Pibes")
@@ -347,6 +347,7 @@ class PersonaTestSuite {
 	    grupo.agregarAGrupo(persona2)
 	    
 	    val repositorio = new RepoRecetas()
+	    persona.setRepositorio(repositorio)
 	    val receta= new RecetaSimple(persona)
 	    receta.agregarIngrediente(new Ingrediente(Preferencia.CARNE,100))
 	    receta.calorias=500
@@ -359,13 +360,34 @@ class PersonaTestSuite {
 	    receta3.calorias=800
 	    persona2.agregarReceta(receta3)
 	    
-	    
-	    
-	    
-	    
-	    Assert.assertEquals(persona.listarTodasSusRecetas.size,3)
+	    Assert.assertEquals(3,persona.listarTodasSusRecetas.size)
 	}
+	
+	@Test
+	
+	def void unaPersonaPuedeAgregarUnaRecetaComoFavoritayQuedaEnElHistorial(){
+		val persona = new Persona()
+		val repositorio = new RepoRecetas()
+		persona.setRepositorio(repositorio)
+		val receta = new RecetaSimple(repositorio)
 		
+		persona.marcarRecetaComoFavorita(receta)
+		
+		Assert.assertTrue(persona.tieneRecetaFavorita(receta))
+		
+	}
+	@Test (expected = NoPuedeAgregarException)
+	
+	def void unaPersonaNoPuedeAgregarUnaRecetaComoFavoritaYSaltaExcepcion(){
+		val persona = new Persona()
+		val persona2 = new Persona()
+		val receta = new RecetaSimple (persona2)
+		
+		persona.marcarRecetaComoFavorita(receta)
+		
+		Assert.assertTrue(persona.tieneRecetaFavorita(receta))
+		
+	}
 	
 	}
 	

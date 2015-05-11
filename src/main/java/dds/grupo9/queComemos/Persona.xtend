@@ -17,8 +17,7 @@ class Persona {
 	@Accessors String rutina /* Tipo de rutina que lleva a cabo el Usuario */
     var Collection<Receta> recetasPropias= newHashSet() /*Recetas de un Usuario */
     var Collection<GrupoDePersonas> grupos = newHashSet()
-    var Collection<Receta> historial = newHashSet()
-    var RepoRecetas repositorio
+    @Accessors RepoRecetas repositorio
     var Collection<Receta> recetasFavoritas = newHashSet()
       	
 	new (){
@@ -78,11 +77,6 @@ class Persona {
 		gustos.add(preferencia)
 	}
 	
-	def marcarRecetaComoFavorita(Receta receta){/*agrega una receta a favoritos si puede verla */
-		if(receta.puedeVerOModificarReceta(this))
-		      recetasFavoritas.add(receta)
-		      else throw new NoPuedeAgregarException("no se puede agregar la receta a favoritos")
-	}
 	
 	def agregarDisgusto(Preferencia preferencia){ /* Agrega una preferencia a la colección */
 		disgustos.add(preferencia)
@@ -160,9 +154,13 @@ class Persona {
 	}
 	
 	def recetasDeGrupo(){
-		val Collection<Receta> lista= newHashSet
-		grupos.forEach[g|lista.addAll(g.listarRecetasDeGrupo)]
-		return lista
+		val Collection<Receta> listaDeRecetas= newHashSet
+		grupos.forEach[g|listaDeRecetas.addAll(g.listarRecetasDeGrupo)]
+		return listaDeRecetas
+	}
+	
+	def recetasPublicas(){
+		repositorio.getRecetas
 	}
 	
 	def void agregarSusRecetas(Collection<Receta> recetas){
@@ -170,11 +168,20 @@ class Persona {
 	}		 
 	
 	def listarTodasSusRecetas(){
-		var lista = newHashSet
-		lista.addAll(recetasPropias,recetasDeGrupo,repositorio.getRecetas)
-		
-		return lista
+		var listaDeRecetas = newHashSet
+		listaDeRecetas.addAll(recetasPropias)
+		listaDeRecetas.addAll(recetasPublicas)
+		listaDeRecetas.addAll(recetasDeGrupo)
+		return listaDeRecetas
 	}
 	
+	def marcarRecetaComoFavorita(Receta receta){/*agrega una receta a favoritos si puede verla */
+		if(receta.puedeVerOModificarReceta(this))
+		      recetasFavoritas.add(receta)
+		      else throw new NoPuedeAgregarException("No se puede agregar la receta a favoritos")
+	}
+	def tieneRecetaFavorita(Receta receta){
+		recetasFavoritas.contains(receta)
+	}
 }
 	
