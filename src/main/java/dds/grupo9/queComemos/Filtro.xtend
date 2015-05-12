@@ -14,7 +14,7 @@ abstract class Filtro implements FiltroDecorado {
 	}
 	
 	override Collection<Receta> resultado() {
-		filtrar(decorado.resultado())
+		filtrar(decorado.resultado)
 	}
 	
 	def Collection<Receta> filtrar(Collection<Receta> recetas)

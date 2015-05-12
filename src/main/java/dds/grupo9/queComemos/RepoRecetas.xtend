@@ -11,9 +11,7 @@ class RepoRecetas  {
 	}
 	
 	def void agregarRecetaPublica(Receta receta){
-		
 		recetasPublicas.add(receta)
-		
 	}
 	
 		

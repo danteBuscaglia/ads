@@ -4,5 +4,5 @@ class NoPuedeAgregarException extends RuntimeException{
 
 new(String string){
 	
-}	
+	}	
 }

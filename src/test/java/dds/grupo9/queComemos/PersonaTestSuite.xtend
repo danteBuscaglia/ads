@@ -403,6 +403,7 @@ class PersonaTestSuite {
 		persona.peso = 120f
 		persona.altura = 1.7f
 		filtro.decorado = persona
+		filtro.persona = persona
 		receta1.agregarIngrediente(new Ingrediente())
 		receta1.calorias = 650
 		receta2.agregarIngrediente(new Ingrediente())
@@ -412,7 +413,9 @@ class PersonaTestSuite {
 		persona.agregarReceta(receta1)
 		persona.agregarReceta(receta3)
 		
-		Assert.assertEquals(filtro.resultado.size,2)
+		Assert.assertEquals(41.52f, persona.imc, 0.05f)
+		Assert.assertEquals(2, persona.recetasPropias.size)
+		Assert.assertEquals(2, filtro.resultado.size)
 	}
 	
 	@Test
@@ -427,6 +430,7 @@ class PersonaTestSuite {
 		
 		persona.setRepositorio(repositorio)
 		persona.agregarCondPreexistente(new Hipertenso())
+		filtro.decorado = persona
 		filtro.persona = persona
 		receta1.agregarIngrediente(new Ingrediente(Preferencia.SAL))
 		receta1.calorias = 650
@@ -437,6 +441,7 @@ class PersonaTestSuite {
 		persona.agregarReceta(receta1)
 		persona.agregarReceta(receta3)
 		
+
 		Assert.assertEquals(filtro.resultado.size,2)
 	}
 	
@@ -453,6 +458,7 @@ class PersonaTestSuite {
 		persona.setRepositorio(repositorio)
 		persona.agregarDisgusto(Preferencia.PESCADO)
 		filtro.persona = persona
+		filtro.decorado = persona
 		receta1.agregarIngrediente(new Ingrediente(Preferencia.PESCADO))
 		receta1.calorias = 650
 		receta2.agregarIngrediente(new Ingrediente())
@@ -462,7 +468,7 @@ class PersonaTestSuite {
 		persona.agregarReceta(receta1)
 		persona.agregarReceta(receta3)
 		
-		Assert.assertEquals(persona.resultado.size,2)
+		Assert.assertEquals(filtro.resultado.size,2)
 	}
 	
 	@Test
@@ -477,6 +483,7 @@ class PersonaTestSuite {
 		
 		persona.setRepositorio(repositorio)
 		filtro.persona = persona
+		filtro.decorado = persona
 		receta1.agregarIngrediente(new Ingrediente(Preferencia.LOMO))
 		receta1.calorias = 650
 		receta2.agregarIngrediente(new Ingrediente())
@@ -486,7 +493,8 @@ class PersonaTestSuite {
 		persona.agregarReceta(receta1)
 		persona.agregarReceta(receta3)
 		
-		Assert.assertEquals(persona.resultado.size,2)
+		Assert.assertEquals(filtro.resultado.size,2
+		)
 	}
 	
 	@Test
@@ -503,7 +511,9 @@ class PersonaTestSuite {
 		persona.setRepositorio(repositorio)
 		persona.agregarCondPreexistente(new Hipertenso()) 
 		filtro1.persona = persona
-		filtro2.persona = persona
+		filtro2.persona = filtro1.persona
+		filtro1.decorado = persona
+		filtro2.decorado = filtro1
 		receta1.agregarIngrediente(new Ingrediente(Preferencia.LOMO))
 		receta1.calorias = 650
 		receta2.agregarIngrediente(new Ingrediente(Preferencia.SAL))
@@ -513,7 +523,7 @@ class PersonaTestSuite {
 		persona.agregarReceta(receta1)
 		persona.agregarReceta(receta3)
 		
-		Assert.assertEquals(persona.resultado.size,1)
+		Assert.assertEquals(filtro2.resultado.size,1)
 	}	
 
 	@Test
@@ -538,7 +548,8 @@ class PersonaTestSuite {
 		persona.setRepositorio(repositorio)
 		persona.agregarCondPreexistente(new Hipertenso()) 
 		filtro.persona = persona
-		receta1.agregarIngrediente(new Ingrediente(Preferencia.LOMO))
+		filtro.decorado = persona
+		receta1.agregarIngrediente(new Ingrediente(Preferencia.CALDO))
 		receta1.calorias = 650
 		receta2.agregarIngrediente(new Ingrediente(Preferencia.SAL))
 		receta2.calorias = 420
@@ -569,7 +580,7 @@ class PersonaTestSuite {
 		persona.agregarReceta(receta12)
 		filtro.obtenerLosDiezPrimeros()
 		
-		Assert.assertEquals(persona.resultado.size,10)
+		Assert.assertEquals(filtro.resultado.size,10)
 	}
 }
 	

@@ -37,7 +37,7 @@ class Persona implements FiltroDecorado {
 		this.disgustos
 	}
 	
-	def getRecetas(){
+	def getRecetasPropias(){
 		this.recetasPropias
 		}
 		
@@ -168,7 +168,7 @@ class Persona implements FiltroDecorado {
 	}		 
 	
 	def listarTodasSusRecetas(){
-		var listaDeRecetas = newHashSet
+		var listaDeRecetas = newHashSet()
 		listaDeRecetas.addAll(recetasPropias)
 		listaDeRecetas.addAll(recetasPublicas)
 		listaDeRecetas.addAll(recetasDeGrupo)
@@ -185,7 +185,7 @@ class Persona implements FiltroDecorado {
 	}
 	
 	override Collection<Receta> resultado(){
-		listarTodasSusRecetas()		
+		this.listarTodasSusRecetas		
 	}
 	
 	def tieneSobrepeso(int max){

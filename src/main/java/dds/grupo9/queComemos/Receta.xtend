@@ -22,7 +22,7 @@ abstract class Receta{
     }
     new(Persona persona){
     	privacidad = new RecetaPrivada(persona)
-    	
+    	//persona.agregarReceta(this) //HABRIA QUE AGREGAR ESTO PORQUE ES LO MAS LOGICO Y MODIFICAR LOS TEST
     }
     
     
