@@ -376,6 +376,28 @@ class PersonaTestSuite {
 		Assert.assertTrue(persona.tieneRecetaFavorita(receta))
 		
 	}
+	
+	
+	@Test 
+	 
+	 def void unaPersonaAgregaUnaRecetaPrivadaAFavoritos (){
+           
+           val persona = new Persona()
+           val persona2 = new Persona()
+           val receta = new RecetaSimple(persona)
+           receta.agregarIngrediente(new Ingrediente())
+		   receta.calorias=500
+           val grupo = new GrupoDePersonas("amigos")
+           
+           grupo.agregarAGrupo(persona)
+           grupo.agregarAGrupo(persona2)
+		   persona.agregarReceta(receta) 
+		   receta.cambioAPrivada(persona)	
+	 	   persona2.marcarRecetaComoFavorita(receta)
+	 	   
+	 	 Assert.assertEquals(persona2.getRecetasFavoritas.size,1)  
+	 }
+	    
 	@Test (expected = NoPuedeAgregarException)
 	
 	def void unaPersonaNoPuedeAgregarUnaRecetaComoFavoritaYSaltaExcepcion(){
