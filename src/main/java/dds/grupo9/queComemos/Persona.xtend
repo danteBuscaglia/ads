@@ -4,7 +4,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.Collection
 
 
-class Persona {
+class Persona implements FiltroDecorado {
 	
 	@Accessors float peso	/* Peso de un Usuario */
 	@Accessors float altura		/* Altura de un Usuario */
@@ -182,6 +182,14 @@ class Persona {
 	}
 	def tieneRecetaFavorita(Receta receta){
 		recetasFavoritas.contains(receta)
+	}
+	
+	override Collection<Receta> resultado(){
+		listarTodasSusRecetas()		
+	}
+	
+	def tieneSobrepeso(int max){
+		this.imc > max
 	}
 }
 	

@@ -160,9 +160,8 @@ abstract class Receta{
 		ingredientes.exists[unGrupo.leGusta(it.nombre)] 
 	}
 	
-	
-	
-	
-	
+	def tieneIngredientesCaros(){
+		ingredientes.exists[it.esCaro()]
+	}
 	
 }

@@ -28,4 +28,8 @@ class Ingrediente {
     def boolean tieneMasDeLoPermitidoDe(int cantidadMax, Ingrediente ingrediente){
 		soyYo(ingrediente.nombre) && cantidad > cantidadMax
     }
+    
+    def esCaro(){
+    	soyYo(Preferencia.LECHON) || soyYo(Preferencia.LOMO) || soyYo(Preferencia.SALMON) || soyYo(Preferencia.ALCAPARRAS)
+    }
 }
