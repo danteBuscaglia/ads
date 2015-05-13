@@ -19,12 +19,23 @@ abstract class Filtro implements FiltroDecorado {
 	
 	def Collection<Receta> filtrar(Collection<Receta> recetas)
 
+	def Receta resultadoEnPosicionXLuegoDeOrdenarPor(int posicion, CriterioDeOrdenamiento criterio){
+		(criterio.ordenar(this.resultado).drop(posicion-1)).head
+	}
+
 	def obtenerLosDiezPrimeros(){
 		this.resultado.take(10)
 	}
 	
 	def considerarSoloLosResultadosPares(){
-		this.resultado.toArray()
+		var recetasPares = newHashSet()
+		var i = 0
+		for(receta:this.resultado){
+			if(i%2==0)
+				recetasPares.add(receta)
+			i++
+		}
+		recetasPares
 	}
 	
 	def ordenarLosResultados(CriterioDeOrdenamiento criterio){

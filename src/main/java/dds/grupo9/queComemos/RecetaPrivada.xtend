@@ -9,7 +9,7 @@ class RecetaPrivada implements PrivacidadReceta{
 	}
 	
 	override puedeVermeOModificarme(Persona persona){
-	persona.comparteGrupoCon(creador) || persona == creador
+		persona.comparteGrupoCon(creador) || persona == creador
 	}
 	
 	override cambiosDeReceta(Persona persona, Modificacion modificacion, Receta receta){

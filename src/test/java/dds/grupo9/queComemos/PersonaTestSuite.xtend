@@ -2,7 +2,7 @@ package dds.grupo9.queComemos
 
 import org.junit.Test
 import org.junit.Assert
-
+import java.util.Collection
 
 class PersonaTestSuite {
 
@@ -515,8 +515,7 @@ class PersonaTestSuite {
 		persona.agregarReceta(receta1)
 		persona.agregarReceta(receta3)
 		
-		Assert.assertEquals(filtro.resultado.size,2
-		)
+		Assert.assertEquals(filtro.resultado.size,2)
 	}
 	
 	@Test
@@ -533,7 +532,7 @@ class PersonaTestSuite {
 		persona.setRepositorio(repositorio)
 		persona.agregarCondPreexistente(new Hipertenso()) 
 		filtro1.persona = persona
-		filtro2.persona = filtro1.persona
+		filtro2.persona = persona
 		filtro1.decorado = persona
 		filtro2.decorado = filtro1
 		receta1.agregarIngrediente(new Ingrediente(Preferencia.LOMO))
@@ -551,6 +550,62 @@ class PersonaTestSuite {
 	@Test
 	
 	def void unaPersonaPuedeObtenerLosDiezPrimerosResultadosDeUnaBusqueda(){
+		val repositorio = new RepoRecetas()
+		val persona = new Persona()
+		val filtro = new FiltroPorCondicionesPreexistentes()
+		val receta1 = new RecetaSimple(persona)
+		val receta2 = new RecetaSimple(repositorio)
+		val receta3 = new RecetaSimple(persona)
+		val receta4 = new RecetaSimple(repositorio)
+		val receta5 = new RecetaSimple(repositorio)
+		val receta6 = new RecetaSimple(persona)
+		val receta7 = new RecetaSimple(repositorio)
+		val receta8 = new RecetaSimple(repositorio)
+		val receta9 = new RecetaSimple(persona)
+		val receta10 = new RecetaSimple(repositorio)
+		val receta11 = new RecetaSimple(repositorio)
+		val receta12 = new RecetaSimple(persona)
+		
+		persona.setRepositorio(repositorio)
+		persona.agregarCondPreexistente(new Hipertenso()) 
+		filtro.persona = persona
+		filtro.decorado = persona
+		receta1.agregarIngrediente(new Ingrediente(Preferencia.CALDO))
+		receta1.calorias = 650
+		receta2.agregarIngrediente(new Ingrediente())
+		receta2.calorias = 420
+		receta3.agregarIngrediente(new Ingrediente())
+		receta3.calorias = 300
+		receta4.agregarIngrediente(new Ingrediente())
+		receta4.calorias = 500
+		receta5.agregarIngrediente(new Ingrediente())
+		receta5.calorias = 400
+		receta6.agregarIngrediente(new Ingrediente())
+		receta6.calorias = 350
+		receta7.agregarIngrediente(new Ingrediente())
+		receta7.calorias = 680
+		receta8.agregarIngrediente(new Ingrediente())
+		receta8.calorias = 470
+		receta9.agregarIngrediente(new Ingrediente())
+		receta9.calorias = 360
+		receta10.agregarIngrediente(new Ingrediente())
+		receta10.calorias = 680
+		receta11.agregarIngrediente(new Ingrediente())
+		receta11.calorias = 460
+		receta12.agregarIngrediente(new Ingrediente())
+		receta12.calorias = 320
+		persona.agregarReceta(receta1)
+		persona.agregarReceta(receta3)
+		persona.agregarReceta(receta6)
+		persona.agregarReceta(receta9)
+		persona.agregarReceta(receta12)
+		
+		Assert.assertEquals(filtro.obtenerLosDiezPrimeros.size,10)
+	}
+	
+	@Test
+	
+	def void unaPersonaPuedeObtenerSoloLas5RecetasParesDeUnaBusquedaQueDevuelve10Resultados(){
 		val repositorio = new RepoRecetas()
 		val persona = new Persona()
 		val filtro = new FiltroPorCondicionesPreexistentes()
@@ -600,9 +655,47 @@ class PersonaTestSuite {
 		persona.agregarReceta(receta6)
 		persona.agregarReceta(receta9)
 		persona.agregarReceta(receta12)
-		filtro.obtenerLosDiezPrimeros()
+
 		
-		Assert.assertEquals(filtro.resultado.size,10)
+		Assert.assertEquals(filtro.considerarSoloLosResultadosPares.size,5)
+	}
+	
+	@Test
+	
+	def void unaPersonaPuedeOrdenarLosResultadosDeUnaBusquedaSegunSusCalorias(){
+		val repositorio = new RepoRecetas()
+		val persona = new Persona()
+		val filtro = new FiltroPorCondicionesPreexistentes()
+		val receta1 = new RecetaSimple(persona)
+		val receta2 = new RecetaSimple(repositorio)
+		val receta3 = new RecetaSimple(persona)
+		val receta4 = new RecetaSimple(repositorio)
+		val receta5 = new RecetaSimple(persona)
+		val criterioCal = new CriterioPorCalorias()
+		
+		persona.setRepositorio(repositorio)
+		persona.agregarCondPreexistente(new Hipertenso()) 
+		filtro.persona = persona
+		filtro.decorado = persona
+		receta1.agregarIngrediente(new Ingrediente())
+		receta1.calorias = 650
+		receta2.agregarIngrediente(new Ingrediente(Preferencia.SAL))
+		receta2.calorias = 420
+		receta3.agregarIngrediente(new Ingrediente())
+		receta3.calorias = 300
+		receta4.agregarIngrediente(new Ingrediente())
+		receta4.calorias = 550
+		receta5.agregarIngrediente(new Ingrediente())
+		receta5.calorias = 350
+		persona.agregarReceta(receta1)
+		persona.agregarReceta(receta3)
+		persona.agregarReceta(receta5)
+		
+		
+		Assert.assertEquals(filtro.resultadoEnPosicionXLuegoDeOrdenarPor(1, criterioCal), receta3)
+		Assert.assertEquals(filtro.resultadoEnPosicionXLuegoDeOrdenarPor(2, criterioCal), receta5)
+		Assert.assertEquals(filtro.resultadoEnPosicionXLuegoDeOrdenarPor(3, criterioCal), receta4)
+		Assert.assertEquals(filtro.resultadoEnPosicionXLuegoDeOrdenarPor(4, criterioCal), receta1)
 	}
 }
 	
