@@ -2,9 +2,25 @@ package dds.grupo9.queComemos
 
 import org.junit.Test
 import org.junit.Assert
-import java.util.Collection
+import dds.grupo9.queComemos.condicionPreexistente.Hipertenso
+import dds.grupo9.queComemos.filtros.FiltroPorCondicionesPreexistentes
+import dds.grupo9.queComemos.condicionPreexistente.Vegano
+import dds.grupo9.queComemos.filtros.FiltroPorCaloriasMaximas
+import dds.grupo9.queComemos.condicionPreexistente.Diabetico
+import dds.grupo9.queComemos.condicionPreexistente.Celiaco
+import dds.grupo9.queComemos.filtros.FiltroPorDisgusto
+import dds.grupo9.queComemos.filtros.FiltroPorIngredientesCaros
+import dds.grupo9.queComemos.excepciones.NoEsValidoException
+import dds.grupo9.queComemos.excepciones.NoPuedeAgregarException
+import dds.grupo9.queComemos.manejoResultadosFiltros.Busqueda
+import dds.grupo9.queComemos.manejoResultadosFiltros.ObtenerLosDiezPrimeros
+import dds.grupo9.queComemos.manejoResultadosFiltros.ConsiderarRecetasPares
+import dds.grupo9.queComemos.ordenamientoResultados.CriterioPorCalorias
+import dds.grupo9.queComemos.manejoResultadosFiltros.OrdenarPorCriterio
 
 class PersonaTestSuite {
+	
+
 
 	@Test
 	def void unaPersonaIMC(){
@@ -355,6 +371,7 @@ class PersonaTestSuite {
 	    val receta2= new RecetaSimple(repositorio)
 	    receta2.agregarIngrediente(new Ingrediente(Preferencia.CHORI,100))
 	    receta2.calorias=700
+	    repositorio.agregarRecetaPublica(receta2)
 	    val receta3= new RecetaSimple(persona2)
 	    receta3.agregarIngrediente(new Ingrediente(Preferencia.POLLO,100))
 	    receta3.calorias=800
@@ -370,6 +387,7 @@ class PersonaTestSuite {
 		val repositorio = new RepoRecetas()
 		persona.setRepositorio(repositorio)
 		val receta = new RecetaSimple(repositorio)
+		repositorio.agregarRecetaPublica(receta)
 		
 		persona.marcarRecetaComoFavorita(receta)
 		
@@ -392,7 +410,6 @@ class PersonaTestSuite {
            grupo.agregarAGrupo(persona)
            grupo.agregarAGrupo(persona2)
 		   persona.agregarReceta(receta) 
-		   receta.cambioAPrivada(persona)	
 	 	   persona2.marcarRecetaComoFavorita(receta)
 	 	   
 	 	 Assert.assertEquals(persona2.getRecetasFavoritas.size,1)  
@@ -406,9 +423,7 @@ class PersonaTestSuite {
 		val receta = new RecetaSimple (persona2)
 		
 		persona.marcarRecetaComoFavorita(receta)
-		
-		Assert.assertTrue(persona.tieneRecetaFavorita(receta))
-		
+
 	}
 	
 	@Test
@@ -433,6 +448,7 @@ class PersonaTestSuite {
 		receta3.agregarIngrediente(new Ingrediente())
 		receta3.calorias = 300
 		persona.agregarReceta(receta1)
+		repositorio.agregarRecetaPublica(receta2)
 		persona.agregarReceta(receta3)
 		
 		Assert.assertEquals(41.52f, persona.imc, 0.05f)
@@ -461,6 +477,7 @@ class PersonaTestSuite {
 		receta3.agregarIngrediente(new Ingrediente())
 		receta3.calorias = 300
 		persona.agregarReceta(receta1)
+		repositorio.agregarRecetaPublica(receta2)
 		persona.agregarReceta(receta3)
 		
 
@@ -488,6 +505,7 @@ class PersonaTestSuite {
 		receta3.agregarIngrediente(new Ingrediente())
 		receta3.calorias = 300
 		persona.agregarReceta(receta1)
+		repositorio.agregarRecetaPublica(receta2)
 		persona.agregarReceta(receta3)
 		
 		Assert.assertEquals(filtro.resultado.size,2)
@@ -513,6 +531,7 @@ class PersonaTestSuite {
 		receta3.agregarIngrediente(new Ingrediente())
 		receta3.calorias = 300
 		persona.agregarReceta(receta1)
+		repositorio.agregarRecetaPublica(receta2)
 		persona.agregarReceta(receta3)
 		
 		Assert.assertEquals(filtro.resultado.size,2)
@@ -542,6 +561,7 @@ class PersonaTestSuite {
 		receta3.agregarIngrediente(new Ingrediente())
 		receta3.calorias = 300
 		persona.agregarReceta(receta1)
+		repositorio.agregarRecetaPublica(receta2)
 		persona.agregarReceta(receta3)
 		
 		Assert.assertEquals(filtro2.resultado.size,1)
@@ -565,6 +585,11 @@ class PersonaTestSuite {
 		val receta10 = new RecetaSimple(repositorio)
 		val receta11 = new RecetaSimple(repositorio)
 		val receta12 = new RecetaSimple(persona)
+		
+		val busqueda = new Busqueda()
+		busqueda.fuenteDeDatos = filtro		
+		val diezPrimeros = new ObtenerLosDiezPrimeros()
+		busqueda.proceso = diezPrimeros
 		
 		persona.setRepositorio(repositorio)
 		persona.agregarCondPreexistente(new Hipertenso()) 
@@ -595,12 +620,19 @@ class PersonaTestSuite {
 		receta12.agregarIngrediente(new Ingrediente())
 		receta12.calorias = 320
 		persona.agregarReceta(receta1)
+		repositorio.agregarRecetaPublica(receta2)
 		persona.agregarReceta(receta3)
+		repositorio.agregarRecetaPublica(receta4)
+		repositorio.agregarRecetaPublica(receta5)
 		persona.agregarReceta(receta6)
+		repositorio.agregarRecetaPublica(receta7)
+		repositorio.agregarRecetaPublica(receta8)
 		persona.agregarReceta(receta9)
+		repositorio.agregarRecetaPublica(receta10)
+		repositorio.agregarRecetaPublica(receta11)
 		persona.agregarReceta(receta12)
 		
-		Assert.assertEquals(filtro.obtenerLosDiezPrimeros.size,10)
+		Assert.assertEquals(busqueda.resultado.size,10)
 	}
 	
 	@Test
@@ -621,6 +653,11 @@ class PersonaTestSuite {
 		val receta10 = new RecetaSimple(repositorio)
 		val receta11 = new RecetaSimple(repositorio)
 		val receta12 = new RecetaSimple(persona)
+		
+		val busqueda = new Busqueda()
+		busqueda.fuenteDeDatos = filtro		
+		val procesoPares = new ConsiderarRecetasPares()
+		busqueda.proceso = procesoPares
 		
 		persona.setRepositorio(repositorio)
 		persona.agregarCondPreexistente(new Hipertenso()) 
@@ -651,13 +688,20 @@ class PersonaTestSuite {
 		receta12.agregarIngrediente(new Ingrediente())
 		receta12.calorias = 320
 		persona.agregarReceta(receta1)
+		repositorio.agregarRecetaPublica(receta2)
 		persona.agregarReceta(receta3)
+		repositorio.agregarRecetaPublica(receta4)
+		repositorio.agregarRecetaPublica(receta5)
 		persona.agregarReceta(receta6)
+		repositorio.agregarRecetaPublica(receta7)
+		repositorio.agregarRecetaPublica(receta8)
 		persona.agregarReceta(receta9)
+		repositorio.agregarRecetaPublica(receta10)
+		repositorio.agregarRecetaPublica(receta11)
 		persona.agregarReceta(receta12)
 
 		
-		Assert.assertEquals(filtro.considerarSoloLosResultadosPares.size,5)
+		Assert.assertEquals(busqueda.resultado.size,5)
 	}
 	
 	@Test
@@ -672,6 +716,11 @@ class PersonaTestSuite {
 		val receta4 = new RecetaSimple(repositorio)
 		val receta5 = new RecetaSimple(persona)
 		val criterioCal = new CriterioPorCalorias()
+		
+		val busqueda = new Busqueda()
+		busqueda.fuenteDeDatos = filtro		
+		val ordenar = new OrdenarPorCriterio(criterioCal)
+		busqueda.proceso = ordenar
 		
 		persona.setRepositorio(repositorio)
 		persona.agregarCondPreexistente(new Hipertenso()) 
@@ -688,14 +737,14 @@ class PersonaTestSuite {
 		receta5.agregarIngrediente(new Ingrediente())
 		receta5.calorias = 350
 		persona.agregarReceta(receta1)
+		repositorio.agregarRecetaPublica(receta2)
 		persona.agregarReceta(receta3)
+		repositorio.agregarRecetaPublica(receta4)
 		persona.agregarReceta(receta5)
 		
+		val recetasOrdenadas = #[receta3,receta5,receta4,receta1]
 		
-		Assert.assertEquals(filtro.resultadoEnPosicionXLuegoDeOrdenarPor(1, criterioCal), receta3)
-		Assert.assertEquals(filtro.resultadoEnPosicionXLuegoDeOrdenarPor(2, criterioCal), receta5)
-		Assert.assertEquals(filtro.resultadoEnPosicionXLuegoDeOrdenarPor(3, criterioCal), receta4)
-		Assert.assertEquals(filtro.resultadoEnPosicionXLuegoDeOrdenarPor(4, criterioCal), receta1)
+		Assert.assertEquals(busqueda.resultado, recetasOrdenadas)	
 	}
 }
 	

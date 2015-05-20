@@ -1,5 +1,6 @@
 package dds.grupo9.queComemos
 
+import dds.grupo9.queComemos.excepciones.NoEsValidoException
 
 class RecetaSimple extends Receta {
 	

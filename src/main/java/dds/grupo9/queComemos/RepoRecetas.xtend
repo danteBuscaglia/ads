@@ -1,6 +1,7 @@
 package dds.grupo9.queComemos
 
 import java.util.Collection
+import dds.grupo9.queComemos.excepciones.NoLoTieneException
 
 class RepoRecetas  {
 	

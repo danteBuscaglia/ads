@@ -1,7 +1,8 @@
-package dds.grupo9.queComemos
+package dds.grupo9.queComemos.filtros
 
 import java.util.Collection
 import org.eclipse.xtend.lib.annotations.Accessors
+import dds.grupo9.queComemos.Receta
 
 class FiltroPorCaloriasMaximas extends Filtro {
 	
@@ -13,10 +14,12 @@ class FiltroPorCaloriasMaximas extends Filtro {
 		
 	override filtrar (Collection <Receta> recetas){
 		if(persona.tieneSobrepeso(maxSobrepeso)){
-			var Collection<Receta> lista = newHashSet()
+			var Collection<dds.grupo9.queComemos.Receta> lista = newHashSet()
 			lista.addAll(recetas.filter[it.calorias < 500]) 
-			lista 	
+			lista
+//			recetas.filter[it.calorias < 500] as Collection<Receta>
 		}
+		else recetas
 	}
 	
 }

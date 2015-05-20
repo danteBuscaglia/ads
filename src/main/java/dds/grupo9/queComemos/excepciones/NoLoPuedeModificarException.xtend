@@ -1,4 +1,4 @@
-package dds.grupo9.queComemos
+package dds.grupo9.queComemos.excepciones
 
 class NoLoPuedeModificarException extends RuntimeException {
 	

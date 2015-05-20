@@ -1,5 +1,7 @@
 package dds.grupo9.queComemos
 
+import dds.grupo9.queComemos.modificacionRecetas.Modificacion
+
 interface PrivacidadReceta {
 	
 	def boolean puedeVermeOModificarme(Persona persona)

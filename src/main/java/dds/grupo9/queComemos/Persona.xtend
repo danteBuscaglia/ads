@@ -2,7 +2,12 @@ package dds.grupo9.queComemos
 
 import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.Collection
-
+import dds.grupo9.queComemos.condicionPreexistente.CondPreexistente
+import dds.grupo9.queComemos.filtros.FiltroDecorado
+import dds.grupo9.queComemos.excepciones.NoEsValidoException
+import dds.grupo9.queComemos.excepciones.NoLoPuedeModificarException
+import dds.grupo9.queComemos.excepciones.NoPuedeAgregarException
+import dds.grupo9.queComemos.modificacionRecetas.Modificacion
 
 class Persona implements FiltroDecorado {
 	

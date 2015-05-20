@@ -2,6 +2,8 @@ package dds.grupo9.queComemos
 
 import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.Collection
+import dds.grupo9.queComemos.condicionPreexistente.CondPreexistente
+import dds.grupo9.queComemos.modificacionRecetas.Modificacion
 
 abstract class Receta{
 	
@@ -17,12 +19,10 @@ abstract class Receta{
     new (RepoRecetas repositorio){
     	
     	privacidad = new RecetaPublica ()
-    	repositorio.agregarRecetaPublica(this)
-    	
+//    	repositorio.agregarRecetaPublica(this)	
     }
     new(Persona persona){
     	privacidad = new RecetaPrivada(persona)
-//    	persona.agregarReceta(this)
     }
     
     

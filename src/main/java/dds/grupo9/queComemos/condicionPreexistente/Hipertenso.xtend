@@ -1,6 +1,10 @@
-package dds.grupo9.queComemos
+package dds.grupo9.queComemos.condicionPreexistente
 
 import java.util.Collection
+import dds.grupo9.queComemos.Preferencia
+import dds.grupo9.queComemos.Ingrediente
+import dds.grupo9.queComemos.Receta
+import dds.grupo9.queComemos.Persona
 
 class Hipertenso implements CondPreexistente {
 	var Collection<Ingrediente> prescripcionesMedicas = newHashSet()

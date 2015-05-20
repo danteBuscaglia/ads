@@ -2,7 +2,12 @@ package dds.grupo9.queComemos
 
 import org.junit.Test
 import org.junit.Assert
-
+import dds.grupo9.queComemos.condicionPreexistente.Vegano
+import dds.grupo9.queComemos.condicionPreexistente.Hipertenso
+import dds.grupo9.queComemos.condicionPreexistente.Celiaco
+import dds.grupo9.queComemos.excepciones.NoEsValidoException
+import dds.grupo9.queComemos.modificacionRecetas.modAgregarIngredientes
+import dds.grupo9.queComemos.modificacionRecetas.modEliminarIngredientes
 
 class RecetaTestSuite {
 	

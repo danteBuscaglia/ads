@@ -1,7 +1,11 @@
-package dds.grupo9.queComemos
+package dds.grupo9.queComemos.condicionPreexistente
 
 import java.util.Collection
 import org.eclipse.xtend.lib.annotations.Accessors
+import dds.grupo9.queComemos.Preferencia
+import dds.grupo9.queComemos.Ingrediente
+import dds.grupo9.queComemos.Persona
+import dds.grupo9.queComemos.Receta
 
 class Diabetico implements CondPreexistente {
 	@Accessors int cantidadAzucarPermitida

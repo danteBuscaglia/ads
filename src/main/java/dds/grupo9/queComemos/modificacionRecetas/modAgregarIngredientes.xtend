@@ -1,4 +1,8 @@
-package dds.grupo9.queComemos
+package dds.grupo9.queComemos.modificacionRecetas
+
+
+import dds.grupo9.queComemos.Ingrediente
+import dds.grupo9.queComemos.Receta
 
 class modAgregarIngredientes implements Modificacion {
 	
