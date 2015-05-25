@@ -374,6 +374,8 @@ class RecetaTestSuite {
 		
 		Assert.assertFalse(receta.puedeSerSugeridaA(grupo))	
 	}	
+	
+	//ENTREGA 3 TEST
 }
 	
 	

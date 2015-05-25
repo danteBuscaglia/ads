@@ -8,6 +8,7 @@ import dds.grupo9.queComemos.excepciones.NoEsValidoException
 import dds.grupo9.queComemos.excepciones.NoLoPuedeModificarException
 import dds.grupo9.queComemos.excepciones.NoPuedeAgregarException
 import dds.grupo9.queComemos.modificacionRecetas.Modificacion
+import dds.grupo9.queComemos.repoUsuarios.RepoUsuarios
 
 class Persona implements FiltroDecorado {
 	
@@ -27,6 +28,15 @@ class Persona implements FiltroDecorado {
     @Accessors RepoUsuarios repoUsuarios
       	
 	new (){
+		this.incializarAtributos
+	}
+	
+	new (RepoUsuarios repoUsuarios){
+		this.incializarAtributos
+		repoUsuarios.agregarAPendiente(this)
+	}
+	
+	def incializarAtributos(){
 		nombre = "sinNombre"
 		fechaNacimiento = -1
 		peso = -1
@@ -35,9 +45,6 @@ class Persona implements FiltroDecorado {
 		sexo = "sinSexo"
 	}
 	
-	new(RepoUsuarios repoUsuarios){
-		repoUsuarios.agregarAPendiente(this)
-	}
 	def getGustos(){
 		this.gustos
 	}

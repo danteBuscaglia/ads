@@ -18,6 +18,7 @@ import dds.grupo9.queComemos.manejoResultadosFiltros.ConsiderarRecetasPares
 import dds.grupo9.queComemos.ordenamientoResultados.CriterioPorCalorias
 import dds.grupo9.queComemos.manejoResultadosFiltros.OrdenarPorCriterio
 import dds.grupo9.queComemos.excepciones.NoLoTieneException
+import dds.grupo9.queComemos.repoUsuarios.RepoUsuarios
 
 class PersonaTestSuite {
 	
@@ -748,6 +749,8 @@ class PersonaTestSuite {
 		Assert.assertEquals(busqueda.resultado, recetasOrdenadas)	
 	}
 
+	// ENTREGA 3 TEST
+	
        @Test
        
        def void unaPersonaEsAceptadaPorElAdministradorYElRepoLaEncuentraPorSuNombre(){
@@ -776,7 +779,7 @@ class PersonaTestSuite {
      
      @Test
      
-     def void seActualizanLosDatosDeUnaPersonaRegistradaEnElRepo(){
+     def void seActualizanLosDatosDeUnaPersonaRegistradaEnElRepoYElRegistroDelRepoSufreLasModificaciones(){
      	
      	val repoUsuarios = new RepoUsuarios()
         val juani = new Persona(repoUsuarios)
@@ -794,7 +797,7 @@ class PersonaTestSuite {
    
     @Test (expected = NoLoTieneException)
     
-    def void seIntentanActualizarLosDatosDeUnaPersonaPeroNoEstaRegistrada(){
+    def void noSePuedenActualizarLosDatosDeUnaPersonaQueNoEsUnUsuarioRegistrado(){
     	val repoUsuarios = new RepoUsuarios()
         val juani = new Persona(repoUsuarios)
         juani.nombre= "juani"
@@ -805,22 +808,37 @@ class PersonaTestSuite {
         repoUsuarios.update(juaniActualizado)
         
    }
-   @Test
-   def void seListanTodasLasPersonasConMismoNombreYDiabeticasRegistradas(){
-   	val repoUsuarios = new RepoUsuarios()
-   	val juani = new Persona (repoUsuarios)
-   	val juani2 = new Persona(repoUsuarios)
-   	val diabetico = new Diabetico()
-   	juani.nombre = "juani"
-   	juani.agregarCondPreexistente(diabetico)
-   	juani2.nombre = "juani"
-   	juani2.agregarCondPreexistente(diabetico)
+	@Test
+	def void seListanTodasLasPersonasConMismoNombreYDiabeticasRegistradas(){
+   		val repoUsuarios = new RepoUsuarios()
+   		val juani = new Persona (repoUsuarios)
+   		val juani2 = new Persona(repoUsuarios)
+   		val diabetico = new Diabetico()
+   		juani.nombre = "juani"
+   		juani.agregarCondPreexistente(diabetico)
+   		juani2.nombre = "juani"
+   		juani2.agregarCondPreexistente(diabetico)
    	
-   	repoUsuarios.aceptarUsuario(juani)
-   	repoUsuarios.aceptarUsuario(juani2)
+   		repoUsuarios.aceptarUsuario(juani)
+   		repoUsuarios.aceptarUsuario(juani2)
    	
-   	Assert.assertEquals(2,repoUsuarios.list(juani).size)
+   		Assert.assertEquals(2,repoUsuarios.list(juani).size)
    	
    }
+   
+   	@Test
+	def void seListanTodasLasPersonasConMismoNombreSinImportarLaCondicionPreexistentePorqueElPrototipoNoTieneNinguna(){
+   		val repoUsuarios = new RepoUsuarios()
+   		val juani = new Persona (repoUsuarios)
+   		val juani2 = new Persona(repoUsuarios)
+   		juani.nombre = "juani"
+   		juani2.nombre = "juani"
+   	
+   		repoUsuarios.aceptarUsuario(juani)
+   		repoUsuarios.aceptarUsuario(juani2)
+   	
+   		Assert.assertEquals(2,repoUsuarios.list(juani).size)
+   	
    }
+}
    
