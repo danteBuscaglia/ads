@@ -214,6 +214,10 @@ class Persona implements FiltroDecorado {
 		
 	}
 	
+	def noContieneIngredientesQueLeDisgusten(Receta unaReceta){
+		disgustos.forall[!unaReceta.tieneIngrediente(it)]
+	}
+	
 	
 }
 	

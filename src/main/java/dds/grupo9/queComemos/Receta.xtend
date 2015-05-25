@@ -145,19 +145,11 @@ abstract class Receta{
 	
 	/*Entrega 2 Punto 1. Invocar con: receta.puedeSerSugeridaA(unaPresona/unGrupo) es polimórfica */
 	def puedeSerSugeridaA(Persona unaPersona){
-		this.noContieneIngredientesQueLeDisgustenA(unaPersona)	&& !unaPersona.recetaNoRecomendada(this)
+		unaPersona.noContieneIngredientesQueLeDisgusten(this)	&& !unaPersona.recetaNoRecomendada(this)
 	}
 	
 	def puedeSerSugeridaA(GrupoDePersonas unGrupo){
-		this.contieneAlgunIngredienteQuePrefiereElGrupo(unGrupo) && unGrupo.laRecetaEsApropiadaParaTodos(this)	
-	}
-	
-	def noContieneIngredientesQueLeDisgustenA(Persona persona){
-		ingredientes.forall[persona.noLeDisguta(it.nombre)]
-	}
-	
-	def contieneAlgunIngredienteQuePrefiereElGrupo(GrupoDePersonas unGrupo){
-		ingredientes.exists[unGrupo.leGusta(it.nombre)] 
+		unGrupo.contieneAlgunIngredienteQuePrefiereElGrupo(this) && unGrupo.laRecetaEsApropiadaParaTodos(this)	
 	}
 	
 	def tieneIngredientesCaros(){

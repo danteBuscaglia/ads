@@ -58,4 +58,9 @@ class GrupoDePersonas {
 		integrantes.forEach[i|i.agregarSusRecetas(recetasEnComun)]
 		return recetasEnComun
 	}
+	
+		
+	def contieneAlgunIngredienteQuePrefiereElGrupo(Receta unaReceta){
+		gustos.exists[unaReceta.tieneIngrediente(it)] 
+	}
 }
