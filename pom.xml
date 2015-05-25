@@ -10,4 +10,10 @@
        <version>2.7.3</version>
    </parent>
    
+   <dependency>
+    <groupId>org.uqbar-project</groupId>
+    <artifactId>uqbar-domain</artifactId>
+    <version>3.5.1</version>
+</dependency>
+   
 </project>

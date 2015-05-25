@@ -363,7 +363,7 @@ class PersonaTestSuite {
 	    grupo.agregarAGrupo(persona2)
 	    
 	    val repositorio = new RepoRecetas()
-	    persona.setRepositorio(repositorio)
+	    persona.setRepoRecetas(repositorio)
 	    val receta= new RecetaSimple(persona)
 	    receta.agregarIngrediente(new Ingrediente(Preferencia.CARNE,100))
 	    receta.calorias=500
@@ -385,7 +385,7 @@ class PersonaTestSuite {
 	def void unaPersonaPuedeAgregarUnaRecetaComoFavoritayQuedaEnElHistorial(){
 		val persona = new Persona()
 		val repositorio = new RepoRecetas()
-		persona.setRepositorio(repositorio)
+		persona.setRepoRecetas(repositorio)
 		val receta = new RecetaSimple(repositorio)
 		repositorio.agregarRecetaPublica(receta)
 		
@@ -436,7 +436,7 @@ class PersonaTestSuite {
 		val receta2 = new RecetaSimple(repositorio)
 		val receta3 = new RecetaSimple(persona)
 		
-		persona.setRepositorio(repositorio)
+		persona.setRepoRecetas(repositorio)
 		persona.peso = 120f
 		persona.altura = 1.7f
 		filtro.decorado = persona
@@ -466,7 +466,7 @@ class PersonaTestSuite {
 		val receta2 = new RecetaSimple(repositorio)
 		val receta3 = new RecetaSimple(persona)
 		
-		persona.setRepositorio(repositorio)
+		persona.setRepoRecetas(repositorio)
 		persona.agregarCondPreexistente(new Hipertenso())
 		filtro.decorado = persona
 		filtro.persona = persona
@@ -494,7 +494,7 @@ class PersonaTestSuite {
 		val receta2 = new RecetaSimple(repositorio)
 		val receta3 = new RecetaSimple(persona)
 		
-		persona.setRepositorio(repositorio)
+		persona.setRepoRecetas(repositorio)
 		persona.agregarDisgusto(Preferencia.PESCADO)
 		filtro.persona = persona
 		filtro.decorado = persona
@@ -521,7 +521,7 @@ class PersonaTestSuite {
 		val receta2 = new RecetaSimple(repositorio)
 		val receta3 = new RecetaSimple(persona)
 		
-		persona.setRepositorio(repositorio)
+		persona.setRepoRecetas(repositorio)
 		filtro.persona = persona
 		filtro.decorado = persona
 		receta1.agregarIngrediente(new Ingrediente(Preferencia.LOMO))
@@ -548,7 +548,7 @@ class PersonaTestSuite {
 		val receta2 = new RecetaSimple(repositorio)
 		val receta3 = new RecetaSimple(persona)
 		
-		persona.setRepositorio(repositorio)
+		persona.setRepoRecetas(repositorio)
 		persona.agregarCondPreexistente(new Hipertenso()) 
 		filtro1.persona = persona
 		filtro2.persona = persona
@@ -591,7 +591,7 @@ class PersonaTestSuite {
 		val diezPrimeros = new ObtenerLosDiezPrimeros()
 		busqueda.proceso = diezPrimeros
 		
-		persona.setRepositorio(repositorio)
+		persona.setRepoRecetas(repositorio)
 		persona.agregarCondPreexistente(new Hipertenso()) 
 		filtro.persona = persona
 		filtro.decorado = persona
@@ -659,7 +659,7 @@ class PersonaTestSuite {
 		val procesoPares = new ConsiderarRecetasPares()
 		busqueda.proceso = procesoPares
 		
-		persona.setRepositorio(repositorio)
+		persona.setRepoRecetas(repositorio)
 		persona.agregarCondPreexistente(new Hipertenso()) 
 		filtro.persona = persona
 		filtro.decorado = persona
@@ -722,7 +722,7 @@ class PersonaTestSuite {
 		val ordenar = new OrdenarPorCriterio(criterioCal)
 		busqueda.proceso = ordenar
 		
-		persona.setRepositorio(repositorio)
+		persona.setRepoRecetas(repositorio)
 		persona.agregarCondPreexistente(new Hipertenso()) 
 		filtro.persona = persona
 		filtro.decorado = persona
@@ -746,5 +746,22 @@ class PersonaTestSuite {
 		
 		Assert.assertEquals(busqueda.resultado, recetasOrdenadas)	
 	}
-}
-	
+
+       @Test
+       
+       def void unaPersonaEsRegistradaPorElRepositorioYLaEncuentraPorSuNombre(){
+       	
+       val repoUsuarios = new RepoUsuarios()
+       val juani = new Persona(repoUsuarios)
+       juani.nombre= "juani"
+       val perfilJuani = new PerfilDeUsuario("juani")
+       
+       Assert.assertEquals(juani,repoUsuarios.get(perfilJuani))
+       
+       
+       
+       
+       	
+       	
+       }
+    }

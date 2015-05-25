@@ -22,8 +22,9 @@ class Persona implements FiltroDecorado {
 	@Accessors String rutina /* Tipo de rutina que lleva a cabo el Usuario */
     var Collection<Receta> recetasPropias= newHashSet() /*Recetas de un Usuario */
     var Collection<GrupoDePersonas> grupos = newHashSet()
-    @Accessors RepoRecetas repositorio
+    @Accessors RepoRecetas repoRecetas
     var Collection<Receta> recetasFavoritas = newHashSet()
+    @Accessors RepoUsuarios repoUsuarios
       	
 	new (){
 		nombre = "sinNombre"
@@ -34,6 +35,9 @@ class Persona implements FiltroDecorado {
 		sexo = "sinSexo"
 	}
 	
+	new(RepoUsuarios repoUsuarios){
+		repoUsuarios.agregarAPendiente(this)
+	}
 	def getGustos(){
 		this.gustos
 	}
@@ -165,7 +169,7 @@ class Persona implements FiltroDecorado {
 	}
 	
 	def recetasPublicas(){
-		repositorio.getRecetas
+		repoRecetas.getRecetas
 	}
 	
 	def void agregarSusRecetas(Collection<Receta> recetas){
@@ -196,5 +200,20 @@ class Persona implements FiltroDecorado {
 	def tieneSobrepeso(int max){
 		this.imc > max
 	}
+	
+	/*Entrega 3 */
+	
+	def coincideNombre(PerfilDeUsuario perfil){
+		
+		nombre == perfil.getNombrePerfil
+	}
+	
+	def coincidenCondiciones(PerfilDeUsuario perfil){
+		
+		condicionesPreexistentes.containsAll(perfil.getCondiciones)
+		
+	}
+	
+	
 }
 	
