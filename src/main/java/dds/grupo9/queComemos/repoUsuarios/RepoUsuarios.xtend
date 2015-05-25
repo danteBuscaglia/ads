@@ -10,7 +10,7 @@ class RepoUsuarios {
 	
 	def add(dds.grupo9.queComemos.Persona persona){
 		usuariosRegistrados.add(persona)
-		}
+	}
 	
 	def remove(dds.grupo9.queComemos.Persona persona){
 		if(contieneUsuario(persona))
