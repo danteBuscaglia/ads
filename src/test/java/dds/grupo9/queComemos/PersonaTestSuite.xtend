@@ -17,6 +17,7 @@ import dds.grupo9.queComemos.manejoResultadosFiltros.ObtenerLosDiezPrimeros
 import dds.grupo9.queComemos.manejoResultadosFiltros.ConsiderarRecetasPares
 import dds.grupo9.queComemos.ordenamientoResultados.CriterioPorCalorias
 import dds.grupo9.queComemos.manejoResultadosFiltros.OrdenarPorCriterio
+import dds.grupo9.queComemos.excepciones.NoLoTieneException
 
 class PersonaTestSuite {
 	
@@ -749,19 +750,77 @@ class PersonaTestSuite {
 
        @Test
        
-       def void unaPersonaEsRegistradaPorElRepositorioYLaEncuentraPorSuNombre(){
+       def void unaPersonaEsAceptadaPorElAdministradorYElRepoLaEncuentraPorSuNombre(){
        	
        val repoUsuarios = new RepoUsuarios()
        val juani = new Persona(repoUsuarios)
        juani.nombre= "juani"
-       val perfilJuani = new PerfilDeUsuario("juani")
+       repoUsuarios.aceptarUsuario(juani)
        
-       Assert.assertEquals(juani,repoUsuarios.get(perfilJuani))
-       
-       
+       Assert.assertEquals(juani,repoUsuarios.get(juani))
        
        
-       	
-       	
-       }
     }
+     @Test
+     
+     def void unaPersonaEsRechazadaPorElAdministradorYElRepoNoLaTieneRegistrada(){
+     	val repoUsuarios = new RepoUsuarios()
+        val juani = new Persona(repoUsuarios)
+        juani.nombre= "juani"
+        juani.peso = 17.1f
+        repoUsuarios.rechazarUsuario(juani,"No cumple con los requisitos de peso mínimo ")
+        
+        Assert.assertEquals(0,repoUsuarios.cantidadDeUsuariosRegistrados)
+     	
+     }
+     
+     @Test
+     
+     def void seActualizanLosDatosDeUnaPersonaRegistradaEnElRepo(){
+     	
+     	val repoUsuarios = new RepoUsuarios()
+        val juani = new Persona(repoUsuarios)
+        juani.nombre= "juani"
+        juani.agregarCondPreexistente(new Vegano())
+        repoUsuarios.aceptarUsuario(juani)
+        val juaniActualizado = new Persona()
+        juaniActualizado.nombre= "juani"
+        juaniActualizado.agregarCondPreexistente(new Hipertenso())
+        repoUsuarios.update(juaniActualizado)
+        
+        Assert.assertEquals(juaniActualizado,repoUsuarios.get(juani))
+        
+     }
+   
+    @Test (expected = NoLoTieneException)
+    
+    def void seIntentanActualizarLosDatosDeUnaPersonaPeroNoEstaRegistrada(){
+    	val repoUsuarios = new RepoUsuarios()
+        val juani = new Persona(repoUsuarios)
+        juani.nombre= "juani"
+        juani.agregarCondPreexistente(new Vegano())
+        val juaniActualizado = new Persona()
+        juaniActualizado.nombre= "juani"
+        juaniActualizado.agregarCondPreexistente(new Hipertenso())
+        repoUsuarios.update(juaniActualizado)
+        
+   }
+   @Test
+   def void seListanTodasLasPersonasConMismoNombreYDiabeticasRegistradas(){
+   	val repoUsuarios = new RepoUsuarios()
+   	val juani = new Persona (repoUsuarios)
+   	val juani2 = new Persona(repoUsuarios)
+   	val diabetico = new Diabetico()
+   	juani.nombre = "juani"
+   	juani.agregarCondPreexistente(diabetico)
+   	juani2.nombre = "juani"
+   	juani2.agregarCondPreexistente(diabetico)
+   	
+   	repoUsuarios.aceptarUsuario(juani)
+   	repoUsuarios.aceptarUsuario(juani2)
+   	
+   	Assert.assertEquals(2,repoUsuarios.list(juani).size)
+   	
+   }
+   }
+   

@@ -15,42 +15,77 @@ class RepoUsuarios {
 	
 	def remove(Persona persona){
 		
-		if(usuariosRegistrados.contains(persona))
+		if(contieneUsuario(persona))
 		usuariosRegistrados.remove(persona)
 		
 		else throw new NoLoTieneException ("El usuario no está registrado")
 	}
 	
-	def update(PerfilDeUsuario perfil){
-		
-		
+	def update(Persona persona){
+		if(contieneUsuario(buscarPersonaPorNombre(persona))){
+		usuariosRegistrados.remove(buscarPersonaPorNombre(persona))
+		usuariosRegistrados.add(persona)
+		}
+		else throw new NoLoTieneException("El usuario no está registrado")
 	}
 	
-	def get(PerfilDeUsuario perfil){
+	def get(Persona persona){
 		
-	    buscarPersonaPorNombre(perfil)
+	    buscarPersonaPorNombre(persona)
 		
 		}
 	
-	def list(PerfilDeUsuario perfil){
+	def list(Persona persona){
 		
-	    filtrarListaPorNombreYCondiciones(perfil)
+	    filtrarListaPorNombreYCondiciones(persona)
 	}
 	def agregarAPendiente(Persona persona){
-		usuariosRegistrados.add(persona)
+		pendientes.add(persona)
 	}
 	
-	def Persona buscarPersonaPorNombre(PerfilDeUsuario perfil){
+	def aceptarUsuario(Persona persona){
+		
+		if(estaEnPendientes(persona)){
+	    pendientes.remove(persona)
+		usuariosRegistrados.add(persona)
+		}
+		else throw new NoLoTieneException("El usuario ingresado no se encuentra en lista de pendientes")
+		
+	}
+	
+	def rechazarUsuario(Persona persona, String motivo){
+		
+		if(estaEnPendientes(persona))
+		pendientes.remove(persona)
+		println(motivo)
+	}
+	
+	def Persona buscarPersonaPorNombre(Persona persona){
 		var usuarionuevo = new Persona()
-		usuarionuevo= usuariosRegistrados.findFirst[usuario|usuario.coincideNombre(perfil)]
+		usuarionuevo= usuariosRegistrados.findFirst[usuario|usuario.coincideNombre(persona)]
 		return usuarionuevo
 		
 		}
 		
-	def filtrarListaPorNombreYCondiciones(PerfilDeUsuario perfil){
+	def filtrarListaPorNombreYCondiciones(Persona persona){
 		
-	 	usuariosRegistrados.filter[usuario|usuario.coincidenCondiciones(perfil)].filter[usuario|usuario.coincideNombre(perfil)]
+	 	usuariosRegistrados.filter[usuario|usuario.coincidenCondiciones(persona)].filter[usuario|usuario.coincideNombre(persona)]
 		
 	 	}
+	 
+	def contieneUsuario(Persona persona){
+		
+		usuariosRegistrados.contains(persona)
+	} 	
+	
+	def estaEnPendientes(Persona persona){
+		
+		pendientes.contains(persona)
+	}
+	
+	def cantidadDeUsuariosRegistrados(){
+		
+		return usuariosRegistrados.size
+	}
 	 
 }

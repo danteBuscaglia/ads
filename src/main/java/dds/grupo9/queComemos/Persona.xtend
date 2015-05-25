@@ -203,14 +203,14 @@ class Persona implements FiltroDecorado {
 	
 	/*Entrega 3 */
 	
-	def coincideNombre(PerfilDeUsuario perfil){
+	def coincideNombre(Persona persona){
 		
-		nombre == perfil.getNombrePerfil
+		this.nombre == persona.nombre
 	}
 	
-	def coincidenCondiciones(PerfilDeUsuario perfil){
+	def coincidenCondiciones(Persona persona){
 		
-		condicionesPreexistentes.containsAll(perfil.getCondiciones)
+	   condicionesPreexistentes.containsAll(persona.condicionesPreexistentes)
 		
 	}
 	
