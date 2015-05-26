@@ -1,24 +1,26 @@
 package dds.grupo9.queComemos.repoUsuarios
 
 import java.util.Collection
+import dds.grupo9.queComemos.Persona
 import dds.grupo9.queComemos.excepciones.NoLoTieneException
+import dds.grupo9.queComemos.excepciones.NoEsValidoException
 
-class RepoUsuarios {
+class RepoUsuarios extends BuilderPersona {
 	
-	var Collection<dds.grupo9.queComemos.Persona> usuariosRegistrados = newHashSet()
-	var Collection<dds.grupo9.queComemos.Persona> pendientes = newHashSet
+	var Collection<Persona> usuariosRegistrados = newHashSet()
+	var Collection<Persona> pendientes = newHashSet
 	
-	def add(dds.grupo9.queComemos.Persona persona){
+	def add(Persona persona){
 		usuariosRegistrados.add(persona)
 	}
 	
-	def remove(dds.grupo9.queComemos.Persona persona){
+	def remove(Persona persona){
 		if(contieneUsuario(persona))
 		usuariosRegistrados.remove(persona)
 		else throw new NoLoTieneException ("El usuario no está registrado")
 	}
 	
-	def update(dds.grupo9.queComemos.Persona persona){
+	def update(Persona persona){
 		if(contieneUsuario(buscarPersonaPorNombre(persona))){
 			usuariosRegistrados.remove(buscarPersonaPorNombre(persona))
 			usuariosRegistrados.add(persona)
@@ -26,55 +28,59 @@ class RepoUsuarios {
 		else throw new NoLoTieneException("El usuario no está registrado")
 	}
 	
-	def get(dds.grupo9.queComemos.Persona persona){
+	def get(Persona persona){
 	    buscarPersonaPorNombre(persona)
 	}
 	
-	def list(dds.grupo9.queComemos.Persona persona){
+	def list(Persona persona){
 	    filtrarListaPorNombreYCondiciones(persona)
 	}
 	
-	def agregarAPendiente(dds.grupo9.queComemos.Persona persona){
+	def agregarAPendiente(Persona persona){
 		pendientes.add(persona)
 	}
 	
-	def aceptarUsuario(dds.grupo9.queComemos.Persona persona){
+	def aceptarUsuario(Persona persona){
 		if(estaEnPendientes(persona)){
 	    pendientes.remove(persona)
 		usuariosRegistrados.add(persona)
+		persona.repoUsuarios = this
+		//this.add(persona)
 		}
 		else throw new NoLoTieneException("El usuario ingresado no se encuentra en lista de pendientes")
 	}
 	
-	def rechazarUsuario(dds.grupo9.queComemos.Persona persona, String motivo){
+	def rechazarUsuario(Persona persona, String motivo){
 		if(estaEnPendientes(persona)){
 			pendientes.remove(persona)
 			println(motivo)
 		}
 	}
 	
-	def dds.grupo9.queComemos.Persona buscarPersonaPorNombre(dds.grupo9.queComemos.Persona persona){
+	def Persona buscarPersonaPorNombre(Persona persona){
 		var usuarionuevo = new dds.grupo9.queComemos.Persona()
 		usuarionuevo = usuariosRegistrados.findFirst[usuario|usuario.coincideNombre(persona)]
 		return usuarionuevo
 	}
 		
-	def filtrarListaPorNombreYCondiciones(dds.grupo9.queComemos.Persona persona){
+	def filtrarListaPorNombreYCondiciones(Persona persona){
 	 	usuariosRegistrados.filter[usuario|usuario.coincidenCondiciones(persona)].filter[usuario|usuario.coincideNombre(persona)]
 	}
 	 
-	def contieneUsuario(dds.grupo9.queComemos.Persona persona){
+	def contieneUsuario(Persona persona){
 		usuariosRegistrados.contains(persona)
 	} 	
 	
-	def estaEnPendientes(dds.grupo9.queComemos.Persona persona){
-		
+	def estaEnPendientes(Persona persona){
 		pendientes.contains(persona)
 	}
 	
 	def cantidadDeUsuariosRegistrados(){
-		
 		return usuariosRegistrados.size
 	}
-	 
+	
+	def solicitarIngreso(){
+		if(perfilUsuario.usuarioValido) this.agregarAPendiente(perfilUsuario)
+		else throw new NoEsValidoException("El perfil que desea generar no corresponde a un usuario valido")
+	}
 }

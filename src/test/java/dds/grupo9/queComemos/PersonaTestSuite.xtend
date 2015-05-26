@@ -829,14 +829,28 @@ class PersonaTestSuite {
    	@Test
 	def void seListanTodasLasPersonasConMismoNombreSinImportarLaCondicionPreexistentePorqueElPrototipoNoTieneNinguna(){
    		val repoUsuarios = new RepoUsuarios()
-   		val juani = new Persona (repoUsuarios)
-   		val juani2 = new Persona(repoUsuarios)
-   		juani.nombre = "juani"
-   		juani2.nombre = "juani"
-   	
+   		var juani = new Persona()
+   		
+   		repoUsuarios.generarNuevoPerfil
+   		repoUsuarios.asignarNombre("juani")
+   		repoUsuarios.asignarAltura(1.82f)
+   		repoUsuarios.asignarPeso(72f)
+   		repoUsuarios.asignarRutina("Crossfit")
+   		repoUsuarios.asignarFechaNacimiento(19901010)
+   		repoUsuarios.solicitarIngreso
+   		juani = repoUsuarios.perfilUsuario
    		repoUsuarios.aceptarUsuario(juani)
-   		repoUsuarios.aceptarUsuario(juani2)
-   	
+   		
+   		repoUsuarios.generarNuevoPerfil
+   		repoUsuarios.asignarNombre("juani")
+   		repoUsuarios.asignarAltura(1.99f)
+   		repoUsuarios.asignarPeso(92f)
+   		repoUsuarios.asignarRutina("Atletismo")
+   		repoUsuarios.asignarFechaNacimiento(19800408)
+   		repoUsuarios.solicitarIngreso
+   		juani = repoUsuarios.perfilUsuario
+   		repoUsuarios.aceptarUsuario(juani)
+
    		Assert.assertEquals(2,repoUsuarios.list(juani).size)
    	
    }
