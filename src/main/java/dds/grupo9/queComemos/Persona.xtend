@@ -26,6 +26,7 @@ class Persona implements FiltroDecorado {
     @Accessors RepoRecetas repoRecetas
     var Collection<Receta> recetasFavoritas = newHashSet()
     @Accessors RepoUsuarios repoUsuarios
+    @Accessors String motivoRechazo 
       	
 	new (){
 		this.incializarAtributos

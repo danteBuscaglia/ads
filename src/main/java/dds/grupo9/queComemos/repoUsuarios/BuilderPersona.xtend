@@ -44,7 +44,7 @@ abstract class BuilderPersona {
 		perfilUsuario.agregarDisgusto(unGusto)
 	}
 	
-	def asignarUnaCondicionPrexistente(CondPreexistente unaCondicion) {
+	def asignarUnaCondicionPreexistente(CondPreexistente unaCondicion) {
 		perfilUsuario.agregarCondPreexistente(unaCondicion)
 	}
 	
