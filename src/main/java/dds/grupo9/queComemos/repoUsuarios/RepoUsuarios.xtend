@@ -9,6 +9,7 @@ class RepoUsuarios extends BuilderPersona {
 	
 	var Collection<Persona> usuariosRegistrados = newHashSet()
 	var Collection<Persona> pendientes = newHashSet
+	var Collection <Persona> rechazados = newHashSet
 	
 	def add(Persona persona){
 		usuariosRegistrados.add(persona)
@@ -23,7 +24,7 @@ class RepoUsuarios extends BuilderPersona {
 	def update(Persona persona){
 		if(contieneUsuario(buscarPersonaPorNombre(persona))){
 			usuariosRegistrados.remove(buscarPersonaPorNombre(persona))
-			usuariosRegistrados.add(persona)
+			add(persona)
 		}
 		else throw new NoLoTieneException("El usuario no está registrado")
 	}
@@ -43,9 +44,8 @@ class RepoUsuarios extends BuilderPersona {
 	def aceptarUsuario(Persona persona){
 		if(estaEnPendientes(persona)){
 	    pendientes.remove(persona)
-		usuariosRegistrados.add(persona)
+		add(persona)
 		persona.repoUsuarios = this
-		//this.add(persona)
 		}
 		else throw new NoLoTieneException("El usuario ingresado no se encuentra en lista de pendientes")
 	}
@@ -53,7 +53,9 @@ class RepoUsuarios extends BuilderPersona {
 	def rechazarUsuario(Persona persona, String motivo){
 		if(estaEnPendientes(persona)){
 			pendientes.remove(persona)
-			println(motivo)
+			persona.motivoRechazo= motivo
+			rechazados.add(persona)
+			
 		}
 	}
 	
@@ -77,6 +79,10 @@ class RepoUsuarios extends BuilderPersona {
 	
 	def cantidadDeUsuariosRegistrados(){
 		return usuariosRegistrados.size
+	}
+	
+	def cantidadRechazados(){
+		return rechazados.size
 	}
 	
 	def solicitarIngreso(){

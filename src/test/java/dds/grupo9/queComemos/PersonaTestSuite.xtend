@@ -751,13 +751,35 @@ class PersonaTestSuite {
 
 	// ENTREGA 3 TEST
 	
+	  @Test (expected = NoEsValidoException)
+	  
+	  def void unaPersonaSolicitaElIngresoAlSistemaPeroEsUnUsuarioNoValido(){
+	  	
+	  	val repoUsuarios = new RepoUsuarios()
+	  	var juani = new Persona()
+	  	repoUsuarios.generarNuevoPerfil
+	  	juani = repoUsuarios.perfilUsuario
+	  	repoUsuarios.asignarNombre("juani")
+	  	repoUsuarios.solicitarIngreso
+	  	
+	  }
+	
+	
+	
        @Test
        
        def void unaPersonaEsAceptadaPorElAdministradorYElRepoLaEncuentraPorSuNombre(){
        	
        val repoUsuarios = new RepoUsuarios()
-       val juani = new Persona(repoUsuarios)
-       juani.nombre= "juani"
+       var juani = new Persona()
+       repoUsuarios.generarNuevoPerfil
+       repoUsuarios.asignarNombre("juani")
+       repoUsuarios.asignarAltura(1.70f)
+       repoUsuarios.asignarPeso(70f)
+       repoUsuarios.asignarRutina("Crossfit")
+       repoUsuarios.asignarFechaNacimiento(19901010)
+       juani = repoUsuarios.perfilUsuario
+       repoUsuarios.solicitarIngreso
        repoUsuarios.aceptarUsuario(juani)
        
        Assert.assertEquals(juani,repoUsuarios.get(juani))
@@ -766,14 +788,20 @@ class PersonaTestSuite {
     }
      @Test
      
-     def void unaPersonaEsRechazadaPorElAdministradorYElRepoNoLaTieneRegistrada(){
+     def void unaPersonaEsRechazadaPorElAdministradorYElRepoLaGuardaComoRechazada(){
      	val repoUsuarios = new RepoUsuarios()
-        val juani = new Persona(repoUsuarios)
-        juani.nombre= "juani"
-        juani.peso = 17.1f
-        repoUsuarios.rechazarUsuario(juani,"No cumple con los requisitos de peso mínimo ")
+        var juani = new Persona()
+        repoUsuarios.generarNuevoPerfil
+        repoUsuarios.asignarNombre("juani")
+        repoUsuarios.asignarAltura(1.70f)
+        repoUsuarios.asignarPeso(20f)
+        repoUsuarios.asignarRutina("Crossfit")
+        repoUsuarios.asignarFechaNacimiento(19901010)
+        juani = repoUsuarios.perfilUsuario
+        repoUsuarios.solicitarIngreso
+        repoUsuarios.rechazarUsuario(juani,"No cumple con los requisitos de peso mínimo")
         
-        Assert.assertEquals(0,repoUsuarios.cantidadDeUsuariosRegistrados)
+        Assert.assertEquals(1,repoUsuarios.cantidadRechazados)
      	
      }
      
@@ -782,14 +810,26 @@ class PersonaTestSuite {
      def void seActualizanLosDatosDeUnaPersonaRegistradaEnElRepoYElRegistroDelRepoSufreLasModificaciones(){
      	
      	val repoUsuarios = new RepoUsuarios()
-        val juani = new Persona(repoUsuarios)
-        juani.nombre= "juani"
-        juani.agregarCondPreexistente(new Vegano())
+        var juani = new Persona
+        repoUsuarios.generarNuevoPerfil
+        repoUsuarios.asignarNombre("juani")
+        repoUsuarios.asignarAltura(1.70f)
+        repoUsuarios.asignarPeso(72f)
+        repoUsuarios.asignarRutina("Crossfit")
+        repoUsuarios.asignarFechaNacimiento(19901010)
+        juani = repoUsuarios.perfilUsuario
+        repoUsuarios.solicitarIngreso
         repoUsuarios.aceptarUsuario(juani)
-        val juaniActualizado = new Persona()
-        juaniActualizado.nombre= "juani"
-        juaniActualizado.agregarCondPreexistente(new Hipertenso())
+        var juaniActualizado = new Persona()
+        repoUsuarios.generarNuevoPerfil
+        repoUsuarios.asignarNombre("juani")
+        repoUsuarios.asignarAltura(1.60f)
+        repoUsuarios.asignarPeso(75f)
+        repoUsuarios.asignarRutina("Atletismo")
+        repoUsuarios.asignarFechaNacimiento(19901010)
+        juaniActualizado = repoUsuarios.perfilUsuario
         repoUsuarios.update(juaniActualizado)
+      
         
         Assert.assertEquals(juaniActualizado,repoUsuarios.get(juani))
         
@@ -799,29 +839,58 @@ class PersonaTestSuite {
     
     def void noSePuedenActualizarLosDatosDeUnaPersonaQueNoEsUnUsuarioRegistrado(){
     	val repoUsuarios = new RepoUsuarios()
-        val juani = new Persona(repoUsuarios)
-        juani.nombre= "juani"
-        juani.agregarCondPreexistente(new Vegano())
-        val juaniActualizado = new Persona()
-        juaniActualizado.nombre= "juani"
-        juaniActualizado.agregarCondPreexistente(new Hipertenso())
+        var juani = new Persona
+        repoUsuarios.generarNuevoPerfil
+        repoUsuarios.asignarNombre("juani")
+        repoUsuarios.asignarAltura(1.70f)
+        repoUsuarios.asignarPeso(72f)
+        repoUsuarios.asignarRutina("Crossfit")
+        repoUsuarios.asignarFechaNacimiento(19901010)
+        juani = repoUsuarios.perfilUsuario
+        repoUsuarios.solicitarIngreso
+        var juaniActualizado = new Persona()
+        repoUsuarios.generarNuevoPerfil
+        repoUsuarios.asignarNombre("juani")
+        repoUsuarios.asignarAltura(1.60f)
+        repoUsuarios.asignarPeso(75f)
+        repoUsuarios.asignarRutina("Atletismo")
+        repoUsuarios.asignarFechaNacimiento(19901010)
+        juaniActualizado = repoUsuarios.perfilUsuario
         repoUsuarios.update(juaniActualizado)
         
    }
 	@Test
 	def void seListanTodasLasPersonasConMismoNombreYDiabeticasRegistradas(){
-   		val repoUsuarios = new RepoUsuarios()
-   		val juani = new Persona (repoUsuarios)
-   		val juani2 = new Persona(repoUsuarios)
+        val repoUsuarios = new RepoUsuarios()
+   		var juani = new Persona()
+   		var juani2 = new Persona()
    		val diabetico = new Diabetico()
-   		juani.nombre = "juani"
-   		juani.agregarCondPreexistente(diabetico)
-   		juani2.nombre = "juani"
-   		juani2.agregarCondPreexistente(diabetico)
-   	
+   		repoUsuarios.generarNuevoPerfil
+   		repoUsuarios.asignarNombre("juani")
+   		repoUsuarios.asignarAltura(1.82f)
+   		repoUsuarios.asignarPeso(72f)
+   		repoUsuarios.asignarSexo("Masculino")
+   		repoUsuarios.asignarRutina("Crossfit")
+   		repoUsuarios.asignarUnGusto(Preferencia.CHORI)
+   		repoUsuarios.asignarFechaNacimiento(19901010)
+   		repoUsuarios.asignarUnaCondicionPreexistente(diabetico)
+   		repoUsuarios.solicitarIngreso
+   		juani = repoUsuarios.perfilUsuario
    		repoUsuarios.aceptarUsuario(juani)
+   		
+   		repoUsuarios.generarNuevoPerfil
+   		repoUsuarios.asignarNombre("juani")
+   		repoUsuarios.asignarAltura(1.99f)
+   		repoUsuarios.asignarPeso(92f)
+   		repoUsuarios.asignarSexo("Masculino")
+   		repoUsuarios.asignarRutina("Atletismo")
+   		repoUsuarios.asignarUnGusto(Preferencia.PESCADO)
+   		repoUsuarios.asignarFechaNacimiento(19800408)
+   		repoUsuarios.asignarUnaCondicionPreexistente(diabetico)
+   		repoUsuarios.solicitarIngreso
+   		juani2 = repoUsuarios.perfilUsuario
    		repoUsuarios.aceptarUsuario(juani2)
-   	
+
    		Assert.assertEquals(2,repoUsuarios.list(juani).size)
    	
    }
@@ -830,7 +899,7 @@ class PersonaTestSuite {
 	def void seListanTodasLasPersonasConMismoNombreSinImportarLaCondicionPreexistentePorqueElPrototipoNoTieneNinguna(){
    		val repoUsuarios = new RepoUsuarios()
    		var juani = new Persona()
-   		
+   		var juani2 = new Persona()
    		repoUsuarios.generarNuevoPerfil
    		repoUsuarios.asignarNombre("juani")
    		repoUsuarios.asignarAltura(1.82f)
@@ -848,8 +917,8 @@ class PersonaTestSuite {
    		repoUsuarios.asignarRutina("Atletismo")
    		repoUsuarios.asignarFechaNacimiento(19800408)
    		repoUsuarios.solicitarIngreso
-   		juani = repoUsuarios.perfilUsuario
-   		repoUsuarios.aceptarUsuario(juani)
+   		juani2 = repoUsuarios.perfilUsuario
+   		repoUsuarios.aceptarUsuario(juani2)
 
    		Assert.assertEquals(2,repoUsuarios.list(juani).size)
    	
