@@ -4,6 +4,10 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.Collection
 import dds.grupo9.queComemos.condicionPreexistente.CondPreexistente
 import dds.grupo9.queComemos.modificacionRecetas.Modificacion
+import dds.grupo9.queComemos.condicionPreexistente.Hipertenso
+import dds.grupo9.queComemos.condicionPreexistente.Celiaco
+import dds.grupo9.queComemos.condicionPreexistente.Diabetico
+import dds.grupo9.queComemos.condicionPreexistente.Vegano
 
 abstract class Receta{
 	
@@ -16,7 +20,7 @@ abstract class Receta{
     var Collection<CondPreexistente> condiciones = newHashSet() /* Condiciones preexistentes */
     var PrivacidadReceta privacidad /* Condición de privacidad de la receta (publica o privada) */
     
-    new (RepoRecetas repositorio){
+    new (RepoRecetasPropio repositorio){
     	
     	privacidad = new RecetaPublica ()
 //    	repositorio.agregarRecetaPublica(this)	
@@ -101,7 +105,7 @@ abstract class Receta{
   	}
   
   	def recetaInadecuadaPara (){ /*Muestra las condiciones para la que una receta es inadecuada */
-  		condiciones.filter[condicion|condicion.recetaNoRecomendada(this)]
+		condiciones.filter[condicion|condicion.recetaNoRecomendada(this)]
   		
   	}
   	

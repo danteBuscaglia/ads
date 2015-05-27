@@ -16,7 +16,7 @@ class RecetaTestSuite {
 	
 	def void unaRecetaEsValida(){
 		
-		val receta = new RecetaSimple(new RepoRecetas())
+		val receta = new RecetaSimple(new RepoRecetasPropio())
 		receta.agregarIngrediente(new Ingrediente())
 		receta.calorias=3000
 		
@@ -26,7 +26,7 @@ class RecetaTestSuite {
 	@Test
 	def void unaRecetaTieneCarneYAzucarYSal(){
 	
-		val receta = new RecetaSimple(new RepoRecetas())
+		val receta = new RecetaSimple(new RepoRecetasPropio())
 
 		receta.agregarIngrediente(new Ingrediente(Preferencia.AZUCAR, 150))
 		receta.agregarIngrediente(new Ingrediente(Preferencia.SAL, 15))
@@ -76,7 +76,7 @@ class RecetaTestSuite {
 	def void unaPersonaPuedeModificarUnaRecetaPublica(){
 	
 		val persona= new Persona()
-		val receta = new RecetaSimple(new RepoRecetas())
+		val receta = new RecetaSimple(new RepoRecetasPropio())
 		
 		Assert.assertTrue(receta.puedeVerOModificarReceta(persona))
 	}
@@ -123,7 +123,7 @@ class RecetaTestSuite {
 	def void unaPersonaQueModificaUnaRecetaPublicaIncorporaComoPropiaUnaReceta(){
 		
 		val persona = new Persona()
-		val receta = new RecetaSimple(new RepoRecetas())
+		val receta = new RecetaSimple(new RepoRecetasPropio())
 		val modificacion = new modEliminarIngredientes()
 		val papa = new Ingrediente(Preferencia.PAPA,100)
 		val sal = new Ingrediente(Preferencia.SAL,10)
@@ -143,7 +143,7 @@ class RecetaTestSuite {
 	def void unaPersonaQueEliminaIngredienteDeUnaRecetaPublicaIncorporaComoPropiaUnaRecetaConMenosIngredientes(){
 		
 		val persona = new Persona()
-		val receta = new RecetaSimple(new RepoRecetas())
+		val receta = new RecetaSimple(new RepoRecetasPropio())
 		receta.nombre = "papasALaCrema"
 		val modificacion = new modEliminarIngredientes()
 		val papa = new Ingrediente(Preferencia.PAPA,100)
@@ -166,7 +166,7 @@ class RecetaTestSuite {
 	def void unaPersonaQueAgregaIngredienteDeUnaRecetaPublicaIncorporaComoPropiaUnaRecetaConMasIngredientes(){
 		
 		val persona = new Persona()
-		val receta = new RecetaSimple(new RepoRecetas())
+		val receta = new RecetaSimple(new RepoRecetasPropio())
 		receta.nombre = "papasALaCrema"
 		val modificacion = new modAgregarIngredientes()
 		val papa = new Ingrediente(Preferencia.PAPA,100)
@@ -186,7 +186,7 @@ class RecetaTestSuite {
 	@Test (expected = NoEsValidoException)
 	
 	def void unaRecetaSimpleNoPuedeTenerSubrecetas(){
-		val repositorio= new RepoRecetas()
+		val repositorio= new RepoRecetasPropio()
 		var recetaSimple1 = new RecetaSimple(repositorio)
 		var recetaSimple2 = new RecetaSimple(repositorio)
 		
@@ -201,7 +201,7 @@ class RecetaTestSuite {
 	@Test
 	
 	def void unaRecetaCompuestaReutilizaDosRecetasSimples(){
-		val repositorio = new RepoRecetas()
+		val repositorio = new RepoRecetasPropio()
 		var recetaSimple1 = new RecetaSimple(repositorio)
 		var recetaSimple2 = new RecetaSimple(repositorio)
 		var recetaCompuesta = new RecetaCompuesta(repositorio)
@@ -225,7 +225,7 @@ class RecetaTestSuite {
 	
 	def void unaRecetaCompuestaReutilizaUnaRecetaSimpleYOtraCompuesta(){
 		
-		val repositorio = new RepoRecetas()
+		val repositorio = new RepoRecetasPropio()
 		var recetaSimple1 = new RecetaSimple(repositorio)
 		var recetaSimple2 = new RecetaSimple(repositorio)
 		var recetaSimple3 = new RecetaSimple(repositorio)
@@ -283,7 +283,7 @@ class RecetaTestSuite {
 		persona.nombre = "Paul"
 		persona.agregarCondPreexistente(new Vegano)
 		persona.agregarDisgusto(Preferencia.CARNE)
-		val receta = new RecetaSimple(new RepoRecetas())
+		val receta = new RecetaSimple(new RepoRecetasPropio())
 		receta.agregarIngrediente(new Ingrediente(Preferencia.PAPA,100))
 		receta.agregarIngrediente(new Ingrediente(Preferencia.SAL,10))
 		
@@ -298,7 +298,7 @@ class RecetaTestSuite {
 		persona.nombre = "Paul"
 		persona.agregarCondPreexistente(new Vegano)
 		persona.agregarDisgusto(Preferencia.PAPA)
-		val receta = new RecetaSimple(new RepoRecetas())
+		val receta = new RecetaSimple(new RepoRecetasPropio())
 		receta.agregarIngrediente(new Ingrediente(Preferencia.PAPA,100))
 		receta.agregarIngrediente(new Ingrediente(Preferencia.SAL,10))
 		
@@ -311,7 +311,7 @@ class RecetaTestSuite {
 		persona.nombre = "Paul"
 		persona.agregarCondPreexistente(new Hipertenso)
 		persona.agregarDisgusto(Preferencia.CARNE)
-		val receta = new RecetaSimple(new RepoRecetas())
+		val receta = new RecetaSimple(new RepoRecetasPropio())
 		receta.agregarIngrediente(new Ingrediente(Preferencia.PAPA,100))
 		receta.agregarIngrediente(new Ingrediente(Preferencia.SAL,10))
 		
@@ -326,7 +326,7 @@ class RecetaTestSuite {
 		persona.agregarCondPreexistente(new Celiaco)
 		val grupo = new GrupoDePersonas("Los Pibes")
 		grupo.agregarPreferencia(Preferencia.CARNE)
-		val receta = new RecetaSimple(new RepoRecetas())
+		val receta = new RecetaSimple(new RepoRecetasPropio())
 		
 		grupo.agregarAGrupo(persona)
 		grupo.agregarAGrupo(persona2)
@@ -345,7 +345,7 @@ class RecetaTestSuite {
 		persona.agregarCondPreexistente(new Celiaco)
 		val grupo = new GrupoDePersonas("Los Pibes")
 		grupo.agregarPreferencia(Preferencia.POLLO)
-		val receta = new RecetaSimple(new RepoRecetas())
+		val receta = new RecetaSimple(new RepoRecetasPropio())
 		
 		grupo.agregarAGrupo(persona)
 		grupo.agregarAGrupo(persona2)
@@ -364,7 +364,7 @@ class RecetaTestSuite {
 		persona.agregarCondPreexistente(new Celiaco)
 		val grupo = new GrupoDePersonas("Los Pibes")
 		grupo.agregarPreferencia(Preferencia.CARNE)
-		val receta = new RecetaSimple(new RepoRecetas())
+		val receta = new RecetaSimple(new RepoRecetasPropio())
 		
 		grupo.agregarAGrupo(persona)
 		grupo.agregarAGrupo(persona2)

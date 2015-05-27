@@ -23,7 +23,7 @@ class Persona implements FiltroDecorado {
 	@Accessors String rutina /* Tipo de rutina que lleva a cabo el Usuario */
     var Collection<Receta> recetasPropias= newHashSet() /*Recetas de un Usuario */
     var Collection<GrupoDePersonas> grupos = newHashSet()
-    @Accessors RepoRecetas repoRecetas
+    @Accessors RepoRecetasPropio repoRecetas
     var Collection<Receta> recetasFavoritas = newHashSet()
     @Accessors RepoUsuarios repoUsuarios
       	
@@ -176,7 +176,7 @@ class Persona implements FiltroDecorado {
 	}
 	
 	def recetasPublicas(){
-		repoRecetas.getRecetas
+		repoRecetas.getRecetas()
 	}
 	
 	def void agregarSusRecetas(Collection<Receta> recetas){

@@ -5,7 +5,7 @@ class RecetaCompuesta extends Receta {
 	
 	var Collection <Receta> subrecetas = newHashSet()
 	
-	new(RepoRecetas repositorio) {
+	new(RepoRecetasPropio repositorio) {
 		super(repositorio)
 	}
 	

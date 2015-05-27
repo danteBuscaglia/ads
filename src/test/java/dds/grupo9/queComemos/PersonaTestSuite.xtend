@@ -200,7 +200,7 @@ class PersonaTestSuite {
 	def void unDiabeticoNoPuedeConsumirUnaRecetaConAzucar(){
 		
 		val persona = new Persona()
-		val receta = new RecetaSimple(new RepoRecetas())
+		val receta = new RecetaSimple(new RepoRecetasPropio())
 		val azucar = new Ingrediente()
 		val diabetico = new Diabetico()
 		azucar.nombre = Preferencia.AZUCAR
@@ -218,7 +218,7 @@ class PersonaTestSuite {
 	
 	def void unVeganoYUnHipertensoNoPuedenConsumirUnaRecetaConSalYCarne(){
 	
-	    val receta = new RecetaSimple(new RepoRecetas())
+	    val receta = new RecetaSimple(new RepoRecetasPropio())
 	    val persona = new Persona()
 	    val vegano= new Vegano()
 	    val hipertenso = new Hipertenso()
@@ -240,7 +240,7 @@ class PersonaTestSuite {
 		
 		val persona = new Persona()
 		val celiaco = new Celiaco()
-		val receta = new RecetaSimple(new RepoRecetas())
+		val receta = new RecetaSimple(new RepoRecetasPropio())
 		
 		receta.agregarIngrediente(new Ingrediente(Preferencia.AZUCAR, 150))
 		receta.agregarIngrediente(new Ingrediente(Preferencia.SAL, 15))
@@ -364,7 +364,7 @@ class PersonaTestSuite {
 	    grupo.agregarAGrupo(persona)
 	    grupo.agregarAGrupo(persona2)
 	    
-	    val repositorio = new RepoRecetas()
+	    val repositorio = new RepoRecetasPropio()
 	    persona.setRepoRecetas(repositorio)
 	    val receta= new RecetaSimple(persona)
 	    receta.agregarIngrediente(new Ingrediente(Preferencia.CARNE,100))
@@ -386,7 +386,7 @@ class PersonaTestSuite {
 	
 	def void unaPersonaPuedeAgregarUnaRecetaComoFavoritayQuedaEnElHistorial(){
 		val persona = new Persona()
-		val repositorio = new RepoRecetas()
+		val repositorio = new RepoRecetasPropio()
 		persona.setRepoRecetas(repositorio)
 		val receta = new RecetaSimple(repositorio)
 		repositorio.agregarRecetaPublica(receta)
@@ -431,7 +431,7 @@ class PersonaTestSuite {
 	@Test
 	
 	def void unaPersonaConSobrepesoConsultaSusRecetasYNoObtieneLasQueTienenMasDe500Calorias(){
-		val repositorio = new RepoRecetas()
+		val repositorio = new RepoRecetasPropio()
 		val persona = new Persona()
 		val filtro = new FiltroPorCaloriasMaximas(30)
 		val receta1 = new RecetaSimple(persona)
@@ -461,7 +461,7 @@ class PersonaTestSuite {
 	@Test
 	
 	def void unaPersonaRealizaUnFiltroPorSusCondicionesPreexistentes(){
-		val repositorio = new RepoRecetas()
+		val repositorio = new RepoRecetasPropio()
 		val persona = new Persona()
 		val filtro = new FiltroPorCondicionesPreexistentes()
 		val receta1 = new RecetaSimple(persona)
@@ -489,7 +489,7 @@ class PersonaTestSuite {
 	@Test
 	
 	def void unaPersonaNoObtieneComoResultadoDeLaBusquedaLasRecetasQueNoLeGustan(){
-		val repositorio = new RepoRecetas()
+		val repositorio = new RepoRecetasPropio()
 		val persona = new Persona()
 		val filtro = new FiltroPorDisgusto()
 		val receta1 = new RecetaSimple(persona)
@@ -516,7 +516,7 @@ class PersonaTestSuite {
 	@Test
 	
 	def void aUnaPersonaRataNoSeLeMuestranLasRecetasConIngredientesCaros(){
-		val repositorio = new RepoRecetas()
+		val repositorio = new RepoRecetasPropio()
 		val persona = new Persona()
 		val filtro = new FiltroPorIngredientesCaros()
 		val receta1 = new RecetaSimple(persona)
@@ -542,7 +542,7 @@ class PersonaTestSuite {
 	@Test
 	
 	def void unaPersonaPuedeCombinarVariosFiltrosDistintos(){
-		val repositorio = new RepoRecetas()
+		val repositorio = new RepoRecetasPropio()
 		val persona = new Persona()
 		val filtro1 = new FiltroPorCondicionesPreexistentes()
 		val filtro2 = new FiltroPorIngredientesCaros()
@@ -572,7 +572,7 @@ class PersonaTestSuite {
 	@Test
 	
 	def void unaPersonaPuedeObtenerLosDiezPrimerosResultadosDeUnaBusqueda(){
-		val repositorio = new RepoRecetas()
+		val repositorio = new RepoRecetasPropio()
 		val persona = new Persona()
 		val filtro = new FiltroPorCondicionesPreexistentes()
 		val receta1 = new RecetaSimple(persona)
@@ -640,7 +640,7 @@ class PersonaTestSuite {
 	@Test
 	
 	def void unaPersonaPuedeObtenerSoloLas5RecetasParesDeUnaBusquedaQueDevuelve10Resultados(){
-		val repositorio = new RepoRecetas()
+		val repositorio = new RepoRecetasPropio()
 		val persona = new Persona()
 		val filtro = new FiltroPorCondicionesPreexistentes()
 		val receta1 = new RecetaSimple(persona)
@@ -709,7 +709,7 @@ class PersonaTestSuite {
 	@Test
 	
 	def void unaPersonaPuedeOrdenarLosResultadosDeUnaBusquedaSegunSusCalorias(){
-		val repositorio = new RepoRecetas()
+		val repositorio = new RepoRecetasPropio()
 		val persona = new Persona()
 		val filtro = new FiltroPorCondicionesPreexistentes()
 		val receta1 = new RecetaSimple(persona)

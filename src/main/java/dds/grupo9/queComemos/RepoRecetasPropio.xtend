@@ -3,7 +3,7 @@ package dds.grupo9.queComemos
 import java.util.Collection
 import dds.grupo9.queComemos.excepciones.NoLoTieneException
 
-class RepoRecetas  {
+class RepoRecetasPropio {
 	
 	var Collection <Receta> recetasPublicas = newHashSet()
 	def tieneRecetaPublica(String nombreReceta){
@@ -27,5 +27,7 @@ class RepoRecetas  {
 		
 		this.recetasPublicas
 	}
+	
+
    	
 }

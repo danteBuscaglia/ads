@@ -6,7 +6,7 @@ import dds.grupo9.queComemos.Preferencia
 import dds.grupo9.queComemos.condicionPreexistente.CondPreexistente
 import dds.grupo9.queComemos.Receta
 import dds.grupo9.queComemos.GrupoDePersonas
-import dds.grupo9.queComemos.RepoRecetas
+import dds.grupo9.queComemos.RepoRecetasPropio
 
 abstract class BuilderPersona {
 	
@@ -60,7 +60,7 @@ abstract class BuilderPersona {
 		unGrupo.agregarAGrupo(perfilUsuario)
 	}
 	
-	def asginarRepoRecetas(RepoRecetas repositorio) {
+	def asginarRepoRecetas(RepoRecetasPropio repositorio) {
 		perfilUsuario.repoRecetas = repositorio
 	}
 	 	

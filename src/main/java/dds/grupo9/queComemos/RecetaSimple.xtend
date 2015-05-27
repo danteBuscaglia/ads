@@ -10,7 +10,7 @@ class RecetaSimple extends Receta {
 	
 	
 	
-	new(RepoRecetas repositorio) {
+	new(RepoRecetasPropio repositorio) {
 		super(repositorio)
 	}
 	
