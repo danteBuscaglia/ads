@@ -17,4 +17,9 @@ class RecetaPrivada implements PrivacidadReceta{
 	override cambiosDeReceta(Persona persona, Modificacion modificacion, Receta receta){
 		modificacion.ejecutar(receta)
 	}
+	
+	override getDueño() {
+		creador
+	}
+	
 }

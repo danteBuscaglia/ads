@@ -28,6 +28,4 @@ class RepoRecetasPropio {
 		this.recetasPublicas
 	}
 	
-
-   	
 }

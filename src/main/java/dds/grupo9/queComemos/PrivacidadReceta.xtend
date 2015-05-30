@@ -8,5 +8,7 @@ interface PrivacidadReceta {
 	
 	def void cambiosDeReceta(Persona persona, Modificacion modificacion,Receta receta)
 	
+ 	def Persona getDueño()
+	
 	
 }

@@ -9,6 +9,8 @@ import dds.grupo9.queComemos.excepciones.NoLoPuedeModificarException
 import dds.grupo9.queComemos.excepciones.NoPuedeAgregarException
 import dds.grupo9.queComemos.modificacionRecetas.Modificacion
 import dds.grupo9.queComemos.repoUsuarios.RepoUsuarios
+import RepoRecetasExterno.ConversorJson
+import queComemos.entrega3.repositorio.BusquedaRecetas
 
 class Persona implements FiltroDecorado {
 	
@@ -144,6 +146,14 @@ class Persona implements FiltroDecorado {
 		(nombre != "sinNombre" && fechaNacimiento != -1 && peso != -1 && altura != -1 && rutina != "sinRutina")
 	}
 	
+	def completarCamposObligatorios(String nombre, long fechaNacimiento, float peso, float altura, String rutina){
+		this.nombre = nombre
+		this.fechaNacimiento = fechaNacimiento
+		this.peso = peso
+		this.altura = altura
+		this.rutina = rutina
+	}
+	
 	def tieneXRecetasPropias(int cantidadRecetas) {
 		recetasPropias.length == cantidadRecetas
 	}
@@ -191,6 +201,15 @@ class Persona implements FiltroDecorado {
 		listaDeRecetas.addAll(recetasDeGrupo)
 		return listaDeRecetas
 	}
+	
+	/*Entrega 3 */
+	def listarTodasSusRecetasIncluyendoExternas(){
+		var listaDeRecetas = newHashSet()
+		listaDeRecetas.addAll(this.listarTodasSusRecetas())
+		listaDeRecetas.addAll(new ConversorJson().getRecetas(new BusquedaRecetas))
+		return listaDeRecetas
+	}
+	/*LA IDEA DE ESTE METODO ES PODER MANTENER VIGENTES TEST ANTERIORES E INCORPORAR EL REPO EXTERNO PARA NUEVOS TEST */
 	
 	def marcarRecetaComoFavorita(Receta receta){/*agrega una receta a favoritos si puede verla */
 		if(receta.puedeVerOModificarReceta(this))

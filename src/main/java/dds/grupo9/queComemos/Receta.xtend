@@ -4,17 +4,15 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.Collection
 import dds.grupo9.queComemos.condicionPreexistente.CondPreexistente
 import dds.grupo9.queComemos.modificacionRecetas.Modificacion
-import dds.grupo9.queComemos.condicionPreexistente.Hipertenso
-import dds.grupo9.queComemos.condicionPreexistente.Celiaco
-import dds.grupo9.queComemos.condicionPreexistente.Diabetico
-import dds.grupo9.queComemos.condicionPreexistente.Vegano
+import queComemos.entrega3.dominio.Dificultad
 
 abstract class Receta{
 	
 	@Accessors String nombre /*Nombre del plato */
     @Accessors String explicacion /*Pasos a seguir en la receta */
     @Accessors int calorias /*Calorías de la receta (A modificar) */
-    @Accessors String dificultad /*Dificultad de la receta */
+    @Accessors Dificultad dificultad /*Dificultad de la receta */
+    @Accessors int tiempoPreparacion
     var Collection<Ingrediente> ingredientes= newHashSet() /*Ingredientes de la receta */
     var Collection<Estacion> temporadasCorrespondientes = newHashSet() /*Temporadas a las que corresponde la receta */
     var Collection<CondPreexistente> condiciones = newHashSet() /* Condiciones preexistentes */
@@ -107,7 +105,7 @@ abstract class Receta{
   	def recetaInadecuadaPara (){ /*Muestra las condiciones para la que una receta es inadecuada */
 		condiciones.filter[condicion|condicion.recetaNoRecomendada(this)]
   		
-  	}
+  	} // Habria que hacerlo dinámico
   	
   	
   	def boolean puedeVerOModificarReceta(Persona persona){
@@ -122,11 +120,11 @@ abstract class Receta{
 	
 	def agregarCondiciones(Collection<CondPreexistente> condicionesParaAgregar){
 		condiciones.addAll(condicionesParaAgregar)
-	}
+	} // Habria que hacerlo dinámico
 	
 	def agregarTemporadas(Collection<Estacion> temporadasParaAgregar){
 		temporadasCorrespondientes.addAll(temporadasParaAgregar)
-	}
+	} // Habria que hacerlo dinámico
 	
 	def cantidadIngredientes(){
 		ingredientes.size
@@ -160,4 +158,8 @@ abstract class Receta{
 		ingredientes.exists[it.esCaro()]
 	}
 	
+	/*Entrega 3 */
+	def Persona getDueño(){
+		privacidad.getDueño()
+	}	
 }
