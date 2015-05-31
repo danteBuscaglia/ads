@@ -16,7 +16,6 @@ class ConversorJson {
 	
 	new(){
 		val repoExterno = new RepoRecetas()
-		repoExterno.crearRepoRecetas
 		this.repositorioExterno = repoExterno
 	}
 	
@@ -25,7 +24,7 @@ class ConversorJson {
 		var String resultadoJson
 		resultadoJson = repositorioExterno.getRecetas(busquedaRecetas)
 		recetas.addAll(new RepoExternoAdapter().adaptarJson(resultadoJson))
-		recetas
+		recetas = recetas.sortBy[it.nombre]
 	}
 	
 	def Collection<Receta> filterRecetas(BusquedaRecetas busquedaRecetas) {
@@ -35,7 +34,7 @@ class ConversorJson {
 			recetaAux = new RepoExternoAdapter().adaptarReceta(receta)
 			recetas.add(recetaAux)
 		}
-		recetas
+		recetas = recetas.sortBy[it.nombre]
 	}
 
 }

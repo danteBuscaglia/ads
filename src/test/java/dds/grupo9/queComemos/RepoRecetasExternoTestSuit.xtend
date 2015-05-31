@@ -17,6 +17,9 @@ import java.util.Collection
 import queComemos.entrega3.repositorio.BusquedaRecetas
 import queComemos.entrega3.dominio.Dificultad
 import RepoRecetasExterno.RepoExternoAdapter
+import queComemos.entrega3.repositorio.RepoRecetas
+import java.util.List
+import java.util.ArrayList
 
 class RepoRecetasExternoTestSuit {
 	
@@ -28,9 +31,39 @@ class RepoRecetasExternoTestSuit {
 		var conversorJson = new ConversorJson
 		var Collection<dds.grupo9.queComemos.Receta> recetas = newHashSet()
 		recetas = conversorJson.getRecetas(new BusquedaRecetas())
-		Assert.assertEquals(12, recetas.size) // Trae el doble don't know why!!!!!!!!!!!
-		Assert.assertEquals("ensalada caesar", recetas.head.nombre) // Trae en otro orden don't know why!!!!!!!!!!!
+		Assert.assertEquals(12, recetas.size)
+		Assert.assertEquals("canelones de ricota y verdura", recetas.head.nombre) // NOTA: mi adaptar ordena por nombre
 	}
+	
+	@Test
+	def unFilterTraeTodasLasRecetasDelRepositorioExternoYElAdapterLaConvierteCorrectamente(){
+		var conversorJson = new ConversorJson
+		var Collection<dds.grupo9.queComemos.Receta> recetas = newHashSet()
+		recetas = conversorJson.filterRecetas(new BusquedaRecetas())
+		Assert.assertEquals(12, recetas.size)
+		Assert.assertEquals("canelones de ricota y verdura", recetas.head.nombre) // NOTA: mi adaptar ordena por nombre
+	}
+
+	/*@Test
+	def trayendoDelRepoRecetas(){
+		var conversorJson = new ConversorJson
+		var adapterJson = new RepoExternoAdapter
+		var Collection<dds.grupo9.queComemos.Receta> recetasPropias = newHashSet()
+		var repoExterno = new RepoRecetas
+		var List<queComemos.entrega3.dominio.Receta> recetas = new ArrayList()
+		recetas = repoExterno.filterRecetas(new BusquedaRecetas())
+		for(r:recetas){
+			var dds.grupo9.queComemos.Receta recetaAux
+			recetaAux = adapterJson.adaptarReceta(r)
+			println(recetaAux.nombre)
+			recetasPropias.add(recetaAux)
+		}
+		recetasPropias = recetasPropias.sortBy[it.nombre]
+		println("_______________________")
+		recetasPropias.forEach[println(it.nombre)]
+		Assert.assertEquals(12, recetas.size) 
+		Assert.assertEquals("ensalada caesar", recetas.head.nombre)
+	}*/
 	
 	@Test
 	def unGetterTraeAlgunasRecetasSegunUnaBusquedaEnJsonYElAdapterLaConvierteCorrectamente(){
