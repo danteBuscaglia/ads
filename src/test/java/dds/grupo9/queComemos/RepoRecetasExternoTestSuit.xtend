@@ -43,27 +43,6 @@ class RepoRecetasExternoTestSuit {
 		Assert.assertEquals(40, recetas.head.calorias)
 	}
 
-	/*@Test
-	def trayendoDelRepoRecetas(){
-		var repoExterno = new RepoRecetasExterno
-		var adapterJson = new RepoExternoAdapter
-		var Collection<dds.grupo9.queComemos.Receta> recetasPropias = newHashSet()
-		var repoExterno = new RepoRecetas
-		var List<queComemos.entrega3.dominio.Receta> recetas = new ArrayList()
-		recetas = repoExterno.filterRecetas(new BusquedaRecetas())
-		for(r:recetas){
-			var dds.grupo9.queComemos.Receta recetaAux
-			recetaAux = adapterJson.adaptarReceta(r)
-			println(recetaAux.nombre)
-			recetasPropias.add(recetaAux)
-		}
-		recetasPropias = recetasPropias.sortBy[it.nombre]
-		println("_______________________")
-		recetasPropias.forEach[println(it.nombre)]
-		Assert.assertEquals(12, recetas.size) 
-		Assert.assertEquals("ensalada caesar", recetas.head.nombre)
-	}*/
-	
 	@Test
 	def unGetterTraeAlgunasRecetasSegunUnaBusquedaEnJsonYElAdapterLaConvierteCorrectamente(){
 		val busquedaRecetas = new BusquedaRecetas()
@@ -75,7 +54,6 @@ class RepoRecetasExternoTestSuit {
 		recetasDevueltas = repoExterno.getRecetas()
 		Assert.assertEquals("ensalada lechuga agridulce", recetasDevueltas.head.nombre)
 		Assert.assertEquals(Dificultad.MEDIANA,recetasDevueltas.head.dificultad)
-		Assert.assertEquals("Claire Underwood",recetasDevueltas.head.getDueño.nombre)
 		Assert.assertEquals(4,recetasDevueltas.head.ingredientes.size)
 	}
 	
@@ -107,12 +85,9 @@ class RepoRecetasExternoTestSuit {
 		//println(repoExterno.filterRecetas(busquedaRecetas).head.getNombre)
 		Assert.assertEquals("ensalada lechuga agridulce",recetasDevueltas.head.nombre)
 		Assert.assertEquals(Dificultad.MEDIANA,recetasDevueltas.head.dificultad)
-		Assert.assertEquals("Claire Underwood",recetasDevueltas.head.getDueño.nombre)
 		Assert.assertEquals(4,recetasDevueltas.head.ingredientes.size)
 	}
 	
-	/* TEST DEL DECORATOR PARA FILTROS CONSIDERANDO REPO EXTERNO */
-	/* FALTA EDITARLO, TODAVIA SON IGUALES A LOS DE PERSONA TEST SUITE */
 	/* EL REPO DE LA CÁTEDRA TIENE UN ERROR POR EL CUAL CUANDO HACE EL BUILDER ASIGNA EL TIEMPO DE PREPARACIÓN COMO CARLORÍAS */
 	@Test
 	

@@ -22,7 +22,7 @@ class RepoRecetasExterno implements dds.grupo9.queComemos.repoRecetas.RepoReceta
 		var Collection<Receta> recetas = newHashSet()
 		var String resultadoJson
 		resultadoJson = repositorioExterno.getRecetas(this.busquedaRecetas)
-		recetas.addAll(new RepoExternoAdapter().adaptarJson(resultadoJson))
+		recetas.addAll(new RepoExternoAdapter().adaptarJson(this, resultadoJson))
 		recetas = recetas.sortBy[it.nombre]
 	}
 	
@@ -30,7 +30,7 @@ class RepoRecetasExterno implements dds.grupo9.queComemos.repoRecetas.RepoReceta
 		var Collection<Receta> recetas = newHashSet()
 		for(receta: repositorioExterno.filterRecetas(busquedaRecetas)){
 			var RecetaSimple recetaAux = new RecetaSimple(new RepoRecetasPropio)
-			recetaAux = new RepoExternoAdapter().adaptarReceta(receta)
+			recetaAux = new RepoExternoAdapter().adaptarReceta(this, receta)
 			recetas.add(recetaAux)
 		}
 		recetas = recetas.sortBy[it.nombre]
