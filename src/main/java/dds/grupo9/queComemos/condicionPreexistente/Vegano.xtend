@@ -29,4 +29,5 @@ class Vegano implements CondPreexistente {
     	persona.prefiereNoComer(ingredientesCarnicos)
     } 
    
+	override boolean esVeganismo(){true}
 }

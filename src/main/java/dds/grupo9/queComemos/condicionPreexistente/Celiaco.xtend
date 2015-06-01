@@ -12,4 +12,6 @@ class Celiaco implements CondPreexistente {
 	override boolean recetaNoRecomendada(Receta receta){false}
 	
     override boolean verificaDatosSegunCondicion(Persona persona){true}			
+
+	override boolean esVeganismo(){false}
 }

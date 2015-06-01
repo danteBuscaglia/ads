@@ -23,6 +23,8 @@ class Diabetico implements CondPreexistente {
 
     override boolean verificaDatosSegunCondicion(Persona persona){ /* Verifica que usuarios diabéticos indiquen el sexo  y al menos una preferencia */
       	persona.indicaSexo && persona.tienePreferencias
-    } 
+    }
+    
+    override boolean esVeganismo(){false} 
     	
 }

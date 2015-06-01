@@ -12,4 +12,6 @@ interface CondPreexistente {
     def boolean recetaNoRecomendada(Receta receta)
 
 	def boolean verificaDatosSegunCondicion(Persona persona) 
+	
+	def boolean esVeganismo()
 }

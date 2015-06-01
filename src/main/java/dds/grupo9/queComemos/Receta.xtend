@@ -17,6 +17,7 @@ abstract class Receta{
     var Collection<Estacion> temporadasCorrespondientes = newHashSet() /*Temporadas a las que corresponde la receta */
     var Collection<CondPreexistente> condiciones = newHashSet() /* Condiciones preexistentes */
     var PrivacidadReceta privacidad /* Condición de privacidad de la receta (publica o privada) */
+    @Accessors int cantVecesConsultada
     
     new (RepoRecetasPropio repositorio){
     	
@@ -161,5 +162,13 @@ abstract class Receta{
 	/*Entrega 3 */
 	def Persona getDueño(){
 		privacidad.getDueño()
+	}
+	
+	def aumentarCantidadDeVecesConsultada(){
+		cantVecesConsultada++
+	}
+	
+	def esDificil(){
+		this.dificultad == Dificultad.DIFICIL
 	}	
 }

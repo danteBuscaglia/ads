@@ -245,6 +245,8 @@ class Persona implements FiltroDecorado {
 		disgustos.forall[!unaReceta.tieneIngrediente(it)]
 	}
 	
-	
+	def esVegano(){
+		condicionesPreexistentes.exists[it.esVeganismo()]
+	}
 }
 	

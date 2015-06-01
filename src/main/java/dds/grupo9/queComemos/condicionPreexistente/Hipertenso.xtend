@@ -29,5 +29,6 @@ class Hipertenso implements CondPreexistente {
     override boolean verificaDatosSegunCondicion(Persona persona){/* Verifica que usuarios hipertensos indiquen al menos una preferencia */
     	persona.tienePreferencias
     }
-       
+    
+    override boolean esVeganismo(){false}   
 }
