@@ -19,6 +19,7 @@ import dds.grupo9.queComemos.ordenamientoResultados.CriterioPorCalorias
 import dds.grupo9.queComemos.manejoResultadosFiltros.OrdenarPorCriterio
 import dds.grupo9.queComemos.excepciones.NoLoTieneException
 import dds.grupo9.queComemos.repoUsuarios.RepoUsuarios
+import dds.grupo9.queComemos.repoRecetas.RepoRecetasPropio
 
 class PersonaTestSuite {
 	

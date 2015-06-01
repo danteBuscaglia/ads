@@ -9,8 +9,7 @@ import dds.grupo9.queComemos.excepciones.NoLoPuedeModificarException
 import dds.grupo9.queComemos.excepciones.NoPuedeAgregarException
 import dds.grupo9.queComemos.modificacionRecetas.Modificacion
 import dds.grupo9.queComemos.repoUsuarios.RepoUsuarios
-import RepoRecetasExterno.ConversorJson
-import queComemos.entrega3.repositorio.BusquedaRecetas
+import dds.grupo9.queComemos.repoRecetas.RepoRecetas
 
 class Persona implements FiltroDecorado {
 	
@@ -25,7 +24,7 @@ class Persona implements FiltroDecorado {
 	@Accessors String rutina /* Tipo de rutina que lleva a cabo el Usuario */
     var Collection<Receta> recetasPropias= newHashSet() /*Recetas de un Usuario */
     var Collection<GrupoDePersonas> grupos = newHashSet()
-    @Accessors RepoRecetasPropio repoRecetas
+    @Accessors RepoRecetas repoRecetas
     var Collection<Receta> recetasFavoritas = newHashSet()
     @Accessors RepoUsuarios repoUsuarios
     @Accessors String motivoRechazo 
@@ -200,16 +199,8 @@ class Persona implements FiltroDecorado {
 		listaDeRecetas.addAll(recetasPublicas)
 		listaDeRecetas.addAll(recetasDeGrupo)
 		return listaDeRecetas
-	}
-	
-	/*Entrega 3 */
-	def listarTodasSusRecetasIncluyendoExternas(){
-		var listaDeRecetas = newHashSet()
-		listaDeRecetas.addAll(this.listarTodasSusRecetas())
-		listaDeRecetas.addAll(new ConversorJson().getRecetas(new BusquedaRecetas))
-		return listaDeRecetas
-	}
-	/*LA IDEA DE ESTE METODO ES PODER MANTENER VIGENTES TEST ANTERIORES E INCORPORAR EL REPO EXTERNO PARA NUEVOS TEST */
+	}/*LA IDEA DE ESTE METODO ES PODER MANTENER VIGENTES TEST ANTERIORES*/
+	 /*TAMBIEN SE BUSCA INCORPORAR EL REPO EXTERNO PARA NUEVOS TEST*/
 	
 	def marcarRecetaComoFavorita(Receta receta){/*agrega una receta a favoritos si puede verla */
 		if(receta.puedeVerOModificarReceta(this))

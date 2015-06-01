@@ -5,6 +5,7 @@ import java.util.Collection
 import dds.grupo9.queComemos.condicionPreexistente.CondPreexistente
 import dds.grupo9.queComemos.modificacionRecetas.Modificacion
 import queComemos.entrega3.dominio.Dificultad
+import dds.grupo9.queComemos.repoRecetas.RepoRecetas
 
 abstract class Receta{
 	
@@ -19,7 +20,7 @@ abstract class Receta{
     var PrivacidadReceta privacidad /* Condición de privacidad de la receta (publica o privada) */
     @Accessors int cantVecesConsultada
     
-    new (RepoRecetasPropio repositorio){
+    new (RepoRecetas repositorio){
     	
     	privacidad = new RecetaPublica ()
 //    	repositorio.agregarRecetaPublica(this)	

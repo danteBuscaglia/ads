@@ -1,4 +1,4 @@
-package RepoRecetasExterno
+package dds.grupo9.queComemos.repoRecetas
 
 import queComemos.entrega3.dominio.Receta
 import dds.grupo9.queComemos.RecetaSimple

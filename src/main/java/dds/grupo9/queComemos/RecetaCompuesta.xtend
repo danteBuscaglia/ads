@@ -1,11 +1,12 @@
 package dds.grupo9.queComemos	
 import java.util.Collection
+import dds.grupo9.queComemos.repoRecetas.RepoRecetas
 
 class RecetaCompuesta extends Receta {
 	
 	var Collection <Receta> subrecetas = newHashSet()
 	
-	new(RepoRecetasPropio repositorio) {
+	new(RepoRecetas repositorio) {
 		super(repositorio)
 	}
 	

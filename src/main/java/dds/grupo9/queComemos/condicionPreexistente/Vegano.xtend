@@ -8,13 +8,28 @@ import dds.grupo9.queComemos.Persona
 
 class Vegano implements CondPreexistente {
 	
-	var Collection<dds.grupo9.queComemos.Ingrediente> ingredientesCarnicos = newHashSet()
+	var Collection<Ingrediente> ingredientesCarnicos = newHashSet()
 	
 	new(){
 		ingredientesCarnicos.add(new Ingrediente(Preferencia.CHORI))
 		ingredientesCarnicos.add(new Ingrediente(Preferencia.POLLO))
 		ingredientesCarnicos.add(new Ingrediente(Preferencia.CHIVITO))
 		ingredientesCarnicos.add(new Ingrediente(Preferencia.CARNE))
+		/*ingredientesCarnicos.add(new Ingrediente(Preferencia.PESCADO))
+		ingredientesCarnicos.add(new Ingrediente(Preferencia.MARISCO))
+		ingredientesCarnicos.add(new Ingrediente(Preferencia.MONDONGO))
+		ingredientesCarnicos.add(new Ingrediente(Preferencia.CHORI))
+		ingredientesCarnicos.add(new Ingrediente(Preferencia.LECHON))
+		ingredientesCarnicos.add(new Ingrediente(Preferencia.LOMO))
+		ingredientesCarnicos.add(new Ingrediente(Preferencia.SALMON))
+		ingredientesCarnicos.add(new Ingrediente(Preferencia.BERBERECHOS))	
+		ingredientesCarnicos.add(new Ingrediente(Preferencia.MEJILLONES))
+		ingredientesCarnicos.add(new Ingrediente(Preferencia.LANGOSTINOS))
+		ingredientesCarnicos.add(new Ingrediente(Preferencia.BIFE_ANGOSTO))*/
+	}
+	
+	def agregarAlimentoConCarne(Preferencia preferencia){
+		ingredientesCarnicos.add(new Ingrediente(preferencia))
 	}
 	
 	override boolean subsanaCondicion(Collection<Preferencia> gustos, String rutina, float peso){ /*Verifica si logra subsanar el veganismo, se logra si le gustan las frutas */

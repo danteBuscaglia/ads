@@ -1,6 +1,7 @@
 package dds.grupo9.queComemos
 
 import dds.grupo9.queComemos.excepciones.NoEsValidoException
+import dds.grupo9.queComemos.repoRecetas.RepoRecetas
 
 class RecetaSimple extends Receta {
 	
@@ -10,7 +11,7 @@ class RecetaSimple extends Receta {
 	
 	
 	
-	new(RepoRecetasPropio repositorio) {
+	new(RepoRecetas repositorio) {
 		super(repositorio)
 	}
 	

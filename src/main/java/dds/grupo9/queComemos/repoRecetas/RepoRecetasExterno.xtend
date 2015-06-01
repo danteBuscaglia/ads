@@ -1,28 +1,27 @@
-package RepoRecetasExterno
+package dds.grupo9.queComemos.repoRecetas
 
 import queComemos.entrega3.repositorio.RepoRecetas
 import org.eclipse.xtend.lib.annotations.Accessors
 import queComemos.entrega3.repositorio.BusquedaRecetas
 import java.util.Collection
 import dds.grupo9.queComemos.RecetaSimple
-import dds.grupo9.queComemos.RepoRecetasPropio
 import dds.grupo9.queComemos.Receta
 
-// Es correcto traer esta receta y no la nuestra? Trabajamos con el dominio impuesto
-
-class ConversorJson {
+class RepoRecetasExterno implements dds.grupo9.queComemos.repoRecetas.RepoRecetas {
 	
 	@Accessors RepoRecetas repositorioExterno
+	@Accessors BusquedaRecetas busquedaRecetas
 	
 	new(){
 		val repoExterno = new RepoRecetas()
 		this.repositorioExterno = repoExterno
+		this.busquedaRecetas = new BusquedaRecetas()
 	}
 	
-	def Collection<Receta> getRecetas(BusquedaRecetas busquedaRecetas) {
+	override Collection<Receta> getRecetas() {
 		var Collection<Receta> recetas = newHashSet()
 		var String resultadoJson
-		resultadoJson = repositorioExterno.getRecetas(busquedaRecetas)
+		resultadoJson = repositorioExterno.getRecetas(this.busquedaRecetas)
 		recetas.addAll(new RepoExternoAdapter().adaptarJson(resultadoJson))
 		recetas = recetas.sortBy[it.nombre]
 	}

@@ -8,6 +8,7 @@ import dds.grupo9.queComemos.condicionPreexistente.Celiaco
 import dds.grupo9.queComemos.excepciones.NoEsValidoException
 import dds.grupo9.queComemos.modificacionRecetas.modAgregarIngredientes
 import dds.grupo9.queComemos.modificacionRecetas.modEliminarIngredientes
+import dds.grupo9.queComemos.repoRecetas.RepoRecetasPropio
 
 class RecetaTestSuite {
 	

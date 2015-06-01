@@ -1,9 +1,10 @@
-package dds.grupo9.queComemos
+package dds.grupo9.queComemos.repoRecetas
 
 import java.util.Collection
 import dds.grupo9.queComemos.excepciones.NoLoTieneException
+import dds.grupo9.queComemos.Receta
 
-class RepoRecetasPropio {
+class RepoRecetasPropio implements dds.grupo9.queComemos.repoRecetas.RepoRecetas {
 	
 	var Collection <Receta> recetasPublicas = newHashSet()
 	def tieneRecetaPublica(String nombreReceta){
@@ -23,7 +24,7 @@ class RepoRecetasPropio {
 		
 	}
 	
-	def getRecetas(){
+	override Collection<Receta> getRecetas(){
 		
 		this.recetasPublicas
 	}
