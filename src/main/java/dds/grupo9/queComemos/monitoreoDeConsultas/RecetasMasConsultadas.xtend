@@ -14,6 +14,10 @@ class RecetasMasConsultadas implements Monitor {
 	}
 	
 	def recetasMasConsultadas(int cant){
-		recetasConsultadas.sortBy[it.cantVecesConsultada].take(cant)
+		mostrarRecetasMasConsultadasOrdenadas(recetasConsultadas, cant)
+	}
+	
+	def mostrarRecetasMasConsultadasOrdenadas(Collection<Receta> recetas, int cant){
+		recetas.sortBy[it.cantVecesConsultada].reverse.take(cant).map[it.getNombre()]
 	}
 }

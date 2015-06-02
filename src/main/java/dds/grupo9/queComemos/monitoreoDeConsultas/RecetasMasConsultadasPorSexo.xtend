@@ -4,7 +4,7 @@ import dds.grupo9.queComemos.Persona
 import java.util.Collection
 import dds.grupo9.queComemos.Receta
 
-class RecetasMasConsultadasPorSexo implements Monitor {
+class RecetasMasConsultadasPorSexo extends RecetasMasConsultadas {
 	
 	var Collection<Receta> recetasDeHombre = newHashSet()
 	var Collection<Receta> recetasDeMujer = newHashSet()
@@ -18,11 +18,11 @@ class RecetasMasConsultadasPorSexo implements Monitor {
 		}
 	}
 	
-	def recetasMasConsultadasPorSexo(int cantidad){
-		var Collection<Receta> recetasMasConsultadasPorSexo = newHashSet()
-		recetasMasConsultadasPorSexo.addAll(recetasDeHombre.sortBy[it.cantVecesConsultada].take(cantidad))
-		recetasMasConsultadasPorSexo.addAll(recetasDeMujer.sortBy[it.cantVecesConsultada].take(cantidad))
-		return recetasMasConsultadasPorSexo
+	def recetasMasConsultadasPorHombres(int cantidad){
+		mostrarRecetasMasConsultadasOrdenadas(recetasDeHombre, cantidad)
 	}
-// Debería hacer un println para que me muestre separadas las recetas consultadas por hombres y las consultadas por mujeres	
+	
+	def recetasMasConsultadasPorMujeres(int cantidad){
+		mostrarRecetasMasConsultadasOrdenadas(recetasDeMujer, cantidad)
+	}
 }

@@ -20,6 +20,7 @@ import dds.grupo9.queComemos.manejoResultadosFiltros.OrdenarPorCriterio
 import dds.grupo9.queComemos.excepciones.NoLoTieneException
 import dds.grupo9.queComemos.repoUsuarios.RepoUsuarios
 import dds.grupo9.queComemos.repoRecetas.RepoRecetasPropio
+import dds.grupo9.queComemos.monitoreoDeConsultas.RecetasMasConsultadas
 
 class PersonaTestSuite {
 	
@@ -924,5 +925,74 @@ class PersonaTestSuite {
    		Assert.assertEquals(2,repoUsuarios.list(juani).size)
    	
    }
+   
+   @Test
+	
+	def void obtenerLasRecetasMasConsultadasLuegoDeUnaSerieDeConsultas(){
+		val repositorio = new RepoRecetasPropio()
+		val persona = new Persona()
+		val persona2 = new Persona()
+		val persona3 = new Persona()
+		val filtro3 = new FiltroPorDisgusto()
+		val filtro2 = new FiltroPorCondicionesPreexistentes()
+		val filtro = new FiltroPorIngredientesCaros()
+		var recetasMC = new RecetasMasConsultadas()
+		val receta1 = new RecetaSimple(persona)
+		val receta2 = new RecetaSimple(repositorio)
+		val receta3 = new RecetaSimple(repositorio)
+		val receta4 = new RecetaSimple(persona)
+		val receta5 = new RecetaSimple(repositorio)
+		val receta6 = new RecetaSimple(persona)
+		val busqueda1 = new Busqueda()
+		busqueda1.fuenteDeDatos = filtro
+		busqueda1.persona = persona
+		val busqueda2 = new Busqueda()
+		busqueda2.fuenteDeDatos = filtro2
+		busqueda2.persona = persona
+		val busqueda3 = new Busqueda()
+		busqueda3.fuenteDeDatos = filtro3
+		busqueda3.persona = persona
+		
+		persona.setRepoRecetas(repositorio)
+		persona2.setRepoRecetas(repositorio)
+		persona3.setRepoRecetas(repositorio)
+		persona3.agregarDisgusto(Preferencia.PESCADO)
+		persona2.agregarCondPreexistente(new Vegano())
+		filtro.persona = persona
+		filtro.decorado = persona
+		filtro2.persona = persona2
+		filtro2.decorado = persona2
+		filtro3.persona = persona3
+		filtro3.decorado = persona3
+		busqueda1.agregarMonitor(recetasMC)
+		busqueda2.agregarMonitor(recetasMC)
+		busqueda3.agregarMonitor(recetasMC)
+		receta1.agregarIngrediente(new Ingrediente(Preferencia.LOMO))
+		receta1.calorias = 650
+		receta2.agregarIngrediente(new Ingrediente())
+		receta2.calorias = 420
+		receta3.agregarIngrediente(new Ingrediente())
+		receta3.calorias = 300
+		receta4.agregarIngrediente(new Ingrediente(Preferencia.CHORI))
+		receta4.calorias = 650
+		receta5.agregarIngrediente(new Ingrediente(Preferencia.PESCADO))
+		receta5.calorias = 420
+		receta6.agregarIngrediente(new Ingrediente())
+		receta6.calorias = 300
+		persona.agregarReceta(receta1)
+		repositorio.agregarRecetaPublica(receta2)
+		repositorio.agregarRecetaPublica(receta3)
+		persona2.agregarReceta(receta4)
+		repositorio.agregarRecetaPublica(receta5)
+		persona3.agregarReceta(receta6)
+						
+		var recetasMasConsultadas = #[receta2,receta3]
+		
+		Assert.assertEquals(busqueda1.resultadoSinProcesar.size, 3)
+		//busqueda2.resultadoSinProcesar()
+		//busqueda3.resultadoSinProcesar()
+		
+		//Assert.assertEquals(recetasMC.recetasMasConsultadas(2), recetasMasConsultadas)
+	}	
 }
    
