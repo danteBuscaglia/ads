@@ -37,7 +37,7 @@ class RepoRecetasExternoTestSuit {
 	def unFilterTraeTodasLasRecetasDelRepositorioExternoYElAdapterLaConvierteCorrectamente(){
 		var repoExterno = new RepoRecetasExterno
 		var Collection<dds.grupo9.queComemos.Receta> recetas = newHashSet()
-		recetas = repoExterno.filterRecetas(new BusquedaRecetas())
+		recetas = repoExterno.filterRecetas
 		Assert.assertEquals(12, recetas.size)
 		Assert.assertEquals("canelones de ricota y verdura", recetas.head.nombre) // NOTA: mi adaptar ordena por nombre
 		Assert.assertEquals(40, recetas.head.calorias)
@@ -80,9 +80,12 @@ class RepoRecetasExternoTestSuit {
 		var Collection<dds.grupo9.queComemos.Receta> recetasDevueltas = newHashSet()
 		busquedaRecetas.nombre = "ensalada lechuga agridulce"
 		busquedaRecetas.dificultad = Dificultad.MEDIANA
-		recetasDevueltas = repoExterno.filterRecetas(busquedaRecetas)
-		//println(repoExterno.filterRecetas(busquedaRecetas).head)
-		//println(repoExterno.filterRecetas(busquedaRecetas).head.getNombre)
+		repoExterno.busquedaRecetas = busquedaRecetas
+		recetasDevueltas = repoExterno.filterRecetas
+		//println(repoExterno.filterRecetas())
+		//println(repoExterno.filterRecetas().map[it.nombre])
+		//println(repoExterno.filterRecetas().head)
+		//println(repoExterno.filterRecetas().head.getNombre)
 		Assert.assertEquals("ensalada lechuga agridulce",recetasDevueltas.head.nombre)
 		Assert.assertEquals(Dificultad.MEDIANA,recetasDevueltas.head.dificultad)
 		Assert.assertEquals(4,recetasDevueltas.head.ingredientes.size)

@@ -10,8 +10,29 @@ import dds.grupo9.queComemos.Preferencia
 import com.google.gson.reflect.TypeToken
 import com.google.gson.Gson
 import java.lang.reflect.Type
+import org.eclipse.xtend.lib.annotations.Accessors
+import queComemos.entrega3.repositorio.RepoRecetas
 
 class RepoExternoAdapter {
+
+	@Accessors RepoRecetas repositorioExterno
+
+	new(){
+		val repoExterno = new RepoRecetas
+		this.repositorioExterno = repoExterno
+	}
+
+	def Collection<dds.grupo9.queComemos.Receta> adaptarJson(RepoRecetasExterno repoExterno) {
+		var Collection <dds.grupo9.queComemos.Receta> recetasPropias = newHashSet()
+		var List<Receta>recetasExternas = new ArrayList()
+		var Type typeOfT = new TypeToken<Collection<Receta>>(){}.getType();
+		var String resultadoJson
+		
+		resultadoJson = repositorioExterno.getRecetas(repoExterno.busquedaRecetas)
+		recetasExternas = new Gson().fromJson(resultadoJson, typeOfT)
+		recetasPropias.addAll(recetasExternas.map[this.adaptarReceta(repoExterno,it)])
+		recetasPropias
+	}
 
 	def RecetaSimple adaptarReceta(RepoRecetasExterno repoExterno, Receta receta) {
 		var RecetaSimple recetaAux = new RecetaSimple(repoExterno)
@@ -37,13 +58,12 @@ class RepoExternoAdapter {
 		Preferencia.valueOf(string.replaceAll(" ", "_").toUpperCase)
 	}
 	
-	def Collection<dds.grupo9.queComemos.Receta> adaptarJson(RepoRecetasExterno repoExterno,String json) {
-		var Collection <dds.grupo9.queComemos.Receta> recetasPropias = newHashSet()
-		var List<Receta>recetasExternas = new ArrayList()
-		var Type typeOfT = new TypeToken<Collection<Receta>>(){}.getType();
-		recetasExternas = new Gson().fromJson(json, typeOfT)
-		recetasPropias.addAll(recetasExternas.map[this.adaptarReceta(repoExterno,it)])
-		recetasPropias
+	def recetasAdaptadas(RepoRecetasExterno repoExterno) {
+		var Collection<dds.grupo9.queComemos.Receta> recetas = newHashSet()
+		for(receta: repositorioExterno.filterRecetas(repoExterno.busquedaRecetas)){
+			recetas.add(this.adaptarReceta(repoExterno, receta))
+		}
+		recetas
 	}
 	
 }
