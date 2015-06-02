@@ -15,7 +15,6 @@ class Busqueda {
 	var Collection<Monitor> monitores = newHashSet()	
 
 	def Collection<Receta> resultado(){
-		notificar()
 		proceso.procesar(fuenteDeDatos.resultado)
 	}
 	
@@ -24,7 +23,7 @@ class Busqueda {
 		fuenteDeDatos.resultado()
 	}
 
-	def notificar(){
+	def void notificar(){
 		if(monitores.size>0){
 			monitores.forEach[it.update(persona, fuenteDeDatos.resultado())]
 		}

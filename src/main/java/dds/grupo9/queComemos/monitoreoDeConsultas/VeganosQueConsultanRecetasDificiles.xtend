@@ -5,7 +5,7 @@ import java.util.Collection
 import dds.grupo9.queComemos.Persona
 import org.eclipse.xtend.lib.annotations.Accessors
 
-class VeganosConsultanRecetasDificiles implements Monitor {
+class VeganosQueConsultanRecetasDificiles implements Monitor {
 	
 	@Accessors int cantidadVeganos
 	

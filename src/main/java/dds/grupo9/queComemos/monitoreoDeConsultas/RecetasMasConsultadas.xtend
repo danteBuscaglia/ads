@@ -6,7 +6,7 @@ import dds.grupo9.queComemos.Receta
 
 class RecetasMasConsultadas implements Monitor {
 	
-	var Collection<Receta> recetasConsultadas
+	var Collection<Receta> recetasConsultadas = newHashSet()
 	
 	override void update(Persona persona, Collection<Receta> recetas){
 		recetas.forEach[it.aumentarCantidadDeVecesConsultada()]

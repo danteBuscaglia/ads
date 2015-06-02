@@ -3,6 +3,7 @@ package dds.grupo9.queComemos.monitoreoDeConsultas
 import dds.grupo9.queComemos.Persona
 import java.util.Collection
 import dds.grupo9.queComemos.Receta
+import dds.grupo9.queComemos.excepciones.NoTieneSexoException
 
 class RecetasMasConsultadasPorSexo extends RecetasMasConsultadas {
 	
@@ -15,6 +16,8 @@ class RecetasMasConsultadasPorSexo extends RecetasMasConsultadas {
 			recetasDeHombre.addAll(recetas)
 		} else if (persona.sexo == "F" || persona.sexo == "f"){
 			recetasDeMujer.addAll(recetas)
+		} else { 
+			throw new NoTieneSexoException("El sexo ingresado no es válido")
 		}
 	}
 	
