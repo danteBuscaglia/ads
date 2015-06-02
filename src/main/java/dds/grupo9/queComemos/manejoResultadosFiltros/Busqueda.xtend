@@ -26,15 +26,15 @@ class Busqueda {
 
 	def Collection<Receta> resultado(){
 		notificar()
-		procesarRecetasMasConsultadas(persona , fuenteDeDatos.resultado)
-		procesarConsultaPorSexo(persona , fuenteDeDatos.resultado)
-		procesarConsultaVeganosRecetasDificiles(persona , fuenteDeDatos.resultado)
-		procesarConsultaPorHora(persona , fuenteDeDatos.resultado)
 		proceso.procesar(fuenteDeDatos.resultado)
 	}
 	
 	def Collection<Receta> resultadoSinProcesar(){
 		notificar()
+		procesarRecetasMasConsultadas(persona , fuenteDeDatos.resultado)
+		procesarConsultaPorSexo(persona , fuenteDeDatos.resultado)
+		procesarConsultaVeganosRecetasDificiles(persona , fuenteDeDatos.resultado)
+		procesarConsultaPorHora(persona , fuenteDeDatos.resultado)
 		fuenteDeDatos.resultado()
 	}
 
