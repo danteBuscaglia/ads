@@ -10,18 +10,18 @@ import java.util.Calendar
 
 class Busqueda {
 	
-	@Accessors int lahora
-	@Accessors int y
+	@Accessors int hour
+	@Accessors int x
 	@Accessors int cantidadDeVeganos
 	@Accessors FiltroDecorado fuenteDeDatos
 	@Accessors Proceso proceso
 	@Accessors Persona persona
 	var Collection<Monitor> monitores = newHashSet()	
-	var Collection<Receta> recetasMasConsultadas
-	var Collection<Receta> recetasHombre = newHashSet()
-	var Collection<Receta> recetasMujer = newHashSet()
-	var consultasPorHoraa = newArrayOfSize(24)
-	var Calendar calendarioo = Calendar.getInstance()
+	var Collection<Receta> recetasMasConsultadas = newHashSet()
+	var Collection<Receta> recetasDeHombre = newHashSet()
+	var Collection<Receta> recetasDeMujer = newHashSet()
+	var consultasPorHora = newIntArrayOfSize(24)
+	var Calendar calendario = Calendar.getInstance()
 	
 
 	def Collection<Receta> resultado(){
@@ -30,10 +30,10 @@ class Busqueda {
 	
 	def Collection<Receta> resultadoSinProcesar(){
 		notificar()
-		procesarRecetasMasConsultadas(persona , fuenteDeDatos.resultado)
-		procesarConsultaPorSexo(persona , fuenteDeDatos.resultado)
-		procesarConsultaVeganosRecetasDificiles(persona , fuenteDeDatos.resultado)
-		procesarConsultaPorHora(persona , fuenteDeDatos.resultado)
+		procesarRecetasMasConsultadas()
+		procesarConsultaPorSexo()
+		procesarConsultaVeganosRecetasDificiles()
+		procesarConsultaPorHora()
 		fuenteDeDatos.resultado()
 	}
 
@@ -50,76 +50,68 @@ class Busqueda {
 	def eliminarMonitor(Monitor monitor){
 		monitores.remove(monitor)
 	}
+			
 	
-		
-	
-	def void procesarRecetasMasConsultadas(Persona persona, Collection<Receta> recetas){
-		recetas.forEach[it.aumentarCantidadDeVecesConsultada()]
-		recetasMasConsultadas.addAll(recetas)
+	def void procesarRecetasMasConsultadas(){
+		fuenteDeDatos.resultado.forEach[it.aumentarCantidadDeVecesConsultada()]
+		recetasMasConsultadas.addAll(fuenteDeDatos.resultado)
 	}
 	
-	def lasRecetasMasConsultadas(int cant){
-		lasRecetasMasConsultadasOrdenadas(recetasMasConsultadas, cant)
+	def recetasMasConsultadas(int cant){
+		recetasMasConsultadasOrdenadas(recetasMasConsultadas, cant)
 	}
 	
-	def lasRecetasMasConsultadasOrdenadas(Collection<Receta> recetas, int cant){
+	def recetasMasConsultadasOrdenadas(Collection<Receta> recetas, int cant){
 		recetas.sortBy[it.cantVecesConsultada].reverse.take(cant).map[it.getNombre()]
 	}
 	
-	
-
-	
-	def void procesarConsultaPorSexo(Persona persona, Collection<Receta> recetas){
-		recetas.forEach[it.aumentarCantidadDeVecesConsultada()]
+		
+	def void procesarConsultaPorSexo(){
+		fuenteDeDatos.resultado.forEach[it.aumentarCantidadDeVecesConsultada()]
 		if (persona.sexo == "M" || persona.sexo == "m"){
-			recetasHombre.addAll(recetas)
+			recetasDeHombre.addAll(fuenteDeDatos.resultado)
 		} else if (persona.sexo == "F" || persona.sexo == "f"){
-			recetasMujer.addAll(recetas)
+			recetasDeMujer.addAll(fuenteDeDatos.resultado)
 		}
 	}
 	
-	def lasRecetasMasConsultadasPorHombres(int cantidad){
-		lasRecetasMasConsultadasOrdenadas(recetasHombre, cantidad)
+	def recetasMasConsultadasPorHombres(int cantidad){
+		recetasMasConsultadasOrdenadas(recetasDeHombre, cantidad)
 	}
 	
-	def lasRecetasMasConsultadasPorMujeres(int cantidad){
-		lasRecetasMasConsultadasOrdenadas(recetasMujer, cantidad)
+	def recetasMasConsultadasPorMujeres(int cantidad){
+		recetasMasConsultadasOrdenadas(recetasDeMujer, cantidad)
 	}
 	
 	
-	
-	def void procesarConsultaVeganosRecetasDificiles(Persona persona, Collection<Receta> recetas){
+	def void procesarConsultaVeganosRecetasDificiles(){
 		if(persona.esVegano()){
 			var Iterable<Receta> recetasDificiles = newHashSet()
-			recetasDificiles = recetas.filter[it.esDificil()]
+			recetasDificiles = fuenteDeDatos.resultado.filter[it.esDificil()]
 			if(recetasDificiles.size > 0){
 				cantidadDeVeganos++
 			}
 		}
 	}
 	
-	def laCantidadDeVeganosQueConsultaronRecetasDificiles(){
+	def cantidadDeVeganosQueConsultaronRecetasDificiles(){
 		cantidadDeVeganos
 	}
 	
 	
-	
-	
-	def void procesarConsultaPorHora(Persona persona, Collection<Receta> recetas){
-		lahora = calendarioo.get(Calendar.HOUR)
-		consultasPorHoraa.set(lahora, y++)
+	def void procesarConsultaPorHora(){
+		hour = calendario.get(Calendar.HOUR_OF_DAY)
+		x = consultasPorHora.get(hour)
+		consultasPorHora.set(hour, x++)
 	}
 	
-	def lasConsultasPorHora(int hora){
-		if(hora>12 || hora<0){
+	def consultasPorHora(int hora){
+		if(hora>23 || hora<0){
 			throw new RuntimeException("no es una hora válida")
 		} else {
-			consultasPorHoraa.get(hora)
+			consultasPorHora.get(hora)
 		}
 	}
 	
-	def dameHora(){
-		lahora = calendarioo.get(Calendar.HOUR)
-	}
 }
 	

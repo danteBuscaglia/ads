@@ -15,28 +15,9 @@ abstract class Filtro implements FiltroDecorado {
 	}
 	
 	override Collection<Receta> resultado() {
-//		aumentarVecesConsultadasRecetas(decorado.resultado)
 		filtrar(decorado.resultado)
 	}
 	
 	def Collection<Receta> filtrar(Collection<Receta> recetas)
-
-/*  def aumentarVecesConsultadasRecetas(Collection<Receta> recetas){
-		recetas.forEach[it.aumentarCantidadDeVecesConsultada()]
-	}
-	
-	def recetasMasConsultadas(){
-		var Collection<Receta> todasLasRecetas = newHashSet()
-		todasLasRecetas.maxBy[receta | receta.cantVecesConsultada]
-	}
-	
-	def recetasMasConsultadasPorSexo(){
-		
-	}
-	
-	def veganosDificiles(){
-		
-	}*/
-	   
 }
 
