@@ -7,6 +7,7 @@ import dds.grupo9.queComemos.Receta
 import dds.grupo9.queComemos.monitoreoDeConsultas.Monitor
 import dds.grupo9.queComemos.Persona
 import java.util.Calendar
+import dds.grupo9.queComemos.excepciones.NoTieneSexoException
 
 class Busqueda {
 	
@@ -17,9 +18,7 @@ class Busqueda {
 	@Accessors Proceso proceso
 	@Accessors Persona persona
 	var Collection<Monitor> monitores = newHashSet()	
-	var Collection<Receta> recetasMasConsultadas = newHashSet()
-	var Collection<Receta> recetasDeHombre = newHashSet()
-	var Collection<Receta> recetasDeMujer = newHashSet()
+	var Collection<Receta> recetasConsultadas = newHashSet()
 	var consultasPorHora = newIntArrayOfSize(24)
 	var Calendar calendario = Calendar.getInstance()
 	
@@ -54,33 +53,39 @@ class Busqueda {
 	
 	def void procesarRecetasMasConsultadas(){
 		fuenteDeDatos.resultado.forEach[it.aumentarCantidadDeVecesConsultada()]
-		recetasMasConsultadas.addAll(fuenteDeDatos.resultado)
+		recetasConsultadas.addAll(fuenteDeDatos.resultado)
 	}
 	
 	def recetasMasConsultadas(int cant){
-		recetasMasConsultadasOrdenadas(recetasMasConsultadas, cant)
+		recetasMasConsultadasOrdenadas(recetasConsultadas, cant)
 	}
 	
 	def recetasMasConsultadasOrdenadas(Collection<Receta> recetas, int cant){
-		recetas.sortBy[it.cantVecesConsultada].reverse.take(cant).map[it.getNombre()]
+		var Collection<String> recetasFinal = newHashSet()
+		recetasFinal.addAll(recetas.sortBy[it.cantVecesConsultada].reverse.take(cant).map[it.getNombre()])
+		recetasFinal
 	}
 	
 		
 	def void procesarConsultaPorSexo(){
 		fuenteDeDatos.resultado.forEach[it.aumentarCantidadDeVecesConsultada()]
-		if (persona.sexo == "M" || persona.sexo == "m"){
-			recetasDeHombre.addAll(fuenteDeDatos.resultado)
-		} else if (persona.sexo == "F" || persona.sexo == "f"){
-			recetasDeMujer.addAll(fuenteDeDatos.resultado)
+		if (persona.sexo == "M" || persona.sexo == "m" || persona.sexo=="F" || persona.sexo=="f"){
+			recetasConsultadas.addAll(fuenteDeDatos.resultado)
+		} else {
+			throw new NoTieneSexoException("La persona no indica el sexo")
 		}
 	}
 	
 	def recetasMasConsultadasPorHombres(int cantidad){
-		recetasMasConsultadasOrdenadas(recetasDeHombre, cantidad)
+		var Collection<String> recetasFinal = newHashSet()
+		recetasFinal.addAll(recetasConsultadas.sortBy[it.cantVecesConsultadaPorHombres].reverse.take(cantidad).map[it.getNombre()])
+		recetasFinal
 	}
 	
 	def recetasMasConsultadasPorMujeres(int cantidad){
-		recetasMasConsultadasOrdenadas(recetasDeMujer, cantidad)
+		var Collection<String> recetasFinal = newHashSet()
+		recetasFinal.addAll(recetasConsultadas.sortBy[it.cantVecesConsultadaPorMujeres].reverse.take(cantidad).map[it.getNombre()])
+		recetasFinal
 	}
 	
 	

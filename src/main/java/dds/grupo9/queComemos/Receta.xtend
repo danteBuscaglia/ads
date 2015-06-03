@@ -18,7 +18,9 @@ abstract class Receta{
     var Collection<Estacion> temporadasCorrespondientes = newHashSet() /*Temporadas a las que corresponde la receta */
     var Collection<CondPreexistente> condiciones = newHashSet() /* Condiciones preexistentes */
     var PrivacidadReceta privacidad /* Condición de privacidad de la receta (publica o privada) */
-    @Accessors int cantVecesConsultada = 0
+    @Accessors int cantVecesConsultada
+    @Accessors int cantVecesConsultadaPorHombres
+    @Accessors int cantVecesConsultadaPorMujeres
     
     new (RepoRecetas repositorio){
     	
@@ -165,6 +167,14 @@ abstract class Receta{
 		privacidad.getDueño()
 	}
 	
+	def aumentarCantidadDeVecesConsultada(String sexo){
+		if (sexo=="M" || sexo=="m"){
+			cantVecesConsultadaPorHombres++
+		} else {
+			cantVecesConsultadaPorMujeres++
+		}
+	}
+	
 	def aumentarCantidadDeVecesConsultada(){
 		cantVecesConsultada++
 	}
@@ -176,4 +186,5 @@ abstract class Receta{
 	def getNombre(){
 		this.nombre
 	}	
+	
 }

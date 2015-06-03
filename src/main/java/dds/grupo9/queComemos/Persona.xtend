@@ -239,5 +239,9 @@ class Persona implements FiltroDecorado {
 	def esVegano(){
 		condicionesPreexistentes.exists[it.esVeganismo()]
 	}
+	
+	def setSexo(String sexo){
+		this.sexo = sexo
+	}
 }
 	
