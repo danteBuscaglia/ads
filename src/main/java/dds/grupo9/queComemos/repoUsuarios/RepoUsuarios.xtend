@@ -60,7 +60,7 @@ class RepoUsuarios extends BuilderPersona {
 	}
 	
 	def Persona buscarPersonaPorNombre(Persona persona){
-		var usuarionuevo = new dds.grupo9.queComemos.Persona()
+		var usuarionuevo = new Persona()
 		usuarionuevo = usuariosRegistrados.findFirst[usuario|usuario.coincideNombre(persona)]
 		return usuarionuevo
 	}

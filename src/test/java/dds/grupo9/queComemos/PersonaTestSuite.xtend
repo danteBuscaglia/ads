@@ -27,8 +27,6 @@ import dds.grupo9.queComemos.monitoreoDeConsultas.ConsultasPorHora
 import java.util.Calendar
 import dds.grupo9.queComemos.monitoreoDeConsultas.RecetasMasConsultadasPorSexo
 import java.util.Collection
-import dds.grupo9.queComemos.ordenamientoResultados.CriterioPorConsultasDeHombres
-import dds.grupo9.queComemos.ordenamientoResultados.CriterioPorConsultasDeMujeres
 
 class PersonaTestSuite {
 	
@@ -874,6 +872,8 @@ class PersonaTestSuite {
         val repoUsuarios = new RepoUsuarios()
    		var juani = new Persona()
    		var juani2 = new Persona()
+   		var juani3 = new Persona()
+   		val hipertenso = new Hipertenso()
    		val diabetico = new Diabetico()
    		repoUsuarios.generarNuevoPerfil
    		repoUsuarios.asignarNombre("juani")
@@ -900,6 +900,19 @@ class PersonaTestSuite {
    		repoUsuarios.solicitarIngreso
    		juani2 = repoUsuarios.perfilUsuario
    		repoUsuarios.aceptarUsuario(juani2)
+   		
+   		repoUsuarios.generarNuevoPerfil
+   		repoUsuarios.asignarNombre("juani")
+   		repoUsuarios.asignarAltura(1.82f)
+   		repoUsuarios.asignarPeso(72f)
+   		repoUsuarios.asignarSexo("Masculino")
+   		repoUsuarios.asignarRutina("Crossfit")
+   		repoUsuarios.asignarUnGusto(Preferencia.CHORI)
+   		repoUsuarios.asignarFechaNacimiento(19901010)
+   		repoUsuarios.asignarUnaCondicionPreexistente(hipertenso)
+   		repoUsuarios.solicitarIngreso
+   		juani3 = repoUsuarios.perfilUsuario
+   		repoUsuarios.aceptarUsuario(juani3)
 
    		Assert.assertEquals(2,repoUsuarios.list(juani).size)
    	
@@ -933,7 +946,7 @@ class PersonaTestSuite {
    		Assert.assertEquals(2,repoUsuarios.list(juani).size)
    	
    }
-/*   
+
    @Test
 	
 	def void saberCuantasConsultasSeHiceronEnUnaDeterminadaHora(){
@@ -976,9 +989,9 @@ class PersonaTestSuite {
 		Assert.assertEquals(10, busqueda2.resultadoSinProcesar.size)
 		Assert.assertEquals(11, busqueda3.resultadoSinProcesar.size)
 		
-		Assert.assertEquals(3, consultasPorHora.obtenerConsultasPorHora(17))
+		Assert.assertEquals(3, consultasPorHora.obtenerConsultasPorHora(Calendar.getInstance().get(Calendar.HOUR_OF_DAY)))
 	}
-*/   
+  
    @Test
 	
 	def void saberCuantosVeganosConsultaronRecetasDificiles(){
@@ -1173,9 +1186,8 @@ class PersonaTestSuite {
 		busqueda2.agregarMonitor(recetasMCPS)
 		busqueda3.agregarMonitor(recetasMCPS)
 		busqueda4.agregarMonitor(recetasMCPS)
-		recetasMCPS.criterio = new CriterioPorConsultasDeMujeres()
 							
-		var Collection<String> recetasMasConsultadasPM = newHashSet()
+		var recetasMasConsultadasPM = newHashSet()
 		recetasMasConsultadasPM.addAll("MacQueso", "Ensalada Cesar", "Sushi")
 		
 		Assert.assertEquals(4, busqueda1.resultadoSinProcesar.size)
@@ -1183,7 +1195,7 @@ class PersonaTestSuite {
 		Assert.assertEquals(3, busqueda3.resultadoSinProcesar.size)
 		Assert.assertEquals(4, busqueda4.resultadoSinProcesar.size)
 		
-		Assert.assertEquals(recetasMasConsultadasPM, recetasMCPS.recetasMasConsultadasPorSexo(3))
+		Assert.assertEquals(recetasMasConsultadasPM, recetasMCPS.recetasMasConsultadasPorMujeres(3))
 	}
 	
 	@Test
@@ -1262,9 +1274,8 @@ class PersonaTestSuite {
 		busqueda2.agregarMonitor(recetasMCPS)
 		busqueda3.agregarMonitor(recetasMCPS)
 		busqueda4.agregarMonitor(recetasMCPS)
-		recetasMCPS.criterio = new CriterioPorConsultasDeHombres()
 							
-		var Collection<String> recetasMasConsultadasPH = newHashSet()
+		var recetasMasConsultadasPH = newHashSet()
 		recetasMasConsultadasPH.addAll("MacQueso", "Comidita", "Pollo a la parrilla")
 		
 		
@@ -1273,7 +1284,7 @@ class PersonaTestSuite {
 		Assert.assertEquals(3, busqueda3.resultadoSinProcesar.size)
 		Assert.assertEquals(4, busqueda4.resultadoSinProcesar.size)
 		
-		Assert.assertEquals(recetasMasConsultadasPH, recetasMCPS.recetasMasConsultadasPorSexo(3))
+		Assert.assertEquals(recetasMasConsultadasPH, recetasMCPS.recetasMasConsultadasPorHombres(3))
 		
 	}
 }

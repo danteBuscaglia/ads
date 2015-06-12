@@ -4,23 +4,39 @@ import dds.grupo9.queComemos.Persona
 import java.util.Collection
 import dds.grupo9.queComemos.Receta
 import org.eclipse.xtend.lib.annotations.Accessors
-import dds.grupo9.queComemos.ordenamientoResultados.CriterioDeOrdenamiento
+import java.util.Hashtable
 
 class RecetasMasConsultadas implements Monitor {
 	
-	var Collection<Receta> recetasConsultadas = newHashSet()
-	@Accessors CriterioDeOrdenamiento criterio
+	var Hashtable<String, Integer> resultados = new Hashtable<String, Integer>()
+	var Collection<String> recetas = newHashSet()
+	@Accessors int valor
 	
 	override void update(Persona persona, Collection<Receta> recetas){
-		recetas.forEach[it.aumentarCantidadDeVecesConsultada()]
-		recetasConsultadas.addAll(recetas)
-		
+		for(receta:recetas){
+			configurarTabla(resultados, receta)
+		}	
+	}
+	
+	def configurarTabla(Hashtable<String,Integer> hashtable, Receta receta){
+		if(hashtable.containsKey(receta.nombre)){
+			hashtable.getOrDefault(receta.nombre, valor)
+			hashtable.replace(receta.nombre, valor+1)
+		} else {
+			hashtable.put(receta.nombre, 1)
+		}
 	}
 	
 	def recetasMasConsultadas(int cant){
-		var Collection<String> recetasFinal = newHashSet()
-		recetasFinal.addAll(recetasConsultadas.sortBy[it.cantVecesConsultada].reverse.take(cant).map[it.getNombre()])
-		recetasFinal
+		mostrarRecetasMasConsultadas(resultados, cant)
+	}
+	
+	def mostrarRecetasMasConsultadas(Hashtable<String,Integer> hashtable, int cant){
+		var Collection<String> recetasConsultadas = newHashSet()
+		//hashtable.values.sort.reverse
+		hashtable.forEach[k,v|recetas.add(k)]
+		recetasConsultadas.addAll(recetas.take(cant))
+		return recetasConsultadas
 	}
 	
 	

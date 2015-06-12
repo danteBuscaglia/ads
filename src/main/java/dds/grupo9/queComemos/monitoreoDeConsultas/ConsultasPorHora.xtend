@@ -16,7 +16,7 @@ class ConsultasPorHora implements Monitor {
 	override void update(Persona persona, Collection<Receta> recetas){
 		hour = calendario.get(Calendar.HOUR_OF_DAY)
 		x = consultasPorHora.get(hour)
-		consultasPorHora.set(hour, x++)
+		consultasPorHora.set(hour, x+1)
 	}
 	
 	def obtenerConsultasPorHora(int hora){
