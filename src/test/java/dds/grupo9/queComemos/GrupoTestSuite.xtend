@@ -18,13 +18,13 @@ class GrupoTestSuite {
 		grupo.agregarAGrupo(persona)
 		grupo.agregarAGrupo(persona2)
 		
-		receta.agregarIngrediente(new Ingrediente(Preferencia.POLLO,100))
+		receta.agregarIngrediente(new Ingrediente("pollo",100))
 		receta.calorias=500
-		receta2.agregarIngrediente(new Ingrediente(Preferencia.PESCADO,100))
+		receta2.agregarIngrediente(new Ingrediente("pescado",100))
 		receta2.calorias=1000
-		receta3.agregarIngrediente(new Ingrediente(Preferencia.CARNE,100))
+		receta3.agregarIngrediente(new Ingrediente("carne",100))
 		receta3.calorias=1000
-		receta4.agregarIngrediente(new Ingrediente(Preferencia.CHORI,100))
+		receta4.agregarIngrediente(new Ingrediente("chori",100))
 		receta4.calorias=750
 		
 		

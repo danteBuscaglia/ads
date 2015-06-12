@@ -75,7 +75,7 @@ abstract class Receta{
    		ingredientes.removeAll(ingredientesParaRemover)
    	}
    		
-	def eliminarIngredientesPorNombre(Preferencia nombreIngrediente){
+	def eliminarIngredientesPorNombre(String nombreIngrediente){
 		ingredientes.removeAll(this.filtrarIngredientesPorNombre(nombreIngrediente))
 	}
    
@@ -95,11 +95,11 @@ abstract class Receta{
     	(ingredientes.filter[ingrediente | ingrediente.tieneMasDeLoPermitidoDe(cantidadMax, ingredienteBuscado)]).size > 0
   	}
   	
-  	def tieneIngrediente(Preferencia nombreIngrediente){ /* Evalúa si dado el nombre de un ingrediente, la receta lo contiene */
+  	def tieneIngrediente(String nombreIngrediente){ /* Evalúa si dado el nombre de un ingrediente, la receta lo contiene */
   		!filtrarIngredientesPorNombre(nombreIngrediente).isEmpty
   	}
   	 
-  	def filtrarIngredientesPorNombre(Preferencia nombreIngrediente){  
+  	def filtrarIngredientesPorNombre(String nombreIngrediente){  
   		ingredientes.filter[ingrediente|ingrediente.soyYo(nombreIngrediente)]
   	}
   

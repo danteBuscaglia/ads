@@ -29,15 +29,15 @@ class RecetaTestSuite {
 	
 		val receta = new RecetaSimple(new RepoRecetasPropio())
 
-		receta.agregarIngrediente(new Ingrediente(Preferencia.AZUCAR, 150))
-		receta.agregarIngrediente(new Ingrediente(Preferencia.SAL, 15))
-		receta.agregarIngrediente(new Ingrediente(Preferencia.CARNE, 300))
+		receta.agregarIngrediente(new Ingrediente("azucar", 150))
+		receta.agregarIngrediente(new Ingrediente("sal", 15))
+		receta.agregarIngrediente(new Ingrediente("carne", 300))
 		
 		receta.calorias=500
 				
-		Assert.assertTrue(receta.tieneIngrediente(Preferencia.CARNE))	
-		Assert.assertTrue(receta.tieneIngrediente(Preferencia.SAL))	
-		Assert.assertTrue(receta.tieneIngrediente(Preferencia.AZUCAR))	
+		Assert.assertTrue(receta.tieneIngrediente("carne"))	
+		Assert.assertTrue(receta.tieneIngrediente("sal"))	
+		Assert.assertTrue(receta.tieneIngrediente("azucar"))	
 	}
 	
 	
@@ -89,8 +89,8 @@ class RecetaTestSuite {
 		val persona = new Persona()
 		val receta = new RecetaSimple(persona)
 		var modificacion = new modAgregarIngredientes()
-		receta.agregarIngrediente(new Ingrediente (Preferencia.PAPA,100))
-		modificacion.ingrediente = new Ingrediente(Preferencia.SAL, 10)
+		receta.agregarIngrediente(new Ingrediente ("papa",100))
+		modificacion.ingrediente = new Ingrediente("sal", 10)
 		receta.calorias=400
 		
 		persona.modificarReceta(receta,modificacion)
@@ -105,13 +105,13 @@ class RecetaTestSuite {
 		val persona = new Persona()
 		val receta = new RecetaSimple(persona)
 		val modificacion = new modEliminarIngredientes()
-		val papa = new Ingrediente(Preferencia.PAPA,100)
-		val sal = new Ingrediente(Preferencia.SAL,10)
+		val papa = new Ingrediente("papa",100)
+		val sal = new Ingrediente("sal",10)
 		receta.agregarIngrediente(papa)
 		receta.agregarIngrediente(sal)
 		receta.calorias=400
 		
-		modificacion.ingrediente = new Ingrediente(Preferencia.SAL)
+		modificacion.ingrediente = new Ingrediente("sal")
 		/* Nótese que no es necesario conocer exactamente el objeto ingrediente a eliminar, sino solo el nombre */
 		
 		persona.modificarReceta(receta,modificacion)
@@ -126,13 +126,13 @@ class RecetaTestSuite {
 		val persona = new Persona()
 		val receta = new RecetaSimple(new RepoRecetasPropio())
 		val modificacion = new modEliminarIngredientes()
-		val papa = new Ingrediente(Preferencia.PAPA,100)
-		val sal = new Ingrediente(Preferencia.SAL,10)
+		val papa = new Ingrediente("papa",100)
+		val sal = new Ingrediente("sal",10)
 		receta.agregarIngrediente(papa)
 		receta.agregarIngrediente(sal)
 		receta.calorias=400
 		
-		modificacion.ingrediente = new Ingrediente(Preferencia.SAL)
+		modificacion.ingrediente = new Ingrediente("sal")
 		
 		persona.modificarReceta(receta,modificacion)
 		
@@ -147,15 +147,15 @@ class RecetaTestSuite {
 		val receta = new RecetaSimple(new RepoRecetasPropio())
 		receta.nombre = "papasALaCrema"
 		val modificacion = new modEliminarIngredientes()
-		val papa = new Ingrediente(Preferencia.PAPA,100)
-		val crema = new Ingrediente(Preferencia.CREMA,25)
-		val sal = new Ingrediente(Preferencia.SAL,10)
+		val papa = new Ingrediente("papa",100)
+		val crema = new Ingrediente("crema",25)
+		val sal = new Ingrediente("sal",10)
 		receta.agregarIngrediente(papa)
 		receta.agregarIngrediente(crema)
 		receta.agregarIngrediente(sal)
 		receta.calorias=600
 		
-		modificacion.ingrediente = new Ingrediente(Preferencia.SAL)
+		modificacion.ingrediente = new Ingrediente("sal")
 		persona.modificarReceta(receta,modificacion)
 		
 		Assert.assertTrue(persona.tieneXRecetasPropias(1))
@@ -170,13 +170,13 @@ class RecetaTestSuite {
 		val receta = new RecetaSimple(new RepoRecetasPropio())
 		receta.nombre = "papasALaCrema"
 		val modificacion = new modAgregarIngredientes()
-		val papa = new Ingrediente(Preferencia.PAPA,100)
-		val crema = new Ingrediente(Preferencia.CREMA,25)
+		val papa = new Ingrediente("papa",100)
+		val crema = new Ingrediente("crema",25)
 		receta.agregarIngrediente(papa)
 		receta.agregarIngrediente(crema)
 		receta.calorias=600
 		
-		modificacion.ingrediente = new Ingrediente(Preferencia.SAL,10)
+		modificacion.ingrediente = new Ingrediente("sal",10)
 		persona.modificarReceta(receta,modificacion)
 		
 		Assert.assertTrue(persona.tieneXRecetasPropias(1))
@@ -191,12 +191,12 @@ class RecetaTestSuite {
 		var recetaSimple1 = new RecetaSimple(repositorio)
 		var recetaSimple2 = new RecetaSimple(repositorio)
 		
-		recetaSimple1.agregarIngrediente(new Ingrediente(Preferencia.POLLO, 1))
-		recetaSimple2.agregarIngrediente(new Ingrediente(Preferencia.PAPA, 8))
+		recetaSimple1.agregarIngrediente(new Ingrediente("pollo", 1))
+		recetaSimple2.agregarIngrediente(new Ingrediente("papa", 8))
 		
 		recetaSimple1.agregarSubreceta(recetaSimple2)
 		
-		Assert.assertTrue(recetaSimple1.tieneIngrediente(Preferencia.PAPA))
+		Assert.assertTrue(recetaSimple1.tieneIngrediente("papa"))
 	}
 	
 	@Test
@@ -207,18 +207,18 @@ class RecetaTestSuite {
 		var recetaSimple2 = new RecetaSimple(repositorio)
 		var recetaCompuesta = new RecetaCompuesta(repositorio)
 
-		recetaSimple1.agregarIngrediente(new Ingrediente(Preferencia.POLLO, 1))
-		recetaSimple1.agregarIngrediente(new Ingrediente(Preferencia.OREGANO, 10))
-		recetaSimple2.agregarIngrediente(new Ingrediente(Preferencia.PAPA, 5))
-		recetaSimple2.agregarIngrediente(new Ingrediente(Preferencia.MANTECA, 1))
+		recetaSimple1.agregarIngrediente(new Ingrediente("pollo", 1))
+		recetaSimple1.agregarIngrediente(new Ingrediente("oregano", 10))
+		recetaSimple2.agregarIngrediente(new Ingrediente("papa", 5))
+		recetaSimple2.agregarIngrediente(new Ingrediente("manteca", 1))
 		
 		recetaCompuesta.agregarSubreceta(recetaSimple1)
 		recetaCompuesta.agregarSubreceta(recetaSimple2)
 		
-		Assert.assertTrue(recetaCompuesta.tieneIngrediente(Preferencia.POLLO))		
-		Assert.assertTrue(recetaCompuesta.tieneIngrediente(Preferencia.OREGANO))
-		Assert.assertTrue(recetaCompuesta.tieneIngrediente(Preferencia.PAPA))
-		Assert.assertTrue(recetaCompuesta.tieneIngrediente(Preferencia.MANTECA))
+		Assert.assertTrue(recetaCompuesta.tieneIngrediente("pollo"))		
+		Assert.assertTrue(recetaCompuesta.tieneIngrediente("oregano"))
+		Assert.assertTrue(recetaCompuesta.tieneIngrediente("papa"))
+		Assert.assertTrue(recetaCompuesta.tieneIngrediente("manteca"))
 
 	}	
 	
@@ -233,12 +233,12 @@ class RecetaTestSuite {
 		var recetaCompuesta = new RecetaCompuesta(repositorio)
 		var recetaCompuestaNivel2 = new RecetaCompuesta(repositorio)
 
-		recetaSimple1.agregarIngrediente(new Ingrediente(Preferencia.POLLO, 1))
-		recetaSimple1.agregarIngrediente(new Ingrediente(Preferencia.OREGANO, 10))
-		recetaSimple2.agregarIngrediente(new Ingrediente(Preferencia.PAPA, 5))
-		recetaSimple2.agregarIngrediente(new Ingrediente(Preferencia.MANTECA, 1))
-		recetaSimple3.agregarIngrediente(new Ingrediente(Preferencia.ARROZ, 5))
-		recetaSimple3.agregarIngrediente(new Ingrediente(Preferencia.SALSADESOJA, 1))
+		recetaSimple1.agregarIngrediente(new Ingrediente("pollo", 1))
+		recetaSimple1.agregarIngrediente(new Ingrediente("oregano", 10))
+		recetaSimple2.agregarIngrediente(new Ingrediente("papa", 5))
+		recetaSimple2.agregarIngrediente(new Ingrediente("manteca", 1))
+		recetaSimple3.agregarIngrediente(new Ingrediente("arroz", 5))
+		recetaSimple3.agregarIngrediente(new Ingrediente("salsa de soja", 1))
 		
 		recetaCompuesta.agregarSubreceta(recetaSimple1)
 		recetaCompuesta.agregarSubreceta(recetaSimple2)
@@ -246,12 +246,12 @@ class RecetaTestSuite {
 		recetaCompuestaNivel2.agregarSubreceta(recetaCompuesta)
 		recetaCompuestaNivel2.agregarSubreceta(recetaSimple3)
 		
-		Assert.assertTrue(recetaCompuestaNivel2.tieneIngrediente(Preferencia.POLLO))		
-		Assert.assertTrue(recetaCompuestaNivel2.tieneIngrediente(Preferencia.OREGANO))
-		Assert.assertTrue(recetaCompuestaNivel2.tieneIngrediente(Preferencia.PAPA))
-		Assert.assertTrue(recetaCompuestaNivel2.tieneIngrediente(Preferencia.MANTECA))
-		Assert.assertTrue(recetaCompuestaNivel2.tieneIngrediente(Preferencia.ARROZ))
-		Assert.assertTrue(recetaCompuestaNivel2.tieneIngrediente(Preferencia.SALSADESOJA))
+		Assert.assertTrue(recetaCompuestaNivel2.tieneIngrediente("pollo"))		
+		Assert.assertTrue(recetaCompuestaNivel2.tieneIngrediente("oregano"))
+		Assert.assertTrue(recetaCompuestaNivel2.tieneIngrediente("papa"))
+		Assert.assertTrue(recetaCompuestaNivel2.tieneIngrediente("manteca"))
+		Assert.assertTrue(recetaCompuestaNivel2.tieneIngrediente("arroz"))
+		Assert.assertTrue(recetaCompuestaNivel2.tieneIngrediente("salsa de soja"))
 
 	}
 		
@@ -268,8 +268,8 @@ class RecetaTestSuite {
 		grupo.agregarAGrupo(persona)
 		grupo.agregarAGrupo(persona2)
 		
-		receta.agregarIngrediente(new Ingrediente(Preferencia.SAL,10))
-		receta.agregarIngrediente(new Ingrediente(Preferencia.CARNE,100))
+		receta.agregarIngrediente(new Ingrediente("sal",10))
+		receta.agregarIngrediente(new Ingrediente("carne",100))
 		receta.calorias=150
 		persona.agregarReceta(receta)
 		
@@ -283,10 +283,10 @@ class RecetaTestSuite {
 		val persona = new Persona()
 		persona.nombre = "Paul"
 		persona.agregarCondPreexistente(new Vegano)
-		persona.agregarDisgusto(Preferencia.CARNE)
+		persona.agregarDisgusto("carne")
 		val receta = new RecetaSimple(new RepoRecetasPropio())
-		receta.agregarIngrediente(new Ingrediente(Preferencia.PAPA,100))
-		receta.agregarIngrediente(new Ingrediente(Preferencia.SAL,10))
+		receta.agregarIngrediente(new Ingrediente("papa",100))
+		receta.agregarIngrediente(new Ingrediente("sal",10))
 		
 		Assert.assertTrue(receta.puedeSerSugeridaA(persona))	
 		
@@ -298,10 +298,10 @@ class RecetaTestSuite {
 		val persona = new Persona()
 		persona.nombre = "Paul"
 		persona.agregarCondPreexistente(new Vegano)
-		persona.agregarDisgusto(Preferencia.PAPA)
+		persona.agregarDisgusto("papa")
 		val receta = new RecetaSimple(new RepoRecetasPropio())
-		receta.agregarIngrediente(new Ingrediente(Preferencia.PAPA,100))
-		receta.agregarIngrediente(new Ingrediente(Preferencia.SAL,10))
+		receta.agregarIngrediente(new Ingrediente("papa",100))
+		receta.agregarIngrediente(new Ingrediente("sal",10))
 		
 		Assert.assertFalse(receta.puedeSerSugeridaA(persona))
 	}
@@ -311,10 +311,10 @@ class RecetaTestSuite {
 		val persona = new Persona()
 		persona.nombre = "Paul"
 		persona.agregarCondPreexistente(new Hipertenso)
-		persona.agregarDisgusto(Preferencia.CARNE)
+		persona.agregarDisgusto("carne")
 		val receta = new RecetaSimple(new RepoRecetasPropio())
-		receta.agregarIngrediente(new Ingrediente(Preferencia.PAPA,100))
-		receta.agregarIngrediente(new Ingrediente(Preferencia.SAL,10))
+		receta.agregarIngrediente(new Ingrediente("papa",100))
+		receta.agregarIngrediente(new Ingrediente("sal",10))
 		
 		Assert.assertFalse(receta.puedeSerSugeridaA(persona))
 	}	
@@ -326,14 +326,14 @@ class RecetaTestSuite {
 		val persona2= new Persona()
 		persona.agregarCondPreexistente(new Celiaco)
 		val grupo = new GrupoDePersonas("Los Pibes")
-		grupo.agregarPreferencia(Preferencia.CARNE)
+		grupo.agregarPreferencia("carne")
 		val receta = new RecetaSimple(new RepoRecetasPropio())
 		
 		grupo.agregarAGrupo(persona)
 		grupo.agregarAGrupo(persona2)
 		
-		receta.agregarIngrediente(new Ingrediente(Preferencia.PAPA,10))
-		receta.agregarIngrediente(new Ingrediente(Preferencia.CARNE,100))
+		receta.agregarIngrediente(new Ingrediente("papa",10))
+		receta.agregarIngrediente(new Ingrediente("carne",100))
 		
 		Assert.assertTrue(receta.puedeSerSugeridaA(grupo))
 	}	
@@ -345,14 +345,14 @@ class RecetaTestSuite {
 		val persona2= new Persona()
 		persona.agregarCondPreexistente(new Celiaco)
 		val grupo = new GrupoDePersonas("Los Pibes")
-		grupo.agregarPreferencia(Preferencia.POLLO)
+		grupo.agregarPreferencia("pollo")
 		val receta = new RecetaSimple(new RepoRecetasPropio())
 		
 		grupo.agregarAGrupo(persona)
 		grupo.agregarAGrupo(persona2)
 		
-		receta.agregarIngrediente(new Ingrediente(Preferencia.PAPA,10))
-		receta.agregarIngrediente(new Ingrediente(Preferencia.CARNE,100))
+		receta.agregarIngrediente(new Ingrediente("papa",10))
+		receta.agregarIngrediente(new Ingrediente("carne",100))
 		
 		Assert.assertFalse(receta.puedeSerSugeridaA(grupo))
 	}
@@ -364,14 +364,14 @@ class RecetaTestSuite {
 		val persona2= new Persona()
 		persona.agregarCondPreexistente(new Celiaco)
 		val grupo = new GrupoDePersonas("Los Pibes")
-		grupo.agregarPreferencia(Preferencia.CARNE)
+		grupo.agregarPreferencia("carne")
 		val receta = new RecetaSimple(new RepoRecetasPropio())
 		
 		grupo.agregarAGrupo(persona)
 		grupo.agregarAGrupo(persona2)
 		
-		receta.agregarIngrediente(new Ingrediente(Preferencia.SAL,10))
-		receta.agregarIngrediente(new Ingrediente(Preferencia.CARNE,100))
+		receta.agregarIngrediente(new Ingrediente("sal",10))
+		receta.agregarIngrediente(new Ingrediente("carne",100))
 		
 		Assert.assertFalse(receta.puedeSerSugeridaA(grupo))	
 	}	

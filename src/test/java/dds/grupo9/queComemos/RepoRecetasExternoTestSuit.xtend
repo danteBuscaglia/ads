@@ -16,7 +16,6 @@ import java.util.Collection
 import queComemos.entrega3.repositorio.BusquedaRecetas
 import queComemos.entrega3.dominio.Dificultad
 import dds.grupo9.queComemos.repoRecetas.RepoRecetasExterno
-import dds.grupo9.queComemos.repoRecetas.RepoExternoAdapter
 import dds.grupo9.queComemos.condicionPreexistente.Vegano
 
 class RepoRecetasExternoTestSuit {
@@ -57,21 +56,21 @@ class RepoRecetasExternoTestSuit {
 		Assert.assertEquals(4,recetasDevueltas.head.ingredientes.size)
 	}
 	
-	@Test
+	/*@Test
 	def unRepoExternoAdapterConvierteUnStringSimpleEnUnAPreferencia(){
 		var String stringConEspacios = "carne"
 		var RepoExternoAdapter adaptador = new RepoExternoAdapter()
 		var Preferencia preferencia = adaptador.adaptarNombreIngrediente(stringConEspacios)
 		Assert.assertEquals(Preferencia.CARNE, preferencia)
-	}
+	}*/ // Ya no tiene sentido en el refactor dejamos de usar el enum Preferencia
 	
-	@Test
+	/*@Test
 	def unRepoExternoAdapterConvierteUnStringConEspaciosEnUnAPreferencia(){
 		var String stringConEspacios = "pure de tomate"
 		var RepoExternoAdapter adaptador = new RepoExternoAdapter()
 		var Preferencia preferencia = adaptador.adaptarNombreIngrediente(stringConEspacios)
 		Assert.assertEquals(Preferencia.PURE_DE_TOMATE, preferencia)
-	}
+	}*/ // Ya no tiene sentido en el refactor dejamos de usar el enum Preferencia
 	
 	@Test
 	def unFilterTraeRecetasConElFormatoDeRecetasExternaYElAdapterLaConvierteCorrectamente(){
@@ -136,7 +135,7 @@ class RepoRecetasExternoTestSuit {
 		persona.agregarCondPreexistente(new Vegano())
 		filtro.decorado = persona
 		filtro.persona = persona
-		receta1.agregarIngrediente(new Ingrediente(Preferencia.CARNE))
+		receta1.agregarIngrediente(new Ingrediente("carne"))
 		receta1.calorias = 650
 		receta2.agregarIngrediente(new Ingrediente())
 		receta2.calorias = 420
@@ -163,12 +162,12 @@ class RepoRecetasExternoTestSuit {
 		val receta3 = new RecetaSimple(persona)
 		
 		persona.setRepoRecetas(repositorio)
-		persona.agregarDisgusto(Preferencia.PESCADO)
-		persona.agregarDisgusto(Preferencia.BERBERECHOS)
-		persona.agregarDisgusto(Preferencia.BOURBON)
+		persona.agregarDisgusto("pescado")
+		persona.agregarDisgusto("berberechos")
+		persona.agregarDisgusto("bourbon")
 		filtro.persona = persona
 		filtro.decorado = persona
-		receta1.agregarIngrediente(new Ingrediente(Preferencia.PESCADO))
+		receta1.agregarIngrediente(new Ingrediente("pescado"))
 		receta1.calorias = 650
 		receta2.agregarIngrediente(new Ingrediente())
 		receta2.calorias = 420
@@ -195,7 +194,7 @@ class RepoRecetasExternoTestSuit {
 		persona.setRepoRecetas(repositorio)
 		filtro.persona = persona
 		filtro.decorado = persona
-		receta1.agregarIngrediente(new Ingrediente(Preferencia.LOMO))
+		receta1.agregarIngrediente(new Ingrediente("lomo"))
 		receta1.calorias = 650
 		receta2.agregarIngrediente(new Ingrediente())
 		receta2.calorias = 420
@@ -226,9 +225,9 @@ class RepoRecetasExternoTestSuit {
 		filtro2.persona = persona
 		filtro1.decorado = persona
 		filtro2.decorado = filtro1
-		receta1.agregarIngrediente(new Ingrediente(Preferencia.LOMO))
+		receta1.agregarIngrediente(new Ingrediente("lomo"))
 		receta1.calorias = 650
-		receta2.agregarIngrediente(new Ingrediente(Preferencia.SAL))
+		receta2.agregarIngrediente(new Ingrediente("sal"))
 		receta2.calorias = 420
 		receta3.agregarIngrediente(new Ingrediente())
 		receta3.calorias = 300
@@ -260,7 +259,7 @@ class RepoRecetasExternoTestSuit {
 		persona.agregarCondPreexistente(new Hipertenso()) 
 		filtro.persona = persona
 		filtro.decorado = persona
-		receta1.agregarIngrediente(new Ingrediente(Preferencia.CALDO))
+		receta1.agregarIngrediente(new Ingrediente("caldo"))
 		receta1.calorias = 650
 		receta3.agregarIngrediente(new Ingrediente())
 		receta3.calorias = 300
@@ -297,7 +296,7 @@ class RepoRecetasExternoTestSuit {
 		persona.agregarCondPreexistente(new Hipertenso()) 
 		filtro.persona = persona
 		filtro.decorado = persona
-		receta1.agregarIngrediente(new Ingrediente(Preferencia.CALDO))
+		receta1.agregarIngrediente(new Ingrediente("caldo"))
 		receta1.calorias = 650
 		receta3.agregarIngrediente(new Ingrediente())
 		receta3.calorias = 300
@@ -338,23 +337,23 @@ class RepoRecetasExternoTestSuit {
 		
 		persona.setRepoRecetas(repositorio)
 		persona.agregarCondPreexistente(new Hipertenso()) 
-		persona.agregarDisgusto(Preferencia.POLLO)
-		persona.agregarDisgusto(Preferencia.SAL)
-		persona.agregarDisgusto(Preferencia.SALMON)
-		persona.agregarDisgusto(Preferencia.LECHUGA)	
-		persona.agregarDisgusto(Preferencia.AJO)		
-		persona.agregarDisgusto(Preferencia.PAPA)
-		persona.agregarDisgusto(Preferencia.TOMILLO)
-		persona.agregarDisgusto(Preferencia.ALBAHACA)
-		persona.agregarDisgusto(Preferencia.RICOTA)	
-		persona.agregarDisgusto(Preferencia.ALGA)
-		persona.agregarDisgusto(Preferencia.AZUCAR)
-		persona.agregarDisgusto(Preferencia.HELADO_DE_CHOCOLATE)				
+		persona.agregarDisgusto("pollo")
+		persona.agregarDisgusto("sal")
+		persona.agregarDisgusto("salmon")
+		persona.agregarDisgusto("lechuga")	
+		persona.agregarDisgusto("ajo")		
+		persona.agregarDisgusto("papa")
+		persona.agregarDisgusto("tomillo")
+		persona.agregarDisgusto("albahaca")
+		persona.agregarDisgusto("ricota")	
+		persona.agregarDisgusto("alga")
+		persona.agregarDisgusto("azucar")
+		persona.agregarDisgusto("helado de chocolate")				
 		filtro.persona = persona
 		filtro.decorado = persona
 		receta1.agregarIngrediente(new Ingrediente())
 		receta1.calorias = 650
-		receta2.agregarIngrediente(new Ingrediente(Preferencia.SAL))
+		receta2.agregarIngrediente(new Ingrediente("sal"))
 		receta2.calorias = 420
 		receta3.agregarIngrediente(new Ingrediente())
 		receta3.calorias = 300

@@ -123,7 +123,7 @@ class PersonaTestSuite {
 		persona.agregarCondPreexistente(new Diabetico())
 		persona.agregarCondPreexistente(new Celiaco())
 		
-		persona.agregarPreferencia(Preferencia.FRUTA)
+		persona.agregarPreferencia("fruta")
 		persona.rutina = "INTENSIVO"
 
 		Assert.assertTrue(persona.sigueRutinaSaludable)
@@ -156,7 +156,7 @@ class PersonaTestSuite {
 		
 		persona.agregarCondPreexistente(new Vegano())
 
-		persona.agregarPreferencia(Preferencia.VERDURA)
+		persona.agregarPreferencia("verdura")
 		
 		Assert.assertFalse(persona.sigueRutinaSaludable)
 		
@@ -211,7 +211,7 @@ class PersonaTestSuite {
 		val receta = new RecetaSimple(new RepoRecetasPropio())
 		val azucar = new Ingrediente()
 		val diabetico = new Diabetico()
-		azucar.nombre = Preferencia.AZUCAR
+		azucar.nombre = "azucar"
 		azucar.cantidad = 150
 		receta.agregarIngrediente(azucar)
 		receta.calorias=500
@@ -231,8 +231,8 @@ class PersonaTestSuite {
 	    val vegano= new Vegano()
 	    val hipertenso = new Hipertenso()
 	    
-	    receta.agregarIngrediente(new Ingrediente(Preferencia.SAL,10))
-	    receta.agregarIngrediente(new Ingrediente(Preferencia.CARNE,200))
+	    receta.agregarIngrediente(new Ingrediente("sal",10))
+	    receta.agregarIngrediente(new Ingrediente("carne",200))
 	    
 	    receta.calorias=400
 	    
@@ -250,9 +250,9 @@ class PersonaTestSuite {
 		val celiaco = new Celiaco()
 		val receta = new RecetaSimple(new RepoRecetasPropio())
 		
-		receta.agregarIngrediente(new Ingrediente(Preferencia.AZUCAR, 150))
-		receta.agregarIngrediente(new Ingrediente(Preferencia.SAL, 15))
-		receta.agregarIngrediente(new Ingrediente(Preferencia.CARNE, 300))
+		receta.agregarIngrediente(new Ingrediente("azucar", 150))
+		receta.agregarIngrediente(new Ingrediente("sal", 15))
+		receta.agregarIngrediente(new Ingrediente("carne", 300))
 		
 		receta.calorias=500
 		
@@ -281,8 +281,8 @@ class PersonaTestSuite {
 		persona.agregarCondPreexistente(new Diabetico())
 		persona.agregarCondPreexistente(new Vegano())
 		persona.agregarCondPreexistente(new Celiaco())
-		persona.agregarPreferencia(Preferencia.VERDURA)
-		persona.agregarPreferencia(Preferencia.MELON)
+		persona.agregarPreferencia("verdura")
+		persona.agregarPreferencia("melon")
 		
 		Assert.assertTrue(persona.usuarioValido)
 		
@@ -345,8 +345,8 @@ class PersonaTestSuite {
 		persona.agregarCondPreexistente(new Diabetico())
 		persona.agregarCondPreexistente(new Vegano())
 		persona.agregarCondPreexistente(new Celiaco())
-		persona.agregarPreferencia(Preferencia.CARNE)
-		persona.agregarPreferencia(Preferencia.MELON)
+		persona.agregarPreferencia("carne")
+		persona.agregarPreferencia("melon")
 		
 		Assert.assertFalse(persona.usuarioValido)
 		
@@ -375,15 +375,15 @@ class PersonaTestSuite {
 	    val repositorio = new RepoRecetasPropio()
 	    persona.setRepoRecetas(repositorio)
 	    val receta= new RecetaSimple(persona)
-	    receta.agregarIngrediente(new Ingrediente(Preferencia.CARNE,100))
+	    receta.agregarIngrediente(new Ingrediente("carne",100))
 	    receta.calorias=500
 	    persona.agregarReceta(receta)
 	    val receta2= new RecetaSimple(repositorio)
-	    receta2.agregarIngrediente(new Ingrediente(Preferencia.CHORI,100))
+	    receta2.agregarIngrediente(new Ingrediente("chori",100))
 	    receta2.calorias=700
 	    repositorio.agregarRecetaPublica(receta2)
 	    val receta3= new RecetaSimple(persona2)
-	    receta3.agregarIngrediente(new Ingrediente(Preferencia.POLLO,100))
+	    receta3.agregarIngrediente(new Ingrediente("pollo",100))
 	    receta3.calorias=800
 	    persona2.agregarReceta(receta3)
 	    
@@ -480,7 +480,7 @@ class PersonaTestSuite {
 		persona.agregarCondPreexistente(new Hipertenso())
 		filtro.decorado = persona
 		filtro.persona = persona
-		receta1.agregarIngrediente(new Ingrediente(Preferencia.SAL))
+		receta1.agregarIngrediente(new Ingrediente("sal"))
 		receta1.calorias = 650
 		receta2.agregarIngrediente(new Ingrediente())
 		receta2.calorias = 420
@@ -505,10 +505,10 @@ class PersonaTestSuite {
 		val receta3 = new RecetaSimple(persona)
 		
 		persona.setRepoRecetas(repositorio)
-		persona.agregarDisgusto(Preferencia.PESCADO)
+		persona.agregarDisgusto("pescado")
 		filtro.persona = persona
 		filtro.decorado = persona
-		receta1.agregarIngrediente(new Ingrediente(Preferencia.PESCADO))
+		receta1.agregarIngrediente(new Ingrediente("pescado"))
 		receta1.calorias = 650
 		receta2.agregarIngrediente(new Ingrediente())
 		receta2.calorias = 420
@@ -534,7 +534,7 @@ class PersonaTestSuite {
 		persona.setRepoRecetas(repositorio)
 		filtro.persona = persona
 		filtro.decorado = persona
-		receta1.agregarIngrediente(new Ingrediente(Preferencia.LOMO))
+		receta1.agregarIngrediente(new Ingrediente("lomo"))
 		receta1.calorias = 650
 		receta2.agregarIngrediente(new Ingrediente())
 		receta2.calorias = 420
@@ -564,9 +564,9 @@ class PersonaTestSuite {
 		filtro2.persona = persona
 		filtro1.decorado = persona
 		filtro2.decorado = filtro1
-		receta1.agregarIngrediente(new Ingrediente(Preferencia.LOMO))
+		receta1.agregarIngrediente(new Ingrediente("lomo"))
 		receta1.calorias = 650
-		receta2.agregarIngrediente(new Ingrediente(Preferencia.SAL))
+		receta2.agregarIngrediente(new Ingrediente("sal"))
 		receta2.calorias = 420
 		receta3.agregarIngrediente(new Ingrediente())
 		receta3.calorias = 300
@@ -605,7 +605,7 @@ class PersonaTestSuite {
 		persona.agregarCondPreexistente(new Hipertenso()) 
 		filtro.persona = persona
 		filtro.decorado = persona
-		receta1.agregarIngrediente(new Ingrediente(Preferencia.CALDO))
+		receta1.agregarIngrediente(new Ingrediente("caldo"))
 		receta1.calorias = 650
 		receta2.agregarIngrediente(new Ingrediente())
 		receta2.calorias = 420
@@ -673,9 +673,9 @@ class PersonaTestSuite {
 		persona.agregarCondPreexistente(new Hipertenso()) 
 		filtro.persona = persona
 		filtro.decorado = persona
-		receta1.agregarIngrediente(new Ingrediente(Preferencia.CALDO))
+		receta1.agregarIngrediente(new Ingrediente("caldo"))
 		receta1.calorias = 650
-		receta2.agregarIngrediente(new Ingrediente(Preferencia.SAL))
+		receta2.agregarIngrediente(new Ingrediente("sal"))
 		receta2.calorias = 420
 		receta3.agregarIngrediente(new Ingrediente())
 		receta3.calorias = 300
@@ -738,7 +738,7 @@ class PersonaTestSuite {
 		filtro.decorado = persona
 		receta1.agregarIngrediente(new Ingrediente())
 		receta1.calorias = 650
-		receta2.agregarIngrediente(new Ingrediente(Preferencia.SAL))
+		receta2.agregarIngrediente(new Ingrediente("sal"))
 		receta2.calorias = 420
 		receta3.agregarIngrediente(new Ingrediente())
 		receta3.calorias = 300
@@ -881,7 +881,7 @@ class PersonaTestSuite {
    		repoUsuarios.asignarPeso(72f)
    		repoUsuarios.asignarSexo("Masculino")
    		repoUsuarios.asignarRutina("Crossfit")
-   		repoUsuarios.asignarUnGusto(Preferencia.CHORI)
+   		repoUsuarios.asignarUnGusto("chori")
    		repoUsuarios.asignarFechaNacimiento(19901010)
    		repoUsuarios.asignarUnaCondicionPreexistente(diabetico)
    		repoUsuarios.solicitarIngreso
@@ -894,7 +894,7 @@ class PersonaTestSuite {
    		repoUsuarios.asignarPeso(92f)
    		repoUsuarios.asignarSexo("Masculino")
    		repoUsuarios.asignarRutina("Atletismo")
-   		repoUsuarios.asignarUnGusto(Preferencia.PESCADO)
+   		repoUsuarios.asignarUnGusto("pescado")
    		repoUsuarios.asignarFechaNacimiento(19800408)
    		repoUsuarios.asignarUnaCondicionPreexistente(diabetico)
    		repoUsuarios.solicitarIngreso
@@ -907,7 +907,7 @@ class PersonaTestSuite {
    		repoUsuarios.asignarPeso(72f)
    		repoUsuarios.asignarSexo("Masculino")
    		repoUsuarios.asignarRutina("Crossfit")
-   		repoUsuarios.asignarUnGusto(Preferencia.CHORI)
+   		repoUsuarios.asignarUnGusto("chori")
    		repoUsuarios.asignarFechaNacimiento(19901010)
    		repoUsuarios.asignarUnaCondicionPreexistente(hipertenso)
    		repoUsuarios.solicitarIngreso
@@ -972,8 +972,8 @@ class PersonaTestSuite {
 		persona2.setRepoRecetas(repositorio)
 		persona3.setRepoRecetas(repositorio)
 		persona2.agregarCondPreexistente(new Vegano())
-		persona2.agregarDisgusto(Preferencia.MEJILLONES)
-		persona2.agregarDisgusto(Preferencia.RICOTA)
+		persona2.agregarDisgusto("mejillones")
+		persona2.agregarDisgusto("ricota")
 		persona3.agregarCondPreexistente(new Vegano())
 		filtro.persona = persona
 		filtro.decorado = persona
@@ -1017,8 +1017,8 @@ class PersonaTestSuite {
 		persona2.setRepoRecetas(repositorio)
 		persona3.setRepoRecetas(repositorio)
 		persona2.agregarCondPreexistente(new Vegano())
-		persona2.agregarDisgusto(Preferencia.MEJILLONES)
-		persona2.agregarDisgusto(Preferencia.RICOTA)
+		persona2.agregarDisgusto("mejillones")
+		persona2.agregarDisgusto("ricota")
 		persona3.agregarCondPreexistente(new Vegano())
 		filtro.persona = persona
 		filtro.decorado = persona
@@ -1063,13 +1063,13 @@ class PersonaTestSuite {
 		val receta3 = new RecetaSimple(repositorio)
 		val receta4 = new RecetaSimple(repositorio)
 		val receta5 = new RecetaSimple(repositorio)
-		receta1.agregarIngrediente(new Ingrediente(Preferencia.POLLO))
+		receta1.agregarIngrediente(new Ingrediente("pollo"))
 		receta1.calorias = 650
 		receta1.nombre = "Pollo a la parrilla"
-		receta2.agregarIngrediente(new Ingrediente(Preferencia.SALMON))
+		receta2.agregarIngrediente(new Ingrediente("salmon"))
 		receta2.calorias = 420
 		receta2.nombre = "Sushi"
-		receta3.agregarIngrediente(new Ingrediente(Preferencia.LECHUGA))
+		receta3.agregarIngrediente(new Ingrediente("lechuga"))
 		receta3.calorias = 300
 		receta3.nombre = "Ensalada Cesar"
 		receta4.agregarIngrediente(new Ingrediente())
@@ -1087,8 +1087,8 @@ class PersonaTestSuite {
 		persona.setRepoRecetas(repositorio)
 		persona2.setRepoRecetas(repositorio)
 		persona3.setRepoRecetas(repositorio)
-		persona3.agregarDisgusto(Preferencia.SALMON)
-		persona3.agregarDisgusto(Preferencia.LECHUGA)
+		persona3.agregarDisgusto("salmon")
+		persona3.agregarDisgusto("lechuga")
 		persona2.agregarCondPreexistente(new Vegano())
 		filtro.persona = persona
 		filtro.decorado = persona
@@ -1145,16 +1145,16 @@ class PersonaTestSuite {
 		val receta3 = new RecetaSimple(repositorio)
 		val receta4 = new RecetaSimple(repositorio)
 		val receta5 = new RecetaSimple(repositorio)
-		receta1.agregarIngrediente(new Ingrediente(Preferencia.POLLO))
+		receta1.agregarIngrediente(new Ingrediente("pollo"))
 		receta1.calorias = 650
 		receta1.nombre = "Pollo a la parrilla"
-		receta2.agregarIngrediente(new Ingrediente(Preferencia.SALMON))
+		receta2.agregarIngrediente(new Ingrediente("salmon"))
 		receta2.calorias = 420
 		receta2.nombre = "Sushi"
-		receta3.agregarIngrediente(new Ingrediente(Preferencia.LECHUGA))
+		receta3.agregarIngrediente(new Ingrediente("lechuga"))
 		receta3.calorias = 300
 		receta3.nombre = "Ensalada Cesar"
-		receta4.agregarIngrediente(new Ingrediente(Preferencia.HUEVO))
+		receta4.agregarIngrediente(new Ingrediente("huevo"))
 		receta4.calorias = 550
 		receta4.nombre = "Comidita"
 		receta5.agregarIngrediente(new Ingrediente())
@@ -1170,9 +1170,9 @@ class PersonaTestSuite {
 		persona2.setRepoRecetas(repositorio)
 		persona3.setRepoRecetas(repositorio)
 		persona4.setRepoRecetas(repositorio)
-		persona3.agregarDisgusto(Preferencia.SALMON)
-		persona3.agregarDisgusto(Preferencia.LECHUGA)
-		persona4.agregarDisgusto(Preferencia.HUEVO)
+		persona3.agregarDisgusto("salmon")
+		persona3.agregarDisgusto("lechuga")
+		persona4.agregarDisgusto("huevo")
 		persona2.agregarCondPreexistente(new Vegano())
 		filtro.persona = persona
 		filtro.decorado = persona
@@ -1233,16 +1233,16 @@ class PersonaTestSuite {
 		val receta3 = new RecetaSimple(repositorio)
 		val receta4 = new RecetaSimple(repositorio)
 		val receta5 = new RecetaSimple(repositorio)
-		receta1.agregarIngrediente(new Ingrediente(Preferencia.POLLO))
+		receta1.agregarIngrediente(new Ingrediente("pollo"))
 		receta1.calorias = 650
 		receta1.nombre = "Pollo a la parrilla"
-		receta2.agregarIngrediente(new Ingrediente(Preferencia.SALMON))
+		receta2.agregarIngrediente(new Ingrediente("salmon"))
 		receta2.calorias = 420
 		receta2.nombre = "Sushi"
-		receta3.agregarIngrediente(new Ingrediente(Preferencia.LECHUGA))
+		receta3.agregarIngrediente(new Ingrediente("lechuga"))
 		receta3.calorias = 300
 		receta3.nombre = "Ensalada Cesar"
-		receta4.agregarIngrediente(new Ingrediente(Preferencia.HUEVO))
+		receta4.agregarIngrediente(new Ingrediente("huevo"))
 		receta4.calorias = 550
 		receta4.nombre = "Comidita"
 		receta5.agregarIngrediente(new Ingrediente())
@@ -1258,9 +1258,9 @@ class PersonaTestSuite {
 		persona2.setRepoRecetas(repositorio)
 		persona3.setRepoRecetas(repositorio)
 		persona4.setRepoRecetas(repositorio)
-		persona3.agregarDisgusto(Preferencia.SALMON)
-		persona3.agregarDisgusto(Preferencia.LECHUGA)
-		persona4.agregarDisgusto(Preferencia.HUEVO)
+		persona3.agregarDisgusto("salmon")
+		persona3.agregarDisgusto("lechuga")
+		persona4.agregarDisgusto("huevo")
 		persona2.agregarCondPreexistente(new Vegano())
 		filtro.persona = persona
 		filtro.decorado = persona

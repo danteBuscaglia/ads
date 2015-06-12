@@ -6,7 +6,7 @@ import java.util.Collection
 class GrupoDePersonas {
 	
 	@Accessors String nombre
-	var Collection <Preferencia> gustos = newHashSet()
+	var Collection <String> gustos = newHashSet()
 	var Collection <Persona> integrantes = newHashSet()
 	var Collection <Receta> recetasEnComun = newHashSet()
 	
@@ -33,7 +33,7 @@ class GrupoDePersonas {
 	}
 	
 	
-	def agregarPreferencia(Preferencia preferencia){
+	def agregarPreferencia(String preferencia){
 		gustos.add(preferencia)
 	}
 	
@@ -46,7 +46,7 @@ class GrupoDePersonas {
 		integrantes.exists[i|i==persona]
 	}
 	
-	def leGusta(Preferencia preferencia) {
+	def leGusta(String preferencia) {
 		gustos.contains(preferencia)
 	}
 	

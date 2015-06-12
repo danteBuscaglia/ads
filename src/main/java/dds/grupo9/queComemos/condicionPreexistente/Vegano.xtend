@@ -1,7 +1,6 @@
 package dds.grupo9.queComemos.condicionPreexistente
 
 import java.util.Collection
-import dds.grupo9.queComemos.Preferencia
 import dds.grupo9.queComemos.Ingrediente
 import dds.grupo9.queComemos.Receta
 import dds.grupo9.queComemos.Persona
@@ -11,29 +10,29 @@ class Vegano implements CondPreexistente {
 	var Collection<Ingrediente> ingredientesCarnicos = newHashSet()
 	
 	new(){
-		ingredientesCarnicos.add(new Ingrediente(Preferencia.CHORI))
-		ingredientesCarnicos.add(new Ingrediente(Preferencia.POLLO))
-		ingredientesCarnicos.add(new Ingrediente(Preferencia.CHIVITO))
-		ingredientesCarnicos.add(new Ingrediente(Preferencia.CARNE))
-		ingredientesCarnicos.add(new Ingrediente(Preferencia.LOMO))
-		/*ingredientesCarnicos.add(new Ingrediente(Preferencia.PESCADO))
-		ingredientesCarnicos.add(new Ingrediente(Preferencia.MARISCO))
-		ingredientesCarnicos.add(new Ingrediente(Preferencia.MONDONGO))
-		ingredientesCarnicos.add(new Ingrediente(Preferencia.CHORI))
-		ingredientesCarnicos.add(new Ingrediente(Preferencia.LECHON))
-		ingredientesCarnicos.add(new Ingrediente(Preferencia.SALMON))
-		ingredientesCarnicos.add(new Ingrediente(Preferencia.BERBERECHOS))	
-		ingredientesCarnicos.add(new Ingrediente(Preferencia.MEJILLONES))
-		ingredientesCarnicos.add(new Ingrediente(Preferencia.LANGOSTINOS))
-		ingredientesCarnicos.add(new Ingrediente(Preferencia.BIFE_ANGOSTO))*/
+		ingredientesCarnicos.add(new Ingrediente("chori"))
+		ingredientesCarnicos.add(new Ingrediente("pollo"))
+		ingredientesCarnicos.add(new Ingrediente("chivito"))
+		ingredientesCarnicos.add(new Ingrediente("carne"))
+		ingredientesCarnicos.add(new Ingrediente("lomo"))
+		/*ingredientesCarnicos.add(new Ingrediente("pescado"))
+		ingredientesCarnicos.add(new Ingrediente("marisco"))
+		ingredientesCarnicos.add(new Ingrediente("mondongo"))
+		ingredientesCarnicos.add(new Ingrediente("chori"))
+		ingredientesCarnicos.add(new Ingrediente("lechon"))
+		ingredientesCarnicos.add(new Ingrediente("salmon"))
+		ingredientesCarnicos.add(new Ingrediente("berberechos"))	
+		ingredientesCarnicos.add(new Ingrediente("mejillones"))
+		ingredientesCarnicos.add(new Ingrediente("langostinos"))
+		ingredientesCarnicos.add(new Ingrediente("bife angosto"))*/
 	}
 	
-	def agregarAlimentoConCarne(Preferencia preferencia){
+	def agregarAlimentoConCarne(String preferencia){
 		ingredientesCarnicos.add(new Ingrediente(preferencia))
 	}
 	
-	override boolean subsanaCondicion(Collection<Preferencia> gustos, String rutina, float peso){ /*Verifica si logra subsanar el veganismo, se logra si le gustan las frutas */
-		gustos.contains(Preferencia.FRUTA)
+	override boolean subsanaCondicion(Collection<String> gustos, String rutina, float peso){ /*Verifica si logra subsanar el veganismo, se logra si le gustan las frutas */
+		gustos.contains("fruta")
 	} 
 	
     override boolean recetaNoRecomendada(Receta receta){

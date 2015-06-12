@@ -2,7 +2,6 @@ package dds.grupo9.queComemos.repoUsuarios
 
 import org.eclipse.xtend.lib.annotations.Accessors
 import dds.grupo9.queComemos.Persona
-import dds.grupo9.queComemos.Preferencia
 import dds.grupo9.queComemos.condicionPreexistente.CondPreexistente
 import dds.grupo9.queComemos.Receta
 import dds.grupo9.queComemos.GrupoDePersonas
@@ -36,11 +35,11 @@ abstract class BuilderPersona {
 		perfilUsuario.fechaNacimiento = fechaNacimiento
 	}
 	
-	def asignarUnGusto(Preferencia unGusto) {
+	def asignarUnGusto(String unGusto) {
 		perfilUsuario.agregarPreferencia(unGusto)
 	}
 	
-	def asignarUnDisguto(Preferencia unGusto) {
+	def asignarUnDisguto(String unGusto) {
 		perfilUsuario.agregarDisgusto(unGusto)
 	}
 	
