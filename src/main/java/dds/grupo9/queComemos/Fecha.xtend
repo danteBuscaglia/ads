@@ -7,6 +7,7 @@ class Fecha {
 	@Accessors int year
 	@Accessors int month
 	@Accessors int day
+	@Accessors int hour
 	var Calendar calendario = Calendar.getInstance()
 	var long fechaCompleta
 	
@@ -14,6 +15,7 @@ class Fecha {
 		year = calendario.get(Calendar.YEAR);
 		month = calendario.get(Calendar.MONTH) +  1
 		day = calendario.get(Calendar.DATE)
+		hour = calendario.get(Calendar.HOUR_OF_DAY)
 	}
 	
 	def fechaDeHoy(){
