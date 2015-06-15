@@ -7,9 +7,7 @@ class Ingrediente {
 	@Accessors String nombre /* Para Entrega 2 */
 	@Accessors int cantidad
 	
-	new (){
-		
-	}
+	new (){}
 	
 	new (String nombreIng){
 		nombre = nombreIng

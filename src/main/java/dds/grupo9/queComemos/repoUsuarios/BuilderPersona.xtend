@@ -7,11 +7,11 @@ import dds.grupo9.queComemos.Receta
 import dds.grupo9.queComemos.GrupoDePersonas
 import dds.grupo9.queComemos.repoRecetas.RepoRecetas
 
-abstract class BuilderPersona {
+class BuilderPersona {
 	
 	@Accessors Persona perfilUsuario
 	
-	def generarNuevoPerfil(){
+	def build(){
 		perfilUsuario = new Persona()
 	}
 	
