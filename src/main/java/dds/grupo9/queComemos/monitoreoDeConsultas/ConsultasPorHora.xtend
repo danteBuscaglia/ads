@@ -14,18 +14,17 @@ class ConsultasPorHora implements Monitor {
 	var Calendar calendario = Calendar.getInstance()
 	
 	override void update(Persona persona, Collection<Receta> recetas){
-		hour = calendario.get(Calendar.HOUR_OF_DAY) 
+		hour = calendario.get(Calendar.HOUR_OF_DAY)
 		x = consultasPorHora.get(hour)
-		consultasPorHora.set(hour,x+1)
+		consultasPorHora.set(hour, x+1)
 	}
 	
 	def obtenerConsultasPorHora(int hora){
 		if(hora>23 || hora<0){
 			throw new RuntimeException("no es una hora válida")
-		} else consultasPorHora.get(hora)
-		
+		} else {
+			consultasPorHora.get(hora)
+		}
 	}
-	
-	
 	
 }
