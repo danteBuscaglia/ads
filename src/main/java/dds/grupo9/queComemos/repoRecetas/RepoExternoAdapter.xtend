@@ -6,7 +6,6 @@ import java.util.Collection
 import dds.grupo9.queComemos.Ingrediente
 import java.util.ArrayList
 import java.util.List
-import dds.grupo9.queComemos.Preferencia
 import com.google.gson.reflect.TypeToken
 import com.google.gson.Gson
 import java.lang.reflect.Type
@@ -49,14 +48,15 @@ class RepoExternoAdapter {
 		var List<String> ingredientesParaAdaptar = new ArrayList()
 		ingredientesParaAdaptar = receta.getIngredientes
 		for(ingredienteParaAdaptar : ingredientesParaAdaptar){
-			ingredientes.add(new Ingrediente(this.adaptarNombreIngrediente(ingredienteParaAdaptar)))
+			ingredientes.add(new Ingrediente(ingredienteParaAdaptar))
+			/*ingredientes.add(new Ingrediente(this.adaptarNombreIngrediente(ingredienteParaAdaptar)))*/
 		}
 		ingredientes
 	}
 	
-	def Preferencia adaptarNombreIngrediente(String string) {
+	/*def Preferencia adaptarNombreIngrediente(String string) {
 		Preferencia.valueOf(string.replaceAll(" ", "_").toUpperCase)
-	}
+	}*/ // Ya no tiene sentido por el refactor dejamos de usar el enum Preferencia
 	
 	def recetasAdaptadas(RepoRecetasExterno repoExterno) {
 		var Collection<dds.grupo9.queComemos.Receta> recetas = newHashSet()

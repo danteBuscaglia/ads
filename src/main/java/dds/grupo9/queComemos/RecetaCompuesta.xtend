@@ -30,7 +30,7 @@ class RecetaCompuesta extends Receta {
    		return ingredientesDinamicos
 	}
 	
-	override filtrarIngredientesPorNombre(Preferencia nombreIngrediente){  
+	override filtrarIngredientesPorNombre(String nombreIngrediente){  
   		this.ingredientesDinamicos.filter[ingrediente|ingrediente.soyYo(nombreIngrediente)]
   	}
    	 

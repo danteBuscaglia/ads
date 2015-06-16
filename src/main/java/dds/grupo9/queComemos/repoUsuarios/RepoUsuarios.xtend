@@ -5,7 +5,7 @@ import dds.grupo9.queComemos.Persona
 import dds.grupo9.queComemos.excepciones.NoLoTieneException
 import dds.grupo9.queComemos.excepciones.NoEsValidoException
 
-class RepoUsuarios extends BuilderPersona {
+class RepoUsuarios {
 	
 	var Collection<Persona> usuariosRegistrados = newHashSet()
 	var Collection<Persona> pendientes = newHashSet
@@ -85,7 +85,7 @@ class RepoUsuarios extends BuilderPersona {
 		return rechazados.size
 	}
 	
-	def solicitarIngreso(){
+	def solicitarIngreso(Persona perfilUsuario){
 		if(perfilUsuario.usuarioValido) this.agregarAPendiente(perfilUsuario)
 		else throw new NoEsValidoException("El perfil que desea generar no corresponde a un usuario valido")
 	}

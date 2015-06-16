@@ -18,8 +18,8 @@ class Persona implements FiltroDecorado {
 	@Accessors String nombre	/* Nombre de un Usuario */
 	@Accessors String sexo		/* Sexo de un Usuario: M/m: Masculino y F/f: Femenino */
 	@Accessors long fechaNacimiento		/* Fecha de nacimiento de un Usuario */
-	var Collection<Preferencia> gustos = newHashSet() /* Gustos de un Usuario */
-	var Collection<Preferencia> disgustos = newHashSet() /*Disgustos de un Usuario */
+	var Collection<String> gustos = newHashSet() /* Gustos de un Usuario */
+	var Collection<String> disgustos = newHashSet() /*Disgustos de un Usuario */
 	var Collection<CondPreexistente> condicionesPreexistentes = newHashSet() /* Condicionantes de un Usuario */
 	@Accessors String rutina /* Tipo de rutina que lleva a cabo el Usuario */
     var Collection<Receta> recetasPropias= newHashSet() /*Recetas de un Usuario */
@@ -91,12 +91,12 @@ class Persona implements FiltroDecorado {
 		condicionesPreexistentes.add(condicion)
 	}
 	
-	def agregarPreferencia(Preferencia preferencia){ /* Agrega una preferencia a la colección */
+	def agregarPreferencia(String preferencia){ /* Agrega una preferencia a la colección */
 		gustos.add(preferencia)
 	}
 	
 	
-	def agregarDisgusto(Preferencia preferencia){ /* Agrega una preferencia a la colección */
+	def agregarDisgusto(String preferencia){ /* Agrega una preferencia a la colección */
 		disgustos.add(preferencia)
 	}
 	
@@ -132,7 +132,7 @@ class Persona implements FiltroDecorado {
 		alimentos.forall[alimento| !(gustos.contains(alimento.nombre))]
 	}
 	
-	def noLeDisguta(Preferencia unaPreferencia) {
+	def noLeDisguta(String unaPreferencia) {
 		!disgustos.contains(unaPreferencia)
 	}
 	
