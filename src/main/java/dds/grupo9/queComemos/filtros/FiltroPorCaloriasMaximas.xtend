@@ -17,7 +17,6 @@ class FiltroPorCaloriasMaximas extends Filtro {
 			var Collection<Receta> lista = newHashSet()
 			lista.addAll(recetas.filter[it.calorias < 500]) 
 			lista
-//			recetas.filter[it.calorias < 500] as Collection<Receta>
 		}
 		else recetas
 	}

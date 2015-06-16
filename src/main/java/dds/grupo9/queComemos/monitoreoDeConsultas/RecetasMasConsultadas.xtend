@@ -3,42 +3,44 @@ package dds.grupo9.queComemos.monitoreoDeConsultas
 import dds.grupo9.queComemos.Persona
 import java.util.Collection
 import dds.grupo9.queComemos.Receta
-import org.eclipse.xtend.lib.annotations.Accessors
-import java.util.Hashtable
+import java.util.ArrayList
+import java.util.Collections
 
 class RecetasMasConsultadas implements Monitor {
 	
-	var Hashtable<String, Integer> resultados = new Hashtable<String, Integer>()
-	var Collection<String> recetas = newHashSet()
-	@Accessors int valor
+	var ArrayList<EstadisticaReceta> listaEstadisticas = new ArrayList<EstadisticaReceta>()
+	
 	
 	override void update(Persona persona, Collection<Receta> recetas){
-		for(receta:recetas){
-			configurarTabla(resultados, receta)
-		}	
+		verificarExistencia(listaEstadisticas, recetas)
+		aumentarConsultasDeRecetas(listaEstadisticas, recetas)	
 	}
 	
-	def configurarTabla(Hashtable<String,Integer> hashtable, Receta receta){
-		if(hashtable.containsKey(receta.nombre)){
-			hashtable.getOrDefault(receta.nombre, valor)
-			hashtable.replace(receta.nombre, valor+1)
-		} else {
-			hashtable.put(receta.nombre, 1)
+	def verificarExistencia(ArrayList<EstadisticaReceta> lista, Collection<Receta> recetas){
+		for (receta:recetas){
+			if (!(lista.exists[e | e.nombre == receta.nombre])){
+				val recetaNueva = new EstadisticaReceta(receta.nombre)
+				lista.add(recetaNueva)
+			} 
+		}
+	}
+	
+	def aumentarConsultasDeRecetas(ArrayList<EstadisticaReceta> lista, Collection<Receta> recetas){
+		for(receta:recetas){
+			lista.filter[e | e.nombre == receta.nombre].forEach[e | e.incrementarContador]
 		}
 	}
 	
 	def recetasMasConsultadas(int cant){
-		mostrarRecetasMasConsultadas(resultados, cant)
+		mostrarRecetasMasConsultadas(listaEstadisticas, cant)
 	}
 	
-	def mostrarRecetasMasConsultadas(Hashtable<String,Integer> hashtable, int cant){
-		var Collection<String> recetasConsultadas = newHashSet()
-		//hashtable.values.sort.reverse
-		hashtable.forEach[k,v|recetas.add(k)]
-		recetasConsultadas.addAll(recetas.take(cant))
+	def mostrarRecetasMasConsultadas(ArrayList<EstadisticaReceta> lista, int cant){
+		var Collection<String> recetasConsultadas = newHashSet() 
+		Collections.sort(lista, new OrdenarEstadisticasPorConsultas())
+		recetasConsultadas.addAll(lista.map[it.nombre].take(cant))
 		return recetasConsultadas
 	}
-	
 	
 	/*override void update(Persona persona, Collection<Receta> recetas){
 		recetas.forEach[receta| 

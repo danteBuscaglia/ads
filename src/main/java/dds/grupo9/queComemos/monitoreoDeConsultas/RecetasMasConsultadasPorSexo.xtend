@@ -3,31 +3,28 @@ package dds.grupo9.queComemos.monitoreoDeConsultas
 import dds.grupo9.queComemos.Persona
 import java.util.Collection
 import dds.grupo9.queComemos.Receta
-import dds.grupo9.queComemos.excepciones.NoTieneSexoException
-import java.util.Hashtable
+import java.util.ArrayList
 
 class RecetasMasConsultadasPorSexo extends RecetasMasConsultadas {
 	
-	var Hashtable<String, Integer> resultadosHombres = new Hashtable<String, Integer>()
-	var Hashtable<String, Integer> resultadosMujeres = new Hashtable<String, Integer>()
+	var ArrayList<EstadisticaReceta> listaHombres = new ArrayList<EstadisticaReceta>()
+	var ArrayList<EstadisticaReceta> listaMujeres = new ArrayList<EstadisticaReceta>()
 	
 	override void update(Persona persona, Collection<Receta> recetas){
-		for(receta:recetas){
-			if(persona.sexo == "M" || persona.sexo == "m"){
-				configurarTabla(resultadosHombres, receta)
-			} else if(persona.sexo=="F" || persona.sexo=="f"){
-				configurarTabla(resultadosMujeres, receta)
-			} else { 
-			throw new NoTieneSexoException("El sexo ingresado no es válido")
-			}
-		}
+		if(persona.sexo=="M"||persona.sexo=="m"){
+			verificarExistencia(listaHombres,recetas)
+			aumentarConsultasDeRecetas(listaHombres, recetas)
+		} else if(persona.sexo=="F"||persona.sexo=="f"){
+			verificarExistencia(listaMujeres,recetas)
+			aumentarConsultasDeRecetas(listaMujeres, recetas)
+		}	
 	}
 	
 	def recetasMasConsultadasPorHombres(int cant){
-		mostrarRecetasMasConsultadas(resultadosHombres, cant)
+		mostrarRecetasMasConsultadas(listaHombres, cant)
 	}
 	
 	def recetasMasConsultadasPorMujeres(int cant){
-		mostrarRecetasMasConsultadas(resultadosMujeres, cant)
+		mostrarRecetasMasConsultadas(listaMujeres, cant)
 	}	
 }
