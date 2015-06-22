@@ -14,9 +14,7 @@ class FiltroPorCaloriasMaximas extends Filtro {
 		
 	override filtrar (Collection <Receta> recetas){
 		if(persona.tieneSobrepeso(maxSobrepeso)){
-			var Collection<Receta> lista = newHashSet()
-			lista.addAll(recetas.filter[it.calorias < 500]) 
-			lista
+			recetas.filter[it.calorias < 500]
 		}
 		else recetas
 	}

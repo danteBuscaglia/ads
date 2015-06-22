@@ -10,34 +10,45 @@ import dds.grupo9.queComemos.repoRecetas.RepoRecetasPropio
 import dds.grupo9.queComemos.manejoResultadosFiltros.ConsiderarRecetasPares
 import org.junit.Test
 import dds.grupo9.queComemos.manejoResultadosFiltros.ObtenerLosDiezPrimeros
+import org.junit.Before
 
 class BusquedaTestSuite {
-	def void unaPersonaPuedeObtenerLosDiezPrimerosResultadosDeUnaBusqueda(){
-		val repositorio = new RepoRecetasPropio()
-		val persona = new Persona()
-		val filtro = new FiltroPorCondicionesPreexistentes()
-		val receta1 = new RecetaSimple(persona)
-		val receta2 = new RecetaSimple(repositorio)
-		val receta3 = new RecetaSimple(persona)
-		val receta4 = new RecetaSimple(repositorio)
-		val receta5 = new RecetaSimple(repositorio)
-		val receta6 = new RecetaSimple(persona)
-		val receta7 = new RecetaSimple(repositorio)
-		val receta8 = new RecetaSimple(repositorio)
-		val receta9 = new RecetaSimple(persona)
-		val receta10 = new RecetaSimple(repositorio)
-		val receta11 = new RecetaSimple(repositorio)
-		val receta12 = new RecetaSimple(persona)
+	
+	var RepoRecetasPropio repositorio;
+	var Persona persona;
+	var FiltroPorCondicionesPreexistentes filtro;
+	var RecetaSimple receta1;
+	var RecetaSimple receta2;
+	var RecetaSimple receta3;
+	var RecetaSimple receta4;
+	var RecetaSimple receta5;
+	var RecetaSimple receta6;
+	var RecetaSimple receta7;
+	var RecetaSimple receta8;
+	var RecetaSimple receta9;
+	var RecetaSimple receta10;
+	var RecetaSimple receta11;
+	var RecetaSimple receta12;
+	
+	@Before
+	def setup()
+	{
+		repositorio = new RepoRecetasPropio()
+		persona = new Persona()
+		filtro = new FiltroPorCondicionesPreexistentes()
+		receta1 = new RecetaSimple(persona)
+		receta2 = new RecetaSimple(repositorio)
+		receta3 = new RecetaSimple(persona)
+		receta4 = new RecetaSimple(repositorio)
+		receta5 = new RecetaSimple(repositorio)
+		receta6 = new RecetaSimple(persona)
+		receta7 = new RecetaSimple(repositorio)
+		receta8 = new RecetaSimple(repositorio)
+		receta9 = new RecetaSimple(persona)
+		receta10 = new RecetaSimple(repositorio)
+		receta11 = new RecetaSimple(repositorio)
+		receta12 = new RecetaSimple(persona)
 		
-		val busqueda = new Busqueda()
-		busqueda.fuenteDeDatos = filtro		
-		val diezPrimeros = new ObtenerLosDiezPrimeros()
-		busqueda.proceso = diezPrimeros
-		
-		persona.setRepoRecetas(repositorio)
-		persona.agregarCondPreexistente(new Hipertenso()) 
-		filtro.persona = persona
-		filtro.decorado = persona
 		receta1.agregarIngrediente(new Ingrediente("caldo"))
 		receta1.calorias = 650
 		receta2.agregarIngrediente(new Ingrediente())
@@ -62,6 +73,21 @@ class BusquedaTestSuite {
 		receta11.calorias = 460
 		receta12.agregarIngrediente(new Ingrediente())
 		receta12.calorias = 320
+	}
+	
+	@Test
+	def void unaPersonaPuedeObtenerLosDiezPrimerosResultadosDeUnaBusqueda(){
+		
+		
+		val busqueda = new Busqueda()
+		busqueda.fuenteDeDatos = filtro		
+		val diezPrimeros = new ObtenerLosDiezPrimeros()
+		busqueda.proceso = diezPrimeros
+		
+		persona.setRepoRecetas(repositorio)
+		persona.agregarCondPreexistente(new Hipertenso()) 
+		filtro.persona = persona
+		filtro.decorado = persona
 		persona.agregarReceta(receta1)
 		repositorio.agregarRecetaPublica(receta2)
 		persona.agregarReceta(receta3)
@@ -81,21 +107,7 @@ class BusquedaTestSuite {
 	@Test
 	
 	def void unaPersonaPuedeObtenerSoloLas5RecetasParesDeUnaBusquedaQueDevuelve10Resultados(){
-		val repositorio = new RepoRecetasPropio()
-		val persona = new Persona()
-		val filtro = new FiltroPorCondicionesPreexistentes()
-		val receta1 = new RecetaSimple(persona)
-		val receta2 = new RecetaSimple(repositorio)
-		val receta3 = new RecetaSimple(persona)
-		val receta4 = new RecetaSimple(repositorio)
-		val receta5 = new RecetaSimple(repositorio)
-		val receta6 = new RecetaSimple(persona)
-		val receta7 = new RecetaSimple(repositorio)
-		val receta8 = new RecetaSimple(repositorio)
-		val receta9 = new RecetaSimple(persona)
-		val receta10 = new RecetaSimple(repositorio)
-		val receta11 = new RecetaSimple(repositorio)
-		val receta12 = new RecetaSimple(persona)
+
 		
 		val busqueda = new Busqueda()
 		busqueda.fuenteDeDatos = filtro		

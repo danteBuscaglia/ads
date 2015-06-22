@@ -7,9 +7,7 @@ class FiltroPorDisgusto extends Filtro{
 	
 	
 	override filtrar(Collection <Receta> recetas){
-		var Collection<Receta> lista = newHashSet()
-		lista.addAll(recetas.filter[persona.noContieneIngredientesQueLeDisgusten(it)])
-		lista
+		recetas.filter[persona.noContieneIngredientesQueLeDisgusten(it)]
 	}
 	
 }

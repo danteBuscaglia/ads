@@ -7,9 +7,7 @@ class FiltroPorCondicionesPreexistentes extends Filtro {
 	
 	
 	override filtrar(Collection<Receta> recetas){
-		var Collection<Receta> lista = newHashSet()
-		lista.addAll(recetas.filter[!persona.recetaNoRecomendada(it)]) 
-		lista
+		recetas.filter[!persona.recetaNoRecomendada(it)]
 	}
 	
 }

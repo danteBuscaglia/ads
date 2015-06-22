@@ -15,9 +15,12 @@ abstract class Filtro implements FiltroDecorado {
 	}
 	
 	override Collection<Receta> resultado() {
-		filtrar(decorado.resultado)
+		var Collection<Receta> lista = newHashSet()
+		lista.addAll(this.filtrar(decorado.resultado)) 
+		lista
+		//filtrar(decorado.resultado)
 	}
 	
-	def Collection<Receta> filtrar(Collection<Receta> recetas)
+	def Iterable<Receta> filtrar(Collection<Receta> recetas)
 }
 

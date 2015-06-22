@@ -42,6 +42,8 @@ class RecetasMasConsultadas implements Monitor {
 		return recetasConsultadas
 	}
 	
+
+	
 	/*override void update(Persona persona, Collection<Receta> recetas){
 		recetas.forEach[receta| 
 			if(!recetasConsultadas.exists[r|r.nombre == receta.nombre]){	
