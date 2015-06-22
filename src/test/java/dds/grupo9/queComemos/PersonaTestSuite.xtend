@@ -9,11 +9,28 @@ import dds.grupo9.queComemos.condicionPreexistente.Celiaco
 import dds.grupo9.queComemos.excepciones.NoEsValidoException
 import dds.grupo9.queComemos.excepciones.NoPuedeAgregarException
 import dds.grupo9.queComemos.repoRecetas.RepoRecetasPropio
-
+import org.junit.Before
 
 class PersonaTestSuite {
 	
-
+	var Persona persona;
+	var Persona persona2;
+	var RecetaSimple receta;
+	var RecetaSimple receta2;
+	var RecetaSimple receta3;
+		
+	@Before
+	def void setup(){
+		
+		persona = new Persona()
+		persona.peso = 74.0f
+		persona.altura = 1.79f
+		persona2 = new Persona()
+		
+		receta = new RecetaSimple(persona)
+		receta2 = new RecetaSimple(persona)
+		receta3 = new RecetaSimple(persona)
+	}
 
 	@Test
 	def void unaPersonaIMC(){
@@ -26,8 +43,7 @@ class PersonaTestSuite {
 	}
 	
 	@Test
-	def void juaniIMC()
-	{
+	def void juaniIMC(){
 		val juani = new Persona()
 		
 		juani.peso = 70.0f
@@ -38,8 +54,7 @@ class PersonaTestSuite {
 	}
 	
 	@Test 
-	def void ignacioIMC()
-	 {
+	def void ignacioIMC(){
 	 	 val ignacio = new Persona()
 	 	 
 	 	 ignacio.peso = 78.0f
@@ -49,8 +64,7 @@ class PersonaTestSuite {
 	}
 	
 	@Test
-	def void juanPabloIMC()
-	{
+	def void juanPabloIMC(){
 		val juanPablo = new Persona()
 		
 		juanPablo.peso = 76.0f
@@ -60,47 +74,23 @@ class PersonaTestSuite {
 	}
 	
 	@Test
-	def void unaPersonaTieneImcPromedio()
-	{
-		val persona = new Persona()
-		
-		persona.peso = 74.0f
-		persona.altura = 1.79f
-		
+	def void unaPersonaTieneImcPromedio(){
 		Assert.assertTrue(persona.tieneImcPromedio)
 	}
 	
 	@Test
-	def void unaPersonaConImcPromedioNoTieneCondicionesPreexistentesYSigueRutinaSaludable()
-	{
-		val persona = new Persona()
-		
-		persona.peso = 74.0f
-		persona.altura = 1.79f
-		
+	def void unaPersonaConImcPromedioNoTieneCondicionesPreexistentesYSigueRutinaSaludable(){
 		Assert.assertTrue(persona.sigueRutinaSaludable)
-		
 	}
 	
 	@Test
-	def void unaPersonaSinImcPromedioNoSigueRutinaSaludable()
-	{
-		val persona = new Persona()
-		
+	def void unaPersonaSinImcPromedioNoSigueRutinaSaludable(){
 		persona.peso = 740.0f
-		persona.altura = 1.79f
-
 		Assert.assertFalse(persona.sigueRutinaSaludable)
-		
 	}
 	
 	@Test
-	def void unaPersonaConIMCPromedioYQueSubsanaTodasLasCondicionesPreexistentes()
-	{
-		var persona = new Persona()
-		persona.peso = 74.0f
-		persona.altura = 1.79f
-		
+	def void unaPersonaConIMCPromedioYQueSubsanaTodasLasCondicionesPreexistentes(){
 		persona.agregarCondPreexistente(new Vegano())
 		persona.agregarCondPreexistente(new Hipertenso())
 		persona.agregarCondPreexistente(new Diabetico())
@@ -114,13 +104,7 @@ class PersonaTestSuite {
 	}
 	
 	@Test
-	def void unaPersonaConIMCPromedioYQueNoSubsanaHipertension()
-	{
-		var persona = new Persona()
-		
-		persona.peso = 74.0f
-		persona.altura = 1.79f
-		
+	def void unaPersonaConIMCPromedioYQueNoSubsanaHipertension(){
 		persona.agregarCondPreexistente(new Hipertenso())
 
 		persona.rutina = "LEVE"
@@ -130,13 +114,7 @@ class PersonaTestSuite {
 	}
 	
 	@Test
-	def void unaPersonaConIMCPromedioYQueNoSubsanaVeganismo()
-	{
-		var persona = new Persona()
-		
-		persona.peso = 74.0f
-		persona.altura = 1.79f
-		
+	def void unaPersonaConIMCPromedioYQueNoSubsanaVeganismo(){
 		persona.agregarCondPreexistente(new Vegano())
 
 		persona.agregarPreferencia("verdura")
@@ -146,13 +124,8 @@ class PersonaTestSuite {
 	}
 	
 	@Test
-	def void unaPersonaConIMCPromedioYQueNoSubsanaDiabetes()
-	{
-		var persona = new Persona()
-		
-		persona.peso = 74.0f
-		persona.altura = 1.79f
-		
+	def void unaPersonaConIMCPromedioYQueNoSubsanaDiabetes(){
+
 		persona.agregarCondPreexistente(new Diabetico())
 		
 		Assert.assertFalse(persona.sigueRutinaSaludable)
@@ -161,7 +134,6 @@ class PersonaTestSuite {
 	
 	@Test
 	def void unaPersonaAgregaUnaReceta(){
-		val persona= new Persona()
 		val receta = new RecetaSimple(persona)
 		receta.agregarIngrediente(new Ingrediente())
 		receta.calorias=500
@@ -175,9 +147,6 @@ class PersonaTestSuite {
 	@Test (expected = NoEsValidoException)
 	
 	def void unaPersonaNoPuedeAgregarUnaReceta(){
-		
-		val persona= new Persona()
-		val receta = new RecetaSimple(persona)
 		receta.agregarIngrediente(new Ingrediente())
 		receta.calorias=50000
 		persona.agregarReceta(receta)
@@ -189,9 +158,6 @@ class PersonaTestSuite {
 	
 	@Test
 	def void unDiabeticoNoPuedeConsumirUnaRecetaConAzucar(){
-		
-		val persona = new Persona()
-		val receta = new RecetaSimple(new RepoRecetasPropio())
 		val azucar = new Ingrediente()
 		val diabetico = new Diabetico()
 		azucar.nombre = "azucar"
@@ -208,9 +174,6 @@ class PersonaTestSuite {
 	@Test
 	
 	def void unVeganoYUnHipertensoNoPuedenConsumirUnaRecetaConSalYCarne(){
-	
-	    val receta = new RecetaSimple(new RepoRecetasPropio())
-	    val persona = new Persona()
 	    val vegano= new Vegano()
 	    val hipertenso = new Hipertenso()
 	    
@@ -222,16 +185,13 @@ class PersonaTestSuite {
 	    persona.agregarCondPreexistente(vegano)
 	    persona.agregarCondPreexistente(hipertenso)
 	    
-	    Assert.assertTrue(persona.recetaNoRecomendada(receta))
-	    	
+	    Assert.assertTrue(persona.recetaNoRecomendada(receta))    	
 	    
 	}
+	
 	@Test
 	def void unaRecetaConMuchaAzucarYSalYCarneSoloPuedeSerConsumidaPorUnCeliaco(){
-		
-		val persona = new Persona()
 		val celiaco = new Celiaco()
-		val receta = new RecetaSimple(new RepoRecetasPropio())
 		
 		receta.agregarIngrediente(new Ingrediente("azucar", 150))
 		receta.agregarIngrediente(new Ingrediente("sal", 15))
@@ -251,11 +211,7 @@ class PersonaTestSuite {
 	@Test
 	def void unaPersonaEsUnUsuarioValido()
 	{
-		var persona = new Persona()
-		
 		persona.nombre = "El Enzo"
-		persona.peso = 74.0f
-		persona.altura = 1.79f
 		persona.rutina = "INTENSIVO"
 		persona.fechaNacimiento = 19611112
 		persona.sexo = 'M'
@@ -274,11 +230,7 @@ class PersonaTestSuite {
 	@Test
 	def void unaPersonaNoCompletaTodosSusDatosBasicos()
 	{
-		var persona = new Persona()
-		
 		persona.nombre = ""
-		persona.peso = 74.0f
-		persona.altura = 1.79f
 		persona.rutina = "INTENSIVO"
 		persona.fechaNacimiento = 19611112
 
@@ -290,11 +242,7 @@ class PersonaTestSuite {
 	@Test
 	def void unaPersonaNacioDespuesDelDiaDeLaFecha()
 	{
-		var persona = new Persona()
-		
 		persona.nombre = "El Enzo"
-		persona.peso = 74.0f
-		persona.altura = 1.79f
 		persona.rutina = "INTENSIVO"
 		persona.fechaNacimiento = 20201212
 		persona.sexo = 'M'
@@ -306,20 +254,13 @@ class PersonaTestSuite {
 	@Test
 	def void unaPersonaNoIndicaSexo()
 	{
-		var persona = new Persona()
-
 		Assert.assertFalse(persona.indicaSexo)
-		
 	}	
 	
 	@Test
 	def void unVeganoQuePrefiereComerCarneNoEsValido()
-	{
-		var persona = new Persona()
-		
+	{		
 		persona.nombre = "El Enzo"
-		persona.peso = 74.0f
-		persona.altura = 1.79f
 		persona.rutina = "INTENSIVO"
 		persona.fechaNacimiento = 19611112
 		persona.sexo = 'M'
@@ -335,7 +276,6 @@ class PersonaTestSuite {
 		
 		}
 	
-	
 	/*@Test
 	def void fecha()
 	{
@@ -349,42 +289,40 @@ class PersonaTestSuite {
 	@Test
 	
 	def void unaPersonaTieneEnSuListaDeRecetasTotalesUnaRecetaPropiaYUnaRecetaPublicaYUnaRecetaDeUnCompañeroDeGrupo(){
-		val persona= new Persona()
-		val persona2= new Persona()
 		val grupo = new GrupoDePersonas("Los Pibes")
 	    grupo.agregarAGrupo(persona)
 	    grupo.agregarAGrupo(persona2)
 	    
 	    val repositorio = new RepoRecetasPropio()
 	    persona.setRepoRecetas(repositorio)
-	    val receta= new RecetaSimple(persona)
 	    receta.agregarIngrediente(new Ingrediente("carne",100))
 	    receta.calorias=500
 	    persona.agregarReceta(receta)
-	    val receta2= new RecetaSimple(repositorio)
-	    receta2.agregarIngrediente(new Ingrediente("chori",100))
-	    receta2.calorias=700
-	    repositorio.agregarRecetaPublica(receta2)
-	    val receta3= new RecetaSimple(persona2)
-	    receta3.agregarIngrediente(new Ingrediente("pollo",100))
-	    receta3.calorias=800
-	    persona2.agregarReceta(receta3)
+	   	
+	    val receta4= new RecetaSimple(repositorio)
+	    receta4.agregarIngrediente(new Ingrediente("chori",100))
+	    receta4.calorias=700
+	    repositorio.agregarRecetaPublica(receta4)
 	    
+	   	val receta5 = new RecetaSimple(persona2)
+	   	receta5.agregarIngrediente(new Ingrediente("pollo",100))
+	    receta5.calorias=800
+	   	persona2.agregarReceta(receta5)
+
 	    Assert.assertEquals(3,persona.listarTodasSusRecetas.size)
 	}
 	
 	@Test
 	
 	def void unaPersonaPuedeAgregarUnaRecetaComoFavoritayQuedaEnElHistorial(){
-		val persona = new Persona()
 		val repositorio = new RepoRecetasPropio()
 		persona.setRepoRecetas(repositorio)
-		val receta = new RecetaSimple(repositorio)
-		repositorio.agregarRecetaPublica(receta)
+		val recetaDelRepo = new RecetaSimple(repositorio)
+		repositorio.agregarRecetaPublica(recetaDelRepo)
 		
-		persona.marcarRecetaComoFavorita(receta)
+		persona.marcarRecetaComoFavorita(recetaDelRepo)
 		
-		Assert.assertTrue(persona.tieneRecetaFavorita(receta))
+		Assert.assertTrue(persona.tieneRecetaFavorita(recetaDelRepo))
 		
 	}
 	
@@ -392,10 +330,6 @@ class PersonaTestSuite {
 	@Test 
 	 
 	 def void unaPersonaAgregaUnaRecetaPrivadaAFavoritos (){
-           
-           val persona = new Persona()
-           val persona2 = new Persona()
-           val receta = new RecetaSimple(persona)
            receta.agregarIngrediente(new Ingrediente())
 		   receta.calorias=500
            val grupo = new GrupoDePersonas("amigos")
@@ -410,13 +344,9 @@ class PersonaTestSuite {
 	    
 	@Test (expected = NoPuedeAgregarException)
 	
-	def void unaPersonaNoPuedeAgregarUnaRecetaComoFavoritaYSaltaExcepcion(){
-		val persona = new Persona()
-		val persona2 = new Persona()
+	def void unaPersonaQueNoPuedeVerNiModificarUnaRecetaNoPuedeAgregarlaComoFavoritaYSaltaExcepcion(){
 		val receta = new RecetaSimple (persona2)
-		
 		persona.marcarRecetaComoFavorita(receta)
-
 	}
  
 }

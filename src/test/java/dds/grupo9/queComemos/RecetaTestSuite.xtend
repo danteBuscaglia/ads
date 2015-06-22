@@ -9,15 +9,36 @@ import dds.grupo9.queComemos.excepciones.NoEsValidoException
 import dds.grupo9.queComemos.modificacionRecetas.modAgregarIngredientes
 import dds.grupo9.queComemos.modificacionRecetas.modEliminarIngredientes
 import dds.grupo9.queComemos.repoRecetas.RepoRecetasPropio
+import org.junit.Before
 
 class RecetaTestSuite {
 	
+	var RecetaSimple receta;
+	var RecetaSimple receta2;
+	var RecetaSimple receta3;
+	var RecetaSimple recetaDePersona;
+	var RecetaCompuesta recetaCompuesta;
+	var RepoRecetasPropio repositorioPropio;
+	var Persona persona;
+	var Persona persona2;
+	
+	@Before
+	def void setup(){
+		
+		receta = new RecetaSimple(repositorioPropio)
+		receta2 = new RecetaSimple(repositorioPropio)
+		receta3 = new RecetaSimple(repositorioPropio)
+		recetaCompuesta = new RecetaCompuesta(repositorioPropio)
+		repositorioPropio = new RepoRecetasPropio()
+		persona = new Persona()
+		recetaDePersona = new RecetaSimple(persona)
+		persona2 = new Persona()
+	}
 	
 	@Test
 	
 	def void unaRecetaEsValida(){
 		
-		val receta = new RecetaSimple(new RepoRecetasPropio())
 		receta.agregarIngrediente(new Ingrediente())
 		receta.calorias=3000
 		
@@ -26,8 +47,6 @@ class RecetaTestSuite {
 	
 	@Test
 	def void unaRecetaTieneCarneYAzucarYSal(){
-	
-		val receta = new RecetaSimple(new RepoRecetasPropio())
 
 		receta.agregarIngrediente(new Ingrediente("azucar", 150))
 		receta.agregarIngrediente(new Ingrediente("sal", 15))
@@ -46,16 +65,12 @@ class RecetaTestSuite {
 	
 	def void unaPersonaPuedeVerOModificarUnaRecetaDada(){
 		
-		var persona = new Persona()
-		var persona2 = new Persona()
 		persona.nombre = "jose"
-		persona2.nombre = "juan"
-		var receta = new RecetaSimple(persona)
 		receta.agregarIngrediente(new Ingrediente())
 		receta.calorias = 3000
 		persona.agregarReceta(receta)
 		
-		Assert.assertTrue(receta.puedeVerOModificarReceta(persona))
+		Assert.assertTrue(recetaDePersona.puedeVerOModificarReceta(persona))
 		
 	}
 	
@@ -63,21 +78,15 @@ class RecetaTestSuite {
 	
 	def void unaPersonaNoPuedeModificarLaRecetaPrivadaDeOtra(){
 	
-		val duenioDeReceta = new Persona()
-		val otraPersona = new Persona()
-		val receta = new RecetaSimple(duenioDeReceta)
+		val otraPersona = persona2
 		
-		
-		Assert.assertFalse(receta.puedeVerOModificarReceta(otraPersona))
+		Assert.assertFalse(recetaDePersona.puedeVerOModificarReceta(otraPersona))
 		
 	}
 		
 	@Test
 	
 	def void unaPersonaPuedeModificarUnaRecetaPublica(){
-	
-		val persona= new Persona()
-		val receta = new RecetaSimple(new RepoRecetasPropio())
 		
 		Assert.assertTrue(receta.puedeVerOModificarReceta(persona))
 	}
@@ -85,46 +94,40 @@ class RecetaTestSuite {
 	@Test
 	
 	def void unaPersonaQueAgregaIngredienteAUnaRecetaPropiaLograModificarlaSinGenerarUnaCopia(){
-		
-		val persona = new Persona()
-		val receta = new RecetaSimple(persona)
+
 		var modificacion = new modAgregarIngredientes()
-		receta.agregarIngrediente(new Ingrediente ("papa",100))
+		recetaDePersona.agregarIngrediente(new Ingrediente ("papa",100))
 		modificacion.ingrediente = new Ingrediente("sal", 10)
-		receta.calorias=400
+		recetaDePersona.calorias=400
 		
-		persona.modificarReceta(receta,modificacion)
+		persona.modificarReceta(recetaDePersona,modificacion)
 		
-		Assert.assertEquals(receta.cantidadIngredientes(), 2)
+		Assert.assertEquals(recetaDePersona.cantidadIngredientes(), 2)
 	}
 	
 	@Test
 	
 	def void unaPersonaQueEliminaIngredienteAUnaRecetaPropiaLograModificarlaSinGenerarUnaCopia(){
 		
-		val persona = new Persona()
-		val receta = new RecetaSimple(persona)
 		val modificacion = new modEliminarIngredientes()
 		val papa = new Ingrediente("papa",100)
 		val sal = new Ingrediente("sal",10)
-		receta.agregarIngrediente(papa)
-		receta.agregarIngrediente(sal)
-		receta.calorias=400
+		recetaDePersona.agregarIngrediente(papa)
+		recetaDePersona.agregarIngrediente(sal)
+		recetaDePersona.calorias=400
 		
 		modificacion.ingrediente = new Ingrediente("sal")
 		/* Nótese que no es necesario conocer exactamente el objeto ingrediente a eliminar, sino solo el nombre */
 		
-		persona.modificarReceta(receta,modificacion)
+		persona.modificarReceta(recetaDePersona, modificacion)
 		
-		Assert.assertEquals(receta.cantidadIngredientes(), 1)
+		Assert.assertEquals(recetaDePersona.cantidadIngredientes(), 1)
 	}
 	
 	@Test
 	
 	def void unaPersonaQueModificaUnaRecetaPublicaIncorporaComoPropiaUnaReceta(){
 		
-		val persona = new Persona()
-		val receta = new RecetaSimple(new RepoRecetasPropio())
 		val modificacion = new modEliminarIngredientes()
 		val papa = new Ingrediente("papa",100)
 		val sal = new Ingrediente("sal",10)
@@ -143,8 +146,6 @@ class RecetaTestSuite {
 	
 	def void unaPersonaQueEliminaIngredienteDeUnaRecetaPublicaIncorporaComoPropiaUnaRecetaConMenosIngredientes(){
 		
-		val persona = new Persona()
-		val receta = new RecetaSimple(new RepoRecetasPropio())
 		receta.nombre = "papasALaCrema"
 		val modificacion = new modEliminarIngredientes()
 		val papa = new Ingrediente("papa",100)
@@ -165,9 +166,7 @@ class RecetaTestSuite {
 		@Test
 	
 	def void unaPersonaQueAgregaIngredienteDeUnaRecetaPublicaIncorporaComoPropiaUnaRecetaConMasIngredientes(){
-		
-		val persona = new Persona()
-		val receta = new RecetaSimple(new RepoRecetasPropio())
+
 		receta.nombre = "papasALaCrema"
 		val modificacion = new modAgregarIngredientes()
 		val papa = new Ingrediente("papa",100)
@@ -187,33 +186,26 @@ class RecetaTestSuite {
 	@Test (expected = NoEsValidoException)
 	
 	def void unaRecetaSimpleNoPuedeTenerSubrecetas(){
-		val repositorio= new RepoRecetasPropio()
-		var recetaSimple1 = new RecetaSimple(repositorio)
-		var recetaSimple2 = new RecetaSimple(repositorio)
 		
-		recetaSimple1.agregarIngrediente(new Ingrediente("pollo", 1))
-		recetaSimple2.agregarIngrediente(new Ingrediente("papa", 8))
+		receta.agregarIngrediente(new Ingrediente("pollo", 1))
+		receta2.agregarIngrediente(new Ingrediente("papa", 8))
 		
-		recetaSimple1.agregarSubreceta(recetaSimple2)
+		receta.agregarSubreceta(receta2)
 		
-		Assert.assertTrue(recetaSimple1.tieneIngrediente("papa"))
+		Assert.assertTrue(receta.tieneIngrediente("papa"))
 	}
 	
 	@Test
 	
 	def void unaRecetaCompuestaReutilizaDosRecetasSimples(){
-		val repositorio = new RepoRecetasPropio()
-		var recetaSimple1 = new RecetaSimple(repositorio)
-		var recetaSimple2 = new RecetaSimple(repositorio)
-		var recetaCompuesta = new RecetaCompuesta(repositorio)
 
-		recetaSimple1.agregarIngrediente(new Ingrediente("pollo", 1))
-		recetaSimple1.agregarIngrediente(new Ingrediente("oregano", 10))
-		recetaSimple2.agregarIngrediente(new Ingrediente("papa", 5))
-		recetaSimple2.agregarIngrediente(new Ingrediente("manteca", 1))
+		receta.agregarIngrediente(new Ingrediente("pollo", 1))
+		receta.agregarIngrediente(new Ingrediente("oregano", 10))
+		receta2.agregarIngrediente(new Ingrediente("papa", 5))
+		receta2.agregarIngrediente(new Ingrediente("manteca", 1))
 		
-		recetaCompuesta.agregarSubreceta(recetaSimple1)
-		recetaCompuesta.agregarSubreceta(recetaSimple2)
+		recetaCompuesta.agregarSubreceta(receta)
+		recetaCompuesta.agregarSubreceta(receta2)
 		
 		Assert.assertTrue(recetaCompuesta.tieneIngrediente("pollo"))		
 		Assert.assertTrue(recetaCompuesta.tieneIngrediente("oregano"))
@@ -226,25 +218,20 @@ class RecetaTestSuite {
 	
 	def void unaRecetaCompuestaReutilizaUnaRecetaSimpleYOtraCompuesta(){
 		
-		val repositorio = new RepoRecetasPropio()
-		var recetaSimple1 = new RecetaSimple(repositorio)
-		var recetaSimple2 = new RecetaSimple(repositorio)
-		var recetaSimple3 = new RecetaSimple(repositorio)
-		var recetaCompuesta = new RecetaCompuesta(repositorio)
-		var recetaCompuestaNivel2 = new RecetaCompuesta(repositorio)
+		var recetaCompuestaNivel2 = new RecetaCompuesta(repositorioPropio)
 
-		recetaSimple1.agregarIngrediente(new Ingrediente("pollo", 1))
-		recetaSimple1.agregarIngrediente(new Ingrediente("oregano", 10))
-		recetaSimple2.agregarIngrediente(new Ingrediente("papa", 5))
-		recetaSimple2.agregarIngrediente(new Ingrediente("manteca", 1))
-		recetaSimple3.agregarIngrediente(new Ingrediente("arroz", 5))
-		recetaSimple3.agregarIngrediente(new Ingrediente("salsa de soja", 1))
+		receta.agregarIngrediente(new Ingrediente("pollo", 1))
+		receta.agregarIngrediente(new Ingrediente("oregano", 10))
+		receta2.agregarIngrediente(new Ingrediente("papa", 5))
+		receta2.agregarIngrediente(new Ingrediente("manteca", 1))
+		receta3.agregarIngrediente(new Ingrediente("arroz", 5))
+		receta3.agregarIngrediente(new Ingrediente("salsa de soja", 1))
 		
-		recetaCompuesta.agregarSubreceta(recetaSimple1)
-		recetaCompuesta.agregarSubreceta(recetaSimple2)
+		recetaCompuesta.agregarSubreceta(receta)
+		recetaCompuesta.agregarSubreceta(receta2)
 		
 		recetaCompuestaNivel2.agregarSubreceta(recetaCompuesta)
-		recetaCompuestaNivel2.agregarSubreceta(recetaSimple3)
+		recetaCompuestaNivel2.agregarSubreceta(receta3)
 		
 		Assert.assertTrue(recetaCompuestaNivel2.tieneIngrediente("pollo"))		
 		Assert.assertTrue(recetaCompuestaNivel2.tieneIngrediente("oregano"))
@@ -260,31 +247,25 @@ class RecetaTestSuite {
 	@Test
 	
 	def unaPersonaPuedeVerLaRecetaDeUnCompañeroDeGrupo(){
-		val persona = new Persona()
-		val persona2= new Persona()
 		val grupo = new GrupoDePersonas("Los Pibes")
-		val receta = new RecetaSimple(persona)
 		
 		grupo.agregarAGrupo(persona)
 		grupo.agregarAGrupo(persona2)
 		
-		receta.agregarIngrediente(new Ingrediente("sal",10))
-		receta.agregarIngrediente(new Ingrediente("carne",100))
-		receta.calorias=150
-		persona.agregarReceta(receta)
+		recetaDePersona.agregarIngrediente(new Ingrediente("sal",10))
+		recetaDePersona.agregarIngrediente(new Ingrediente("carne",100))
+		recetaDePersona.calorias=150
 		
-		Assert.assertTrue(receta.puedeVerOModificarReceta(persona2))
+		Assert.assertTrue(recetaDePersona.puedeVerOModificarReceta(persona2))
 		
 	}
 	
 	@Test
 	
 	def unaRecetaQueNoContieneIngredientesQueLeDisgutenAUnaPersonaNiIngredientesQueNoSeanPermitidosPorSusCondicionesPreexistentesPuedeSerSugeridaAEsaPersona(){	
-		val persona = new Persona()
 		persona.nombre = "Paul"
 		persona.agregarCondPreexistente(new Vegano)
 		persona.agregarDisgusto("carne")
-		val receta = new RecetaSimple(new RepoRecetasPropio())
 		receta.agregarIngrediente(new Ingrediente("papa",100))
 		receta.agregarIngrediente(new Ingrediente("sal",10))
 		
@@ -295,11 +276,9 @@ class RecetaTestSuite {
 	@Test
 
 	def unaRecetaQueContieneIngredientesQueLeDisgutenAUnaPersonaNoPuedeSerSurgeridaAEsaPersona(){
-		val persona = new Persona()
 		persona.nombre = "Paul"
 		persona.agregarCondPreexistente(new Vegano)
 		persona.agregarDisgusto("papa")
-		val receta = new RecetaSimple(new RepoRecetasPropio())
 		receta.agregarIngrediente(new Ingrediente("papa",100))
 		receta.agregarIngrediente(new Ingrediente("sal",10))
 		
@@ -308,11 +287,9 @@ class RecetaTestSuite {
 	
 	@Test
 	def unaRecetaQueContieneIngredientesQueNoSeanPermitidosPorSusCondicionesPreexistentesNoPuedeSerSurgeridaAEsaPersona(){	
-		val persona = new Persona()
 		persona.nombre = "Paul"
 		persona.agregarCondPreexistente(new Hipertenso)
 		persona.agregarDisgusto("carne")
-		val receta = new RecetaSimple(new RepoRecetasPropio())
 		receta.agregarIngrediente(new Ingrediente("papa",100))
 		receta.agregarIngrediente(new Ingrediente("sal",10))
 		
@@ -321,13 +298,11 @@ class RecetaTestSuite {
 	
 	@Test
 	def unaRecetaQueContieneAlgunIngredienteQueLeGusteAlGrupoYQueNoContieneIngredientesQueNoSeanPermitidosParaAlgunIntegrantePuedeSerSugeridaAUnGrupo(){	
-		val persona = new Persona()
 		persona.agregarCondPreexistente(new Hipertenso)
-		val persona2= new Persona()
 		persona.agregarCondPreexistente(new Celiaco)
 		val grupo = new GrupoDePersonas("Los Pibes")
 		grupo.agregarPreferencia("carne")
-		val receta = new RecetaSimple(new RepoRecetasPropio())
+
 		
 		grupo.agregarAGrupo(persona)
 		grupo.agregarAGrupo(persona2)
@@ -340,13 +315,10 @@ class RecetaTestSuite {
 			
 	@Test
 	def unaRecetaQueNoContieneNingunIngredienteQueLeGusteAlGrupoNoPuedeSerSugeridaAEseGrupo(){	
-		val persona = new Persona()
 		persona.agregarCondPreexistente(new Hipertenso)
-		val persona2= new Persona()
 		persona.agregarCondPreexistente(new Celiaco)
 		val grupo = new GrupoDePersonas("Los Pibes")
 		grupo.agregarPreferencia("pollo")
-		val receta = new RecetaSimple(new RepoRecetasPropio())
 		
 		grupo.agregarAGrupo(persona)
 		grupo.agregarAGrupo(persona2)
@@ -359,13 +331,10 @@ class RecetaTestSuite {
 	
 	@Test
 	def unaRecetaQueContieneIngredientesQueNoSeanPermitidosParaAlgunIntegranteDelGrupoNoPuedeSerSugeridaAEseGrupo(){	
-		val persona = new Persona()
 		persona.agregarCondPreexistente(new Hipertenso)
-		val persona2= new Persona()
 		persona.agregarCondPreexistente(new Celiaco)
 		val grupo = new GrupoDePersonas("Los Pibes")
 		grupo.agregarPreferencia("carne")
-		val receta = new RecetaSimple(new RepoRecetasPropio())
 		
 		grupo.agregarAGrupo(persona)
 		grupo.agregarAGrupo(persona2)

@@ -6,62 +6,108 @@ import dds.grupo9.queComemos.condicionPreexistente.CondPreexistente
 import dds.grupo9.queComemos.Receta
 import dds.grupo9.queComemos.GrupoDePersonas
 import dds.grupo9.queComemos.repoRecetas.RepoRecetas
+import java.util.Collection
 
 class BuilderPersona {
 	
 	@Accessors Persona perfilUsuario
+	@Accessors float peso = -1	/* Peso de un Usuario */
+	@Accessors float altura	= -1	/* Altura de un Usuario */
+	@Accessors String nombre = "sinNombre";	/* Nombre de un Usuario */
+	@Accessors String sexo		/* Sexo de un Usuario: M/m: Masculino y F/f: Femenino */
+	@Accessors long fechaNacimiento = -1		/* Fecha de nacimiento de un Usuario */
+	var Collection<String> gustos = newHashSet() /* Gustos de un Usuario */
+	var Collection<String> disgustos = newHashSet() /*Disgustos de un Usuario */
+	var Collection<CondPreexistente> condicionesPreexistentes = newHashSet() /* Condicionantes de un Usuario */
+	@Accessors String rutina = "sinRutina" /* Tipo de rutina que lleva a cabo el Usuario */
+    var Collection<Receta> recetasPropias = newHashSet() /*Recetas de un Usuario */
+    var Collection<GrupoDePersonas> grupos = newHashSet()
+    @Accessors RepoRecetas repoRecetas
+		
 	
 	def build(){
-		perfilUsuario
+		perfilUsuario = new Persona()
+		perfilUsuario.nombre = nombre
+		perfilUsuario.peso = peso
+		perfilUsuario.altura = altura
+		perfilUsuario.sexo = sexo
+		perfilUsuario.fechaNacimiento = fechaNacimiento
+		perfilUsuario.rutina = rutina
+		gustos.forEach[perfilUsuario.agregarPreferencia(it)]
+		disgustos.forEach[perfilUsuario.agregarDisgusto(it)]
+		condicionesPreexistentes.forEach[perfilUsuario.agregarCondPreexistente(it)]	
+		perfilUsuario.agregarSusRecetas(recetasPropias)
+		grupos.forEach[grupo| grupo.agregarAGrupo(perfilUsuario)]
+		perfilUsuario.repoRecetas = repoRecetas
+		return perfilUsuario
 	}
 	
 	def asignarNombre(String unNombre) {
-		perfilUsuario = new Persona()
-		perfilUsuario.nombre = unNombre
+		nombre = unNombre
 	}
 	
 	def asignarPeso(float unPeso) {
-		perfilUsuario.peso = unPeso
+		peso = unPeso
 	}
 	
 	def asignarAltura(float unaAltura) {
-		perfilUsuario.altura = unaAltura
+		altura = unaAltura
 	}
 	
-	def asignarSexo(String sexo) {
-		perfilUsuario.sexo = sexo
+	def asignarSexo(String unSexo) {
+		sexo = unSexo
 	}
 	
-	def asignarFechaNacimiento(long fechaNacimiento) {
-		perfilUsuario.fechaNacimiento = fechaNacimiento
+	def asignarFechaNacimiento(long unaFechaNacimiento) {
+		fechaNacimiento = unaFechaNacimiento
 	}
 	
 	def asignarUnGusto(String unGusto) {
-		perfilUsuario.agregarPreferencia(unGusto)
+		gustos.add(unGusto)
+	}
+	
+	def borrarGustos(){
+		gustos = null
 	}
 	
 	def asignarUnDisguto(String unGusto) {
-		perfilUsuario.agregarDisgusto(unGusto)
+		disgustos.add(unGusto)
+	}
+	
+	def borrarDisgutos(){
+		disgustos = newHashSet()
 	}
 	
 	def asignarUnaCondicionPreexistente(CondPreexistente unaCondicion) {
-		perfilUsuario.agregarCondPreexistente(unaCondicion)
+		condicionesPreexistentes.add(unaCondicion)
 	}
 	
-	def asignarRutina(String rutina) {
-		perfilUsuario.rutina = rutina
+	def borrarCondicionesPreexistentes(){
+		condicionesPreexistentes = newHashSet()
+	}
+	
+	def asignarRutina(String unaRutina) {
+		rutina = unaRutina
 	}
 	
 	def asignarUnaRecetaPropia(Receta unaReceta) {
-		perfilUsuario.agregarReceta(unaReceta)
+		recetasPropias.add(unaReceta)
+	}
+	
+	def borrrarRecetasPropias(){
+		recetasPropias = newHashSet()
 	}
 	
 	def asignarUnGrupo(GrupoDePersonas unGrupo) {
-		unGrupo.agregarAGrupo(perfilUsuario)
+		grupos.add(unGrupo)
 	}
 	
-	def asginarRepoRecetas(RepoRecetas repositorio) {
-		perfilUsuario.repoRecetas = repositorio
+	def borrarGrupos(){
+		grupos = newHashSet()
+	}
+	
+	def asginarRepoRecetas(RepoRecetas unRepositorio) {
+		repoRecetas = unRepositorio
 	}
 	 	
 	

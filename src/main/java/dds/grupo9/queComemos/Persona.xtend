@@ -22,7 +22,7 @@ class Persona implements FiltroDecorado {
 	var Collection<String> disgustos = newHashSet() /*Disgustos de un Usuario */
 	var Collection<CondPreexistente> condicionesPreexistentes = newHashSet() /* Condicionantes de un Usuario */
 	@Accessors String rutina /* Tipo de rutina que lleva a cabo el Usuario */
-    var Collection<Receta> recetasPropias= newHashSet() /*Recetas de un Usuario */
+    var Collection<Receta> recetasPropias = newHashSet() /*Recetas de un Usuario */
     var Collection<GrupoDePersonas> grupos = newHashSet()
     @Accessors RepoRecetas repoRecetas
     var Collection<Receta> recetasFavoritas = newHashSet()

@@ -15,124 +15,82 @@ import dds.grupo9.queComemos.monitoreoDeConsultas.VeganosQueConsultanRecetasDifi
 import dds.grupo9.queComemos.repoRecetas.RepoRecetasExterno
 import java.util.Calendar
 import dds.grupo9.queComemos.monitoreoDeConsultas.ConsultasPorHora
+import org.junit.Before
 
 class MonitoreoDeConsultasTestSuite {
-	@Test
 	
-	def void saberCuantasConsultasSeHiceronEnUnaDeterminadaHora(){
-		val repositorio = new RepoRecetasExterno()
-		val persona = new Persona()
-		val persona2 = new Persona()
-		val persona3 = new Persona()
-		val filtro2 = new FiltroPorDisgusto()
-		val filtro3 = new FiltroPorCondicionesPreexistentes()
-		val filtro = new FiltroPorIngredientesCaros()
-		var consultasPorHora = new ConsultasPorHora()
-		val busqueda1 = new Busqueda()
+	var RepoRecetasPropio repositorioPropio;
+	var Persona persona;
+	var Persona persona2;
+	var Persona persona3;
+	var Persona persona4;
+	var FiltroPorIngredientesCaros filtro;
+	var FiltroPorCondicionesPreexistentes filtro2;
+	var FiltroPorDisgusto filtro3;
+	var FiltroPorDisgusto filtro4;
+	var Busqueda busqueda1;
+	var Busqueda busqueda2;
+	var Busqueda busqueda3;
+	var Busqueda busqueda4;
+	var RecetaSimple receta1;
+	var RecetaSimple receta2;
+	var RecetaSimple receta3;
+	var RecetaSimple receta4;
+	var RecetaSimple receta5;
+	
+	
+	@Before
+	def void setup(){
+		persona = new Persona()
+		persona2 = new Persona()				
+		persona3 = new Persona()
+		persona4 = new Persona()
+		persona.setSexo("M")
+		persona2.setSexo("F")
+		persona3.setSexo("m")
+		persona4.setSexo("f")
+		filtro = new FiltroPorIngredientesCaros()
+		filtro2 = new FiltroPorCondicionesPreexistentes()
+		filtro3 = new FiltroPorDisgusto()
+		filtro4 = new FiltroPorDisgusto()
+		busqueda1 = new Busqueda()
+		busqueda2 = new Busqueda()
+		busqueda3 = new Busqueda()
+		busqueda4 = new Busqueda
+		
+		busqueda1 = new Busqueda()
 		busqueda1.fuenteDeDatos = filtro
 		busqueda1.persona = persona
-		val busqueda2 = new Busqueda()
+		busqueda2 = new Busqueda()
 		busqueda2.fuenteDeDatos = filtro2
 		busqueda2.persona = persona2
-		val busqueda3 = new Busqueda()
+		busqueda3 = new Busqueda()
 		busqueda3.fuenteDeDatos = filtro3
 		busqueda3.persona = persona3
+		busqueda4 = new Busqueda()
+		busqueda4.fuenteDeDatos = filtro4
+		busqueda4.persona = persona4
 		
-		persona.setRepoRecetas(repositorio)
-		persona2.setRepoRecetas(repositorio)
-		persona3.setRepoRecetas(repositorio)
-		persona2.agregarCondPreexistente(new Vegano())
-		persona2.agregarDisgusto("mejillones")
-		persona2.agregarDisgusto("ricota")
-		persona3.agregarCondPreexistente(new Vegano())
 		filtro.persona = persona
 		filtro.decorado = persona
 		filtro2.persona = persona2
 		filtro2.decorado = persona2
 		filtro3.persona = persona3
 		filtro3.decorado = persona3
-		busqueda1.agregarMonitor(consultasPorHora)
-		busqueda2.agregarMonitor(consultasPorHora)
-		busqueda3.agregarMonitor(consultasPorHora)
-				
-		Assert.assertEquals(10, busqueda1.resultadoSinProcesar.size)
-		Assert.assertEquals(10, busqueda2.resultadoSinProcesar.size)
-		Assert.assertEquals(11, busqueda3.resultadoSinProcesar.size)
+		filtro4.persona = persona4
+		filtro4.decorado = persona4
 		
-		Assert.assertEquals(3, consultasPorHora.obtenerConsultasPorHora(Calendar.getInstance().get(Calendar.HOUR_OF_DAY)))
-	}
-  
-   @Test
-	
-	def void saberCuantosVeganosConsultaronRecetasDificiles(){
-		val repositorio = new RepoRecetasExterno()
-		val persona = new Persona()
-		val persona2 = new Persona()
-		val persona3 = new Persona()
-		val filtro2 = new FiltroPorDisgusto()
-		val filtro3 = new FiltroPorCondicionesPreexistentes()
-		val filtro = new FiltroPorIngredientesCaros()
-		var veganosDificiles = new VeganosQueConsultanRecetasDificiles()
-		val busqueda1 = new Busqueda()
-		busqueda1.fuenteDeDatos = filtro
-		busqueda1.persona = persona
-		val busqueda2 = new Busqueda()
-		busqueda2.fuenteDeDatos = filtro2
-		busqueda2.persona = persona2
-		val busqueda3 = new Busqueda()
-		busqueda3.fuenteDeDatos = filtro3
-		busqueda3.persona = persona3
+		repositorioPropio = new RepoRecetasPropio()
+		persona.setRepoRecetas(repositorioPropio)
+		persona2.setRepoRecetas(repositorioPropio)
+		persona3.setRepoRecetas(repositorioPropio)
+		persona4.setRepoRecetas(repositorioPropio)
 		
-		persona.setRepoRecetas(repositorio)
-		persona2.setRepoRecetas(repositorio)
-		persona3.setRepoRecetas(repositorio)
-		persona2.agregarCondPreexistente(new Vegano())
-		persona2.agregarDisgusto("mejillones")
-		persona2.agregarDisgusto("ricota")
-		persona3.agregarCondPreexistente(new Vegano())
-		filtro.persona = persona
-		filtro.decorado = persona
-		filtro2.persona = persona2
-		filtro2.decorado = persona2
-		filtro3.persona = persona3
-		filtro3.decorado = persona3
-		busqueda1.agregarMonitor(veganosDificiles)
-		busqueda2.agregarMonitor(veganosDificiles)
-		busqueda3.agregarMonitor(veganosDificiles)
-		
-		Assert.assertEquals(10, busqueda1.resultadoSinProcesar.size)
-		Assert.assertEquals(10, busqueda2.resultadoSinProcesar.size)
-		Assert.assertEquals(11, busqueda3.resultadoSinProcesar.size)
-		
-		Assert.assertEquals(1, veganosDificiles.cantidadDeVeganosQueConsultaronRecetasDificiles())
-	}
-   
-   @Test
-	
-	def void obtenerLasRecetasMasConsultadasLuegoDeUnaSerieDeConsultas(){
-		val repositorio = new RepoRecetasPropio()
-		val persona = new Persona()
-		val persona2 = new Persona()
-		val persona3 = new Persona()
-		val filtro3 = new FiltroPorDisgusto()
-		val filtro2 = new FiltroPorCondicionesPreexistentes()
-		val filtro = new FiltroPorIngredientesCaros()
-		var recetasMC = new RecetasMasConsultadas()
-		val busqueda1 = new Busqueda()
-		busqueda1.fuenteDeDatos = filtro
-		busqueda1.persona = persona
-		val busqueda2 = new Busqueda()
-		busqueda2.fuenteDeDatos = filtro2
-		busqueda2.persona = persona2
-		val busqueda3 = new Busqueda()
-		busqueda3.fuenteDeDatos = filtro3
-		busqueda3.persona = persona3
-		
-		val receta1 = new RecetaSimple(repositorio)
-		val receta2 = new RecetaSimple(repositorio)
-		val receta3 = new RecetaSimple(repositorio)
-		val receta4 = new RecetaSimple(repositorio)
-		val receta5 = new RecetaSimple(repositorio)
+		receta1 = new RecetaSimple(repositorioPropio)
+		receta2 = new RecetaSimple(repositorioPropio)
+		receta3 = new RecetaSimple(repositorioPropio)
+		receta4 = new RecetaSimple(repositorioPropio)
+		receta5 = new RecetaSimple(repositorioPropio)
 		receta1.agregarIngrediente(new Ingrediente("pollo"))
 		receta1.calorias = 650
 		receta1.nombre = "Pollo a la parrilla"
@@ -142,30 +100,82 @@ class MonitoreoDeConsultasTestSuite {
 		receta3.agregarIngrediente(new Ingrediente("lechuga"))
 		receta3.calorias = 300
 		receta3.nombre = "Ensalada Cesar"
-		receta4.agregarIngrediente(new Ingrediente())
+		receta4.agregarIngrediente(new Ingrediente("huevo"))
 		receta4.calorias = 550
 		receta4.nombre = "Comidita"
 		receta5.agregarIngrediente(new Ingrediente())
 		receta5.calorias = 350
 		receta5.nombre = "MacQueso"
-		repositorio.agregarRecetaPublica(receta1)
-		repositorio.agregarRecetaPublica(receta2)
-		repositorio.agregarRecetaPublica(receta3)
-		repositorio.agregarRecetaPublica(receta4)
-		repositorio.agregarRecetaPublica(receta5)
+		repositorioPropio.agregarRecetaPublica(receta1)
+		repositorioPropio.agregarRecetaPublica(receta2)
+		repositorioPropio.agregarRecetaPublica(receta3)
+		repositorioPropio.agregarRecetaPublica(receta4)
+		repositorioPropio.agregarRecetaPublica(receta5)
+	}
+	
+	@Test
+	
+	def void saberCuantasConsultasSeHiceronEnUnaDeterminadaHora(){
+		val repositorio = new RepoRecetasExterno()
+		
+		var consultasPorHora = new ConsultasPorHora()
 		
 		persona.setRepoRecetas(repositorio)
 		persona2.setRepoRecetas(repositorio)
 		persona3.setRepoRecetas(repositorio)
+		persona2.agregarCondPreexistente(new Vegano())
+		persona3.agregarDisgusto("mejillones")
+		persona3.agregarDisgusto("ricota")
+		persona3.agregarCondPreexistente(new Vegano())
+
+
+		busqueda1.agregarMonitor(consultasPorHora)
+		busqueda2.agregarMonitor(consultasPorHora)
+		busqueda3.agregarMonitor(consultasPorHora)
+				
+		Assert.assertEquals(10, busqueda1.resultadoSinProcesar.size)
+		Assert.assertEquals(11, busqueda2.resultadoSinProcesar.size)
+		Assert.assertEquals(10, busqueda3.resultadoSinProcesar.size)
+		
+		Assert.assertEquals(3, consultasPorHora.obtenerConsultasPorHora(Calendar.getInstance().get(Calendar.HOUR_OF_DAY)))
+	}
+  
+   @Test
+	
+	def void saberCuantosVeganosConsultaronRecetasDificiles(){
+		val repositorio = new RepoRecetasExterno()
+
+		var veganosDificiles = new VeganosQueConsultanRecetasDificiles()
+		
+		persona.setRepoRecetas(repositorio)
+		persona2.setRepoRecetas(repositorio)
+		persona3.setRepoRecetas(repositorio)
+		persona2.agregarCondPreexistente(new Vegano())
+		persona3.agregarDisgusto("mejillones")
+		persona3.agregarDisgusto("ricota")
+		persona3.agregarCondPreexistente(new Vegano())
+
+		busqueda1.agregarMonitor(veganosDificiles)
+		busqueda2.agregarMonitor(veganosDificiles)
+		busqueda3.agregarMonitor(veganosDificiles)
+		
+		Assert.assertEquals(10, busqueda1.resultadoSinProcesar.size)
+		Assert.assertEquals(11, busqueda2.resultadoSinProcesar.size)
+		Assert.assertEquals(10, busqueda3.resultadoSinProcesar.size)
+		
+		Assert.assertEquals(1, veganosDificiles.cantidadDeVeganosQueConsultaronRecetasDificiles())
+	}
+   
+   @Test
+	
+	def void obtenerLasRecetasMasConsultadasLuegoDeUnaSerieDeConsultas(){
+
+		var recetasMC = new RecetasMasConsultadas()
+		
 		persona3.agregarDisgusto("salmon")
 		persona3.agregarDisgusto("lechuga")
 		persona2.agregarCondPreexistente(new Vegano())
-		filtro.persona = persona
-		filtro.decorado = persona
-		filtro2.persona = persona2
-		filtro2.decorado = persona2
-		filtro3.persona = persona3
-		filtro3.decorado = persona3
+
 		busqueda1.agregarMonitor(recetasMC)
 		busqueda2.agregarMonitor(recetasMC)
 		busqueda3.agregarMonitor(recetasMC)
@@ -183,75 +193,14 @@ class MonitoreoDeConsultasTestSuite {
 	@Test
 	
 	def void obtenerLasRecetasMasConsultadasPorMujeresLuegoDeUnaSerieDeConsultas(){
-		val repositorio = new RepoRecetasPropio()
-		val persona = new Persona()
-		val persona2 = new Persona()
-		val persona3 = new Persona()
-		val persona4 = new Persona()
-		val filtro4 = new FiltroPorDisgusto()
-		val filtro3 = new FiltroPorDisgusto()
-		val filtro2 = new FiltroPorCondicionesPreexistentes()
-		val filtro = new FiltroPorIngredientesCaros()
+
 		var recetasMCPS = new RecetasMasConsultadasPorSexo()
-		persona.setSexo("M")
-		persona2.setSexo("F")
-		persona3.setSexo("m")
-		persona4.setSexo("f")
-		val busqueda1 = new Busqueda()
-		busqueda1.fuenteDeDatos = filtro
-		busqueda1.persona = persona
-		val busqueda2 = new Busqueda()
-		busqueda2.fuenteDeDatos = filtro2
-		busqueda2.persona = persona2
-		val busqueda3 = new Busqueda()
-		busqueda3.fuenteDeDatos = filtro3
-		busqueda3.persona = persona3
-		val busqueda4 = new Busqueda()
-		busqueda4.fuenteDeDatos = filtro4
-		busqueda4.persona = persona4
 		
-		val receta1 = new RecetaSimple(repositorio)
-		val receta2 = new RecetaSimple(repositorio)
-		val receta3 = new RecetaSimple(repositorio)
-		val receta4 = new RecetaSimple(repositorio)
-		val receta5 = new RecetaSimple(repositorio)
-		receta1.agregarIngrediente(new Ingrediente("pollo"))
-		receta1.calorias = 650
-		receta1.nombre = "Pollo a la parrilla"
-		receta2.agregarIngrediente(new Ingrediente("salmon"))
-		receta2.calorias = 420
-		receta2.nombre = "Sushi"
-		receta3.agregarIngrediente(new Ingrediente("lechuga"))
-		receta3.calorias = 300
-		receta3.nombre = "Ensalada Cesar"
-		receta4.agregarIngrediente(new Ingrediente("huevo"))
-		receta4.calorias = 550
-		receta4.nombre = "Comidita"
-		receta5.agregarIngrediente(new Ingrediente())
-		receta5.calorias = 350
-		receta5.nombre = "MacQueso"
-		repositorio.agregarRecetaPublica(receta1)
-		repositorio.agregarRecetaPublica(receta2)
-		repositorio.agregarRecetaPublica(receta3)
-		repositorio.agregarRecetaPublica(receta4)
-		repositorio.agregarRecetaPublica(receta5)
-		
-		persona.setRepoRecetas(repositorio)
-		persona2.setRepoRecetas(repositorio)
-		persona3.setRepoRecetas(repositorio)
-		persona4.setRepoRecetas(repositorio)
 		persona3.agregarDisgusto("salmon")
 		persona3.agregarDisgusto("lechuga")
 		persona4.agregarDisgusto("huevo")
 		persona2.agregarCondPreexistente(new Vegano())
-		filtro.persona = persona
-		filtro.decorado = persona
-		filtro2.persona = persona2
-		filtro2.decorado = persona2
-		filtro3.persona = persona3
-		filtro3.decorado = persona3
-		filtro4.persona = persona4
-		filtro4.decorado = persona4
+
 		busqueda1.agregarMonitor(recetasMCPS)
 		busqueda2.agregarMonitor(recetasMCPS)
 		busqueda3.agregarMonitor(recetasMCPS)
@@ -271,75 +220,14 @@ class MonitoreoDeConsultasTestSuite {
 	@Test
 	
 	def void obtenerLasRecetasMasConsultadasPorHombresLuegoDeUnaSerieDeConsultas(){
-		val repositorio = new RepoRecetasPropio()
-		val persona = new Persona()
-		val persona2 = new Persona()
-		val persona3 = new Persona()
-		val persona4 = new Persona()
-		val filtro4 = new FiltroPorDisgusto()
-		val filtro3 = new FiltroPorDisgusto()
-		val filtro2 = new FiltroPorCondicionesPreexistentes()
-		val filtro = new FiltroPorIngredientesCaros()
+
 		var recetasMCPS = new RecetasMasConsultadasPorSexo()
-		persona.setSexo("M")
-		persona2.setSexo("F")
-		persona3.setSexo("m")
-		persona4.setSexo("f")
-		val busqueda1 = new Busqueda()
-		busqueda1.fuenteDeDatos = filtro
-		busqueda1.persona = persona
-		val busqueda2 = new Busqueda()
-		busqueda2.fuenteDeDatos = filtro2
-		busqueda2.persona = persona2
-		val busqueda3 = new Busqueda()
-		busqueda3.fuenteDeDatos = filtro3
-		busqueda3.persona = persona3
-		val busqueda4 = new Busqueda()
-		busqueda4.fuenteDeDatos = filtro4
-		busqueda4.persona = persona4
 		
-		val receta1 = new RecetaSimple(repositorio)
-		val receta2 = new RecetaSimple(repositorio)
-		val receta3 = new RecetaSimple(repositorio)
-		val receta4 = new RecetaSimple(repositorio)
-		val receta5 = new RecetaSimple(repositorio)
-		receta1.agregarIngrediente(new Ingrediente("pollo"))
-		receta1.calorias = 650
-		receta1.nombre = "Pollo a la parrilla"
-		receta2.agregarIngrediente(new Ingrediente("salmon"))
-		receta2.calorias = 420
-		receta2.nombre = "Sushi"
-		receta3.agregarIngrediente(new Ingrediente("lechuga"))
-		receta3.calorias = 300
-		receta3.nombre = "Ensalada Cesar"
-		receta4.agregarIngrediente(new Ingrediente("huevo"))
-		receta4.calorias = 550
-		receta4.nombre = "Comidita"
-		receta5.agregarIngrediente(new Ingrediente())
-		receta5.calorias = 350
-		receta5.nombre = "MacQueso"
-		repositorio.agregarRecetaPublica(receta1)
-		repositorio.agregarRecetaPublica(receta2)
-		repositorio.agregarRecetaPublica(receta3)
-		repositorio.agregarRecetaPublica(receta4)
-		repositorio.agregarRecetaPublica(receta5)
-		
-		persona.setRepoRecetas(repositorio)
-		persona2.setRepoRecetas(repositorio)
-		persona3.setRepoRecetas(repositorio)
-		persona4.setRepoRecetas(repositorio)
 		persona3.agregarDisgusto("salmon")
 		persona3.agregarDisgusto("lechuga")
 		persona4.agregarDisgusto("huevo")
 		persona2.agregarCondPreexistente(new Vegano())
-		filtro.persona = persona
-		filtro.decorado = persona
-		filtro2.persona = persona2
-		filtro2.decorado = persona2
-		filtro3.persona = persona3
-		filtro3.decorado = persona3
-		filtro4.persona = persona4
-		filtro4.decorado = persona4
+		
 		busqueda1.agregarMonitor(recetasMCPS)
 		busqueda2.agregarMonitor(recetasMCPS)
 		busqueda3.agregarMonitor(recetasMCPS)
