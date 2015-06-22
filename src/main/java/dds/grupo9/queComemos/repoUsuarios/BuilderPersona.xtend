@@ -12,10 +12,11 @@ class BuilderPersona {
 	@Accessors Persona perfilUsuario
 	
 	def build(){
-		perfilUsuario = new Persona()
+		perfilUsuario
 	}
 	
 	def asignarNombre(String unNombre) {
+		perfilUsuario = new Persona()
 		perfilUsuario.nombre = unNombre
 	}
 	

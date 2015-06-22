@@ -19,9 +19,8 @@ class RepoUsuariosTestSuite {
 	  	val repoUsuarios = new RepoUsuarios()
 	  	
 	  	val builder = new BuilderPersona()
-        var juani = builder.build
 	  	builder.asignarNombre("juani")
-	  	repoUsuarios.solicitarIngreso(juani)
+	  	repoUsuarios.solicitarIngreso(builder.build)
 	  	
 	  }
 	
@@ -33,13 +32,13 @@ class RepoUsuariosTestSuite {
        	
        val repoUsuarios = new RepoUsuarios()
        val builder = new BuilderPersona()
-       var juani = builder.build
       
        builder.asignarNombre("juani")
        builder.asignarAltura(1.70f)
        builder.asignarPeso(70f)
        builder.asignarRutina("Crossfit")
        builder.asignarFechaNacimiento(19901010)
+       var juani = builder.build
        repoUsuarios.solicitarIngreso(juani)
        repoUsuarios.aceptarUsuario(juani)
        
@@ -52,13 +51,13 @@ class RepoUsuariosTestSuite {
      def void unaPersonaEsRechazadaPorElAdministradorYElRepoLaGuardaComoRechazada(){
      	val repoUsuarios = new RepoUsuarios()
      	val builder = new BuilderPersona()
-        var juani =builder.build
         builder.asignarNombre("juani")
         builder.asignarAltura(1.70f)
         builder.asignarPeso(70f)
         builder.asignarRutina("Crossfit")
         builder.asignarFechaNacimiento(19901010)
-       
+        var juani =builder.build
+      
         repoUsuarios.solicitarIngreso(juani)
         repoUsuarios.rechazarUsuario(juani,"No cumple con los requisitos de peso mínimo")
         
@@ -72,22 +71,22 @@ class RepoUsuariosTestSuite {
      	
      	val repoUsuarios = new RepoUsuarios()
      	val builder = new BuilderPersona()
-        var juani = builder.build
         builder.asignarNombre("juani")
         builder.asignarAltura(1.70f)
         builder.asignarPeso(70f)
         builder.asignarRutina("Crossfit")
         builder.asignarFechaNacimiento(19901010)
+        var juani = builder.build
         
         repoUsuarios.solicitarIngreso(juani)
         repoUsuarios.aceptarUsuario(juani)
         
-        var juaniActualizado = builder.build
         builder.asignarNombre("juani")
         builder.asignarAltura(1.60f)
         builder.asignarPeso(75f)
         builder.asignarRutina("Atletismo")
         builder.asignarFechaNacimiento(19901010)
+        var juaniActualizado = builder.build
  
         repoUsuarios.update(juaniActualizado)
       
@@ -101,19 +100,21 @@ class RepoUsuariosTestSuite {
     def void noSePuedenActualizarLosDatosDeUnaPersonaQueNoEsUnUsuarioRegistrado(){
     	val repoUsuarios = new RepoUsuarios()
     	val builder = new BuilderPersona()
-        var juani = builder.build
         builder.asignarNombre("juani")
         builder.asignarAltura(1.70f)
         builder.asignarPeso(70f)
         builder.asignarRutina("Crossfit")
         builder.asignarFechaNacimiento(19901010)
+        var juani = builder.build
+        
         repoUsuarios.solicitarIngreso(juani)
-        var juaniActualizado = builder.build
+        
         builder.asignarNombre("juani")
         builder.asignarAltura(1.60f)
         builder.asignarPeso(75f)
         builder.asignarRutina("Atletismo")
         builder.asignarFechaNacimiento(19901010)
+        var juaniActualizado = builder.build
        
         repoUsuarios.update(juaniActualizado)
         
@@ -122,9 +123,8 @@ class RepoUsuariosTestSuite {
 	def void seListanTodasLasPersonasConMismoNombreYDiabeticasRegistradas(){
         val repoUsuarios = new RepoUsuarios()
         val builder = new BuilderPersona
-   		var juani = builder.build
-   		val hipertenso = new Hipertenso()
-   		val diabetico = new Diabetico()
+        val diabetico = new Diabetico()
+        val hipertenso = new Hipertenso()
    		
    		builder.asignarNombre("juani")
         builder.asignarAltura(1.70f)
@@ -134,10 +134,10 @@ class RepoUsuariosTestSuite {
         builder.asignarUnGusto("carne")
         builder.asignarFechaNacimiento(19901010)
    		builder.asignarUnaCondicionPreexistente(diabetico)
+   		var juani = builder.build
    		repoUsuarios.solicitarIngreso(juani)
    		repoUsuarios.aceptarUsuario(juani)
    		
-   		var juani2 = builder.build
    		builder.asignarNombre("juani")
         builder.asignarAltura(1.60f)
         builder.asignarPeso(75f)
@@ -146,10 +146,10 @@ class RepoUsuariosTestSuite {
         builder.asignarFechaNacimiento(19901010)
         builder.asignarUnGusto("pescado")
    		builder.asignarUnaCondicionPreexistente(diabetico)
+   		var juani2 = builder.build
    		repoUsuarios.solicitarIngreso(juani2)
    		repoUsuarios.aceptarUsuario(juani2)
    		
-   		var juani3 = builder.build
    		builder.asignarNombre("juani")
    		builder.asignarAltura(1.82f)
    		builder.asignarPeso(72f)
@@ -158,10 +158,11 @@ class RepoUsuariosTestSuite {
    		builder.asignarUnGusto("chori")
    		builder.asignarFechaNacimiento(19901010)
    		builder.asignarUnaCondicionPreexistente(hipertenso)
+   		var juani3 = builder.build
    		repoUsuarios.solicitarIngreso(juani3)
    		repoUsuarios.aceptarUsuario(juani3)
 
-   		Assert.assertEquals(2,repoUsuarios.list(juani).size)
+   		Assert.assertEquals(2, repoUsuarios.list(juani).size)
    	
    }
    
@@ -170,21 +171,21 @@ class RepoUsuariosTestSuite {
    		val repoUsuarios = new RepoUsuarios()
    		val builder = new BuilderPersona
    		
-   		var juani = builder.build
    		builder.asignarNombre("juani")
         builder.asignarAltura(1.70f)
         builder.asignarPeso(70f)
         builder.asignarRutina("Crossfit")
         builder.asignarFechaNacimiento(19901010)
+        var juani = builder.build
    		repoUsuarios.solicitarIngreso(juani)
    		repoUsuarios.aceptarUsuario(juani)
    		
-   		var juani2 = builder.build
    		builder.asignarNombre("juani")
         builder.asignarAltura(1.60f)
         builder.asignarPeso(75f)
         builder.asignarRutina("Atletismo")
         builder.asignarFechaNacimiento(19901010)
+        var juani2 = builder.build
    		repoUsuarios.solicitarIngreso(juani2)
    		repoUsuarios.aceptarUsuario(juani2)
 
