@@ -1,10 +1,10 @@
-package dds.grupo9.queComemos.filtros
+package dds.grupo9.queComemos.consultas
 
 import java.util.Collection
 import org.eclipse.xtend.lib.annotations.Accessors
 import dds.grupo9.queComemos.Receta
 
-class FiltroPorCaloriasMaximas extends Filtro {
+class ConsultaPorCaloriasMaximas extends Consulta {
 	
 	@Accessors int maxSobrepeso
 	

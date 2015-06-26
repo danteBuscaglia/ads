@@ -1,9 +1,9 @@
-package dds.grupo9.queComemos.filtros
+package dds.grupo9.queComemos.consultas
 
 import java.util.Collection
 import dds.grupo9.queComemos.Receta
 
-class FiltroPorCondicionesPreexistentes extends Filtro {
+class ConsultaPorCondicionesPreexistentes extends Consulta {
 	
 	
 	override filtrar(Collection<Receta> recetas){

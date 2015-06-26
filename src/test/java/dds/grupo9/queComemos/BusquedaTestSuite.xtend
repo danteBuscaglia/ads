@@ -2,21 +2,21 @@ package dds.grupo9.queComemos
 
 import org.junit.Assert
 import dds.grupo9.queComemos.condicionPreexistente.Hipertenso
-import dds.grupo9.queComemos.manejoResultadosFiltros.OrdenarPorCriterio
-import dds.grupo9.queComemos.manejoResultadosFiltros.Busqueda
 import dds.grupo9.queComemos.ordenamientoResultados.CriterioPorCalorias
-import dds.grupo9.queComemos.filtros.FiltroPorCondicionesPreexistentes
 import dds.grupo9.queComemos.repoRecetas.RepoRecetasPropio
-import dds.grupo9.queComemos.manejoResultadosFiltros.ConsiderarRecetasPares
 import org.junit.Test
-import dds.grupo9.queComemos.manejoResultadosFiltros.ObtenerLosDiezPrimeros
 import org.junit.Before
+import dds.grupo9.queComemos.consultas.ConsultaPorCondicionesPreexistentes
+import dds.grupo9.queComemos.manejoResultadosConsultas.Busqueda
+import dds.grupo9.queComemos.manejoResultadosConsultas.ObtenerLosDiezPrimeros
+import dds.grupo9.queComemos.manejoResultadosConsultas.ConsiderarRecetasPares
+import dds.grupo9.queComemos.manejoResultadosConsultas.OrdenarPorCriterio
 
 class BusquedaTestSuite {
 	
 	var RepoRecetasPropio repositorio;
 	var Persona persona;
-	var FiltroPorCondicionesPreexistentes filtro;
+	var ConsultaPorCondicionesPreexistentes filtro;
 	var RecetaSimple receta1;
 	var RecetaSimple receta2;
 	var RecetaSimple receta3;
@@ -35,7 +35,7 @@ class BusquedaTestSuite {
 		repositorio = new RepoRecetasPropio()
 		persona = new Persona()
 		persona.setRepoRecetas(repositorio)
-		filtro = new FiltroPorCondicionesPreexistentes()
+		filtro = new ConsultaPorCondicionesPreexistentes()
 		
 		receta1 = new RecetaSimple(persona)
 		receta2 = new RecetaSimple(repositorio)

@@ -3,27 +3,27 @@ package dds.grupo9.queComemos
 import org.junit.Test
 import org.junit.Assert
 import dds.grupo9.queComemos.condicionPreexistente.Hipertenso
-import dds.grupo9.queComemos.filtros.FiltroPorCondicionesPreexistentes
-import dds.grupo9.queComemos.filtros.FiltroPorCaloriasMaximas
-import dds.grupo9.queComemos.filtros.FiltroPorDisgusto
-import dds.grupo9.queComemos.filtros.FiltroPorIngredientesCaros
-import dds.grupo9.queComemos.manejoResultadosFiltros.Busqueda
-import dds.grupo9.queComemos.manejoResultadosFiltros.ObtenerLosDiezPrimeros
-import dds.grupo9.queComemos.manejoResultadosFiltros.ConsiderarRecetasPares
 import dds.grupo9.queComemos.ordenamientoResultados.CriterioPorCalorias
-import dds.grupo9.queComemos.manejoResultadosFiltros.OrdenarPorCriterio
 import java.util.Collection
 import queComemos.entrega3.repositorio.BusquedaRecetas
 import queComemos.entrega3.dominio.Dificultad
 import dds.grupo9.queComemos.repoRecetas.RepoRecetasExterno
 import dds.grupo9.queComemos.condicionPreexistente.Vegano
 import org.junit.Before
+import dds.grupo9.queComemos.consultas.ConsultaPorCondicionesPreexistentes
+import dds.grupo9.queComemos.consultas.ConsultaPorCaloriasMaximas
+import dds.grupo9.queComemos.consultas.ConsultaPorDisgusto
+import dds.grupo9.queComemos.consultas.ConsultaPorIngredientesCaros
+import dds.grupo9.queComemos.manejoResultadosConsultas.Busqueda
+import dds.grupo9.queComemos.manejoResultadosConsultas.ObtenerLosDiezPrimeros
+import dds.grupo9.queComemos.manejoResultadosConsultas.ConsiderarRecetasPares
+import dds.grupo9.queComemos.manejoResultadosConsultas.OrdenarPorCriterio
 
 class RepoRecetasExternoTestSuit {
 	
 	var RepoRecetasExterno repoExterno;
 	var Persona persona;
-	var FiltroPorCondicionesPreexistentes filtro;
+	var ConsultaPorCondicionesPreexistentes filtro;
 	var RecetaSimple receta1;
 	var RecetaSimple receta2;
 	var RecetaSimple receta3;
@@ -42,7 +42,7 @@ class RepoRecetasExternoTestSuit {
 		repoExterno = new RepoRecetasExterno()
 		persona = new Persona()
 		persona.setRepoRecetas(repoExterno)
-		filtro = new FiltroPorCondicionesPreexistentes()
+		filtro = new ConsultaPorCondicionesPreexistentes()
 		
 		receta1 = new RecetaSimple(persona)
 		receta2 = new RecetaSimple(persona)
@@ -165,7 +165,7 @@ class RepoRecetasExternoTestSuit {
 	@Test
 	
 	def void unaPersonaConSobrepesoConsultaTodasLasRecetasYNoObtieneLasQueTienenMasDe500Calorias(){
-		val filtro = new FiltroPorCaloriasMaximas(30)
+		val filtro = new ConsultaPorCaloriasMaximas(30)
 		
 		persona.setRepoRecetas(repoExterno)
 		persona.peso = 120f
@@ -182,7 +182,7 @@ class RepoRecetasExternoTestSuit {
 	
 	def void unaPersonaRealizaUnFiltroPorSusCondicionesPreexistentes(){
 		
-		val filtro = new FiltroPorCondicionesPreexistentes()
+		val filtro = new ConsultaPorCondicionesPreexistentes()
 
 		persona.agregarCondPreexistente(new Vegano())
 		filtro.decorado = persona
@@ -196,7 +196,7 @@ class RepoRecetasExternoTestSuit {
 	@Test
 	
 	def void unaPersonaNoObtieneComoResultadoDeLaBusquedaLasRecetasQueNoLeGustan(){
-		val filtro = new FiltroPorDisgusto()
+		val filtro = new ConsultaPorDisgusto()
 		
 		persona.agregarDisgusto("pescado")
 		persona.agregarDisgusto("berberechos")
@@ -211,7 +211,7 @@ class RepoRecetasExternoTestSuit {
 	@Test
 	
 	def void aUnaPersonaRataNoSeLeMuestranLasRecetasConIngredientesCaros(){
-		val filtro = new FiltroPorIngredientesCaros()
+		val filtro = new ConsultaPorIngredientesCaros()
 
 		filtro.persona = persona
 		filtro.decorado = persona
@@ -223,8 +223,8 @@ class RepoRecetasExternoTestSuit {
 	@Test
 	
 	def void unaPersonaPuedeCombinarVariosFiltrosDistintos(){
-		val filtro1 = new FiltroPorCondicionesPreexistentes()
-		val filtro2 = new FiltroPorIngredientesCaros()
+		val filtro1 = new ConsultaPorCondicionesPreexistentes()
+		val filtro2 = new ConsultaPorIngredientesCaros()
 		
 		persona.agregarCondPreexistente(new Hipertenso()) 
 		filtro1.persona = persona
@@ -239,7 +239,7 @@ class RepoRecetasExternoTestSuit {
 	@Test
 	
 	def void unaPersonaPuedeObtenerLosDiezPrimerosResultadosDeUnaBusqueda(){
-		val filtro = new FiltroPorCondicionesPreexistentes()
+		val filtro = new ConsultaPorCondicionesPreexistentes()
 		
 		val busqueda = new Busqueda()
 		busqueda.fuenteDeDatos = filtro		
@@ -256,7 +256,7 @@ class RepoRecetasExternoTestSuit {
 	@Test
 	
 	def void unaPersonaPuedeObtenerSoloLas8RecetasParesDeUnaBusquedaQueDevuelve15Resultados(){
-		val filtro = new FiltroPorCondicionesPreexistentes()
+		val filtro = new ConsultaPorCondicionesPreexistentes()
 		
 		val busqueda = new Busqueda()
 		busqueda.fuenteDeDatos = filtro		
@@ -275,7 +275,7 @@ class RepoRecetasExternoTestSuit {
 	@Test
 	
 	def void unaPersonaPuedeOrdenarLosResultadosDeUnaBusquedaSegunSusCalorias(){
-		val filtro = new FiltroPorDisgusto()
+		val filtro = new ConsultaPorDisgusto()
 		val criterioCal = new CriterioPorCalorias()
 		
 		val busqueda = new Busqueda()

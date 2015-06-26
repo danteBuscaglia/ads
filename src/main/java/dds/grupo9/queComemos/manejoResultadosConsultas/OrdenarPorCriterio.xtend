@@ -1,4 +1,4 @@
-package dds.grupo9.queComemos.manejoResultadosFiltros
+package dds.grupo9.queComemos.manejoResultadosConsultas
 
 import java.util.Collection
 import org.eclipse.xtend.lib.annotations.Accessors

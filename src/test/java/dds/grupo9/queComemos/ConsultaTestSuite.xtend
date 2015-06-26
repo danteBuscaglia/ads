@@ -3,18 +3,18 @@ package dds.grupo9.queComemos
 import dds.grupo9.queComemos.condicionPreexistente.Hipertenso
 import org.junit.Assert
 import dds.grupo9.queComemos.repoRecetas.RepoRecetasPropio
-import dds.grupo9.queComemos.filtros.FiltroPorCondicionesPreexistentes
-import dds.grupo9.queComemos.filtros.FiltroPorIngredientesCaros
 import org.junit.Test
-import dds.grupo9.queComemos.filtros.FiltroPorDisgusto
-import dds.grupo9.queComemos.filtros.FiltroPorCaloriasMaximas
 import org.junit.Before
+import dds.grupo9.queComemos.consultas.ConsultaPorCondicionesPreexistentes
+import dds.grupo9.queComemos.consultas.ConsultaPorCaloriasMaximas
+import dds.grupo9.queComemos.consultas.ConsultaPorDisgusto
+import dds.grupo9.queComemos.consultas.ConsultaPorIngredientesCaros
 
-class FiltroTestSuite {
+class ConsultaTestSuite {
 	
 	var RepoRecetasPropio repositorio;
 	var Persona persona;
-	var FiltroPorCondicionesPreexistentes filtro;
+	var ConsultaPorCondicionesPreexistentes filtro;
 	var RecetaSimple receta1;
 	var RecetaSimple receta2;
 	var RecetaSimple receta3;
@@ -24,7 +24,7 @@ class FiltroTestSuite {
 		repositorio = new RepoRecetasPropio()
 		persona = new Persona()
 		persona.setRepoRecetas(repositorio)
-		filtro = new FiltroPorCondicionesPreexistentes()
+		filtro = new ConsultaPorCondicionesPreexistentes()
 		persona.setRepoRecetas(repositorio)
 		persona.peso = 120f
 		persona.altura = 1.7f
@@ -50,7 +50,7 @@ class FiltroTestSuite {
 	
 	def void unaPersonaConSobrepesoConsultaSusRecetasYNoObtieneLasQueTienenMasDe500Calorias(){
 		
-		val filtro = new FiltroPorCaloriasMaximas(30)
+		val filtro = new ConsultaPorCaloriasMaximas(30)
 		filtro.decorado = persona
 		filtro.persona = persona
 		
@@ -63,7 +63,7 @@ class FiltroTestSuite {
 	
 	def void unaPersonaRealizaUnFiltroPorSusCondicionesPreexistentes(){
 		
-		val filtro = new FiltroPorCondicionesPreexistentes()
+		val filtro = new ConsultaPorCondicionesPreexistentes()
 		persona.setRepoRecetas(repositorio)
 		persona.agregarCondPreexistente(new Hipertenso())
 		filtro.decorado = persona
@@ -77,7 +77,7 @@ class FiltroTestSuite {
 	
 	def void unaPersonaNoObtieneComoResultadoDeLaBusquedaLasRecetasQueNoLeGustan(){
 		
-		val filtro = new FiltroPorDisgusto()
+		val filtro = new ConsultaPorDisgusto()
 		persona.setRepoRecetas(repositorio)
 		persona.agregarDisgusto("pescado")
 		filtro.persona = persona
@@ -90,7 +90,7 @@ class FiltroTestSuite {
 	
 	def void aUnaPersonaRataNoSeLeMuestranLasRecetasConIngredientesCaros(){
 		
-		val filtro = new FiltroPorIngredientesCaros()
+		val filtro = new ConsultaPorIngredientesCaros()
 		persona.setRepoRecetas(repositorio)
 		filtro.persona = persona
 		filtro.decorado = persona
@@ -102,8 +102,8 @@ class FiltroTestSuite {
 	
 	def void unaPersonaPuedeCombinarVariosFiltrosDistintos(){
 		
-		val filtro1 = new FiltroPorCondicionesPreexistentes()
-		val filtro2 = new FiltroPorIngredientesCaros()
+		val filtro1 = new ConsultaPorCondicionesPreexistentes()
+		val filtro2 = new ConsultaPorIngredientesCaros()
 		persona.setRepoRecetas(repositorio)
 		persona.agregarCondPreexistente(new Hipertenso()) 
 		filtro1.persona = persona

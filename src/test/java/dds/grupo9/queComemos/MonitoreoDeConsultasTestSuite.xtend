@@ -2,10 +2,6 @@ package dds.grupo9.queComemos
 
 import org.junit.Assert
 import dds.grupo9.queComemos.condicionPreexistente.Vegano
-import dds.grupo9.queComemos.manejoResultadosFiltros.Busqueda
-import dds.grupo9.queComemos.filtros.FiltroPorIngredientesCaros
-import dds.grupo9.queComemos.filtros.FiltroPorCondicionesPreexistentes
-import dds.grupo9.queComemos.filtros.FiltroPorDisgusto
 import dds.grupo9.queComemos.monitoreoDeConsultas.RecetasMasConsultadasPorSexo
 import dds.grupo9.queComemos.repoRecetas.RepoRecetasPropio
 import java.util.Collection
@@ -16,6 +12,10 @@ import dds.grupo9.queComemos.repoRecetas.RepoRecetasExterno
 import java.util.Calendar
 import dds.grupo9.queComemos.monitoreoDeConsultas.ConsultasPorHora
 import org.junit.Before
+import dds.grupo9.queComemos.consultas.ConsultaPorIngredientesCaros
+import dds.grupo9.queComemos.consultas.ConsultaPorCondicionesPreexistentes
+import dds.grupo9.queComemos.consultas.ConsultaPorDisgusto
+import dds.grupo9.queComemos.manejoResultadosConsultas.Busqueda
 
 class MonitoreoDeConsultasTestSuite {
 	
@@ -24,10 +24,10 @@ class MonitoreoDeConsultasTestSuite {
 	var Persona persona2;
 	var Persona persona3;
 	var Persona persona4;
-	var FiltroPorIngredientesCaros filtro;
-	var FiltroPorCondicionesPreexistentes filtro2;
-	var FiltroPorDisgusto filtro3;
-	var FiltroPorDisgusto filtro4;
+	var ConsultaPorIngredientesCaros filtro;
+	var ConsultaPorCondicionesPreexistentes filtro2;
+	var ConsultaPorDisgusto filtro3;
+	var ConsultaPorDisgusto filtro4;
 	var Busqueda busqueda1;
 	var Busqueda busqueda2;
 	var Busqueda busqueda3;
@@ -49,14 +49,11 @@ class MonitoreoDeConsultasTestSuite {
 		persona2.setSexo("F")
 		persona3.setSexo("m")
 		persona4.setSexo("f")
-		filtro = new FiltroPorIngredientesCaros()
-		filtro2 = new FiltroPorCondicionesPreexistentes()
-		filtro3 = new FiltroPorDisgusto()
-		filtro4 = new FiltroPorDisgusto()
-		busqueda1 = new Busqueda()
-		busqueda2 = new Busqueda()
-		busqueda3 = new Busqueda()
-		busqueda4 = new Busqueda
+		filtro = new ConsultaPorIngredientesCaros()
+		filtro2 = new ConsultaPorCondicionesPreexistentes()
+		filtro3 = new ConsultaPorDisgusto()
+		filtro4 = new ConsultaPorDisgusto()
+		
 		
 		busqueda1 = new Busqueda()
 		busqueda1.fuenteDeDatos = filtro

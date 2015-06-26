@@ -1,9 +1,9 @@
-package dds.grupo9.queComemos.filtros
+package dds.grupo9.queComemos.consultas
 
 import java.util.Collection
 import dds.grupo9.queComemos.Receta
 
-class FiltroPorDisgusto extends Filtro{
+class ConsultaPorDisgusto extends Consulta{
 	
 	
 	override filtrar(Collection <Receta> recetas){

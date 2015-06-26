@@ -3,15 +3,15 @@ package dds.grupo9.queComemos
 import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.Collection
 import dds.grupo9.queComemos.condicionPreexistente.CondPreexistente
-import dds.grupo9.queComemos.filtros.FiltroDecorado
 import dds.grupo9.queComemos.excepciones.NoEsValidoException
 import dds.grupo9.queComemos.excepciones.NoLoPuedeModificarException
 import dds.grupo9.queComemos.excepciones.NoPuedeAgregarException
 import dds.grupo9.queComemos.modificacionRecetas.Modificacion
 import dds.grupo9.queComemos.repoUsuarios.RepoUsuarios
 import dds.grupo9.queComemos.repoRecetas.RepoRecetas
+import dds.grupo9.queComemos.consultas.ConsultaDecorada
 
-class Persona implements FiltroDecorado {
+class Persona implements ConsultaDecorada {
 	
 	@Accessors float peso	/* Peso de un Usuario */
 	@Accessors float altura		/* Altura de un Usuario */

@@ -1,14 +1,14 @@
-package dds.grupo9.queComemos.filtros
+package dds.grupo9.queComemos.consultas
 
 import java.util.Collection
 import org.eclipse.xtend.lib.annotations.Accessors
 import dds.grupo9.queComemos.Persona
 import dds.grupo9.queComemos.Receta
 
-abstract class Filtro implements FiltroDecorado {
+abstract class Consulta implements ConsultaDecorada {
 	
 	@Accessors Persona persona
-	@Accessors FiltroDecorado decorado
+	@Accessors ConsultaDecorada decorado
 		
 	def getPersona(){
 		this.persona
