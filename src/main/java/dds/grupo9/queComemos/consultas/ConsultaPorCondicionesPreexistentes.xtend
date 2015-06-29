@@ -10,4 +10,8 @@ class ConsultaPorCondicionesPreexistentes extends Consulta {
 		recetas.filter[!persona.recetaNoRecomendada(it)]
 	}
 	
+	override toString(){
+		return "por condiciones preexistentes";
+	}
+	
 }

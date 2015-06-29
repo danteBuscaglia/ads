@@ -10,6 +10,7 @@ import dds.grupo9.queComemos.modificacionRecetas.Modificacion
 import dds.grupo9.queComemos.repoUsuarios.RepoUsuarios
 import dds.grupo9.queComemos.repoRecetas.RepoRecetas
 import dds.grupo9.queComemos.consultas.ConsultaDecorada
+import dds.grupo9.queComemos.consultas.Consulta
 
 class Persona implements ConsultaDecorada {
 	
@@ -216,6 +217,11 @@ class Persona implements ConsultaDecorada {
 		this.listarTodasSusRecetas		
 	}
 	
+	override coleccionDeConsultas() {
+		var Collection<Consulta> consultas = newHashSet();
+		return consultas;
+	}
+	
 	def tieneSobrepeso(int max){
 		this.imc > max
 	}
@@ -244,5 +250,6 @@ class Persona implements ConsultaDecorada {
 	def setSexo(String sexo){
 		this.sexo = sexo
 	}
+	
 }
 	

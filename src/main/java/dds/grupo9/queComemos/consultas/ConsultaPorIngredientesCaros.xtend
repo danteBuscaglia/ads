@@ -10,4 +10,8 @@ class ConsultaPorIngredientesCaros extends Consulta {
 		recetas.filter[!it.tieneIngredientesCaros()]
 	}
 	
+	override toString(){
+		return "por ingredientes caros";
+	}
+	
 }

@@ -10,4 +10,7 @@ class ConsultaPorDisgusto extends Consulta{
 		recetas.filter[persona.noContieneIngredientesQueLeDisgusten(it)]
 	}
 	
+	override toString(){
+		return "por disgutos";
+	}
 }

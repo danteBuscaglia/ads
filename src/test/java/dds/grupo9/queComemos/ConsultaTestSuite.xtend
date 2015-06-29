@@ -9,10 +9,12 @@ import dds.grupo9.queComemos.consultas.ConsultaPorCondicionesPreexistentes
 import dds.grupo9.queComemos.consultas.ConsultaPorCaloriasMaximas
 import dds.grupo9.queComemos.consultas.ConsultaPorDisgusto
 import dds.grupo9.queComemos.consultas.ConsultaPorIngredientesCaros
+import dds.grupo9.queComemos.repoRecetas.RepoRecetasExterno
 
 class ConsultaTestSuite {
 	
 	var RepoRecetasPropio repositorio;
+	var RepoRecetasExterno repoExterno;
 	var Persona persona;
 	var ConsultaPorCondicionesPreexistentes filtro;
 	var RecetaSimple receta1;
@@ -22,6 +24,7 @@ class ConsultaTestSuite {
 	@Before
 	def void setup(){
 		repositorio = new RepoRecetasPropio()
+		repoExterno = new RepoRecetasExterno()
 		persona = new Persona()
 		persona.setRepoRecetas(repositorio)
 		filtro = new ConsultaPorCondicionesPreexistentes()

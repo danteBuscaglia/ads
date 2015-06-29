@@ -19,4 +19,8 @@ class ConsultaPorCaloriasMaximas extends Consulta {
 		else recetas
 	}
 	
+	override toString(){
+		return "por calorias máximas";
+	}
+	
 }

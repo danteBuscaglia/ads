@@ -116,7 +116,7 @@ abstract class Receta{
 		
 	def void sufrirCambios(Persona persona, Modificacion modificacion){
 		privacidad.cambiosDeReceta(persona,modificacion,this)
-  		}
+  	}
 	
 	
 	def agregarCondiciones(Collection<CondPreexistente> condicionesParaAgregar){
@@ -136,17 +136,16 @@ abstract class Receta{
 	def void agregarSubreceta(Receta c)	
 		
 	def Receta copiarAtributosComunes(Receta recetaCopia, Persona persona){
-			recetaCopia.nombre = nombre
+		recetaCopia.nombre = nombre
 		recetaCopia.explicacion = explicacion
 		recetaCopia.calorias = calorias
 		recetaCopia.dificultad = dificultad
 		recetaCopia.agregarTemporadas(temporadasCorrespondientes)
 		recetaCopia.agregarCondiciones(condiciones)
-		return recetaCopia
-			
-		}
+		return recetaCopia	
+	}
 	
-	/*Entrega 2 Punto 1. Invocar con: receta.puedeSerSugeridaA(unaPresona/unGrupo) es polimórfica */
+	/*Entrega 2 Punto 1. Invocar con: receta.puedeSerSugeridaA(unaPresona/unGrupo) double dispatch */
 	def puedeSerSugeridaA(Persona unaPersona){
 		unaPersona.noContieneIngredientesQueLeDisgusten(this)	&& !unaPersona.recetaNoRecomendada(this)
 	}
