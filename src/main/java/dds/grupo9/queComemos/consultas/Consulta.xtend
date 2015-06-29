@@ -4,7 +4,7 @@ import java.util.Collection
 import org.eclipse.xtend.lib.annotations.Accessors
 import dds.grupo9.queComemos.Persona
 import dds.grupo9.queComemos.Receta
-import dds.grupo9.queComemos.logueo.LoggerConsultas
+import dds.grupo9.queComemos.procesosPeriodicos.LoggerConsultas
 
 abstract class Consulta implements ConsultaDecorada { 
 	
@@ -22,9 +22,8 @@ abstract class Consulta implements ConsultaDecorada {
 	}
 	
 	def resultadoConLogueo(LoggerConsultas logger){
-		if(this.resultado().size()>100)
-			logger.loguearConsulta(persona, this.coleccionDeConsultas(), this.resultado().size())
-		return;
+		logger.loguearConsulta(persona, this.coleccionDeConsultas(), this.resultado().size());
+		return this.resultado();
 		
 	}
 	

@@ -7,7 +7,7 @@ import dds.grupo9.queComemos.monitoreoDeConsultas.Monitor
 import dds.grupo9.queComemos.Persona
 import dds.grupo9.queComemos.monitoreoDeConsultas.MonitorSinObservers
 import dds.grupo9.queComemos.consultas.ConsultaDecorada
-import dds.grupo9.queComemos.monitoreoDeConsultas.ProcesoPeriodico
+import dds.grupo9.queComemos.procesosPeriodicos.ProcesoPeriodico
 
 class Busqueda {
 	

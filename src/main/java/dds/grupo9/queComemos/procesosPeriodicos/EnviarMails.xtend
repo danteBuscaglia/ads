@@ -1,4 +1,4 @@
-package dds.grupo9.queComemos.monitoreoDeConsultas
+package dds.grupo9.queComemos.procesosPeriodicos
 
 import dds.grupo9.queComemos.Persona
 import dds.grupo9.queComemos.consultas.ConsultaDecorada

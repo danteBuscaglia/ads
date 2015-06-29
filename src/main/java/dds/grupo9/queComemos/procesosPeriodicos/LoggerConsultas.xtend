@@ -1,4 +1,4 @@
-package dds.grupo9.queComemos.logueo
+package dds.grupo9.queComemos.procesosPeriodicos
 
 import org.apache.log4j.Logger
 
@@ -11,6 +11,7 @@ import java.io.OutputStreamWriter
 import java.util.Collection
 import dds.grupo9.queComemos.Persona
 import dds.grupo9.queComemos.consultas.Consulta
+import dds.grupo9.queComemos.Receta
 
 class LoggerConsultas{
 
@@ -38,20 +39,23 @@ class LoggerConsultas{
 	}
 	
 	def public void loguearConsulta(Persona persona, Collection<Consulta> consultas, int cantResultados){
-		PropertyConfigurator.configure(this.getClass().getResource("log4j.propiedadesLogueoConsulta"))
-		var String filtrosAplicados = "";
-		for(consulta:consultas){
-			if(consulta == consultas.head)
-			{
-				filtrosAplicados = consulta.toString();
+		if(cantResultados>100){
+			PropertyConfigurator.configure(this.getClass().getResource("log4j.propiedadesLogueoConsulta"))
+			var String filtrosAplicados = "";
+			for(consulta:consultas){
+				if(consulta == consultas.head)
+				{
+					filtrosAplicados = consulta.toString();
+				}
+				else
+				{
+					filtrosAplicados = filtrosAplicados + ", " + consulta.toString();	
+				}
 			}
-			else
-			{
-				filtrosAplicados = filtrosAplicados + ", " + consulta.toString();	
-			}
+			filtrosAplicados = filtrosAplicados + ".";
+  			log.warn("Consulta realizada por " + persona.nombre + ". Arrojó " + cantResultados + " resultados. Filtros aplicados: " + filtrosAplicados);
+	
 		}
-		filtrosAplicados = filtrosAplicados + ".";
-  		log.warn("Consulta realizada por " + persona.nombre + ". Arrojó " + cantResultados + " resultados. Filtros aplicados: " + filtrosAplicados);
 	}
 	
 }
