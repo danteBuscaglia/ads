@@ -6,16 +6,29 @@ import java.util.Collection
 
 class Mail {
 	
-	var Collection<Consulta> filtrosAplicados
+	var String filtrosAplicados = ""
 	@Accessors int cantResultados
 	@Accessors String destino
 	
 	def setFiltrosAplicados(Collection<Consulta> consultas) {
-		return filtrosAplicados.addAll(consultas)
+		for(consulta:consultas){
+			if(consulta == consultas.head)
+			{
+				filtrosAplicados = consulta.toString();
+			}
+			else
+			{
+				filtrosAplicados = filtrosAplicados + ", " + consulta.toString();	
+			}
+		}
+		filtrosAplicados = filtrosAplicados + ".";
+	}
+	
+	def setFiltrosAplicadosManualmente(String filtros){
+		filtrosAplicados = filtros
 	}
 	
 	def getFiltrosAplicados(){
-		
-		return filtrosAplicados
+		filtrosAplicados
 	}
 }

@@ -16,22 +16,28 @@ class EnviarMails implements ProcesoPeriodico {
 	
 	override ejecutar(){
 		
-		mails.forEach[m|enviador.enviar(m,administrador)]
+		mails.forEach[m|enviador.enviar(m,administrador.getMail())]
 	}
 	
 	override actualizar(Persona persona, Collection<Consulta> filtrosAplicados, Collection<Receta> recetas) {
-		// Falta agregar condición según qué persona sea
-		agregarMailAPendientes(filtrosAplicados,recetas.size,administrador.getMail)
-	
+		if(persona.estaConfiguradaParaRecibirMails()){
+			agregarMailAPendientes(filtrosAplicados,recetas.size,administrador.getMail)
+		}
 	}
 	
+	def tieneXMails(){
+		mails.size()
+	}
 	
-   def agregarMailAPendientes(Collection<Consulta> filtrosAplicados, int cantResultados, String direccion){
+	def getMails(){
+		mails
+	}
    	
-   	var Mail mail = new Mail
-   	mail.setFiltrosAplicados(filtrosAplicados)
-   	mail.setCantResultados(cantResultados)
-   	mail.setDestino(direccion)
-   	mails.add(mail)
-   }
+   	def agregarMailAPendientes(Collection<Consulta> filtrosAplicados, int cantResultados, String direccion){
+   		var Mail mail = new Mail
+   		mail.setFiltrosAplicados(filtrosAplicados)
+   		mail.setCantResultados(cantResultados)
+   		mail.setDestino(direccion)
+   		mails.add(mail)
+   	}
 }

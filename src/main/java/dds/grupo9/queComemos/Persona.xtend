@@ -30,6 +30,7 @@ class Persona implements ConsultaDecorada {
     @Accessors RepoUsuarios repoUsuarios
     @Accessors String motivoRechazo
     @Accessors String mail 
+    @Accessors int recibeMail
       	
 	new (){
 		this.incializarAtributos
@@ -47,6 +48,7 @@ class Persona implements ConsultaDecorada {
 		altura = -1 
 		rutina = "sinRutina"
 		sexo = "sinSexo"
+		recibeMail = 0
 	}
 	
 	def getGustos(){
@@ -251,5 +253,12 @@ class Persona implements ConsultaDecorada {
 		this.sexo = sexo
 	}
 	
+	def configurarParaRecibirMail(){
+		this.recibeMail = 1
+	}
+	
+	def estaConfiguradaParaRecibirMails(){
+		this.recibeMail == 1
+	}
 }
 	

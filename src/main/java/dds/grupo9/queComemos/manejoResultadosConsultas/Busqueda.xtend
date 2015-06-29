@@ -49,6 +49,10 @@ class Busqueda {
 		monitores.remove(monitor)
 	}
 	
+	def agregarProcesoPeriodico(ProcesoPeriodico procesoPer){
+		procesosPeriodicos.add(procesoPer)
+	}
+	
 	def ejecutarprocesoPeriodico(){ 
 		
 		procesosPeriodicos.forEach[it.ejecutar()]
