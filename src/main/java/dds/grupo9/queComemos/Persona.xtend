@@ -27,7 +27,8 @@ class Persona implements ConsultaDecorada {
     @Accessors RepoRecetas repoRecetas
     var Collection<Receta> recetasFavoritas = newHashSet()
     @Accessors RepoUsuarios repoUsuarios
-    @Accessors String motivoRechazo 
+    @Accessors String motivoRechazo
+    @Accessors String mail 
       	
 	new (){
 		this.incializarAtributos

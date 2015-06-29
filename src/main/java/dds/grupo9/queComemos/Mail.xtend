@@ -7,4 +7,5 @@ class Mail {
 	
 	@Accessors ConsultaDecorada consulta
 	@Accessors int cantResultados
+	@Accessors String destino
 }
