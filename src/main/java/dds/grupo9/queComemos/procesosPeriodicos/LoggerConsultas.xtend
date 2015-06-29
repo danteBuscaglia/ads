@@ -12,11 +12,14 @@ import java.util.Collection
 import dds.grupo9.queComemos.Persona
 import dds.grupo9.queComemos.consultas.Consulta
 import dds.grupo9.queComemos.Receta
+import dds.grupo9.queComemos.consultas.ConsultaDecorada
+import java.util.ArrayList
+import java.util.List
 
-class LoggerConsultas{
+class LoggerConsultas implements ProcesoPeriodico{
 
 	private final static Logger log = Logger.getLogger(LoggerConsultas.getClass());
-	
+	List<String> logsPendientes = new ArrayList();
 	new(){
 		
 	}
@@ -38,23 +41,32 @@ class LoggerConsultas{
   		log.fatal("Este es un mensaje de Fatal")
 	}
 	
-	def public void loguearConsulta(Persona persona, Collection<Consulta> consultas, int cantResultados){
-		if(cantResultados>100){
+	def public void logueoPendiente(Persona persona, Collection<Consulta> filtrosAplicados, Collection<Receta> resultados){
 			PropertyConfigurator.configure(this.getClass().getResource("log4j.propiedadesLogueoConsulta"))
-			var String filtrosAplicados = "";
-			for(consulta:consultas){
-				if(consulta == consultas.head)
+			var String filtrosAplicadosString = "";
+			for(consulta:filtrosAplicados){
+				if(consulta == filtrosAplicados.head)
 				{
-					filtrosAplicados = consulta.toString();
+					filtrosAplicadosString = filtrosAplicados.toString();
 				}
 				else
 				{
-					filtrosAplicados = filtrosAplicados + ", " + consulta.toString();	
+					filtrosAplicadosString = filtrosAplicados + ", " + filtrosAplicados.toString();	
 				}
 			}
-			filtrosAplicados = filtrosAplicados + ".";
-  			log.warn("Consulta realizada por " + persona.nombre + ". Arrojó " + cantResultados + " resultados. Filtros aplicados: " + filtrosAplicados);
+			filtrosAplicadosString = filtrosAplicadosString + ".";
+			var String logPendiente = "Consulta realizada por " + persona.nombre + ". Arrojó " + resultados.size() + " resultados. Filtros aplicados: " + filtrosAplicadosString;
+			logsPendientes.add(logPendiente)
+	}
 	
+	override ejecutar() {
+		logsPendientes.forEach[log.warn(it)];
+	}
+	
+	
+	override actualizar(Persona persona, Collection<Consulta> filtrosAplicados, Collection<Receta> recetas) {
+		if(recetas.size()>100){
+			this.logueoPendiente(persona, filtrosAplicados, recetas);
 		}
 	}
 	

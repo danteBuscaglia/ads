@@ -4,7 +4,6 @@ import java.util.Collection
 import org.eclipse.xtend.lib.annotations.Accessors
 import dds.grupo9.queComemos.Persona
 import dds.grupo9.queComemos.Receta
-import dds.grupo9.queComemos.procesosPeriodicos.LoggerConsultas
 
 abstract class Consulta implements ConsultaDecorada { 
 	
@@ -19,12 +18,6 @@ abstract class Consulta implements ConsultaDecorada {
 		var Collection<Receta> lista = newHashSet()
 		lista.addAll(this.filtrar(decorado.resultado)) 
 		lista
-	}
-	
-	def resultadoConLogueo(LoggerConsultas logger){
-		logger.loguearConsulta(persona, this.coleccionDeConsultas(), this.resultado().size());
-		return this.resultado();
-		
 	}
 	
 	override Collection<Consulta> coleccionDeConsultas(){

@@ -42,6 +42,6 @@ class LoggerTestSuite {
 		consultas.add(cd);
 		consultas.add(cic);
 		santi.nombre = "Santiago";
-		logger.loguearConsulta(santi, ccm.coleccionDeConsultas(), 10);
+		//logger.actualizar(santi, ccm.coleccionDeConsultas(), resultados);
 	}
 }
