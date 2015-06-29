@@ -1,12 +1,12 @@
 package dds.grupo9.queComemos.procesosPeriodicos
 
 import dds.grupo9.queComemos.Persona
-import dds.grupo9.queComemos.consultas.ConsultaDecorada
 import java.util.Collection
 import dds.grupo9.queComemos.Receta
 import dds.grupo9.queComemos.Mail
 import org.eclipse.xtend.lib.annotations.Accessors
 import dds.grupo9.queComemos.EnviadorDeMail
+import dds.grupo9.queComemos.consultas.Consulta
 
 class EnviarMails implements ProcesoPeriodico {
 	
@@ -19,17 +19,17 @@ class EnviarMails implements ProcesoPeriodico {
 		mails.forEach[m|enviador.enviar(m,administrador)]
 	}
 	
-	override actualizar(Persona persona, ConsultaDecorada consulta, Collection<Receta> recetas) {
+	override actualizar(Persona persona, Collection<Consulta> filtrosAplicados, Collection<Receta> recetas) {
 		// Falta agregar condición según qué persona sea
-		agregarMailAPendientes(consulta,recetas.size,administrador.getMail)
+		agregarMailAPendientes(filtrosAplicados,recetas.size,administrador.getMail)
 	
 	}
 	
 	
-   def agregarMailAPendientes(ConsultaDecorada consulta, int cantResultados, String direccion){
+   def agregarMailAPendientes(Collection<Consulta> filtrosAplicados, int cantResultados, String direccion){
    	
    	var Mail mail = new Mail
-   	mail.setConsulta(consulta)
+   	mail.setFiltrosAplicados(filtrosAplicados)
    	mail.setCantResultados(cantResultados)
    	mail.setDestino(direccion)
    	mails.add(mail)

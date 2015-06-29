@@ -56,7 +56,7 @@ class Busqueda {
 	
 	def actualizarPendientes(){
 		
-		procesosPeriodicos.forEach[it.actualizar(persona,fuenteDeDatos,fuenteDeDatos.resultado)]
+		procesosPeriodicos.forEach[it.actualizar(persona,fuenteDeDatos.coleccionDeConsultas,fuenteDeDatos.resultado)]
 	}
 	
 }
