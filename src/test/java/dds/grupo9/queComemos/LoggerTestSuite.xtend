@@ -17,16 +17,30 @@ class LoggerTestSuite {
 		logger.logueoDePrueba();
 	}
 	
-		@Test
+	@Test
 	def unLoggerLogueaUnaConsulta(){
 		var LoggerConsultas logger = new LoggerConsultas();
 		var Persona santi = new Persona();
-		var Collection<Consulta> col = newHashSet();
-		col.add(new ConsultaPorCaloriasMaximas(30));
-		col.add(new ConsultaPorCondicionesPreexistentes());
-		col.add(new ConsultaPorDisgusto());
-		col.add(new ConsultaPorIngredientesCaros());
+		var Collection<Consulta> consultas = newHashSet();
+		var ConsultaPorCaloriasMaximas ccm = new ConsultaPorCaloriasMaximas(30)
+		var ConsultaPorCondicionesPreexistentes ccp = new ConsultaPorCondicionesPreexistentes()
+		var ConsultaPorDisgusto cd = new ConsultaPorDisgusto()
+		var ConsultaPorIngredientesCaros cic = new ConsultaPorIngredientesCaros()
+		ccm.decorado = ccp;
+		ccp.decorado = cd;
+		cd.decorado = cic;
+		cic.decorado = santi;
+		
+		ccm.persona = santi;
+		ccp.persona = santi;
+		cd.persona = santi;
+		cic.persona = santi;
+		
+		consultas.add(ccm);
+		consultas.add(ccp);
+		consultas.add(cd);
+		consultas.add(cic);
 		santi.nombre = "Santiago";
-		logger.loguearConsulta(santi, col, 10);
+		logger.loguearConsulta(santi, ccm.coleccionDeConsultas(), 10);
 	}
 }
