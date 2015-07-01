@@ -4,7 +4,6 @@ import static org.mockito.Mockito.*;
 import org.junit.Test
 import dds.grupo9.queComemos.procesosPeriodicos.EnviarMails
 import dds.grupo9.queComemos.consultas.ConsultaPorCondicionesPreexistentes
-import dds.grupo9.queComemos.consultas.ConsultaPorDisgusto
 import dds.grupo9.queComemos.repoRecetas.RepoRecetasPropio
 import dds.grupo9.queComemos.repoRecetas.RepoRecetasExterno
 import org.junit.Before

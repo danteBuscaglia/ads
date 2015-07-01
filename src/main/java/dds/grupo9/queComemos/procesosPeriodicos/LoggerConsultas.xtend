@@ -47,11 +47,11 @@ class LoggerConsultas implements ProcesoPeriodico{
 			for(consulta:filtrosAplicados){
 				if(consulta == filtrosAplicados.head)
 				{
-					filtrosAplicadosString = filtrosAplicados.toString();
+					filtrosAplicadosString = consulta.toString();
 				}
 				else
 				{
-					filtrosAplicadosString = filtrosAplicados + ", " + filtrosAplicados.toString();	
+					filtrosAplicadosString = filtrosAplicadosString + ", " + consulta.toString();	
 				}
 			}
 			filtrosAplicadosString = filtrosAplicadosString + ".";
@@ -65,9 +65,12 @@ class LoggerConsultas implements ProcesoPeriodico{
 	
 	
 	override actualizar(Persona persona, Collection<Consulta> filtrosAplicados, Collection<Receta> recetas) {
-		if(recetas.size()>100){
+		if(recetas.size()>10){
 			this.logueoPendiente(persona, filtrosAplicados, recetas);
 		}
 	}
 	
+	def getLogsPendientes(){
+		logsPendientes
+	}
 }
