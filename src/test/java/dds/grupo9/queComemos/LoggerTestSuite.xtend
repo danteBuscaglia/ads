@@ -15,6 +15,7 @@ import dds.grupo9.queComemos.condicionPreexistente.Diabetico
 import dds.grupo9.queComemos.manejoResultadosConsultas.Busqueda
 import org.junit.Assert
 import dds.grupo9.queComemos.condicionPreexistente.Hipertenso
+import org.apache.log4j.Logger
 
 class LoggerTestSuite {
 	
@@ -105,7 +106,8 @@ class LoggerTestSuite {
 	
 	@Test
 	def unLoggerLogueaUnaConsulta(){
-		var LoggerConsultas logger = mock(LoggerConsultas)
+		var Logger loggerPosta = mock(Logger)
+		var LoggerConsultas logger = new LoggerConsultas(loggerPosta)
 		var Busqueda busqueda = new Busqueda()
 		
 		persona.agregarCondPreexistente(new Diabetico())
@@ -124,9 +126,9 @@ class LoggerTestSuite {
 		
 		busqueda.resultadoSinProcesar()
 		
-		Assert.assertEquals(12,busqueda.resultadoSinProcesar.size())
-		
-		verify(logger,times(1)).logueoPendiente(any(Persona),anyCollectionOf(Consulta),anyCollectionOf(Receta))
+//		Assert.assertEquals(12,busqueda.resultadoSinProcesar.size())		
+		logger.ejecutar
+		verify(loggerPosta, times(1)).warn(any(Object))
 	}
 	
 	@Test

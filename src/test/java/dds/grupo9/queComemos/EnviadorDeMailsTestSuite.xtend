@@ -11,6 +11,8 @@ import dds.grupo9.queComemos.condicionPreexistente.Hipertenso
 import dds.grupo9.queComemos.manejoResultadosConsultas.Busqueda
 import org.junit.Assert
 import dds.grupo9.queComemos.consultas.ConsultaPorIngredientesCaros
+import java.util.List
+import dds.grupo9.queComemos.procesosPeriodicos.ProcesoPeriodico
 
 class EnviadorDeMailsTestSuite {
 	
@@ -23,6 +25,7 @@ class EnviadorDeMailsTestSuite {
 	var RecetaSimple receta2;
 	var RecetaSimple receta3;
 	var RecetaSimple receta4;
+	var Batch batch;
 	
 	@Before
 	def void setup(){
@@ -61,6 +64,7 @@ class EnviadorDeMailsTestSuite {
 	def unEnviadorDeMailsEnviaMailAUnaPersonaVigilada() {
 		var enviadorDeMails = mock(EnviadorDeMail)
 		var enviarMails = new EnviarMails()
+		//var enviarMails = new EnviarMails(enviadorDeMails, "admin@yahoo,com")
 		var administrador = new Persona()
 		var busqueda = new Busqueda()
 		
@@ -78,6 +82,8 @@ class EnviadorDeMailsTestSuite {
 		busqueda.agregarProcesoPeriodico(enviarMails)
 		
 		busqueda.resultadoSinProcesar()
+		
+		
 		enviarMails.ejecutar()
 		
 		Assert.assertEquals(1, enviarMails.tieneXMails())
@@ -105,6 +111,7 @@ class EnviadorDeMailsTestSuite {
 		
 		busqueda.resultadoSinProcesar
 		enviarMails.ejecutar()
+		
 		
 		Assert.assertEquals(0, enviarMails.tieneXMails())
 		verify(enviadorDeMails, never()).enviar(any(Mail), anyString)

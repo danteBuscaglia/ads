@@ -18,10 +18,16 @@ import java.util.List
 
 class LoggerConsultas implements ProcesoPeriodico{
 
-	private final static Logger log = Logger.getLogger(LoggerConsultas.getClass());
+	private static Logger log;
 	List<String> logsPendientes = new ArrayList();
 	new(){
-		
+		log = Logger.getLogger(LoggerConsultas.getClass())
+	}
+	
+	new(Logger logExterno)
+	{
+		//solo para tests
+		log = logExterno
 	}
 	
 	def public void logueoDePrueba() {

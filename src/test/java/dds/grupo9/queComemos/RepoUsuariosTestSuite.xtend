@@ -14,7 +14,7 @@ class RepoUsuariosTestSuite {
 	// ENTREGA 3 TEST
 	
     var RepoUsuarios repoUsuarios;
-   	 var BuilderPersona builder;
+   	var BuilderPersona builder;
     var Diabetico diabetico;
     var Hipertenso hipertenso;
     var Persona juani;
@@ -111,13 +111,10 @@ class RepoUsuariosTestSuite {
    		repoUsuarios.solicitarIngreso(juani2)
    		repoUsuarios.aceptarUsuario(juani2)
    		
-   		builder.asignarNombre("juani")
    		builder.asignarAltura(1.82f)
    		builder.asignarPeso(72f)
-   		builder.asignarSexo("Masculino")
    		builder.asignarRutina("Crossfit")
    		builder.asignarUnGusto("chori")
-   		builder.asignarFechaNacimiento(19901010)
    		builder.borrarCondicionesPreexistentes
    		builder.asignarUnaCondicionPreexistente(hipertenso)
    		var juani3 = builder.build
