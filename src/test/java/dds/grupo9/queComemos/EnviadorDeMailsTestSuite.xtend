@@ -11,8 +11,7 @@ import dds.grupo9.queComemos.condicionPreexistente.Hipertenso
 import dds.grupo9.queComemos.manejoResultadosConsultas.Busqueda
 import org.junit.Assert
 import dds.grupo9.queComemos.consultas.ConsultaPorIngredientesCaros
-import java.util.List
-import dds.grupo9.queComemos.procesosPeriodicos.ProcesoPeriodico
+import dds.grupo9.queComemos.procesosPeriodicos.Batch
 
 class EnviadorDeMailsTestSuite {
 	
@@ -64,8 +63,6 @@ class EnviadorDeMailsTestSuite {
 	def unEnviadorDeMailsEnviaMailAUnaPersonaVigilada() {
 		var enviadorDeMails = mock(EnviadorDeMail)
 		var enviarMails = new EnviarMails()
-		//var enviarMails = new EnviarMails(enviadorDeMails, "admin@yahoo,com")
-		var administrador = new Persona()
 		var busqueda = new Busqueda()
 		
 		busqueda.fuenteDeDatos = filtro2
@@ -77,8 +74,6 @@ class EnviadorDeMailsTestSuite {
 
 		persona.configurarParaRecibirMail()				
 		enviarMails.enviador = enviadorDeMails
-		enviarMails.administrador = administrador
-		administrador.mail = "admin@yahoo.com"
 		busqueda.agregarProcesoPeriodico(enviarMails)
 		
 		busqueda.resultadoSinProcesar()
@@ -87,14 +82,13 @@ class EnviadorDeMailsTestSuite {
 		enviarMails.ejecutar()
 		
 		Assert.assertEquals(1, enviarMails.tieneXMails())
-		verify(enviadorDeMails,times(1)).enviar(any(Mail),eq("admin@yahoo.com"))
+		verify(enviadorDeMails,times(1)).enviar(any(Mail))
 	}
 	
 	@Test
 	def unEnviadorDeMailsNoEnviaMailAUnaPersonaQueNoEstaVigilada() {
 		var enviadorDeMails = mock(EnviadorDeMail)
 		var enviarMails = new EnviarMails()
-		var administrador = new Persona()
 		var busqueda = new Busqueda()
 		
 		busqueda.fuenteDeDatos = filtro2
@@ -105,8 +99,6 @@ class EnviadorDeMailsTestSuite {
 		filtro2.decorado = filtro
 				
 		enviarMails.enviador = enviadorDeMails
-		enviarMails.administrador = administrador
-		administrador.mail = "admin@yahoo.com"
 		busqueda.agregarProcesoPeriodico(enviarMails)
 		
 		busqueda.resultadoSinProcesar
@@ -114,13 +106,12 @@ class EnviadorDeMailsTestSuite {
 		
 		
 		Assert.assertEquals(0, enviarMails.tieneXMails())
-		verify(enviadorDeMails, never()).enviar(any(Mail), anyString)
+		verify(enviadorDeMails, never()).enviar(any(Mail))
 	}
 	
 	@Test
 	def unMailContieneLosFiltrosAplicadosYLaCantidadDeResultadosObtenidosEnLaConsultaYElMailDeLaPersona() {
 		var enviarMails = new EnviarMails()
-		var administrador = new Persona()
 		var busqueda = new Busqueda()
 		var mail = new Mail()
 		
@@ -133,10 +124,9 @@ class EnviadorDeMailsTestSuite {
 		
 		mail.setFiltrosAplicadosManualmente("por ingredientes caros, por condiciones preexistentes.")
 		mail.cantResultados = 2
-		mail.destino = "admin@yahoo.com"
 		
-		enviarMails.administrador = administrador
-		administrador.mail = "admin@yahoo.com"
+		
+	
 		persona.configurarParaRecibirMail()
 		busqueda.agregarProcesoPeriodico(enviarMails)
 		

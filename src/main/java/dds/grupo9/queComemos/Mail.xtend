@@ -8,7 +8,7 @@ class Mail {
 	
 	var String filtrosAplicados = ""
 	@Accessors int cantResultados
-	@Accessors String destino
+	@Accessors String destino = "administrador@gmail.com"
 	
 	def setFiltrosAplicados(Collection<Consulta> consultas) {
 		for(consulta:consultas){
