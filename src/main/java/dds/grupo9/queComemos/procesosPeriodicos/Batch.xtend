@@ -37,8 +37,8 @@ class Batch {
 		procesosPeriodicos.forEach[it.ejecutar()]
 	}		
 	
-	def actualizarPendientes(Persona persona, Collection<Consulta> coleccionDeConsultas, Collection<Receta> resultado){
+	/*def actualizarPendientes(Persona persona, Collection<Consulta> coleccionDeConsultas, Collection<Receta> resultado){
 		creadoresProcesosPendientes.forEach[this.agregarProcesoPeriodico(it.actualizar(persona, coleccionDeConsultas, resultado))]
-	}
+	}*/
 	
 }
