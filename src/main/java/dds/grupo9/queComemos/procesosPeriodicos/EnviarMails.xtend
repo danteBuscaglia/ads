@@ -10,32 +10,20 @@ import dds.grupo9.queComemos.consultas.Consulta
 
 class EnviarMails implements ProcesoPeriodico {
 	
-	var Collection<Mail> mails = newHashSet()
+	@Accessors Mail mail
 	@Accessors EnviadorDeMail enviador
 	
 	override ejecutar(){
-		
-		mails.forEach[m|enviador.enviar(m)]
+		enviador.enviar(mail)
 	}
 	
 	override actualizar(Persona persona, Collection<Consulta> filtrosAplicados, Collection<Receta> recetas) {
 		if(persona.estaConfiguradaParaRecibirMails()){
-			agregarMailAPendientes(filtrosAplicados,recetas.size)
+			var EnviarMails mail = new EnviarMails()
+			mail.setMail(new Mail(filtrosAplicados, recetas.size))
+			return mail
 		}
-	}
-	
-	def tieneXMails(){
-		mails.size()
-	}
-	
-	def getMails(){
-		mails
+		else return null
 	}
    	
-   	def agregarMailAPendientes(Collection<Consulta> filtrosAplicados, int cantResultados){
-   		var Mail mail = new Mail
-   		mail.setFiltrosAplicados(filtrosAplicados)
-   		mail.setCantResultados(cantResultados)
-   		mails.add(mail)
-   	}
 }

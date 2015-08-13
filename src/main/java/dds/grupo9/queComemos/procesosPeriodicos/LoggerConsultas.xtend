@@ -15,11 +15,13 @@ import dds.grupo9.queComemos.Receta
 import dds.grupo9.queComemos.consultas.ConsultaDecorada
 import java.util.ArrayList
 import java.util.List
+import org.eclipse.xtend.lib.annotations.Accessors
 
 class LoggerConsultas implements ProcesoPeriodico{
 
 	private static Logger log;
-	List<String> logsPendientes = new ArrayList();
+	@Accessors String logPendiente
+	
 	new(){
 		log = Logger.getLogger(LoggerConsultas.getClass())
 	}
@@ -61,22 +63,21 @@ class LoggerConsultas implements ProcesoPeriodico{
 				}
 			}
 			filtrosAplicadosString = filtrosAplicadosString + ".";
-			var String logPendiente = "Consulta realizada por " + persona.nombre + ". Arrojó " + resultados.size() + " resultados. Filtros aplicados: " + filtrosAplicadosString;
-			logsPendientes.add(logPendiente)
+			this.setLogPendiente("Consulta realizada por " + persona.nombre + ". Arrojó " + resultados.size() + " resultados. Filtros aplicados: " + filtrosAplicadosString)
 	}
 	
 	override ejecutar() {
-		logsPendientes.forEach[log.warn(it)];
+		log.warn(logPendiente)
 	}
 	
 	
 	override actualizar(Persona persona, Collection<Consulta> filtrosAplicados, Collection<Receta> recetas) {
 		if(recetas.size()>10){
-			this.logueoPendiente(persona, filtrosAplicados, recetas);
+			var LoggerConsultas logueo = new LoggerConsultas()
+			logueo.logueoPendiente(persona, filtrosAplicados, recetas)
+			return logueo
 		}
+		else return null
 	}
 	
-	def getLogsPendientes(){
-		logsPendientes
-	}
 }

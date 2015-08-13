@@ -8,6 +8,7 @@ import dds.grupo9.queComemos.Persona
 import dds.grupo9.queComemos.monitoreoDeConsultas.MonitorSinObservers
 import dds.grupo9.queComemos.consultas.ConsultaDecorada
 import dds.grupo9.queComemos.procesosPeriodicos.ProcesoPeriodico
+import dds.grupo9.queComemos.procesosPeriodicos.Batch
 
 class Busqueda {
 	
@@ -16,7 +17,7 @@ class Busqueda {
 	@Accessors Persona persona
 	@Accessors MonitorSinObservers monitorSO
 	var Collection<Monitor> monitores = newHashSet()
-	var Collection<ProcesoPeriodico> procesosPeriodicos = newHashSet()	
+	@Accessors Batch batch = Batch.getInstance()
 	
 
 	def Collection<Receta> resultado(){
@@ -47,20 +48,11 @@ class Busqueda {
 	
 	def eliminarMonitor(Monitor monitor){
 		monitores.remove(monitor)
-	}
-	
-	def agregarProcesoPeriodico(ProcesoPeriodico procesoPer){
-		procesosPeriodicos.add(procesoPer)
-	}
-	
-	def ejecutarprocesoPeriodico(){ 
-		
-		procesosPeriodicos.forEach[it.ejecutar()]
-	}		
+	}	
 	
 	def actualizarPendientes(){
 		
-		procesosPeriodicos.forEach[it.actualizar(persona,fuenteDeDatos.coleccionDeConsultas,fuenteDeDatos.resultado)]
+		batch.actualizarPendientes(persona,fuenteDeDatos.coleccionDeConsultas,fuenteDeDatos.resultado)
 	}
 	
 }

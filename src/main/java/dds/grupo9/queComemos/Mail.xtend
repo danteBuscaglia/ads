@@ -10,6 +10,11 @@ class Mail {
 	@Accessors int cantResultados
 	@Accessors String destino = "administrador@gmail.com"
 	
+	new (Collection<Consulta> filtrosAplicados, int cantResultados){
+   		this.setFiltrosAplicados(filtrosAplicados)
+   		this.setCantResultados(cantResultados)
+   	}
+   	
 	def setFiltrosAplicados(Collection<Consulta> consultas) {
 		for(consulta:consultas){
 			if(consulta == consultas.head)
@@ -31,4 +36,5 @@ class Mail {
 	def getFiltrosAplicados(){
 		filtrosAplicados
 	}
+	
 }

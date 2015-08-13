@@ -10,7 +10,7 @@ interface ProcesoPeriodico{
 	
 	def void ejecutar()
 	
-	def void actualizar(Persona persona, Collection<Consulta> filtrosAplicados, Collection<Receta> recetas)
+	def ProcesoPeriodico actualizar(Persona persona, Collection<Consulta> filtrosAplicados, Collection<Receta> recetas)
 	
 	
 	
