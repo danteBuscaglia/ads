@@ -39,7 +39,7 @@ class Vegano implements CondPreexistente {
     	ingredientesCarnicos.exists[ing | receta.tieneIngrediente(ing.nombre)]
     }
     
-    override boolean verificaDatosSegunCondicion(Persona persona){ /* Verifica que el usuario no tenga como preferencia: “pollo”, “carne”, “chivito”, “chori” */
+    override boolean verificaDatosSegunCondicion(Persona persona){ /* Verifica que el usuario no tenga como preferencia: “pollo�?, “carne�?, “chivito�?, “chori�? */
     	persona.prefiereNoComer(ingredientesCarnicos)
     } 
    

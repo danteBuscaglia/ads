@@ -1,7 +1,9 @@
 package dds.grupo9.queComemos
 
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.utils.Observable
 
+@Observable
 class Ingrediente {
 
 	@Accessors String nombre /* Para Entrega 2 */

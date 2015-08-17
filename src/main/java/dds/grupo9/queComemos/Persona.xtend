@@ -11,7 +11,9 @@ import dds.grupo9.queComemos.repoUsuarios.RepoUsuarios
 import dds.grupo9.queComemos.repoRecetas.RepoRecetas
 import dds.grupo9.queComemos.consultas.ConsultaDecorada
 import dds.grupo9.queComemos.consultas.Consulta
+import org.uqbar.commons.utils.Observable
 
+@Observable
 class Persona implements ConsultaDecorada {
 	
 	@Accessors float peso	/* Peso de un Usuario */

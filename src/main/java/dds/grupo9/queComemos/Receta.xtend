@@ -6,7 +6,9 @@ import dds.grupo9.queComemos.condicionPreexistente.CondPreexistente
 import dds.grupo9.queComemos.modificacionRecetas.Modificacion
 import queComemos.entrega3.dominio.Dificultad
 import dds.grupo9.queComemos.repoRecetas.RepoRecetas
+import org.uqbar.commons.utils.Observable
 
+@Observable
 abstract class Receta{
 	
 	@Accessors String nombre /*Nombre del plato */
@@ -15,6 +17,7 @@ abstract class Receta{
     @Accessors Dificultad dificultad /*Dificultad de la receta */
     @Accessors int tiempoPreparacion
     var Collection<Ingrediente> ingredientes= newHashSet() /*Ingredientes de la receta */
+    var Collection<String> condimentos= newHashSet() /*Ingredientes de la receta */
     var Collection<Estacion> temporadasCorrespondientes = newHashSet() /*Temporadas a las que corresponde la receta */
     var Collection<CondPreexistente> condiciones = newHashSet() /* Condiciones preexistentes */
     var PrivacidadReceta privacidad /* Condición de privacidad de la receta (publica o privada) */
@@ -39,6 +42,10 @@ abstract class Receta{
 		this.ingredientes
 	}
 	
+	def getCondimentos(){
+		this.condimentos
+	}
+	
 	def getTemporadasCorrespondientes(){
 		this.temporadasCorrespondientes
 	}
@@ -51,6 +58,10 @@ abstract class Receta{
 		ingredientes.addAll(i)
 	}
 	
+	def setCondimentos(Collection<String> c){
+		condimentos.addAll(c)
+	}
+	
 	def setTemporadasCorrespondientes(Collection<Estacion> tc){
 		temporadasCorrespondientes.addAll(tc)
 	}
@@ -61,6 +72,10 @@ abstract class Receta{
        
    	def agregarIngrediente(Ingrediente ingrediente){/*Agrega un ingrediente a la lista de la receta*/
    		ingredientes.add(ingrediente)
+   	} 
+   	
+   	def agregarCondimento(String cond){/*Agrega un condimento a la lista de la receta*/
+   		condimentos.add(cond)
    	} 
    	
    	def agregarTodosLosIngredientes(Collection<Ingrediente> ingredientesParaAgregar ){/*Agrega ingredientes a la lista de la receta*/
