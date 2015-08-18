@@ -70,14 +70,17 @@ class LoggerConsultas implements ProcesoPeriodico{
 		log.warn(logPendiente)
 	}
 	
+	override cumpleCondicion(Persona persona, Collection<Receta> recetas){
+		recetas.size()>10
+	}
 	
 	override actualizar(Persona persona, Collection<Consulta> filtrosAplicados, Collection<Receta> recetas) {
-		if(recetas.size()>10){
-			var LoggerConsultas logueo = new LoggerConsultas()
-			logueo.logueoPendiente(persona, filtrosAplicados, recetas)
-			return logueo
-		}
-		else return null
+		this.logueoPendiente(persona, filtrosAplicados, recetas)
+		return this
+//		Está hecho así porque si se hace como está comentado abajo no hay forma de testearlo ya que habría un nuevo logger guardado en el batch y no el que se busca testear 
+		/*var LoggerConsultas logueo = new LoggerConsultas()
+		logueo.logueoPendiente(persona, filtrosAplicados, recetas)
+		return logueo*/
 	}
 	
 }

@@ -9,9 +9,6 @@ import dds.grupo9.queComemos.monitoreoDeConsultas.MonitorSinObservers
 import dds.grupo9.queComemos.consultas.ConsultaDecorada
 import dds.grupo9.queComemos.procesosPeriodicos.ProcesoPeriodico
 import dds.grupo9.queComemos.procesosPeriodicos.Batch
-import java.util.ArrayList
-import dds.grupo9.queComemos.procesosPeriodicos.EnviarMails
-import dds.grupo9.queComemos.procesosPeriodicos.LoggerConsultas
 
 class Busqueda {
 	
@@ -21,12 +18,8 @@ class Busqueda {
 	@Accessors MonitorSinObservers monitorSO
 	var Collection<Monitor> monitores = newHashSet()
 	@Accessors Batch batch = Batch.getInstance()
-	var creadoresProcesosPendientes = new ArrayList<ProcesoPeriodico>
+	@Accessors Collection<ProcesoPeriodico> procesosPeriodicos = newHashSet()
 	
-	new () {
-		creadoresProcesosPendientes.add(new EnviarMails)
-		creadoresProcesosPendientes.add(new LoggerConsultas)
-   	}
 
 	def Collection<Receta> resultado(){
 		proceso.procesar(fuenteDeDatos.resultado)
@@ -58,8 +51,16 @@ class Busqueda {
 		monitores.remove(monitor)
 	}	
 	
+	def agregarProcesoPeriodico(ProcesoPeriodico proceso){
+		this.procesosPeriodicos.add(proceso)
+	}
+	
 	def actualizarPendientes(){
-		creadoresProcesosPendientes.forEach[batch.agregarProcesoPeriodico(it.actualizar(persona, fuenteDeDatos.coleccionDeConsultas, fuenteDeDatos.resultado))]
+		procesosPeriodicos.forEach[
+			if(it.cumpleCondicion(persona, fuenteDeDatos.resultado)){
+				batch.agregarProcesoPeriodico(it.actualizar(persona, fuenteDeDatos.coleccionDeConsultas, fuenteDeDatos.resultado))	
+			}
+		]
 	}
 	
 	/*def actualizarPendientes(){

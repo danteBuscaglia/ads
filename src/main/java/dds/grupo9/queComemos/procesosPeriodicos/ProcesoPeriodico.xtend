@@ -12,7 +12,7 @@ interface ProcesoPeriodico{
 	
 	def ProcesoPeriodico actualizar(Persona persona, Collection<Consulta> filtrosAplicados, Collection<Receta> recetas)
 	
-	
+	def boolean cumpleCondicion(Persona persona, Collection<Receta> recetas)
 	
 	
 }

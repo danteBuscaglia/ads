@@ -1,22 +1,12 @@
 package dds.grupo9.queComemos.procesosPeriodicos
 
-import java.util.ArrayList
-import dds.grupo9.queComemos.Persona
-import java.util.Collection
-import dds.grupo9.queComemos.consultas.Consulta
-import dds.grupo9.queComemos.Receta
 import org.eclipse.xtend.lib.annotations.Accessors
+import java.util.Collection
 
 class Batch {
 	
-	var creadoresProcesosPendientes = new ArrayList<ProcesoPeriodico>
-	var procesosPeriodicos = new ArrayList<ProcesoPeriodico>	
+	@Accessors Collection<ProcesoPeriodico> procesosPeriodicos = newHashSet()	
 	private static Batch instance = null;
-	
-	protected new () {
-		creadoresProcesosPendientes.add(new EnviarMails)
-		creadoresProcesosPendientes.add(new LoggerConsultas)
-   	}
    	
    	def public static Batch getInstance() {
       if(instance == null) {
@@ -33,7 +23,7 @@ class Batch {
 		procesosPeriodicos.add(procesoPer)
 	}
 	
-	def ejecutarprocesoPeriodico(){ 
+	def ejecutarProcesosPeriodicos(){ 
 		procesosPeriodicos.forEach[it.ejecutar()]
 	}		
 	

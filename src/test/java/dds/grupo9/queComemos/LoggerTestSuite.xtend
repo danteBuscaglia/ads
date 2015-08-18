@@ -16,6 +16,7 @@ import dds.grupo9.queComemos.manejoResultadosConsultas.Busqueda
 import org.junit.Assert
 import dds.grupo9.queComemos.condicionPreexistente.Hipertenso
 import org.apache.log4j.Logger
+import dds.grupo9.queComemos.procesosPeriodicos.Batch
 
 class LoggerTestSuite {
 	
@@ -36,6 +37,7 @@ class LoggerTestSuite {
 	var RecetaSimple receta10;
 	var RecetaSimple receta11;
 	var RecetaSimple receta12;
+	var Batch batch = Batch.getInstance()
 	
 	@Before
 	def void setup(){
@@ -105,7 +107,7 @@ class LoggerTestSuite {
 	}
 	
 	@Test
-	def unLoggerLogueaUnaConsulta(){
+	def unLoggerLogueaUnaConsultaConMasDeDiezRecetas(){
 		var Logger loggerPosta = mock(Logger)
 		var LoggerConsultas logger = new LoggerConsultas(loggerPosta)
 		var Busqueda busqueda = new Busqueda()
@@ -125,14 +127,14 @@ class LoggerTestSuite {
 		persona.nombre = "Santiago";
 		
 		busqueda.resultadoSinProcesar()
+		batch.ejecutarProcesosPeriodicos()		
+		//logger.ejecutar
 		
-//		Assert.assertEquals(12,busqueda.resultadoSinProcesar.size())		
-		logger.ejecutar
 		verify(loggerPosta, times(1)).warn(any(Object))
 	}
 	
 	@Test
-	def unNoLoggerLogueaUnaConsulta(){
+	def unLoggerNoLogueaUnaConsultaConMenosDeDiezRecetas(){
 		var LoggerConsultas logger = mock(LoggerConsultas)
 		var Busqueda busqueda = new Busqueda()
 		
@@ -153,7 +155,7 @@ class LoggerTestSuite {
 		
 		busqueda.resultadoSinProcesar()
 		
-		Assert.assertEquals(9,busqueda.resultadoSinProcesar.size())
+		batch.ejecutarProcesosPeriodicos()
 		
 		verify(logger,never()).logueoPendiente(any(Persona),anyCollectionOf(Consulta),anyCollectionOf(Receta))
 	}

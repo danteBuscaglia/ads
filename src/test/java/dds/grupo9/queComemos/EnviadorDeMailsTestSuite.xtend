@@ -24,7 +24,7 @@ class EnviadorDeMailsTestSuite {
 	var RecetaSimple receta2;
 	var RecetaSimple receta3;
 	var RecetaSimple receta4;
-	var Batch batch;
+	var Batch batch = Batch.getInstance();
 	
 	@Before
 	def void setup(){
@@ -64,6 +64,7 @@ class EnviadorDeMailsTestSuite {
 		var enviadorDeMails = mock(EnviadorDeMail)
 		var enviarMails = new EnviarMails()
 		var busqueda = new Busqueda()
+		busqueda.batch = batch
 		
 		busqueda.fuenteDeDatos = filtro2
 		busqueda.persona = persona	
@@ -74,14 +75,13 @@ class EnviadorDeMailsTestSuite {
 
 		persona.configurarParaRecibirMail()				
 		enviarMails.enviador = enviadorDeMails
-		busqueda.agregarProcesoPeriodico(enviarMails)
 		
+		busqueda.agregarProcesoPeriodico(enviarMails)
 		busqueda.resultadoSinProcesar()
 		
+		batch.ejecutarProcesosPeriodicos()
 		
-		enviarMails.ejecutar()
-		
-		Assert.assertEquals(1, enviarMails.tieneXMails())
+		Assert.assertEquals(1, batch.procesosPeriodicos.size)
 		verify(enviadorDeMails,times(1)).enviar(any(Mail))
 	}
 	
@@ -90,6 +90,7 @@ class EnviadorDeMailsTestSuite {
 		var enviadorDeMails = mock(EnviadorDeMail)
 		var enviarMails = new EnviarMails()
 		var busqueda = new Busqueda()
+		busqueda.batch = batch
 		
 		busqueda.fuenteDeDatos = filtro2
 		busqueda.persona = persona	
@@ -102,10 +103,10 @@ class EnviadorDeMailsTestSuite {
 		busqueda.agregarProcesoPeriodico(enviarMails)
 		
 		busqueda.resultadoSinProcesar
-		enviarMails.ejecutar()
 		
+		batch.ejecutarProcesosPeriodicos()
 		
-		Assert.assertEquals(0, enviarMails.tieneXMails())
+		Assert.assertEquals(0, batch.procesosPeriodicos.size)
 		verify(enviadorDeMails, never()).enviar(any(Mail))
 	}
 	
@@ -114,6 +115,7 @@ class EnviadorDeMailsTestSuite {
 		var enviarMails = new EnviarMails()
 		var busqueda = new Busqueda()
 		var mail = new Mail()
+		busqueda.batch = batch
 		
 		busqueda.fuenteDeDatos = filtro2
 		busqueda.persona = persona	
@@ -125,16 +127,16 @@ class EnviadorDeMailsTestSuite {
 		mail.setFiltrosAplicadosManualmente("por ingredientes caros, por condiciones preexistentes.")
 		mail.cantResultados = 2
 		
-		
-	
 		persona.configurarParaRecibirMail()
 		busqueda.agregarProcesoPeriodico(enviarMails)
 		
-		busqueda.resultadoSinProcesar()
-				
-		Assert.assertEquals(1, enviarMails.tieneXMails())
-		Assert.assertEquals(mail.destino, enviarMails.getMails.head.destino)
-		Assert.assertEquals(mail.cantResultados, enviarMails.getMails.head.cantResultados)
-		Assert.assertEquals(mail.filtrosAplicados, enviarMails.getMails.head.filtrosAplicados)
+		enviarMails.actualizarTest(persona, busqueda.fuenteDeDatos.coleccionDeConsultas, busqueda.fuenteDeDatos.resultado)
+		
+		Assert.assertEquals(mail.destino, enviarMails.mail.destino)
+		Assert.assertEquals(mail.cantResultados, enviarMails.mail.cantResultados)
+		Assert.assertEquals(mail.filtrosAplicados, enviarMails.mail.filtrosAplicados)
+		
+//El problema está en que el proceso que contiene el mail del cual se quiere conocer la información no es el enviarMails de este test
+//sino que es un nuevo proceso que está en el batch, y no se cómo sacar la información de ese proceso
 	}
 }

@@ -10,6 +10,10 @@ class Mail {
 	@Accessors int cantResultados
 	@Accessors String destino = "administrador@gmail.com"
 	
+	new(){
+		
+	}
+	
 	new (Collection<Consulta> filtrosAplicados, int cantResultados){
    		this.setFiltrosAplicados(filtrosAplicados)
    		this.setCantResultados(cantResultados)

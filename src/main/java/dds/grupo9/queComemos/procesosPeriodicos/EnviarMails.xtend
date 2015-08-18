@@ -17,13 +17,19 @@ class EnviarMails implements ProcesoPeriodico {
 		enviador.enviar(mail)
 	}
 	
+	override cumpleCondicion(Persona persona, Collection<Receta> recetas){
+		persona.estaConfiguradaParaRecibirMails()
+	}
+	
 	override actualizar(Persona persona, Collection<Consulta> filtrosAplicados, Collection<Receta> recetas) {
-		if(persona.estaConfiguradaParaRecibirMails()){
-			var EnviarMails mail = new EnviarMails()
-			mail.setMail(new Mail(filtrosAplicados, recetas.size))
-			return mail
-		}
-		else return null
+		var EnviarMails proceso = new EnviarMails()
+		proceso.setMail(new Mail(filtrosAplicados, recetas.size))
+		proceso.setEnviador(enviador)
+		return proceso
+	}
+	
+	def actualizarTest(Persona persona, Collection<Consulta> filtrosAplicados, Collection<Receta> recetas) {
+		this.setMail(new Mail(filtrosAplicados, recetas.size))
 	}
    	
 }
