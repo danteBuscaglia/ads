@@ -1,7 +1,5 @@
-package dds.grupo9.queComemos
-
-interface EnviadorDeMail {
+package dds.grupo9.queComemos interface EnviadorDeMail {
 	
-	def void enviar(Mail mail)
+	def void enviar(dds.grupo9.queComemos.Mail mail)
 	
 }

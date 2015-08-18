@@ -1,5 +1,2 @@
-package dds.grupo9.queComemos
-
-enum Estacion {
-	PRIMAVERA,OTOÑO,VERANO,INVIERNO
-}
+package dds.grupo9.queComemos enum Estacion {
+	PRIMAVERA,OTOGNO, VERANO, INVIERNO}

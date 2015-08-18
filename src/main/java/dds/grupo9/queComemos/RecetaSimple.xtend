@@ -2,14 +2,14 @@ package dds.grupo9.queComemos
 
 import dds.grupo9.queComemos.excepciones.NoEsValidoException
 import dds.grupo9.queComemos.repoRecetas.RepoRecetas
+import org.uqbar.commons.utils.Observable
 
+@Observable
 class RecetaSimple extends Receta {
 	
 	new(Persona persona){
 		super(persona)
 	}
-	
-	
 	
 	new(RepoRecetas repositorio) {
 		super(repositorio)

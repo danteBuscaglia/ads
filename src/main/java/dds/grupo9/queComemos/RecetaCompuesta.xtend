@@ -1,7 +1,9 @@
 package dds.grupo9.queComemos	
 import java.util.Collection
 import dds.grupo9.queComemos.repoRecetas.RepoRecetas
+import org.uqbar.commons.utils.Observable
 
+@Observable
 class RecetaCompuesta extends Receta {
 	
 	var Collection <Receta> subrecetas = newHashSet()
@@ -12,8 +14,7 @@ class RecetaCompuesta extends Receta {
 	
 	new(Persona persona){
 		super(persona)
-	}
-	
+	}	
    	 
    	def getSubrecetas(){
    		this.subrecetas
