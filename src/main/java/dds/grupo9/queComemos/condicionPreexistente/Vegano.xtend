@@ -27,6 +27,11 @@ class Vegano implements CondPreexistente {
 		ingredientesCarnicos.add(new Ingrediente("bife angosto"))*/
 	}
 	
+	override toString()
+	{
+		"Vegano"
+	}
+	
 	def agregarAlimentoConCarne(String preferencia){
 		ingredientesCarnicos.add(new Ingrediente(preferencia))
 	}

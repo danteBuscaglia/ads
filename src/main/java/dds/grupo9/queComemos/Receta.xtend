@@ -9,13 +9,14 @@ import dds.grupo9.queComemos.repoRecetas.RepoRecetas
 import org.uqbar.commons.utils.Observable
 
 @Observable
+@Accessors
 abstract class Receta{
 	
-	@Accessors String nombre /*Nombre del plato */
-    @Accessors String explicacion /*Pasos a seguir en la receta */
-    @Accessors int calorias /*Calorías de la receta (A modificar) */
-    @Accessors Dificultad dificultad /*Dificultad de la receta */
-    @Accessors int tiempoPreparacion
+	String nombre /*Nombre del plato */
+    String explicacion /*Pasos a seguir en la receta */
+    int calorias /*Calorías de la receta (A modificar) */
+    Dificultad dificultad /*Dificultad de la receta */
+    int tiempoPreparacion
     var Collection<Ingrediente> ingredientes= newHashSet() /*Ingredientes de la receta */
     var Collection<String> condimentos= newHashSet() /*Ingredientes de la receta */
     var Collection<Estacion> temporadasCorrespondientes = newHashSet() /*Temporadas a las que corresponde la receta */
@@ -31,6 +32,10 @@ abstract class Receta{
     	privacidad = new RecetaPrivada(persona)
     }
     
+    def agregarCondicion(CondPreexistente c)
+    {
+    	this.condiciones.add(c)
+    }
     
     
     def cambioAPrivada(Persona persona){
@@ -46,27 +51,27 @@ abstract class Receta{
 		this.condimentos
 	}
 	
-	def getTemporadasCorrespondientes(){
-		this.temporadasCorrespondientes
-	}
+//	def getTemporadasCorrespondientes(){
+//		this.temporadasCorrespondientes
+//	}
 	
 	def getCondiciones(){
 		this.condiciones
 	}
 	
-	def setIngredientes(Collection<Ingrediente> i){
+	def agregarIngredientes(Collection<Ingrediente> i){
 		ingredientes.addAll(i)
 	}
 	
-	def setCondimentos(Collection<String> c){
+	def agregarCondimentos(Collection<String> c){
 		condimentos.addAll(c)
 	}
 	
-	def setTemporadasCorrespondientes(Collection<Estacion> tc){
+	def agregarTemporadasCorrespondientes(Collection<Estacion> tc){
 		temporadasCorrespondientes.addAll(tc)
 	}
 	
-	def setCondiciones(Collection<CondPreexistente> c){
+	def agregarCondiciones(Collection<CondPreexistente> c){
 		condiciones.addAll(c)
 	}
        
@@ -134,10 +139,7 @@ abstract class Receta{
   	}
 	
 	
-	def agregarCondiciones(Collection<CondPreexistente> condicionesParaAgregar){
-		condiciones.addAll(condicionesParaAgregar)
-	} // Habria que hacerlo dinámico
-	
+
 	def agregarTemporadas(Collection<Estacion> temporadasParaAgregar){
 		temporadasCorrespondientes.addAll(temporadasParaAgregar)
 	} // Habria que hacerlo dinámico
