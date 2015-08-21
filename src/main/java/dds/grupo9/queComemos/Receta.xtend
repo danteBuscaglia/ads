@@ -67,8 +67,8 @@ abstract class Receta{
 		condimentos.addAll(c)
 	}
 	
-	def agregarTemporadasCorrespondientes(Collection<Estacion> tc){
-		temporadasCorrespondientes.addAll(tc)
+	def agregarTemporada(Estacion tc){
+		temporadasCorrespondientes.add(tc)
 	}
 	
 	def agregarCondiciones(Collection<CondPreexistente> c){

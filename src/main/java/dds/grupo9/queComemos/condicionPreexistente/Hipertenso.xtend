@@ -13,6 +13,11 @@ class Hipertenso implements CondPreexistente {
     	prescripcionesMedicas.add(new Ingrediente("caldo",0))
 	}
 	
+	override toString()
+	{
+		"Hipertenso"
+	}
+	
 	def getPrescripcionesMedicas(){
 		this.prescripcionesMedicas
 	}
