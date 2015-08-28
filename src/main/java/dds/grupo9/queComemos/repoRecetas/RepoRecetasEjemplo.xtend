@@ -6,6 +6,7 @@ import dds.grupo9.queComemos.Estacion
 import queComemos.entrega3.dominio.Dificultad
 import dds.grupo9.queComemos.Receta
 import org.uqbar.commons.utils.Observable
+import dds.grupo9.queComemos.RecetaSimple
 
 @Observable
 class RepoRecetasEjemplo extends RepoRecetasPropio {
@@ -18,6 +19,11 @@ class RepoRecetasEjemplo extends RepoRecetasPropio {
 	
 	new()
 	{
+      	receta1 = new RecetaSimple(this)
+      	receta2 = new RecetaSimple(this)
+      	receta3 = new RecetaSimple(this)
+      	receta4 = new RecetaSimple(this)
+      	receta5 = new RecetaSimple(this)
       	receta1.nombre = "Super sal"
       	receta1.agregarIngrediente(new Ingrediente("sal"))
 		receta1.calorias = 650

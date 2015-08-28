@@ -35,6 +35,7 @@ class Persona implements ConsultaDecorada {
     @Accessors String mail 
     @Accessors int recibeMail
     @Accessors Receta recetaSeleccionada
+    @Accessors String contrasegna
       	
 	new (){
 		this.incializarAtributos
