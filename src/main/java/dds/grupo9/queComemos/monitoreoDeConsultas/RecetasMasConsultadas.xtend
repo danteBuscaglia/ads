@@ -5,6 +5,7 @@ import java.util.Collection
 import dds.grupo9.queComemos.Receta
 import java.util.ArrayList
 import java.util.Collections
+import dds.grupo9.queComemos.repoRecetas.RepoRecetas
 
 class RecetasMasConsultadas implements Monitor {
 	
@@ -42,7 +43,16 @@ class RecetasMasConsultadas implements Monitor {
 		return recetasConsultadas
 	}
 	
-
+	def  Collection<Receta> recetasMasConsultadas(RepoRecetas repositorio) {
+		var Collection<Receta> recetas = newHashSet()
+		var ArrayList<String> listaNombresRecetasConsultadas = new ArrayList()
+		listaNombresRecetasConsultadas.addAll(listaEstadisticas.map[it.nombre])
+		recetas.addAll(repositorio.getRecetas)
+		for(r:recetas){
+			if(!listaNombresRecetasConsultadas.contains(r.nombre)) recetas.remove(r)
+		}
+		recetas
+	}
 	
 	/*override void update(Persona persona, Collection<Receta> recetas){
 		recetas.forEach[receta| 
