@@ -17,6 +17,7 @@ abstract class Consulta implements ConsultaDecorada {
 	override Collection<Receta> resultado() {
 		var Collection<Receta> lista = newHashSet()
 		lista.addAll(this.filtrar(decorado.resultado)) 
+		persona.setUltimasRecetasConsultadas(lista)
 		lista
 	}
 	

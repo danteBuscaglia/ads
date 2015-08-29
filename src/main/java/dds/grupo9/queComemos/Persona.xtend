@@ -22,21 +22,22 @@ class Persona implements ConsultaDecorada {
 	@Accessors String nombre	/* Nombre de un Usuario */
 	@Accessors String sexo		/* Sexo de un Usuario: M/m: Masculino y F/f: Femenino */
 	@Accessors long fechaNacimiento		/* Fecha de nacimiento de un Usuario */
-	var Collection<String> gustos = newHashSet() /* Gustos de un Usuario */
-	var Collection<String> disgustos = newHashSet() /*Disgustos de un Usuario */
-	var Collection<CondPreexistente> condicionesPreexistentes = newHashSet() /* Condicionantes de un Usuario */
+	@Accessors var Collection<String> gustos = newHashSet() /* Gustos de un Usuario */
+	@Accessors var Collection<String> disgustos = newHashSet() /*Disgustos de un Usuario */
+	@Accessors var Collection<CondPreexistente> condicionesPreexistentes = newHashSet() /* Condicionantes de un Usuario */
 	@Accessors String rutina /* Tipo de rutina que lleva a cabo el Usuario */
-    var Collection<Receta> recetasPropias = newHashSet() /*Recetas de un Usuario */
-    var Collection<GrupoDePersonas> grupos = newHashSet()
+    @Accessors var Collection<Receta> recetasPropias = newHashSet() /*Recetas de un Usuario */
+    @Accessors var Collection<GrupoDePersonas> grupos = newHashSet()
     @Accessors RepoRecetas repoRecetas
-    var Collection<Receta> recetasFavoritas = newHashSet()
+    @Accessors var Collection<Receta> recetasFavoritas = newHashSet()
     @Accessors RepoUsuarios repoUsuarios
     @Accessors String motivoRechazo
     @Accessors String mail 
     @Accessors int recibeMail
     @Accessors Receta recetaSeleccionada
     @Accessors String contrasegna
-      	
+    @Accessors Collection <Receta> ultimasRecetasConsultadas = newHashSet()
+    
 	new (){
 		this.incializarAtributos
 	}

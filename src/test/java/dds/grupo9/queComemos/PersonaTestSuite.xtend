@@ -10,6 +10,7 @@ import dds.grupo9.queComemos.excepciones.NoEsValidoException
 import dds.grupo9.queComemos.excepciones.NoPuedeAgregarException
 import dds.grupo9.queComemos.repoRecetas.RepoRecetasPropio
 import org.junit.Before
+import dds.grupo9.queComemos.consultas.ConsultaPorCaloriasMaximas
 
 class PersonaTestSuite {
 	
@@ -348,6 +349,40 @@ class PersonaTestSuite {
 		val receta = new RecetaSimple (persona2)
 		persona.marcarRecetaComoFavorita(receta)
 	}
+	
+	@Test 
+     
+   	def void unaPersonaConoceLasUltimasRecetasQueConsulto(){
+   	
+   		val consulta = new ConsultaPorCaloriasMaximas(10)
+   		val repo = new RepoRecetasPropio()
+   		val receta4 = new RecetaSimple(repo)
+   		persona.setRepoRecetas(repo)
+   	
+   	
+   		receta.calorias=1000
+   		receta.agregarIngrediente(new Ingrediente)
+   		receta2.calorias=100
+   		receta2.agregarIngrediente(new Ingrediente)
+   		receta3.calorias=300
+   		receta3.agregarIngrediente(new Ingrediente)
+   		receta4.calorias=1000
+   		receta4.agregarIngrediente(new Ingrediente)
+   	
+   		persona.agregarReceta(receta)
+   		persona.agregarReceta(receta2)
+   		persona.agregarReceta(receta3)
+   		repo.agregarRecetaPublica(receta4)
+   	
+   		consulta.persona = persona
+   		consulta.decorado = persona
+   		consulta.resultado
+   	
+   		Assert.assertEquals(2,persona.ultimasRecetasConsultadas.size)
+   	
+   	
+   	
+   } 
  
 }
    
