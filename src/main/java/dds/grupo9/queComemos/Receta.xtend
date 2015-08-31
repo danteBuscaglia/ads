@@ -188,4 +188,8 @@ abstract class Receta{
 		this.nombre
 	}	
 	
+	def String getNombreDueño(){
+		privacidad.getNombreDueño()
+	}
+	
 }

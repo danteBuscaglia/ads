@@ -41,12 +41,14 @@ class RepoUsuarioEjemplo extends RepoUsuarios {
 		
 		persona1.marcarRecetaComoFavorita(persona1.repoRecetas.getRecetas.head)
 		persona1.marcarRecetaComoFavorita(persona1.repoRecetas.getRecetas.last)
+		repositorioRecetas.construirRecetaPrivada(persona1)
 		
 		persona2.marcarRecetaComoFavorita(persona2.repoRecetas.getRecetas.head)
 		persona2.marcarRecetaComoFavorita(persona2.repoRecetas.getRecetas.last)
 		
 		persona3.marcarRecetaComoFavorita(persona3.repoRecetas.getRecetas.head)
 		persona3.marcarRecetaComoFavorita(persona3.repoRecetas.getRecetas.last)
+		repositorioRecetas.construirRecetaPrivada(persona3)
 		
 		persona4.marcarRecetaComoFavorita(persona4.repoRecetas.getRecetas.head)
 		persona4.marcarRecetaComoFavorita(persona4.repoRecetas.getRecetas.last)

@@ -24,4 +24,8 @@ class RecetaPublica implements PrivacidadReceta {
 		throw new NoLoTieneException("Una receta pública no tiene dueño")
 	}
 	
+	override getNombreDueño() {
+		"D10S (Receta Pública)"
+	}
+	
 }

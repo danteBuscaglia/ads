@@ -22,4 +22,8 @@ class RecetaPrivada implements PrivacidadReceta{
 		creador
 	}
 	
+	override getNombreDueño() {
+		this.getDueño.nombre
+	}
+	
 }
