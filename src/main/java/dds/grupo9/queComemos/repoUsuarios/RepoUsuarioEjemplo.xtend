@@ -4,7 +4,6 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import dds.grupo9.queComemos.Persona
 import dds.grupo9.queComemos.repoRecetas.RepoRecetasEjemplo
 import org.uqbar.commons.utils.Observable
-import java.util.Collection
 
 @Observable
 class RepoUsuarioEjemplo extends RepoUsuarios {

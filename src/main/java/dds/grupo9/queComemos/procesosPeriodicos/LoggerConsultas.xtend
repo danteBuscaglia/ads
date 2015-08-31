@@ -2,19 +2,11 @@ package dds.grupo9.queComemos.procesosPeriodicos
 
 import org.apache.log4j.Logger
 
-import org.apache.log4j.Logger
 import org.apache.log4j.PropertyConfigurator
-import org.apache.log4j.FileAppender
-import org.apache.log4j.ConsoleAppender
-import org.apache.log4j.PatternLayout
-import java.io.OutputStreamWriter
 import java.util.Collection
 import dds.grupo9.queComemos.Persona
 import dds.grupo9.queComemos.consultas.Consulta
 import dds.grupo9.queComemos.Receta
-import dds.grupo9.queComemos.consultas.ConsultaDecorada
-import java.util.ArrayList
-import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 
 class LoggerConsultas implements ProcesoPeriodico{
