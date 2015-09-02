@@ -4,12 +4,17 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import dds.grupo9.queComemos.Persona
 import dds.grupo9.queComemos.repoRecetas.RepoRecetasEjemplo
 import org.uqbar.commons.utils.Observable
+import dds.grupo9.queComemos.consultas.ConsultaPorCaloriasMaximas
+import dds.grupo9.queComemos.consultas.ConsultaPorCondicionesPreexistentes
+import dds.grupo9.queComemos.condicionPreexistente.Hipertenso
+import dds.grupo9.queComemos.consultas.ConsultaPorDisgusto
+import dds.grupo9.queComemos.manejoResultadosConsultas.Busqueda
+import dds.grupo9.queComemos.monitoreoDeConsultas.RecetasMasConsultadas
 
 @Observable
 class RepoUsuarioEjemplo extends RepoUsuarios {
 	
 	@Accessors BuilderPersona builder
-	//@Accessors Collection<Persona> usuarios
 	@Accessors Persona persona1
 	@Accessors Persona persona2
 	@Accessors Persona persona3
@@ -17,6 +22,11 @@ class RepoUsuarioEjemplo extends RepoUsuarios {
 	@Accessors Persona persona5
 	@Accessors RepoRecetasEjemplo repositorioRecetas
 	@Accessors Persona personaBuscada
+	var filtroPCP = new ConsultaPorCondicionesPreexistentes
+	var filtroPD = new ConsultaPorDisgusto()
+	var busqueda1 = new Busqueda()
+	var busqueda2 = new Busqueda()
+	@Accessors RecetasMasConsultadas monitor = new RecetasMasConsultadas()
 	
 	new(){
 		//crear y configurar personas
@@ -39,22 +49,38 @@ class RepoUsuarioEjemplo extends RepoUsuarios {
 		persona4.nombre = "Dante"
 		persona5.nombre = "Igna"
 		
+		busqueda1.agregarMonitor(monitor)
+		busqueda2.agregarMonitor(monitor)
+		
 		persona1.marcarRecetaComoFavorita(persona1.repoRecetas.getRecetas.head)
 		persona1.marcarRecetaComoFavorita(persona1.repoRecetas.getRecetas.last)
 		repositorioRecetas.construirRecetaPrivada(persona1)
 		
 		persona2.marcarRecetaComoFavorita(persona2.repoRecetas.getRecetas.head)
 		persona2.marcarRecetaComoFavorita(persona2.repoRecetas.getRecetas.last)
+		persona2.agregarDisgusto("pescado")
+		busqueda1.fuenteDeDatos = filtroPD
+		busqueda1.persona = persona2 
+		filtroPD.decorado = persona2
+		filtroPD.persona = persona2
+		busqueda1.resultadoSinProcesar()
 		
 		persona3.marcarRecetaComoFavorita(persona3.repoRecetas.getRecetas.head)
 		persona3.marcarRecetaComoFavorita(persona3.repoRecetas.getRecetas.last)
 		repositorioRecetas.construirRecetaPrivada(persona3)
 		
-		persona4.marcarRecetaComoFavorita(persona4.repoRecetas.getRecetas.head)
-		persona4.marcarRecetaComoFavorita(persona4.repoRecetas.getRecetas.last)
+		//persona4.marcarRecetaComoFavorita(persona4.repoRecetas.getRecetas.head)
+		//persona4.marcarRecetaComoFavorita(persona4.repoRecetas.getRecetas.last)
+		persona4.agregarCondPreexistente(new Hipertenso())
+		busqueda2.fuenteDeDatos = filtroPCP
+		busqueda2.persona = persona4
+		filtroPCP.decorado = persona4
+		filtroPCP.persona = persona4
+		busqueda2.resultadoSinProcesar()
 		
-		persona5.marcarRecetaComoFavorita(persona5.repoRecetas.getRecetas.head)
-		persona5.marcarRecetaComoFavorita(persona5.repoRecetas.getRecetas.last)
+		
+//		persona5.marcarRecetaComoFavorita(persona5.repoRecetas.getRecetas.head)
+//		persona5.marcarRecetaComoFavorita(persona5.repoRecetas.getRecetas.last)
 		
 		this.add(persona1)
 		this.add(persona2)

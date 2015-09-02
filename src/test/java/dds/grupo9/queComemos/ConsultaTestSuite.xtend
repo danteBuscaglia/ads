@@ -57,6 +57,7 @@ class ConsultaTestSuite {
 		filtro.decorado = persona
 		filtro.persona = persona
 		
+		
 		Assert.assertEquals(41.52f, persona.imc, 0.05f)
 		Assert.assertEquals(2, persona.recetasPropias.size)
 		Assert.assertEquals(2, filtro.resultado.size)

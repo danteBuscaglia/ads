@@ -6,7 +6,7 @@ import dds.grupo9.queComemos.Persona
 import dds.grupo9.queComemos.monitoreoDeConsultas.RecetasMasConsultadas
 import dds.grupo9.queComemos.Receta
 import java.util.Collection
-
+import java.awt.Color
 
 @Observable
 @Accessors
@@ -14,14 +14,15 @@ import java.util.Collection
 class SeleccionRecetasAppModel {
 	
 	Persona persona = new Persona
-	RecetasMasConsultadas monitorDeConsultas
+	RecetasMasConsultadas monitorDeConsultas = new RecetasMasConsultadas()
 	Receta recetaSeleccionada
  	String mensajeCorrespondiente = ""
  	Collection<Receta> seleccionDeRecetas = newHashSet()
  	
 	
-	new(Persona persona){
+	new(Persona persona, RecetasMasConsultadas rmc){
 		this.persona = persona
+		this.monitorDeConsultas = rmc
 		this.seleccionarRecetasAdecuadas
 	}
 	
@@ -36,10 +37,20 @@ class SeleccionRecetasAppModel {
 				mensajeCorrespondiente = "Estas fueron tus úĺtimas consultas"
 			}
 			else{
-				seleccionDeRecetas.addAll(monitorDeConsultas.recetasMasConsultadas(persona.repoRecetas))
+				seleccionDeRecetas.addAll(monitorDeConsultas.recetasMasConsultadasRepo(persona.repoRecetas, 3))
 				mensajeCorrespondiente = "Estas son las recetas top del momento"
 			}
 		}
 		
 	}
+	
+	/*def definirColores(){
+		for(receta:seleccionDeRecetas){
+			if (receta.getNombreDueño == "D10S"){
+				background = Color.BLUE
+			} else if (receta.getNombreDueño == persona.nombre){
+				background = Color.ORANGE
+			}
+		}
+	}*/
 }

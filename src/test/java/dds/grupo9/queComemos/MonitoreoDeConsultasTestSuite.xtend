@@ -169,8 +169,9 @@ class MonitoreoDeConsultasTestSuite {
 
 		var recetasMC = new RecetasMasConsultadas()
 		
-		persona3.agregarDisgusto("salmon")
+		persona3.agregarDisgusto("pollo")
 		persona3.agregarDisgusto("lechuga")
+		persona3.agregarDisgusto("salmon")
 		persona2.agregarCondPreexistente(new Vegano())
 
 		busqueda1.agregarMonitor(recetasMC)
@@ -178,11 +179,11 @@ class MonitoreoDeConsultasTestSuite {
 		busqueda3.agregarMonitor(recetasMC)
 		
 		var Collection<String> recetasMasConsultadas = newHashSet()
-		recetasMasConsultadas.addAll("MacQueso", "Comidita", "Pollo a la parrilla")
+		recetasMasConsultadas.addAll("MacQueso", "Comidita", "Ensalada Cesar")
 				
 		Assert.assertEquals(4, busqueda1.resultadoSinProcesar.size)
 		Assert.assertEquals(4, busqueda2.resultadoSinProcesar.size)
-		Assert.assertEquals(3, busqueda3.resultadoSinProcesar.size)
+		Assert.assertEquals(2, busqueda3.resultadoSinProcesar.size)
 		
 		Assert.assertEquals(recetasMasConsultadas, recetasMC.recetasMasConsultadas(3))
 	}	

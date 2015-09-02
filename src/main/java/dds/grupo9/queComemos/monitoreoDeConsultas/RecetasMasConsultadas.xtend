@@ -10,6 +10,7 @@ import dds.grupo9.queComemos.repoRecetas.RepoRecetas
 class RecetasMasConsultadas implements Monitor {
 	
 	var ArrayList<EstadisticaReceta> listaEstadisticas = new ArrayList<EstadisticaReceta>()
+	var ArrayList<EstadisticaReceta> recetasOrdenadas = new ArrayList<EstadisticaReceta>()
 	
 	
 	override void update(Persona persona, Collection<Receta> recetas){
@@ -43,24 +44,16 @@ class RecetasMasConsultadas implements Monitor {
 		return recetasConsultadas
 	}
 	
-	def  Collection<Receta> recetasMasConsultadas(RepoRecetas repositorio) {
+	def  Collection<Receta> recetasMasConsultadasRepo(RepoRecetas repositorio, int cant) {
 		var Collection<Receta> recetas = newHashSet()
 		var ArrayList<String> listaNombresRecetasConsultadas = new ArrayList()
-		listaNombresRecetasConsultadas.addAll(listaEstadisticas.map[it.nombre])
+		Collections.sort(listaEstadisticas, new OrdenarEstadisticasPorConsultas())
+		listaNombresRecetasConsultadas.addAll(listaEstadisticas.map[it.nombre])//.take(cant) POR QUE ROMPE??????
 		recetas.addAll(repositorio.getRecetas)
 		for(r:recetas){
 			if(!listaNombresRecetasConsultadas.contains(r.nombre)) recetas.remove(r)
 		}
-		recetas
+		return recetas
 	}
 	
-	/*override void update(Persona persona, Collection<Receta> recetas){
-		recetas.forEach[receta| 
-			if(!recetasConsultadas.exists[r|r.nombre == receta.nombre]){	
-				recetasConsultadas.add(receta)
-				receta.aumentarCantidadDeVecesConsultada()
-			}
-			else recetasConsultadas.forEach[r| if(r.nombre == receta.nombre) r.aumentarCantidadDeVecesConsultada()]
-		]
-	}*/
 }

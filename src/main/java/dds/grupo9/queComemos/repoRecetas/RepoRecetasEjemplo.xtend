@@ -61,7 +61,7 @@ class RepoRecetasEjemplo extends RepoRecetasPropio {
       	this.agregarRecetaPublica(receta5)
    	}
 	
-		def construirRecetaPrivada(Persona p) {
+	def construirRecetaPrivada(Persona p) {
 		var r = new RecetaSimple(p)
 		r.nombre = "Ravioles con crema"
 		r.calorias = 550

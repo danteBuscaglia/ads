@@ -13,7 +13,7 @@ class EstadisticaReceta {
 	}
 	
 	def incrementarContador(){
-		consultas+=1
+		consultas = consultas + 1
 	}
 		
 }

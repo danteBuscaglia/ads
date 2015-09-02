@@ -4,6 +4,7 @@ import org.uqbar.commons.utils.Observable
 import org.eclipse.xtend.lib.annotations.Accessors
 import dds.grupo9.queComemos.Persona
 import dds.grupo9.queComemos.repoUsuarios.RepoUsuarioEjemplo
+import dds.grupo9.queComemos.monitoreoDeConsultas.RecetasMasConsultadas
 
 @Observable
 @Accessors
@@ -22,5 +23,9 @@ class LogueoAppModel {
 	
 	def Persona personaBuscada(){
 		repoUsuarios.get(persona)
+	}
+	
+	def RecetasMasConsultadas monitor(){
+		repoUsuarios.monitor
 	}
 }
