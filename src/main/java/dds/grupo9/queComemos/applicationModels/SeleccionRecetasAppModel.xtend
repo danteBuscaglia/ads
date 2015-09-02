@@ -28,12 +28,12 @@ class SeleccionRecetasAppModel {
 	
 	def seleccionarRecetasAdecuadas(){
 		if(persona.recetasFavoritas.size>0){
-			seleccionDeRecetas.addAll(persona.recetasFavoritas)
+			seleccionDeRecetas.addAll(persona.recetasFavoritas.take(10))
 			mensajeCorrespondiente = "Estas son tus recetas favoritas"
 		}
 	else{
 			if(persona.ultimasRecetasConsultadas.size>0){
-				seleccionDeRecetas.addAll(persona.ultimasRecetasConsultadas)
+				seleccionDeRecetas.addAll(persona.ultimasRecetasConsultadas.take(10))
 				mensajeCorrespondiente = "Estas fueron tus úĺtimas consultas"
 			}
 			else{

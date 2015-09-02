@@ -4,7 +4,6 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import dds.grupo9.queComemos.Persona
 import dds.grupo9.queComemos.repoRecetas.RepoRecetasEjemplo
 import org.uqbar.commons.utils.Observable
-import dds.grupo9.queComemos.consultas.ConsultaPorCaloriasMaximas
 import dds.grupo9.queComemos.consultas.ConsultaPorCondicionesPreexistentes
 import dds.grupo9.queComemos.condicionPreexistente.Hipertenso
 import dds.grupo9.queComemos.consultas.ConsultaPorDisgusto

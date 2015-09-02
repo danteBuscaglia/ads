@@ -10,7 +10,6 @@ import dds.grupo9.queComemos.repoRecetas.RepoRecetas
 class RecetasMasConsultadas implements Monitor {
 	
 	var ArrayList<EstadisticaReceta> listaEstadisticas = new ArrayList<EstadisticaReceta>()
-	var ArrayList<EstadisticaReceta> recetasOrdenadas = new ArrayList<EstadisticaReceta>()
 	
 	
 	override void update(Persona persona, Collection<Receta> recetas){
