@@ -72,7 +72,7 @@ class DetalleReceta extends Dialog<DetalleRecetaAppModel>{
 		      	
 		      	new Label(panelDerecho).text = "Condiciones preexistentes"
 		      	new List(panelDerecho) => [
-		           	bindItemsToProperty("recetaSeleccionada.condiciones")
+		           	bindItemsToProperty("recetaSeleccionada.getCondiciones")
 		            width = 200
 		            height = 100
 		      	]

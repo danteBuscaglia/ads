@@ -10,6 +10,7 @@ import dds.grupo9.queComemos.repoRecetas.RepoRecetas
 class RecetasMasConsultadas implements Monitor {
 	
 	var ArrayList<EstadisticaReceta> listaEstadisticas = new ArrayList<EstadisticaReceta>()
+	var Collection<Receta> recetasOrdenadas = newHashSet()
 	
 	
 	override void update(Persona persona, Collection<Receta> recetas){
@@ -44,15 +45,11 @@ class RecetasMasConsultadas implements Monitor {
 	}
 	
 	def recetasMasConsultadasRepo(RepoRecetas repositorio, int cant) {
-		var Collection<Receta> recetas = newHashSet()
-		var ArrayList<String> listaNombresRecetasConsultadas = new ArrayList()
+		var Collection<Receta> recetasFinal = newHashSet()
 		Collections.sort(listaEstadisticas, new OrdenarEstadisticasPorConsultas())
-		listaNombresRecetasConsultadas.addAll(listaEstadisticas.map[it.nombre])//take(cant)) //POR QUE ROMPE??????
-		recetas.addAll(repositorio.getRecetas)
-		for(r:recetas){
-			if(!listaNombresRecetasConsultadas.contains(r.nombre)) recetas.remove(r)
-		}
-		return recetas
+		listaEstadisticas.forEach[recetasOrdenadas.add(repositorio.buscarRecetaPorNombre(it.nombre))]
+		recetasFinal.addAll(recetasOrdenadas.take(cant))
+		return recetasFinal
 	}
 	
 }

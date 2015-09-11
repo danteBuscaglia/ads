@@ -7,9 +7,11 @@ import dds.grupo9.queComemos.Persona
 
 class Hipertenso implements CondPreexistente {
 	var Collection<Ingrediente> prescripcionesMedicas = newHashSet()
+	var Collection<String> prescripcionesMedicasCondimentos = newHashSet()
 	
 	new(){
     	prescripcionesMedicas.add(new Ingrediente("sal",0))
+    	prescripcionesMedicasCondimentos.add("sal")
     	prescripcionesMedicas.add(new Ingrediente("caldo",0))
 	}
 	
@@ -27,7 +29,8 @@ class Hipertenso implements CondPreexistente {
 	} /*Verifica si logra subsanar su condición, para los hipertensos esto se logra si tiene una rutina activa intensiva con ejercicio adicional */
 
     override boolean recetaNoRecomendada(Receta receta){
-    	prescripcionesMedicas.exists[ing | receta.tieneIngrediente(ing.nombre)]
+    	prescripcionesMedicas.exists[ing | receta.tieneIngrediente(ing.nombre)] ||
+    	prescripcionesMedicasCondimentos.exists[cond | receta.tieneCondimento(cond)]
     }
        
     override boolean verificaDatosSegunCondicion(Persona persona){/* Verifica que usuarios hipertensos indiquen al menos una preferencia */

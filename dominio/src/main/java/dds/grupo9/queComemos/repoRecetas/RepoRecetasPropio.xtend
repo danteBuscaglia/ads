@@ -7,6 +7,7 @@ import dds.grupo9.queComemos.Receta
 class RepoRecetasPropio implements dds.grupo9.queComemos.repoRecetas.RepoRecetas {
 	
 	var Collection <Receta> recetasPublicas = newHashSet()
+	
 	def tieneRecetaPublica(String nombreReceta){
 		recetasPublicas.exists[it.nombre==nombreReceta]
 		
@@ -27,6 +28,10 @@ class RepoRecetasPropio implements dds.grupo9.queComemos.repoRecetas.RepoRecetas
 	override Collection<Receta> getRecetas(){
 		
 		this.recetasPublicas
+	}
+	
+	override Receta buscarRecetaPorNombre(String nombre){
+		recetasPublicas.findFirst[it.nombre==nombre]
 	}
 	
 }

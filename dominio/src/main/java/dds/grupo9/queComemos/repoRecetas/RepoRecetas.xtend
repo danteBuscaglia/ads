@@ -5,5 +5,5 @@ import java.util.Collection
 
 interface RepoRecetas {
 	def Collection<Receta> getRecetas()
-	//def Receta buscarRecetaPorNombre(String nombre)
+	def Receta buscarRecetaPorNombre(String nombre)
 }

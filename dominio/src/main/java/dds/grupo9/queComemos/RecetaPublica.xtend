@@ -25,7 +25,7 @@ class RecetaPublica implements PrivacidadReceta {
 	}
 	
 	override getNombreDueño() {
-		"D10S (Receta Pública)"
+		"D10S (Receta Publica)"
 	}
 	
 }

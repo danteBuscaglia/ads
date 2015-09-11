@@ -76,9 +76,9 @@ class RepoRecetasEjemplo extends RepoRecetasPropio {
 		r.agregarCondimento("Sal")
 		r.agregarCondimento("Salsa de soja")
 		r.agregarCondimento("Nueces")
-		r.agregarCondicion(new Vegano)
-		r.agregarCondicion(new Celiaco)
-		r.agregarCondicion(new Hipertenso)
+		//r.agregarCondicion(new Vegano)
+		//r.agregarCondicion(new Celiaco)
+		//r.agregarCondicion(new Hipertenso)
 		r.agregarTemporada(Estacion.VERANO)
 		r.agregarTemporada(Estacion.OTOGNO)
 		r.explicacion = "Preparar la masa mezclando el harina, los huevos, el agua y el aceite. 

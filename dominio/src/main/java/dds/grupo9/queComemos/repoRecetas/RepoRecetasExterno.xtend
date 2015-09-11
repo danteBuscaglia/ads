@@ -16,7 +16,7 @@ class RepoRecetasExterno implements dds.grupo9.queComemos.repoRecetas.RepoReceta
 		this. repoExternoAdapter = new RepoExternoAdapter()
 	}
 	
-	/*override */ def Receta buscarRecetaPorNombre(String nombre) {
+	override Receta buscarRecetaPorNombre(String nombre) {
 		throw new UserException("Este origen de datos no soporta esta operación")
 	}
 	

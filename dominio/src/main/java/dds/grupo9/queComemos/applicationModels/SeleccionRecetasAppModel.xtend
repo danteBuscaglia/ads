@@ -44,13 +44,4 @@ class SeleccionRecetasAppModel {
 		
 	}
 	
-	def definirColores(Receta receta){
-		
-			if (receta.getNombreDueño == "D10S"){
-				return Color.BLUE
-			} else if (receta.getNombreDueño == persona.nombre){
-				return Color.ORANGE
-			}
-		
-	}
 }

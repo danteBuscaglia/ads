@@ -7,6 +7,10 @@ import dds.grupo9.queComemos.modificacionRecetas.Modificacion
 import queComemos.entrega3.dominio.Dificultad
 import dds.grupo9.queComemos.repoRecetas.RepoRecetas
 import org.uqbar.commons.utils.Observable
+import dds.grupo9.queComemos.condicionPreexistente.Hipertenso
+import dds.grupo9.queComemos.condicionPreexistente.Celiaco
+import dds.grupo9.queComemos.condicionPreexistente.Vegano
+import dds.grupo9.queComemos.condicionPreexistente.Diabetico
 
 @Observable
 @Accessors
@@ -20,16 +24,22 @@ abstract class Receta{
     var Collection<Ingrediente> ingredientes= newHashSet() /*Ingredientes de la receta */
     var Collection<String> condimentos= newHashSet() /*Ingredientes de la receta */
     var Collection<Estacion> temporadasCorrespondientes = newHashSet() /*Temporadas a las que corresponde la receta */
+    var Collection<CondPreexistente> condicionesPreexistentes = newHashSet()
     var Collection<CondPreexistente> condiciones = newHashSet() /* Condiciones preexistentes */
     var PrivacidadReceta privacidad /* Condición de privacidad de la receta (publica o privada) */
+    String nombreDuenio
     
     new (RepoRecetas repositorio){
     	
     	privacidad = new RecetaPublica ()
+    	nombreDuenio = getNombreDueño()
+    	condicionesPreexistentes.addAll(new Hipertenso(), new Celiaco(), new Vegano(), new Diabetico())
 //    	repositorio.agregarRecetaPublica(this)	
     }
     new(Persona persona){
     	privacidad = new RecetaPrivada(persona)
+    	nombreDuenio = getNombreDueño()
+    	condicionesPreexistentes.addAll(new Hipertenso(), new Celiaco(), new Vegano(), new Diabetico())
     }
     
     def agregarCondicion(CondPreexistente c)
@@ -54,6 +64,10 @@ abstract class Receta{
 //	def getTemporadasCorrespondientes(){
 //		this.temporadasCorrespondientes
 //	}
+	
+	def setCondiciones(){
+		this.condiciones.addAll(condicionesPreexistentes.filter[it.recetaNoRecomendada(this)])
+	}
 	
 	def getCondiciones(){
 		this.condiciones
@@ -117,6 +131,10 @@ abstract class Receta{
   	
   	def tieneIngrediente(String nombreIngrediente){ /* Evalúa si dado el nombre de un ingrediente, la receta lo contiene */
   		!filtrarIngredientesPorNombre(nombreIngrediente).isEmpty
+  	}
+  	
+  	def tieneCondimento(String condimento){
+  		condimentos.exists[it == condimento]
   	}
   	 
   	def filtrarIngredientesPorNombre(String nombreIngrediente){  

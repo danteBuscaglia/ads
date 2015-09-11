@@ -37,7 +37,6 @@ class SeleccionRecetas extends SimpleWindow <SeleccionRecetasAppModel> {
 	  	this.title = "Bienvenido a ¿Qué comemos?"
   		new Label(mainPanel).bindValueToProperty("mensajeCorrespondiente") 
   		val table = new Table<Receta>(mainPanel, typeof(Receta)) => [
-	   		//bindBackground("definirColores")
 	   		bindItemsToProperty("seleccionDeRecetas") 
    			bindValueToProperty("recetaSeleccionada")
   		]
@@ -64,6 +63,8 @@ class SeleccionRecetas extends SimpleWindow <SeleccionRecetasAppModel> {
 	        title = "Nombre"
     		fixedSize = 150
         	bindContentsToProperty("nombre")
+        	bindBackground("nombreDuenio").transformer = 
+        		[String nombre | if (nombre.equals("D10S (Receta Publica)")) Color.BLUE else if (nombre.equals("nombreDuenio")) Color.ORANGE else Color.GREEN]
   		]
   
   		new Column<Receta>(table) => [
