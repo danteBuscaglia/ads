@@ -71,11 +71,19 @@ class DetalleReceta extends Dialog<DetalleRecetaAppModel>{
 		      	]
 		      	
 		      	new Label(panelDerecho).text = "Condiciones preexistentes"
-		      	new List(panelDerecho) => [
-		           	bindItemsToProperty("recetaSeleccionada.getCondiciones")
+		      	if(modelObject.recetaSeleccionada.condiciones.length != 0){
+		      		new List(panelDerecho) => [
+		           	bindItemsToProperty("recetaSeleccionada.condiciones")
 		            width = 200
 		            height = 100
-		      	]
+		      		]
+		      	}
+		      	else{
+		      		new Label(panelDerecho).text = 
+"No hay condiciones
+no recomendadadas 
+para esta receta" 
+		      	}
 	}
 	
 	def contruirMitadIzquierda(Panel secondaryPanel) {

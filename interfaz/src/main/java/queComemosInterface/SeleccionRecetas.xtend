@@ -16,6 +16,7 @@ import dds.grupo9.queComemos.applicationModels.SeleccionRecetasAppModel
 import java.awt.Color
 import java.util.Collection
 import dds.grupo9.queComemos.monitoreoDeConsultas.RecetasMasConsultadas
+import scala.xml.dtd.ContentModel.ElemName
 
 class SeleccionRecetas extends SimpleWindow <SeleccionRecetasAppModel> {
 	
@@ -64,7 +65,19 @@ class SeleccionRecetas extends SimpleWindow <SeleccionRecetasAppModel> {
     		fixedSize = 150
         	bindContentsToProperty("nombre")
         	bindBackground("nombreDuenio").transformer = 
-        		[String nombre | if (nombre.equals("D10S (Receta Publica)")) Color.BLUE else if (nombre.equals("nombreDuenio")) Color.ORANGE else Color.GREEN]
+        		[String nombre | 
+        			if (nombre.equals("D10S (Receta Publica)")) {
+        				Color.BLUE 
+        			}
+        			else {
+        				if (nombre.equals(modelObject.persona.nombre)) {
+        					Color.ORANGE 
+        					}	
+        				else {
+        					Color.GREEN
+        					}
+        			}
+        		]
   		]
   
   		new Column<Receta>(table) => [
