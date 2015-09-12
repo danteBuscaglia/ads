@@ -4,6 +4,8 @@ import dds.grupo9.queComemos.Persona
 import dds.grupo9.queComemos.Receta
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
+import java.util.Collection
+import dds.grupo9.queComemos.condicionPreexistente.CondPreexistente
 
 @Observable
 @Accessors

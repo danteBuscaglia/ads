@@ -15,16 +15,16 @@ class Vegano implements CondPreexistente {
 		ingredientesCarnicos.add(new Ingrediente("chivito"))
 		ingredientesCarnicos.add(new Ingrediente("carne"))
 		ingredientesCarnicos.add(new Ingrediente("lomo"))
-		/*ingredientesCarnicos.add(new Ingrediente("pescado"))
+		ingredientesCarnicos.add(new Ingrediente("pescado"))
 		ingredientesCarnicos.add(new Ingrediente("marisco"))
 		ingredientesCarnicos.add(new Ingrediente("mondongo"))
-		ingredientesCarnicos.add(new Ingrediente("chori"))
 		ingredientesCarnicos.add(new Ingrediente("lechon"))
 		ingredientesCarnicos.add(new Ingrediente("salmon"))
 		ingredientesCarnicos.add(new Ingrediente("berberechos"))	
 		ingredientesCarnicos.add(new Ingrediente("mejillones"))
 		ingredientesCarnicos.add(new Ingrediente("langostinos"))
-		ingredientesCarnicos.add(new Ingrediente("bife angosto"))*/
+		ingredientesCarnicos.add(new Ingrediente("bife angosto"))
+		ingredientesCarnicos.add(new Ingrediente("jamon"))
 	}
 	
 	override toString()

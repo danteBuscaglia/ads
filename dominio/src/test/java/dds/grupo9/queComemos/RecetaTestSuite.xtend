@@ -345,6 +345,16 @@ class RecetaTestSuite {
 		Assert.assertFalse(receta.puedeSerSugeridaA(grupo))	
 	}	
 	
+	@Test
+	def unaRecetaRecienCreadaNoTieneCondicionesPreeistentesParaLaCualNoSeaRecomendada(){
+		Assert.assertEquals(0, receta.getCondiciones().length)
+	}
+	
+	@Test
+	def unaRecetaRecienConIngredientesCarnicosTieneUnaCondicionParaLaCualNoEsRecomendada(){
+		receta.agregarIngrediente(new Ingrediente("chori"))
+		Assert.assertEquals(1, receta.getCondiciones().length)
+	}	
 }
 	
 

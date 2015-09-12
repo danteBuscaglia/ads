@@ -24,7 +24,6 @@ abstract class Receta{
     var Collection<Ingrediente> ingredientes= newHashSet() /*Ingredientes de la receta */
     var Collection<String> condimentos= newHashSet() /*Ingredientes de la receta */
     var Collection<Estacion> temporadasCorrespondientes = newHashSet() /*Temporadas a las que corresponde la receta */
-    var Collection<CondPreexistente> condicionesPreexistentes = newHashSet()
     var Collection<CondPreexistente> condiciones = newHashSet() /* Condiciones preexistentes */
     var PrivacidadReceta privacidad /* Condición de privacidad de la receta (publica o privada) */
     String nombreDuenio
@@ -33,20 +32,14 @@ abstract class Receta{
     	
     	privacidad = new RecetaPublica ()
     	nombreDuenio = getNombreDueño()
-    	condicionesPreexistentes.addAll(new Hipertenso(), new Celiaco(), new Vegano(), new Diabetico())
+//    	condicionesPreexistentes.addAll(new Hipertenso(), new Celiaco(), new Vegano(), new Diabetico())
 //    	repositorio.agregarRecetaPublica(this)	
     }
     new(Persona persona){
     	privacidad = new RecetaPrivada(persona)
     	nombreDuenio = getNombreDueño()
-    	condicionesPreexistentes.addAll(new Hipertenso(), new Celiaco(), new Vegano(), new Diabetico())
+//    	condicionesPreexistentes.addAll(new Hipertenso(), new Celiaco(), new Vegano(), new Diabetico())
     }
-    
-    def agregarCondicion(CondPreexistente c)
-    {
-    	this.condiciones.add(c)
-    }
-    
     
     def cambioAPrivada(Persona persona){
     	
@@ -61,16 +54,14 @@ abstract class Receta{
 		this.condimentos
 	}
 	
-//	def getTemporadasCorrespondientes(){
-//		this.temporadasCorrespondientes
-//	}
-	
-	def setCondiciones(){
-		this.condiciones.addAll(condicionesPreexistentes.filter[it.recetaNoRecomendada(this)])
-	}
-	
 	def getCondiciones(){
-		this.condiciones
+		var Collection<CondPreexistente> condicionesParaFiltrar = newHashSet()
+		var Collection<CondPreexistente> condicionesFiltradas = newHashSet()
+		condicionesParaFiltrar.addAll(new Hipertenso(), new Celiaco(), new Vegano(), new Diabetico())
+//		condicionesParaFiltrar.forEach[println(it.toString)]
+		condicionesFiltradas.addAll(condicionesParaFiltrar.filter[it.recetaNoRecomendada(this)])
+//		condicionesFiltradas.forEach[println(it.toString)]
+		condicionesFiltradas
 	}
 	
 	def agregarIngredientes(Collection<Ingrediente> i){
@@ -85,9 +76,6 @@ abstract class Receta{
 		temporadasCorrespondientes.add(tc)
 	}
 	
-	def agregarCondiciones(Collection<CondPreexistente> c){
-		condiciones.addAll(c)
-	}
        
    	def agregarIngrediente(Ingrediente ingrediente){/*Agrega un ingrediente a la lista de la receta*/
    		ingredientes.add(ingrediente)
@@ -142,11 +130,10 @@ abstract class Receta{
   	}
   
   	def recetaInadecuadaPara (){ /*Muestra las condiciones para la que una receta es inadecuada */
-		condiciones.filter[condicion|condicion.recetaNoRecomendada(this)]
+		this.getCondiciones.filter[condicion|condicion.recetaNoRecomendada(this)]
   		
-  	} // Habria que hacerlo dinámico
-  	
-  	
+  	}
+  		
   	def boolean puedeVerOModificarReceta(Persona persona){
 		privacidad.puedeVermeOModificarme(persona)
 	}
@@ -157,7 +144,6 @@ abstract class Receta{
   	}
 	
 	
-
 	def agregarTemporadas(Collection<Estacion> temporadasParaAgregar){
 		temporadasCorrespondientes.addAll(temporadasParaAgregar)
 	} // Habria que hacerlo dinámico
@@ -176,7 +162,6 @@ abstract class Receta{
 		recetaCopia.calorias = calorias
 		recetaCopia.dificultad = dificultad
 		recetaCopia.agregarTemporadas(temporadasCorrespondientes)
-		recetaCopia.agregarCondiciones(condiciones)
 		return recetaCopia	
 	}
 	
