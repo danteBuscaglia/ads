@@ -4,7 +4,9 @@ import java.util.Collection
 import dds.grupo9.queComemos.Ingrediente
 import dds.grupo9.queComemos.Receta
 import dds.grupo9.queComemos.Persona
+import org.eclipse.xtend.lib.annotations.Accessors
 
+@Accessors
 class Vegano implements CondPreexistente {
 	
 	var Collection<Ingrediente> ingredientesCarnicos = newHashSet()

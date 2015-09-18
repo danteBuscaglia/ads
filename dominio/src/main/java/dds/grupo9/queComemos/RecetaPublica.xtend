@@ -2,12 +2,12 @@ package dds.grupo9.queComemos
 
 import dds.grupo9.queComemos.modificacionRecetas.Modificacion
 import dds.grupo9.queComemos.excepciones.NoLoTieneException
+import org.eclipse.xtend.lib.annotations.Accessors
 
 class RecetaPublica implements PrivacidadReceta {
 	
-	
-	
-	
+	@Accessors Persona creador = new Persona
+		
 	override puedeVermeOModificarme(Persona persona){
 		
 		true
@@ -21,7 +21,9 @@ class RecetaPublica implements PrivacidadReceta {
 	}
 	
 	override getDueño() {
-		throw new NoLoTieneException("Una receta pública no tiene dueño")
+		creador.nombre = "D10S"
+		creador
+		//throw new NoLoTieneException("Una receta pública no tiene dueño")
 	}
 	
 	override getNombreDueño() {

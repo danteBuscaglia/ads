@@ -4,6 +4,8 @@ import dds.grupo9.queComemos.Persona;
 import dds.grupo9.queComemos.Receta;
 import dds.grupo9.queComemos.applicationModels.SeleccionRecetasAppModel;
 import dds.grupo9.queComemos.monitoreoDeConsultas.RecetasMasConsultadas;
+import java.awt.Color;
+import org.apache.commons.collections15.Transformer;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.uqbar.arena.bindings.NotNullObservable;
@@ -13,6 +15,7 @@ import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.widgets.tables.Column;
 import org.uqbar.arena.widgets.tables.Table;
+import org.uqbar.arena.widgets.tables.labelprovider.BackgroundProvider;
 import org.uqbar.arena.windows.Dialog;
 import org.uqbar.arena.windows.SimpleWindow;
 import org.uqbar.arena.windows.WindowOwner;
@@ -77,6 +80,30 @@ public class SeleccionRecetas extends SimpleWindow<SeleccionRecetasAppModel> {
           it.setTitle("Nombre");
           it.setFixedSize(150);
           it.bindContentsToProperty("nombre");
+          BackgroundProvider<Receta, Color> _bindBackground = it.bindBackground("nombreDuenio");
+          final Transformer<String, Color> _function = new Transformer<String, Color>() {
+            public Color transform(final String nombre) {
+              Color _xifexpression = null;
+              boolean _equals = nombre.equals("D10S (Receta Publica)");
+              if (_equals) {
+                _xifexpression = Color.BLUE;
+              } else {
+                Color _xifexpression_1 = null;
+                SeleccionRecetasAppModel _modelObject = SeleccionRecetas.this.getModelObject();
+                Persona _persona = _modelObject.getPersona();
+                String _nombre = _persona.getNombre();
+                boolean _equals_1 = nombre.equals(_nombre);
+                if (_equals_1) {
+                  _xifexpression_1 = Color.ORANGE;
+                } else {
+                  _xifexpression_1 = Color.GREEN;
+                }
+                _xifexpression = _xifexpression_1;
+              }
+              return _xifexpression;
+            }
+          };
+          _bindBackground.setTransformer(_function);
         }
       };
       ObjectExtensions.<Column<Receta>>operator_doubleArrow(_column, _function);

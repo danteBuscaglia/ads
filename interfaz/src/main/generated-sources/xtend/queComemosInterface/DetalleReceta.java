@@ -4,6 +4,9 @@ import dds.grupo9.queComemos.Ingrediente;
 import dds.grupo9.queComemos.Persona;
 import dds.grupo9.queComemos.Receta;
 import dds.grupo9.queComemos.applicationModels.DetalleRecetaAppModel;
+import dds.grupo9.queComemos.condicionPreexistente.CondPreexistente;
+import java.util.Collection;
+import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.uqbar.arena.layout.ColumnLayout;
@@ -73,8 +76,8 @@ public class DetalleReceta extends Dialog<DetalleRecetaAppModel> {
     return _xblockexpression;
   }
   
-  public List<Object> construirMitadDerecha(final Panel secondaryPanel) {
-    List<Object> _xblockexpression = null;
+  public Control construirMitadDerecha(final Panel secondaryPanel) {
+    Control _xblockexpression = null;
     {
       final Panel panelDerecho = new Panel(secondaryPanel);
       Label _label = new Label(panelDerecho);
@@ -94,15 +97,28 @@ public class DetalleReceta extends Dialog<DetalleRecetaAppModel> {
       ObjectExtensions.<List<Object>>operator_doubleArrow(_list, _function);
       Label _label_3 = new Label(panelDerecho);
       _label_3.setText("Condiciones preexistentes");
-      List<Object> _list_1 = new List<Object>(panelDerecho);
-      final Procedure1<List<Object>> _function_1 = new Procedure1<List<Object>>() {
-        public void apply(final List<Object> it) {
-          it.bindItemsToProperty("recetaSeleccionada.condiciones");
-          it.setWidth(200);
-          it.setHeight(100);
-        }
-      };
-      _xblockexpression = ObjectExtensions.<List<Object>>operator_doubleArrow(_list_1, _function_1);
+      Control _xifexpression = null;
+      DetalleRecetaAppModel _modelObject = this.getModelObject();
+      Receta _recetaSeleccionada = _modelObject.getRecetaSeleccionada();
+      Collection<CondPreexistente> _condiciones = _recetaSeleccionada.getCondiciones();
+      int _length = ((Object[])Conversions.unwrapArray(_condiciones, Object.class)).length;
+      boolean _notEquals = (_length != 0);
+      if (_notEquals) {
+        List<Object> _list_1 = new List<Object>(panelDerecho);
+        final Procedure1<List<Object>> _function_1 = new Procedure1<List<Object>>() {
+          public void apply(final List<Object> it) {
+            it.bindItemsToProperty("recetaSeleccionada.condiciones");
+            it.setWidth(200);
+            it.setHeight(100);
+          }
+        };
+        _xifexpression = ObjectExtensions.<List<Object>>operator_doubleArrow(_list_1, _function_1);
+      } else {
+        Label _label_4 = new Label(panelDerecho);
+        _xifexpression = _label_4.setText(
+          "No hay condiciones\r\nno recomendadadas \r\npara esta receta");
+      }
+      _xblockexpression = _xifexpression;
     }
     return _xblockexpression;
   }

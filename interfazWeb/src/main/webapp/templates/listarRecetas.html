@@ -1,0 +1,78 @@
+<div class="col-xs-12">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h2>Elija la Receta!</h2>
+		</div>
+
+		<div class="panel-body">
+			<div class="adventure-selector col-md-4">
+				<div class="form-group">
+					<label for="usuario">Recetas </label> <select
+						class="form-control" id="recetaSeleccionada" size="15"
+						ng-model="recetaSeleccionada"
+						ng-options="receta.nombre for receta in recetas">
+
+					</select>
+				</div>
+			</div>
+			<div class="adventure-detail col-md-8">
+			<table>
+			<tr>
+			<td width="250">
+				<h4>Nombre</h4>
+				<p>{{recetaSeleccionada.nombre}}</p>
+			</td>
+			<td width="200"> 
+				<h4>Calorias</h4>
+				<p>{{recetaSeleccionada.calorias}}</p>
+			</td>
+			</tr>
+			<tr>
+			<td witdh="250">
+				<h4>Dificultad</h4>
+				<p>{{recetaSeleccionada.dificultad}}</p>
+			</td>
+			<td width="200">
+				<h4>Temporadas</h4>
+				<p>{{recetaSeleccionada.temporadasCorrespondientes}}</p>
+			</td>
+			</tr>
+			<tr>
+			<td witdh="250">
+				<h4>Ingredientes</h4>
+				<p>{{recetaSeleccionada.ingredientes}}</p>	
+			</td>
+			<td width="200">
+				<p> 				
+				<div class="form-group">
+					<label for="recetaSeleccionada"><h4>Condimentos </h4></label> <select
+						class="form-control" id="condimentoSeleccionado" size="5"
+						ng-model="condimentoSeleccionado"
+						ng-options="condimento for condimento in recetaSeleccionada.condimentos">
+
+					</select>
+				</div>
+				</p>				
+			</td>
+			</tr>
+			<tr>
+			<td width="250">
+				<h4>Descripcion</h4>
+				<p>{{recetaSeleccionada.explicacion}}</p>
+			</td>
+			<td width="200">
+				<h4>Condiciones</h4>
+				<p>{{recetaSeleccionada.condiciones.toString()}}</p>
+			</td>
+			</tr>
+			</table>
+			</div>	
+		
+		</div>
+		<div class="panel-footer acciones-aventuras">
+			<!-- <div class="seccion-footer text-right">
+				<button class="btn btn-primary" ng-click="detalleReceta()">Ver Receta</button>
+			</div> -->
+		</div>
+	</div>
+</div>

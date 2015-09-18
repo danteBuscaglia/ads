@@ -20,6 +20,7 @@ class RepoRecetasEjemplo extends RepoRecetasPropio {
 	@Accessors Receta receta3
 	@Accessors Receta receta4
 	@Accessors Receta receta5
+	@Accessors Receta receta6
 	
 	new()
 	{
@@ -30,6 +31,7 @@ class RepoRecetasEjemplo extends RepoRecetasPropio {
       	receta5 = new RecetaSimple(this)
       	receta1.nombre = "Super sal"
       	receta1.agregarIngrediente(new Ingrediente("sal",10))
+      	receta1.agregarCondimento("sal gruesa")
 		receta1.calorias = 650
 		receta1.agregarTemporada(Estacion.VERANO)
 		receta1.dificultad = Dificultad.FACIL
@@ -59,6 +61,8 @@ class RepoRecetasEjemplo extends RepoRecetasPropio {
       	this.agregarRecetaPublica(receta3)
       	this.agregarRecetaPublica(receta4)
       	this.agregarRecetaPublica(receta5)
+      	receta6 = this.construirRecetaPublica()
+      	this.agregarRecetaPublica(receta6)
    	}
 	
 	def construirRecetaPrivada(Persona p) {
@@ -85,4 +89,26 @@ class RepoRecetasEjemplo extends RepoRecetasPropio {
 		return r
 	}
 	
+	def construirRecetaPublica() {
+		var r = new RecetaSimple(this)
+		r.nombre = "Ravioles con crema"
+		r.calorias = 550
+		r.dificultad = Dificultad.FACIL
+		r.agregarIngrediente(new Ingrediente("harina", 500))
+		r.agregarIngrediente(new Ingrediente("huevos", 3))
+		r.agregarIngrediente(new Ingrediente("aceite", 3))
+		r.agregarIngrediente(new Ingrediente("agua", 200))
+		r.agregarIngrediente(new Ingrediente("queso azul", 200))
+		r.agregarIngrediente(new Ingrediente("espinaca", 1))
+		r.agregarIngrediente(new Ingrediente("jamon", 100))
+		r.agregarCondimento("sal")
+		r.agregarCondimento("salsa de soja")
+		r.agregarCondimento("nueces")
+		r.agregarTemporada(Estacion.VERANO)
+		r.agregarTemporada(Estacion.OTOGNO)
+		r.explicacion = "Preparar la masa mezclando el harina, los huevos, el agua y el aceite. 
+		Dejar reposar. Cortar en forma de tapas circulares. Preparar relleno. 
+		Armar los ravioes. Hervir, colar y servir. Poner crema, nueces y salsa de soja a gusto!!"
+		return r
+	}
 }
