@@ -11,6 +11,7 @@ import dds.grupo9.queComemos.condicionPreexistente.Vegano
 import dds.grupo9.queComemos.condicionPreexistente.Celiaco
 import dds.grupo9.queComemos.condicionPreexistente.Hipertenso
 import dds.grupo9.queComemos.Persona
+import java.util.Collection
 
 @Observable
 class RepoRecetasEjemplo extends RepoRecetasPropio {
@@ -110,5 +111,16 @@ class RepoRecetasEjemplo extends RepoRecetasPropio {
 		Dejar reposar. Cortar en forma de tapas circulares. Preparar relleno. 
 		Armar los ravioes. Hervir, colar y servir. Poner crema, nueces y salsa de soja a gusto!!"
 		return r
+	}
+	
+	override buscarRecetaPorNombre(String nombre){
+		var recetas = newHashSet
+		recetas.add(receta1)
+		recetas.add(receta2)
+		recetas.add(receta3)
+		recetas.add(receta4)
+		recetas.add(receta5)
+		recetas.add(receta6)
+		recetas.findFirst[r|r.nombre==nombre]
 	}
 }

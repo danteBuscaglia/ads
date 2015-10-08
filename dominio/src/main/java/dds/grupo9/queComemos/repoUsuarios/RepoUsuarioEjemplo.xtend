@@ -48,7 +48,7 @@ class RepoUsuarioEjemplo extends RepoUsuarios {
 		persona3.nombre = "Santi"
 		persona4.nombre = "Dante"
 		persona5.nombre = "Igna"
-		persona1.contrasegna = "unaContrasegna"
+		persona1.contrasegna = "tagliafico"
 		persona2.contrasegna = "unaContrasegna"
 		persona3.contrasegna = "unaContrasegna"
 		persona4.contrasegna = "unaContrasegna"

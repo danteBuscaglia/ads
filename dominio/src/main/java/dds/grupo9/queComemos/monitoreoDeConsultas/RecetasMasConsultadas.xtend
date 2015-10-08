@@ -6,7 +6,9 @@ import dds.grupo9.queComemos.Receta
 import java.util.ArrayList
 import java.util.Collections
 import dds.grupo9.queComemos.repoRecetas.RepoRecetas
+import org.uqbar.commons.utils.Observable
 
+@Observable
 class RecetasMasConsultadas implements Monitor {
 	
 	var ArrayList<EstadisticaReceta> listaEstadisticas = new ArrayList<EstadisticaReceta>()
@@ -52,4 +54,9 @@ class RecetasMasConsultadas implements Monitor {
 		return recetasFinal
 	}
 	
+	def obtenerConsultas(){
+		var Collection<Integer> listaConsultas =newHashSet()
+		listaConsultas=listaEstadisticas.map[l|l.consultas]
+		
+	}
 }

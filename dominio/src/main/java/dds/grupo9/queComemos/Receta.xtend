@@ -195,4 +195,8 @@ abstract class Receta{
 		privacidad.getNombreDueño()
 	}
 	
+	def nombreCondiciones(){
+		condiciones.map[cond|cond.toString]
+	}
+	
 }
