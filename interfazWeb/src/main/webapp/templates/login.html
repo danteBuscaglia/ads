@@ -11,11 +11,14 @@
 					<label for="usuario">Usuario </label> <input type="text"
 						class="form-control" id="usuario" placeholder="Usuario"
 						ng-model="nombre">
+					<label for="password">Contraseña </label> <input type="password"
+ 						class="form-control" id="password" placeholder="Contrasenia"
+ 						ng-model="contrasegna">						
 				</div>
 				
-				<p> Hola {{nombre}} </p>
+				<p> Bienvenido {{nombre}} </p>
 
-		 		<button class="btn btn-default" ng-click="login()">Ingresar</button>
+		 		<button class="btn btn-default" ng-click="loginCtrl.login(nombre,contrasegna)">Ingresar</button>
 			</form>
 		</div>
 	</div>

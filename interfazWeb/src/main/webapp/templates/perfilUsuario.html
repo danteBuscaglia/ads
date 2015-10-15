@@ -1,0 +1,98 @@
+<div class="col-xs-12"> 
+	 <div class="panel panel-default"> 
+		<div class="panel-heading">
+			<h2>Ver perfil de un usuario</h2>
+		</div>
+
+		<div class="panel-body">
+		<div class="adventure-selector col-md-12">
+		<table width=600>
+			<tr>
+			<td colspan=6>
+				<h4>Nombre</h4>
+				<p>{{nombre}}</p>
+			</td>
+			<td colspan=3> 
+				<h4>Sexo</h4>
+				<p>{{sexo}}</p>
+			</td>
+			<td colspan=3> 
+				<h4>Fecha de nacimiento</h4>
+				<p>{{fechaNacimiento}}</p>
+			</td>
+			</tr>
+			<tr>
+			<td colspan=6>
+				<h4>Complexion</h4>
+				<p>{{complexion}}</p>
+			</td>
+			<td colspan=2>
+				<h4>Altura</h4>
+				<p>{{altura}}</p>
+			</td>
+			<td colspan=2>
+				<h4>Peso</h4>
+				<p>{{peso}}</p>
+			</td>
+			<td colspan=2>
+				<h4>IMC</h4>
+ 				<span ng-style="myStyle">{{imc | number:2}}</span> 
+			</td>
+			</tr>
+			<tr>
+			<td colspan=6>			
+			<div class="form-group">
+				<label for="usuario"><h4>Preferencias alimenticias </h4></label> <select
+					class="form-control" id="gustoSeleccionado" size="4"
+					ng-model="gustoSeleccionado"
+					ng-options="gusto for gusto in gustos">
+				</select>
+			</div>					
+			</td>
+			<td colspan=6>			
+			<div class="form-group">
+				<label for="usuario"><h4>Comidas que le disgustan </h4></label> <select
+					class="form-control" id="disgustoSeleccionado" size="4"
+					ng-model="disgustoSeleccionado"
+					ng-options="disgusto for disgusto in disgustos">
+				</select>
+			</div>					
+			</td>
+			</tr>
+			<tr>
+			<td colspan=6>			
+			<div class="form-group">
+				<label for="usuario"><h4>Condiciones preexistentes </h4></label> <select
+					class="form-control" id="condicionSeleccionada" size="3"
+					ng-model="condicionSeleccionada"
+					ng-options="condicion for condicion in condicionesPreexistentes">
+				</select>
+			</div>					
+			</td>
+			<td colspan=3 valign=TOP>
+				<h4>Rutina</h4>
+				<p>{{rutina}}</p>
+			</td>
+            </tr>
+            <tr>
+            <td colspan=6>
+            <div class="form-group">
+				<label for="usuario"><h4>Recetas favoritas </h4></label> <select
+					class="form-control" id="recetaSeleccionada" size="5"
+					ng-model="recetaSeleccionada"
+					ng-options="receta for receta in recetasFavoritas">
+				</select>
+			</div>
+			</td>
+			</tr>
+            </table>
+		
+		<div class="panel-footer acciones-aventuras">
+			<div class="seccion-footer text-right">
+  				<button class="btn btn-primary" ng-click="perfilCtrl.volver()">Volver</button> 
+ 		</div>
+		</div>
+		</div>
+</div>
+</div>
+</div>

@@ -8,8 +8,6 @@ import org.eclipse.xtend.lib.annotations.Accessors
  * POJO
  */
 class PedidoLogin {
-	@Accessors
-	String nombre
-//	@Accessors
-//	String password
+	@Accessors String nombre
+	@Accessors String contrasegna
 }

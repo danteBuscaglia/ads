@@ -34,11 +34,12 @@ class RecetarioController {
 
 	@Post("/login")
 	def Result login(@Body String body) {
-		//println(body)
+		
 		var PedidoLogin pedido = body.fromJson(PedidoLogin)
 		var LogueoAppModel logueo = new LogueoAppModel();
 		logueo.persona.nombre = pedido.nombre
-		logueo.contrasegna = "unaContrasegna"
+		logueo.contrasegna = pedido.contrasegna
+		//logueo.contrasegna = "asd"
 		var Persona p = logueo.personaBuscada()
 		response.contentType = ContentType.APPLICATION_JSON
 		ok(new RespuestaLogin(p).toJson)
@@ -47,16 +48,8 @@ class RecetarioController {
 	@Get("/recetas")
 	def Result recetas() {
 		var Persona persona = obtenerUsuario(request)
-		println(persona.nombre)
-		var seleccionador = new SeleccionRecetasAppModel(persona, new RecetasMasConsultadas)
+		//println(persona.nombre)
 		var Collection<Receta> recetas = repoRecetas.getRecetas
-		var Collection<Receta> recetasPosta = seleccionador.seleccionDeRecetas
-		println(recetas)
-		println(recetas.head.nombre)
-		println(recetasPosta)
-		println(recetasPosta.head.nombre)
-		println(recetasPosta.get(1).nombre)
-		println(recetasPosta.get(2).nombre)
 		response.contentType = ContentType.APPLICATION_JSON
 		ok(new ListadoRecetas(persona, recetas).toJson)
 	}
@@ -67,32 +60,58 @@ class RecetarioController {
 		repoUsuarios.get(personaBuscada)
 	}
 	
+	def obtenerReceta(HttpServletRequest request) {
+		repoRecetas.buscarRecetaPorNombre(getCookie(request, "receta"))
+	}
+	
 	def getCookie(HttpServletRequest request, String string) {
 		request.cookies.findFirst[it.name == string].value	
 	}
 	
-	@Post("/detalleReceta")
-	def Result detalleReceta(@Body String body) {
-		println(body)
-		var RecetaSimple receta = body.fromJson(RecetaSimple)
-//		var Receta receta = this.adaptarJson(body)
-		println(receta) 
-		var Persona persona = obtenerUsuario(request)
-		println(persona)
-		//var DetalleRecetaAppModel detalleReceta = new DetalleRecetaAppModel(persona, receta)
-		ok	
-	}
+	//@Post("/detalleReceta")
+	//def Result detalleReceta(@Body String body) {
+		//println("Detalle receta:")
+		//println(body)
+		//var RecetaActual receta = body.fromJson(RecetaActual)
+		//ok(receta.toJson)	
+	//}
 	
 	@Get("/recetaActual")
-	def Result recetaActual(@Body String body) {
-		var Receta recetaBuscada = body.fromJson(Receta)
+	def Result recetaActual() {
+		println("Receta Actual:")
+		var Receta receta = obtenerReceta(request)
+		println(receta.nombre)
 		var Persona persona = obtenerUsuario(request)
-		response.contentType = ContentType.APPLICATION_JSON
-		ok(new RecetaActual(persona, recetaBuscada).toJson)
+		println(persona.nombre)
+		ok(new DetalleReceta(persona, receta).toJson)
 	}
 	
+	@Get("/usuario")
+	def Result usuario() {
+		var Persona persona = obtenerUsuario(request)
+		var UsuarioLogueado usuario = new UsuarioLogueado(persona)
+		println(persona)
+		ok(usuario.toJson)	
+	}
+	
+	@Get("/consultas")
+	def Result consultas() {
+		var Persona persona = obtenerUsuario(request)
+		var ConsultaReceta consulta = new ConsultaReceta(persona, repoRecetas)
+//		println(persona)
+		ok(consulta.toJson)	
+	}
+	
+	@Get("/consultas2")
+	def Result traerRecetasMasConsultadas(){
+		var recetasConsultadas = new RecetasMuyConsultadas(repoUsuarios.getMonitor)
+		println(recetasConsultadas.recetasADevolver.map[it.nombre])
+		println(recetasConsultadas.consultas)
+		ok(recetasConsultadas.toJson)
+	}
+		
 	def static void main(String[] args) {
-		XTRest.start(RecetarioController, 8090)
+		XTRest.start(RecetarioController, 9001)
 	}
 
 }

@@ -22,19 +22,35 @@ recetarioApp.config(function($stateProvider, $urlRouterProvider) {
       controller : 'ListarRecetasController as recetasCtrl',
       resolve : {
         recetasData: ['recetarioService', function(recetarioService) {
-          return recetarioService.getAll();
-        }]
+        	return recetarioService.getAll();
+        }]//,
+       // recetasMasConsultadas: ['recetarioService', function(recetarioService) {
+         // return recetarioService.traerRecetasMasConsultadas();
+        //}]
+        
       }
     })
-//    .state('detalleReceta', {
-//        url : '/detalleReceta',
-//        templateUrl : 'templates/detalleReceta.html',
-//        controller : 'DetalleRecetaController as detalleCtrl',
-//        resolve : {
-//          recetaActualData: function(recetasService) {
-//            return recetasService.getRecetaActual();
-//          }
-//        }
-//      });
+    .state('perfilUsuario', {
+      url : '/perfilUsuario',
+      templateUrl : 'templates/perfilUsuario.html',
+      controller : 'PerfilUsuarioController as perfilCtrl',
+      resolve : {
+          personaData: ['recetarioService', function(recetarioService) {
+              return recetarioService.getUsuario();
+            }]
+         
+        }
+      })
     
+      .state('consultas', {
+      url : '/consultas',
+      templateUrl : 'templates/consultas.html',
+      controller : 'ConsultaRecetaController as consultaCtrl',
+      resolve : {
+          recetasData: ['recetarioService', function(recetarioService) {
+              return recetarioService.getConsultas();
+            }]
+        }
+      })
+  
 });
