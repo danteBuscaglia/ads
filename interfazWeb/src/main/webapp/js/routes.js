@@ -41,16 +41,15 @@ recetarioApp.config(function($stateProvider, $urlRouterProvider) {
          
         }
       })
-    
-      .state('consultas', {
-      url : '/consultas',
-      templateUrl : 'templates/consultas.html',
-      controller : 'ConsultaRecetaController as consultaCtrl',
-      resolve : {
-          recetasData: ['recetarioService', function(recetarioService) {
-              return recetarioService.getConsultas();
-            }]
+    .state('nuevoIngrediente', {
+    	url : '/nuevoIngrediente',
+        templateUrl: 'templates/nuevoIngrediente.html',
+        controller: 'NuevoIngController as nuevoCtrl',
+        resolve: {
+        	ingredientesTotales : [ 'recetarioService', function(recetarioService) {
+        		return recetarioService.getIngredientes();
+        	}]
         }
-      })
+    })
   
 });

@@ -1,0 +1,55 @@
+<div class="col-xs-12">
+<div class="panel panel-default">
+<div class="panel-heading">
+<h2 >Nuevo Ingrediente</h2>
+
+</div>
+
+<div class="panel-body">
+	<div class="adventure-selector col-md-6">
+				<label for="cantidad">Cantidad </label> 
+				<input type="number" class="form-control" id="cantidad" placeholder="Cantidad"
+						ng-model="cantidad" required>
+				<div>
+				<span class="error" ng-hide="cantidad">Obligatorio!</span>		
+				</div>
+				
+				<label for="um">Unidad de Medida </label> 
+				<input type="text" class="form-control" id="um" placeholder="Unidad Medida"
+						ng-model="um">		
+				</div>
+				
+	<div class="adventure-selector col-md-6">
+	            <div class="form-group">
+	            <label for="ingrediente">Ingrediente </label> 
+				<input type="text" class="form-control" id="ingrediente" placeholder="Ingrediente"
+						ng-model="ingrediente">
+						
+	            
+	            <select
+						class="form-control" id="ingredientes" size="5"
+						ng-model="ingredienteSeleccionado"
+						ng-options="ingredienteX for ingredienteX in ingredientesRepo | filter:ingrediente">
+						
+
+					</select>
+	            
+	            
+	            
+	            
+	            </div>
+	            </div>
+	            </div>
+   <div class="panel-footer acciones-aventuras">
+			<div class="seccion-footer text-right">
+				<button class="btn btn-primary" ng-click="nuevoCtrl.agregar()" >Aceptar</button>
+				<button class="btn btn-primary" ng-click="nuevoCtrl.cancelar()" >Cancelar</button>
+			</div>
+			</div>
+			
+	
+	
+	
+	
+	</div>		
+	</div>			

@@ -16,7 +16,7 @@ var listarRecetasController = recetarioApp.controller('ListarRecetasController',
       $scope.recetas = recetasData.data.recetas;
       var mensajeSobreSeleccion = recetasData.data.mensajeCorrespondiente;
       $scope.mensajeSobreSeleccion = recetasData.data.mensajeCorrespondiente[0];
-      $scope.favorita=$scope.mensajeSobreSeleccion=="Estas son tus recetas favoritas"
+      $scope.favorita=$scope.mensajeSobreSeleccion=="Estas son tus recetas favoritas";
      // $scope.mensajeSobreCreador = $scope.RecetaSeleccionada.data.mensaje;  
       //$scope.recetasConsultadas = recetasMasConsultadas.data.recetasADevolver;
       //$scope.consultas = recetasConsultadasData.data.consultas	  
@@ -24,21 +24,23 @@ var listarRecetasController = recetarioApp.controller('ListarRecetasController',
       $scope.verPerfil = function() {
     	  $state.go('perfilUsuario')
         };
-     // $scope.consultarRecetas = function() {
-    	//  $state.go('consultas')
-        //};
+     
+        $scope.agregarIngrediente = function(){
+          $state.go('nuevoIngrediente')
+          
+        };
       
       
         
     } ]);
 
-//var detalleRecetaController = recetarioApp.controller('DetalleRecetaController', [
-	//'recetaActualData', '$scope', 'recetarioService', '$state', 
-	//function(recetaActualData, $scope, recetarioService, $state) {
-		//$scope.nombreReceta = recetaActualData.data.nombreReceta;
-    //	$scope.persona = $scope.RecetaSeleccionada.data.persona;
-    	//$scope.mensajeSobreCreador = $scope.RecetaSeleccionada.data.mensaje;
-    //} ]);
+var nuevoIngController = recetarioApp.controller('NuevoIngController', [
+   'ingredientesTotales', '$scope', 'recetarioService', '$state', 
+	function(ingredientesTotales, $scope, recetarioService, $state) {
+		$scope.ingredientesRepo = ingredientesTotales.data.ingredientes;
+        
+    	
+    } ]);
 
 var perfilUsuarioController = recetarioApp.controller('PerfilUsuarioController', [
 	  'personaData', '$scope', 'recetarioService', '$state',

@@ -39,7 +39,6 @@ class RecetarioController {
 		var LogueoAppModel logueo = new LogueoAppModel();
 		logueo.persona.nombre = pedido.nombre
 		logueo.contrasegna = pedido.contrasegna
-		//logueo.contrasegna = "asd"
 		var Persona p = logueo.personaBuscada()
 		response.contentType = ContentType.APPLICATION_JSON
 		ok(new RespuestaLogin(p).toJson)
@@ -48,7 +47,6 @@ class RecetarioController {
 	@Get("/recetas")
 	def Result recetas() {
 		var Persona persona = obtenerUsuario(request)
-		//println(persona.nombre)
 		var Collection<Receta> recetas = repoRecetas.getRecetas
 		response.contentType = ContentType.APPLICATION_JSON
 		ok(new ListadoRecetas(persona, recetas).toJson)
@@ -68,14 +66,6 @@ class RecetarioController {
 		request.cookies.findFirst[it.name == string].value	
 	}
 	
-	//@Post("/detalleReceta")
-	//def Result detalleReceta(@Body String body) {
-		//println("Detalle receta:")
-		//println(body)
-		//var RecetaActual receta = body.fromJson(RecetaActual)
-		//ok(receta.toJson)	
-	//}
-	
 	@Get("/recetaActual")
 	def Result recetaActual() {
 		println("Receta Actual:")
@@ -92,6 +82,12 @@ class RecetarioController {
 		var UsuarioLogueado usuario = new UsuarioLogueado(persona)
 		println(persona)
 		ok(usuario.toJson)	
+	}
+	
+	@Get("/ingredientes")
+	def Result ingredientes(){
+		var ingredientes = new ListadoIngredientes(repoRecetas.getRecetas)
+		ok(ingredientes.toJson)
 	}
 	
 	@Get("/consultas")
@@ -111,7 +107,7 @@ class RecetarioController {
 	}
 		
 	def static void main(String[] args) {
-		XTRest.start(RecetarioController, 9001)
+		XTRest.start(RecetarioController, 8080)
 	}
 
 }

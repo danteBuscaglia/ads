@@ -7,18 +7,16 @@ var recetarioService = recetarioApp.service('recetarioService',[ '$http',
 	      this.getAll = function() {
 	        return $http.get('/recetas');
 	      };
-	      
-	      this.detalleReceta = function(receta) {
-	        return $http.post('/detalleReceta', receta);
-	      };
+	     
 	      
 	      this.getRecetaActual = function() {
 	        return $http.get('/recetaActual');
 	      };
 	      
-	      this.esFavorita = function(receta){
-	    	return  
+	      this.getIngredientes = function(){
+	    	  return $http.get('/ingredientes');
 	      };
+	      
 		  
 	      this.getUsuario = function() {
 		        return $http.get('/usuario');
