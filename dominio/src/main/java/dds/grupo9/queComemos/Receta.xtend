@@ -195,8 +195,8 @@ abstract class Receta{
 		privacidad.getNombreDueño()
 	}
 	
-	def nombreCondiciones(){
-		condiciones.map[cond|cond.toString]
+	def  Collection<String> nombreIngredientes(){
+		ingredientes.map[it.nombre].toSet
 	}
 	
 }
