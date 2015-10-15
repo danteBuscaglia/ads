@@ -59,6 +59,9 @@ class RepoUsuarioEjemplo extends RepoUsuarios {
 		
 		persona1.marcarRecetaComoFavorita(persona1.repoRecetas.getRecetas.head)
 		persona1.marcarRecetaComoFavorita(persona1.repoRecetas.getRecetas.last)
+		persona1.marcarRecetaComoFavorita(persona1.repoRecetas.getRecetas.findFirst[it.nombre=="Chori de cancha"])
+		persona1.marcarRecetaComoFavorita(persona1.repoRecetas.getRecetas.findFirst[it.nombre=="Fideos con crema"])
+		persona1.marcarRecetaComoFavorita(persona1.repoRecetas.getRecetas.findFirst[it.nombre=="Asadito dominguero"])
 		repositorioRecetas.construirRecetaPrivada(persona1)
 		
 		persona2.marcarRecetaComoFavorita(persona2.repoRecetas.getRecetas.head)

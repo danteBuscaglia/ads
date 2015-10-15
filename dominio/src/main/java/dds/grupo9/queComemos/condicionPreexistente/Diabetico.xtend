@@ -13,10 +13,7 @@ class Diabetico implements CondPreexistente {
 		cantidadAzucarPermitida = 100
 	}
 	
-	override toString()
-	{
-		"Diabetico"
-	}
+	@Accessors String nombre = "Diabetico"
 	
 	override boolean subsanaCondicion(Collection<String> gustos, String rutina, float peso){/* Verifica si logra subsanar su condición, para los diabeticos se logra si tiene una rutina activa o no pesa mas de 70 kgs */
 		rutina == "ACTIVA" || rutina == "INTENSIVO" || peso < 70

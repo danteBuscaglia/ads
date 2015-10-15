@@ -4,6 +4,7 @@ import java.util.Collection
 import dds.grupo9.queComemos.Ingrediente
 import dds.grupo9.queComemos.Receta
 import dds.grupo9.queComemos.Persona
+import org.eclipse.xtend.lib.annotations.Accessors
 
 class Hipertenso implements CondPreexistente {
 	var Collection<Ingrediente> prescripcionesMedicas = newHashSet()
@@ -15,10 +16,7 @@ class Hipertenso implements CondPreexistente {
     	prescripcionesMedicas.add(new Ingrediente("caldo",0))
 	}
 	
-	override toString()
-	{
-		"Hipertenso"
-	}
+	@Accessors String nombre = "Hipertenso"
 	
 	def getPrescripcionesMedicas(){
 		this.prescripcionesMedicas

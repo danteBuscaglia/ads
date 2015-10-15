@@ -55,8 +55,8 @@ class RecetasMasConsultadas implements Monitor {
 	}
 	
 	def obtenerConsultas(){
-		var Collection<Integer> listaConsultas =newHashSet()
-		listaConsultas=listaEstadisticas.map[l|l.consultas]
+		var Iterable<Integer> listaConsultas =newHashSet()
+		listaConsultas=listaEstadisticas.map[l|l.consultas].take(10)
 		
 	}
 }

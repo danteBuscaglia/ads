@@ -3,13 +3,11 @@ package dds.grupo9.queComemos.condicionPreexistente
 import java.util.Collection
 import dds.grupo9.queComemos.Receta
 import dds.grupo9.queComemos.Persona
+import org.eclipse.xtend.lib.annotations.Accessors
 
 class Celiaco implements CondPreexistente {
 	
-	override toString()
-	{
-		"Celiaco"
-	}
+	@Accessors String nombre = "Celiaco"
 	
 	override boolean subsanaCondicion(Collection<String> gustos, String rutina, float peso){true}
 	
@@ -18,4 +16,9 @@ class Celiaco implements CondPreexistente {
     override boolean verificaDatosSegunCondicion(Persona persona){true}			
 
 	override boolean esVeganismo(){false}
+	
+	
+	
+	
+	
 }

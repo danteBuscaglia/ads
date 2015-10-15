@@ -22,6 +22,12 @@ class RepoRecetasEjemplo extends RepoRecetasPropio {
 	@Accessors Receta receta4
 	@Accessors Receta receta5
 	@Accessors Receta receta6
+	@Accessors Receta receta7
+	@Accessors Receta receta8
+	@Accessors Receta receta9
+	@Accessors Receta receta10
+	@Accessors Receta receta11
+	@Accessors Receta receta12
 	
 	new()
 	{
@@ -57,6 +63,63 @@ class RepoRecetasEjemplo extends RepoRecetasPropio {
 		receta5.agregarTemporada(Estacion.INVIERNO)
       	receta5.dificultad = Dificultad.FACIL
       	
+      	receta6 = new RecetaSimple(this)
+      	receta7 = new RecetaSimple(this)
+      	receta8 = new RecetaSimple(this)
+      	receta9 = new RecetaSimple(this)
+      	receta10 = new RecetaSimple(this)
+      	receta11 = new RecetaSimple(this)
+      	receta12= new RecetaSimple(this)
+      	receta6.nombre = "Milanga"
+      	receta6.agregarIngrediente(new Ingrediente("pan rallado",80))
+      	receta6.agregarCondimento("limon")
+		receta6.calorias = 500
+		receta6.agregarTemporada(Estacion.PRIMAVERA)
+		receta6.dificultad = Dificultad.FACIL
+		receta7.nombre = "Chocotorta"
+		receta7.agregarIngrediente(new Ingrediente("chocolinas",20))
+		receta7.agregarIngrediente(new Ingrediente("dulce de leche",300))
+		receta7.calorias = 700
+      	receta7.agregarTemporada(Estacion.INVIERNO)
+      	receta7.dificultad = Dificultad.DIFICIL
+      	receta8.agregarIngrediente(new Ingrediente("carne",10))
+      	receta8.agregarIngrediente(new Ingrediente("pan",20))
+      	receta8.agregarCondimento("sal")
+		receta8.calorias = 600
+		receta8.nombre = "Asadito dominguero"
+		receta8.agregarTemporada(Estacion.PRIMAVERA)
+      	receta8.dificultad = Dificultad.MEDIANA
+		receta9.agregarIngrediente(new Ingrediente("arroz",200))
+		receta9.agregarIngrediente(new Ingrediente("carne",2))
+		receta9.agregarIngrediente(new Ingrediente("verduras",10))
+		receta9.calorias = 500
+		receta9.nombre = "Chop Suey"
+		receta9.agregarTemporada(Estacion.OTOGNO)
+      	receta9.dificultad = Dificultad.MEDIANA
+		receta10.agregarIngrediente(new Ingrediente("crema",30))
+		receta10.agregarIngrediente(new Ingrediente("queso rallado",20))
+		receta10.agregarIngrediente(new Ingrediente("fideos",200))
+		receta10.calorias = 600
+		receta10.nombre = "Fideos con crema"
+		receta10.agregarTemporada(Estacion.INVIERNO)
+      	receta10.dificultad = Dificultad.FACIL
+      	receta11.agregarIngrediente(new Ingrediente("chori",1))
+      	receta11.agregarIngrediente(new Ingrediente("veneno",30))
+		receta11.calorias = 350
+		receta11.nombre = "Chori de cancha"
+		receta11.agregarTemporada(Estacion.INVIERNO)
+		receta11.agregarTemporada(Estacion.OTOGNO)
+		receta11.agregarTemporada(Estacion.PRIMAVERA)
+		receta11.agregarTemporada(Estacion.VERANO)
+		receta11.dificultad = Dificultad.FACIL
+		receta11.explicacion="Tirar el chori a la parrilla, previamente contaminada de veneno para ratas. NUNCA dejar
+                              que quede cocido si hay un cliente esperando a comprar"
+      	receta12.agregarIngrediente(new Ingrediente("polvito loco",200))
+		receta12.calorias = 200
+		receta12.nombre = "Puré chef"
+		receta12.agregarTemporada(Estacion.OTOGNO)
+      	receta12.dificultad = Dificultad.FACIL
+      	
       	this.agregarRecetaPublica(receta1)
       	this.agregarRecetaPublica(receta2)
       	this.agregarRecetaPublica(receta3)
@@ -64,6 +127,12 @@ class RepoRecetasEjemplo extends RepoRecetasPropio {
       	this.agregarRecetaPublica(receta5)
       	receta6 = this.construirRecetaPublica()
       	this.agregarRecetaPublica(receta6)
+      	this.agregarRecetaPublica(receta7)
+      	this.agregarRecetaPublica(receta8)
+      	this.agregarRecetaPublica(receta9)
+      	this.agregarRecetaPublica(receta10)
+      	this.agregarRecetaPublica(receta11)
+      	this.agregarRecetaPublica(receta12)
    	}
 	
 	def construirRecetaPrivada(Persona p) {

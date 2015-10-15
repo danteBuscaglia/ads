@@ -6,6 +6,8 @@ import dds.grupo9.queComemos.Persona
 
 interface CondPreexistente {
 	 
+	 
+	 
 	def boolean subsanaCondicion(Collection<String> gustos, String rutina, float peso) 
 		
     def boolean recetaNoRecomendada(Receta receta)
@@ -13,4 +15,6 @@ interface CondPreexistente {
 	def boolean verificaDatosSegunCondicion(Persona persona) 
 	
 	def boolean esVeganismo()
+	
+	
 }
