@@ -133,7 +133,7 @@ class RecetarioController {
 	
 		
 	def static void main(String[] args) {
-		XTRest.start(RecetarioController,5050)
+		XTRest.start(RecetarioController,8080)
 	}
 
 }

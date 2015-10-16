@@ -56,6 +56,14 @@ var nuevoIngController = recetarioApp.controller('NuevoIngController', [
    'ingredientesTotales', '$scope', 'recetarioService', '$state', 
 	function(ingredientesTotales, $scope, recetarioService, $state) {
 		$scope.ingredientesRepo = ingredientesTotales.data.ingredientes;
+		
+		$scope.cancelar = function(){
+			$state.go('listarRecetas');
+		};
+		
+		this.agregar = function(){
+			recetarioService.agregarIngrediente({nombre:$scope.ingredienteSeleccionado,receta:$scope.})
+		}
         
     	
     } ]);
