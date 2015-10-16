@@ -88,8 +88,8 @@
 					<input type="text"
 						class="form-control" id="condimento" placeholder="Condimento"
 						ng-model="nuevoCondimento">
-					 <button class="btn btn-primary" ng-click="listarCtrl.agregarCondimento(nuevoCondimento)" ng-hide="sinPermiso">Agregar </button> 
-                     <button class="btn btn-primary" ng-click="listarCtrl.eliminarCondimento(condimentoSeleccionado)" ng-hide="sinPermiso">Eliminar </button>
+					 <button class="btn btn-primary" ng-click="listarCtrl.agregarCondimento(nuevoCondimento,recetaSeleccionada)" ng-hide="sinPermiso">Agregar </button> 
+                     <button class="btn btn-primary" ng-click="listarCtrl.eliminarCondimento(condimentoSeleccionado,recetaSeleccionada)" ng-hide="sinPermiso">Eliminar </button>
 				</div>
 								
 			</td>
@@ -168,13 +168,13 @@
 		<label for="favorita"> Aplicar filtros del perfil de usuario </label> 
 	</tr>
  	<tr> 
-             <td> <button class="btn btn-primary" ng-click="tablaConsultas=false; listarCtrl.filtrarRecetas(nombreReceta, caloriasMin, caloriasMax)">Buscar </button> </td>
+             <td> <button class="btn btn-primary" ng-click="listarCtrl.filtrarRecetas(nombreReceta, caloriasMin, caloriasMax)">Buscar </button> </td>
              <td> <button class="btn btn-primary" ng-click="consultarRecetas=false" ng-show="consultarRecetas">Volver </button> </td>    
     </tr>
     </table>
 <br>
 <br>
-  	<table border width=600 ng-hide="tablaConsultas">
+  	<table border width=600>
 	<tr>
 		<th> Nombre </th>
 		<th> Calorias </th>

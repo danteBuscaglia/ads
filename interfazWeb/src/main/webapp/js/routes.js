@@ -23,10 +23,10 @@ recetarioApp.config(function($stateProvider, $urlRouterProvider) {
       resolve : {
         recetasData: ['recetarioService', function(recetarioService) {
         	return recetarioService.getAll();
-        }],
-        recetasConAptas: ['recetarioService', function(recetarioService) {
-         return recetarioService.getConsultas();
-        }]
+        }]//,
+        //recetasFiltradas: ['recetarioService', function(recetarioService) {
+         //return recetarioService.filtrar();
+       // }]
         
       }
     })

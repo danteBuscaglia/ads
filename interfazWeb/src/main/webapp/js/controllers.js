@@ -8,9 +8,8 @@ var loginController = recetarioApp.controller('LoginController', function($scope
    }
   } );
 
-var listarRecetasController = recetarioApp.controller('ListarRecetasController', [
-    'recetasData', '$scope', 'recetarioService', '$state',
-    function(recetasData, $scope, recetarioService, $state) {
+var listarRecetasController = recetarioApp.controller('ListarRecetasController', 
+ function(recetasData, $scope, recetarioService, $state) {
       var recetas = recetasData.data.recetas;
       $scope.recetaSeleccionada = recetas[0];
       $scope.recetas = recetasData.data.recetas;
@@ -20,7 +19,7 @@ var listarRecetasController = recetarioApp.controller('ListarRecetasController',
      // $scope.mensajeSobreCreador = $scope.RecetaSeleccionada.data.mensaje;  
       //$scope.recetasConsultadas = recetasMasConsultadas.data.recetasADevolver;
       //$scope.consultas = recetasConsultadasData.data.consultas
-      $scope.tablaConsultas=true;
+     // $scope.recetasBuscadas = recetasFiltradas.data.recetasBuscadas
       
       $scope.verPerfil = function() {
     	  $state.go('perfilUsuario')
@@ -32,7 +31,7 @@ var listarRecetasController = recetarioApp.controller('ListarRecetasController',
         };
         
         this.filtrarRecetas = function(){
-        $scope.recetasBuscadas = recetarioService.filtrar({nombre:$scope.nombreReceta,caloriasMin:$scope.caloriasMin,caloriasMax:$scope.caloriasMax})
+        recetarioService.filtrar({nombre:$scope.nombreReceta,caloriasMin:$scope.caloriasMin,caloriasMax:$scope.caloriasMax})
         };
         
         $scope.aplicarFiltros = function(checkboxModel){
@@ -44,9 +43,14 @@ var listarRecetasController = recetarioApp.controller('ListarRecetasController',
       	    }
         };
       
+        this.agregarCondimento = function(){
+        recetarioService.agregarCond({condimento:$scope.nuevoCondimento,receta:$scope.recetaSeleccionada})
+        };
       
-        
-    } ]);
+        this.eliminarCondimento = function(){
+            recetarioService.eliminarCond({condimento:$scope.condmientoSeleccionado,receta:$scope.recetaSeleccionada})
+            }; 
+    } );
 
 var nuevoIngController = recetarioApp.controller('NuevoIngController', [
    'ingredientesTotales', '$scope', 'recetarioService', '$state', 

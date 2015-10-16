@@ -27,7 +27,7 @@ class ConsultaReceta {
 	}
 	
 	def filtrarRecetas(String nom, int caloriasMin, int caloriasMax){//, Dificultad dificultad, Estacion temporada, String ing){
-		recetasBuscadas.addAll(recetas.filter[it.nombre==nom])// && it.calorias>cantMin && it.calorias<cantMax
+		recetasBuscadas.addAll(recetas.filter[it.nombre==nom && it.calorias>caloriasMin && it.calorias<caloriasMax])
 			//&& it.dificultad == dificultad && it.temporadasCorrespondientes.contains(temporada) && it.tieneIngrediente(ing)])
 	}
 	

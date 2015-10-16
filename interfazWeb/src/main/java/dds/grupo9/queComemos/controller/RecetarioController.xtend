@@ -107,19 +107,33 @@ class RecetarioController {
 	}
 	
 	@Post("/filtradas")
-	def Result filtrarRecetas(@Body String body){
+	def Result filtrar(@Body String body){
+		println("hola")
 		var FiltrosReceta filtros = body.fromJson(FiltrosReceta)
-		var RecetasFiltradas recetas = new RecetasFiltradas(repoRecetas)
+		var persona = obtenerUsuario(request)
+		var ConsultaReceta recetas = new ConsultaReceta(persona,repoRecetas)
 		recetas.filtrarRecetas(filtros.nombre,filtros.caloriasMin,filtros.caloriasMax)
-		var recetasFiltradas = recetas.recetasFiltradas
+		var recetasFiltradas = recetas.recetasBuscadas
 		response.contentType = ContentType.APPLICATION_JSON
 		ok(recetasFiltradas.toJson)
 		
 		
 	}
+	
+	@Post("/nuevoCond")
+	def Result nuevoCond(@Body String body){
+		var NuevoCondimento condimento = body.fromJson(NuevoCondimento)
+		var receta = condimento.receta
+		receta.agregarCondimento(condimento.nombre)
+		println(receta.condimentos)
+		response.contentType = ContentType.APPLICATION_JSON
+		ok(receta.toJson)
+	}	
+		
+	
 		
 	def static void main(String[] args) {
-		XTRest.start(RecetarioController, 8800)
+		XTRest.start(RecetarioController,5050)
 	}
 
 }
