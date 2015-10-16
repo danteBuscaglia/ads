@@ -120,7 +120,7 @@
 	<td>
 		<label for="usuario">Nombre </label> 
 		<p><form class="form-inline">
-      		<input ng-model="nombre" type="text"
+      		<input ng-model="nombreReceta" type="text"
        		 placeholder="Nombre" autofocus>
    		 </form></p>
 	</td>
@@ -168,7 +168,7 @@
 		<label for="favorita"> Aplicar filtros del perfil de usuario </label> 
 	</tr>
  	<tr> 
-             <td> <button class="btn btn-primary" ng-click="tablaConsultas=false && filtrarRecetas(nombre, caloriasMin, caloriasMax)">Buscar </button> </td>
+             <td> <button class="btn btn-primary" ng-click="tablaConsultas=false; listarCtrl.filtrarRecetas(nombreReceta, caloriasMin, caloriasMax)">Buscar </button> </td>
              <td> <button class="btn btn-primary" ng-click="consultarRecetas=false" ng-show="consultarRecetas">Volver </button> </td>    
     </tr>
     </table>

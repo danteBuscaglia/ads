@@ -30,4 +30,7 @@ var recetarioService = recetarioApp.service('recetarioService',[ '$http',
 			    return $http.get('/consultas2');
 		  };
 	      
+		  this.filtrar = function(){
+			  return $http.post('/filtradas', body);
+		  }
 	    }]);

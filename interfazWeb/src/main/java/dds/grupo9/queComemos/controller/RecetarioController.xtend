@@ -105,9 +105,21 @@ class RecetarioController {
 		println(recetasConsultadas.consultas)
 		ok(recetasConsultadas.toJson)
 	}
+	
+	@Post("/filtradas")
+	def Result filtrarRecetas(@Body String body){
+		var FiltrosReceta filtros = body.fromJson(FiltrosReceta)
+		var RecetasFiltradas recetas = new RecetasFiltradas(repoRecetas)
+		recetas.filtrarRecetas(filtros.nombre,filtros.caloriasMin,filtros.caloriasMax)
+		var recetasFiltradas = recetas.recetasFiltradas
+		response.contentType = ContentType.APPLICATION_JSON
+		ok(recetasFiltradas.toJson)
+		
+		
+	}
 		
 	def static void main(String[] args) {
-		XTRest.start(RecetarioController, 8090)
+		XTRest.start(RecetarioController, 8800)
 	}
 
 }

@@ -30,6 +30,19 @@ var listarRecetasController = recetarioApp.controller('ListarRecetasController',
           $state.go('nuevoIngrediente')
           
         };
+        
+        this.filtrarRecetas = function(){
+        $scope.recetasBuscadas = recetarioService.filtrar({nombre:$scope.nombreReceta,caloriasMin:$scope.caloriasMin,caloriasMax:$scope.caloriasMax})
+        };
+        
+        $scope.aplicarFiltros = function(checkboxModel){
+      	  if (!checkboxModel) {
+      	      $scope.recetas = recetasData.data.recetas;
+      	    }
+      	    if (checkboxModel) {
+      	      $scope.recetas = recetasConAptas.data.recetasAptas;
+      	    }
+        };
       
       
         
@@ -75,39 +88,6 @@ var perfilUsuarioController = recetarioApp.controller('PerfilUsuarioController',
 	    
 	  } ]);
 
-var consultaRecetaController = recetarioApp.controller('ConsultaRecetaController', [
-      'recetasData', '$scope', 'recetarioService', '$state',
-      function(recetasData, $scope, recetarioService,recetasMasConsultadas){
-    	  var recetas = recetasData.data.recetas;
-          $scope.recetaSeleccionada = recetas[0];
-          $scope.recetas = recetasData.data.recetas; 
-    	  var recetasAptas = recetasData.data.recetasAptas;
-    	  var recetasBuscadas = recetasData.data.recetasBuscadas;
-    	  $scope.recetasBuscadas = recetasData.data.recetasBuscadas[0];
-    	  $scope.recetasAptas = recetasData.data.recetasAptas; 
-    	  $scope.caloriasMax = null;
-    	  $scope.caloriasMin = null;
-    	  $scope.nombre = null;
-          $scope.dificultadSelect = null;
-          $scope.temporadaSelect = null;
-          $scope.checkboxModel = false;
-          $scope.filtrarRecetas = function(nombre, caloriasMin, caloriasMax){
-        	  $scope.recetasBuscadas = recetasData.data.filtrarRecetas(nombre, caloriasMin, caloriasMax);
-          }
-          $scope.aplicarFiltros = function(checkboxModel){
-        	  if (!checkboxModel) {
-        	      $scope.recetas = recetasData.data.recetas;
-        	    }
-        	    if (checkboxModel) {
-        	      $scope.recetas = recetasData.data.recetasAptas;
-        	    }
-          };
-//          $scope.consultas= recetasMasConsultadas.data.consultas;
-            $scope.mostrarRecetas=false;
-            $scope.detalleReceta=false;
-           
-      }
-      ])
 
 //var redirectController = recetarioApp.controller('RedirectController', ['$state', function($state) {
 //      $state.go('login');
