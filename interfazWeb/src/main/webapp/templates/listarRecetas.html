@@ -167,17 +167,21 @@
 		<input type="checkbox" size=7 ng-model="checkboxModel" ng-change="aplicarFiltros(checkboxModel)">	
 		<label for="favorita"> Aplicar filtros del perfil de usuario </label> 
 	</tr>
- 	</table>
+ 	<tr> 
+             <td> <button class="btn btn-primary" ng-click="tablaConsultas=false && filtrarRecetas(nombre, caloriasMin, caloriasMax)">Buscar </button> </td>
+             <td> <button class="btn btn-primary" ng-click="consultarRecetas=false" ng-show="consultarRecetas">Volver </button> </td>    
+    </tr>
+    </table>
 <br>
 <br>
-  	<table border width=600>
+  	<table border width=600 ng-hide="tablaConsultas">
 	<tr>
 		<th> Nombre </th>
 		<th> Calorias </th>
 		<th> Dificultad </th>
 		<th> Temporadas </th>
 	</tr>
-   	<tr ng-repeat="receta in recetas | filter:{ nombre:nombre, dificultad:dificultadSelect, temporadasCorrespondientes:temporadaSelect}">
+   	<tr ng-repeat="receta in recetasBuscadas">
         	    <td>{{ receta.nombre }}</td>
              	<td>{{ receta.calorias }}</td>
              	<td>{{ receta.dificultad }}</td>
@@ -198,7 +202,6 @@
 		     	<button class="btn btn-primary" ng-click="listarCtrl.actualizar()" ng-show="detalleReceta ">Actualizar</button>
 		     	<button class="btn btn-primary" ng-click="detalleReceta=false" ng-show="detalleReceta ">Volver</button>
 		     	<button class="btn btn-primary" ng-click="mostrarRecetas=false" ng-show="mostrarRecetas">Volver </button>
-		     	<button class="btn btn-primary" ng-click="consultarRecetas=false" ng-show="consultarRecetas">Volver </button>
 		     			     	
 			</div>
 		</div>

@@ -76,6 +76,7 @@ class RepoUsuarioEjemplo extends RepoUsuarios {
 		persona3.marcarRecetaComoFavorita(persona3.repoRecetas.getRecetas.head)
 		persona3.marcarRecetaComoFavorita(persona3.repoRecetas.getRecetas.last)
 		repositorioRecetas.construirRecetaPrivada(persona3)
+		persona3.agregarCondPreexistente(new Hipertenso())
 		
 		//persona4.marcarRecetaComoFavorita(persona4.repoRecetas.getRecetas.head)
 		//persona4.marcarRecetaComoFavorita(persona4.repoRecetas.getRecetas.last)

@@ -19,7 +19,8 @@ var listarRecetasController = recetarioApp.controller('ListarRecetasController',
       $scope.favorita=$scope.mensajeSobreSeleccion=="Estas son tus recetas favoritas";
      // $scope.mensajeSobreCreador = $scope.RecetaSeleccionada.data.mensaje;  
       //$scope.recetasConsultadas = recetasMasConsultadas.data.recetasADevolver;
-      //$scope.consultas = recetasConsultadasData.data.consultas	  
+      //$scope.consultas = recetasConsultadasData.data.consultas
+      $scope.tablaConsultas=true;
       
       $scope.verPerfil = function() {
     	  $state.go('perfilUsuario')
@@ -81,10 +82,18 @@ var consultaRecetaController = recetarioApp.controller('ConsultaRecetaController
           $scope.recetaSeleccionada = recetas[0];
           $scope.recetas = recetasData.data.recetas; 
     	  var recetasAptas = recetasData.data.recetasAptas;
+    	  var recetasBuscadas = recetasData.data.recetasBuscadas;
+    	  $scope.recetasBuscadas = recetasData.data.recetasBuscadas[0];
     	  $scope.recetasAptas = recetasData.data.recetasAptas; 
+    	  $scope.caloriasMax = null;
+    	  $scope.caloriasMin = null;
+    	  $scope.nombre = null;
           $scope.dificultadSelect = null;
           $scope.temporadaSelect = null;
           $scope.checkboxModel = false;
+          $scope.filtrarRecetas = function(nombre, caloriasMin, caloriasMax){
+        	  $scope.recetasBuscadas = recetasData.data.filtrarRecetas(nombre, caloriasMin, caloriasMax);
+          }
           $scope.aplicarFiltros = function(checkboxModel){
         	  if (!checkboxModel) {
         	      $scope.recetas = recetasData.data.recetas;
@@ -95,8 +104,8 @@ var consultaRecetaController = recetarioApp.controller('ConsultaRecetaController
           };
 //          $scope.consultas= recetasMasConsultadas.data.consultas;
             $scope.mostrarRecetas=false;
-            $scope.detalleReceta=false
-          
+            $scope.detalleReceta=false;
+           
       }
       ])
 
