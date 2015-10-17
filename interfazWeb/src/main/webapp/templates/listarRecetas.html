@@ -88,8 +88,8 @@
 					<input type="text"
 						class="form-control" id="condimento" placeholder="Condimento"
 						ng-model="nuevoCondimento">
-					 <button class="btn btn-primary" ng-click="listarCtrl.agregarCondimento(nuevoCondimento,recetaSeleccionada)" ng-hide="sinPermiso">Agregar </button> 
-                     <button class="btn btn-primary" ng-click="listarCtrl.eliminarCondimento(condimentoSeleccionado,recetaSeleccionada)" ng-hide="sinPermiso">Eliminar </button>
+					 <button class="btn btn-primary" ng-click="recetasCtrl.agregarCondimento(nuevoCondimento,recetaSeleccionada)" ng-hide="sinPermiso">Agregar </button> 
+                     <button class="btn btn-primary" ng-click="recetasCtrl.eliminarCondimento(condimentoSeleccionado,recetaSeleccionada)" ng-hide="sinPermiso">Eliminar </button>
 				</div>
 								
 			</td>
@@ -113,7 +113,7 @@
 			</div>	
 	
 	<!-- CONSULTA DE RECETAS -->		
-			<div class="adventure-detail col-md-8" ng-show="consultarRecetas">
+			<div class="adventure-detail col-md-8" ng-show="consultarRecetas"">
 			
 			<table>
 	<tr>
@@ -136,8 +136,9 @@
 	<tr>
 	<td>
 		<label>Dificultad</label>
+		<label>{{dificultadSeleccionada}}</label>
 		<p>
-		<select name="dificultad" id="dificultadSelect" ng-model="dificultadSelect">
+		<select name="dificultad" id="dificultadSelect" ng-model="dificultadSelect" ng-change="dificultadElegida(dificultadSelect)">
 			<option value="">S/filtro</option>
 			<option value="facil">Facil</option>
 		  	<option value="media">Media</option>
@@ -147,8 +148,9 @@
 	</td>
 	<td>
 		<label>Temporadas</label>
+		<label>{{temporadaSeleccionada}}</label>
 		<p>
-		<select name="temporadas" id="temporadaSelect" ng-model="temporadaSelect">
+		<select name="temporadas" id="temporadaSelect" ng-model="temporadaSelect" ng-change="temporadaElegida(temporadaSelect)">
 			<option value="">S/filtro</option>
 			<option value="verano">Verano</option>
 		  	<option value="invierno">Invierno</option>
@@ -168,7 +170,7 @@
 		<label for="favorita"> Aplicar filtros del perfil de usuario </label> 
 	</tr>
  	<tr> 
-             <td> <button class="btn btn-primary" ng-click="listarCtrl.filtrarRecetas(nombreReceta, caloriasMin, caloriasMax)">Buscar </button> </td>
+             <td> <button class="btn btn-primary" ng-click="recetasCtrl.filtrarRecetas(nombreReceta, caloriasMin, caloriasMax, ingrediente, filtrosActivados, dificultadSeleccionada, temporadaSeleccionada)">Buscar </button> </td>
              <td> <button class="btn btn-primary" ng-click="consultarRecetas=false" ng-show="consultarRecetas">Volver </button> </td>    
     </tr>
     </table>
@@ -199,7 +201,7 @@
 				<button class="btn btn-primary" ng-click="verPerfil()" ng-hide="detalleReceta || mostrarRecetas ||consultarRecetas">Ver Perfil De Usuario</button>
 		     	<button class="btn btn-primary" ng-click="consultarRecetas=true" ng-hide="detalleReceta || mostrarRecetas ||consultarRecetas">Consultar Recetas</button>
 		     	<button class="btn btn-primary" ng-click="mostrarRecetas=true" ng-hide="detalleReceta || mostrarRecetas || consultarRecetas">Ver Recetas Mas Consultadas</button>
-		     	<button class="btn btn-primary" ng-click="listarCtrl.actualizar()" ng-show="detalleReceta ">Actualizar</button>
+		     	<button class="btn btn-primary" ng-click="recetasCtrl.actualizar()" ng-show="detalleReceta ">Actualizar</button>
 		     	<button class="btn btn-primary" ng-click="detalleReceta=false" ng-show="detalleReceta ">Volver</button>
 		     	<button class="btn btn-primary" ng-click="mostrarRecetas=false" ng-show="mostrarRecetas">Volver </button>
 		     			     	

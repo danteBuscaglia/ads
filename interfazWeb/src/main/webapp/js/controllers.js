@@ -16,10 +16,14 @@ var listarRecetasController = recetarioApp.controller('ListarRecetasController',
       var mensajeSobreSeleccion = recetasData.data.mensajeCorrespondiente;
       $scope.mensajeSobreSeleccion = recetasData.data.mensajeCorrespondiente[0];
       $scope.favorita=$scope.mensajeSobreSeleccion=="Estas son tus recetas favoritas";
-     // $scope.mensajeSobreCreador = $scope.RecetaSeleccionada.data.mensaje;  
+      //$scope.mensajeSobreCreador = $scope.RecetaSeleccionada.data.mensaje;  
       //$scope.recetasConsultadas = recetasMasConsultadas.data.recetasADevolver;
       //$scope.consultas = recetasConsultadasData.data.consultas
-     // $scope.recetasBuscadas = recetasFiltradas.data.recetasBuscadas
+      //$scope.recetasBuscadas = recetasFiltradas.data.recetasBuscadas
+      $scope.recetasBuscadas = recetasData.data.recetas;
+      $scope.filtrosActivados=false;
+      $scope.dificultadSeleccionada="";
+      $scope.temporadaSeleccionada="";
       
       $scope.verPerfil = function() {
     	  $state.go('perfilUsuario')
@@ -30,18 +34,36 @@ var listarRecetasController = recetarioApp.controller('ListarRecetasController',
           
         };
         
-        this.filtrarRecetas = function(){
-        recetarioService.filtrar({nombre:$scope.nombreReceta,caloriasMin:$scope.caloriasMin,caloriasMax:$scope.caloriasMax})
+        this.filtrarRecetas = function(nombreReceta, caloriasMin, caloriasMax, ingrediente, filtrosActivados, dificultadSeleccionada, temporadaSeleccionada){
+        	recetarioService.filtrar({
+        	nombre:nombreReceta,
+        	caloriasMin:caloriasMin,
+        	caloriasMax:caloriasMax,
+        	ingrediente:ingrediente,
+        	filtrado:filtrosActivados,
+        	dificultad:dificultadSeleccionada,
+        	temporada:temporadaSeleccionada
+        	})
         };
         
         $scope.aplicarFiltros = function(checkboxModel){
       	  if (!checkboxModel) {
-      	      $scope.recetas = recetasData.data.recetas;
+      		  $scope.filtrosActivados = false;
+      	     // $scope.recetas = recetasData.data.recetas;
       	    }
       	    if (checkboxModel) {
-      	      $scope.recetas = recetasConAptas.data.recetasAptas;
+      	    	$scope.filtrosActivados = true;
+      	     // $scope.recetas = recetasConAptas.data.recetasAptas;
       	    }
         };
+        
+        $scope.dificultadElegida = function(dificultadSelect){
+        	$scope.dificultadSeleccionada = dificultadSelect;
+          };
+          
+         $scope.temporadaElegida = function(temporadaSelect){
+          	$scope.temporadaSeleccionada = temporadaSelect;
+         };
       
         this.agregarCondimento = function(){
         recetarioService.agregarCond({condimento:$scope.nuevoCondimento,receta:$scope.recetaSeleccionada})
@@ -52,21 +74,21 @@ var listarRecetasController = recetarioApp.controller('ListarRecetasController',
             }; 
     } );
 
-var nuevoIngController = recetarioApp.controller('NuevoIngController', [
-   'ingredientesTotales', '$scope', 'recetarioService', '$state', 
-	function(ingredientesTotales, $scope, recetarioService, $state) {
-		$scope.ingredientesRepo = ingredientesTotales.data.ingredientes;
-		
-		$scope.cancelar = function(){
-			$state.go('listarRecetas');
-		};
-		
-		this.agregar = function(){
-			recetarioService.agregarIngrediente({nombre:$scope.ingredienteSeleccionado,receta:$scope.})
-		}
-        
-    	
-    } ]);
+//var nuevoIngController = recetarioApp.controller('NuevoIngController', [
+//   'ingredientesTotales', '$scope', 'recetarioService', '$state', 
+//	function(ingredientesTotales, $scope, recetarioService, $state) {
+//		$scope.ingredientesRepo = ingredientesTotales.data.ingredientes;
+//		
+//		$scope.cancelar = function(){
+//			$state.go('listarRecetas');
+//		};
+//		
+//		this.agregar = function(){
+//			recetarioService.agregarIngrediente({nombre:$scope.ingredienteSeleccionado,receta:$scope.})
+//		}
+//        
+//    	
+//    } ]);
 
 var perfilUsuarioController = recetarioApp.controller('PerfilUsuarioController', [
 	  'personaData', '$scope', 'recetarioService', '$state',

@@ -108,16 +108,17 @@ class RecetarioController {
 	
 	@Post("/filtradas")
 	def Result filtrar(@Body String body){
-		println("hola")
+		println("filtros")
+		println(body)
 		var FiltrosReceta filtros = body.fromJson(FiltrosReceta)
 		var persona = obtenerUsuario(request)
 		var ConsultaReceta recetas = new ConsultaReceta(persona,repoRecetas)
-		recetas.filtrarRecetas(filtros.nombre,filtros.caloriasMin,filtros.caloriasMax)
-		var recetasFiltradas = recetas.recetasBuscadas
+		recetas.filtrarRecetas(filtros)
+		var recetasFiltradas = recetas.recetas
 		response.contentType = ContentType.APPLICATION_JSON
+		println("filtradas")
+		println(recetasFiltradas)
 		ok(recetasFiltradas.toJson)
-		
-		
 	}
 	
 	@Post("/nuevoCond")
@@ -133,7 +134,7 @@ class RecetarioController {
 	
 		
 	def static void main(String[] args) {
-		XTRest.start(RecetarioController,8080)
+		XTRest.start(RecetarioController,8097)
 	}
 
 }
