@@ -109,13 +109,9 @@ class RepoUsuarioEjemplo extends RepoUsuarios {
 		this.add(persona4)
 		this.add(persona5)
 	}
-	private static final SessionFactory sessionFactory = new AnnotationConfiguration().configure().
+	/*private static final SessionFactory sessionFactory = new AnnotationConfiguration().configure().
 		addAnnotatedClass(Persona)
-		.addAnnotatedClass(Receta)
-		.addAnnotatedClass(Celiaco)
-		.addAnnotatedClass(Vegano)
-		.addAnnotatedClass(Hipertenso)
-		.addAnnotatedClass(Diabetico)
+		.addAnnotatedClass(Receta)	
 		.buildSessionFactory()
 
 	def List<Persona> allInstances() {
@@ -154,5 +150,7 @@ class RepoUsuarioEjemplo extends RepoUsuarios {
 		} finally {
 			session.close
 		}
-	}
+	}*/
+	
+	
 }

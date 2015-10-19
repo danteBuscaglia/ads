@@ -9,13 +9,10 @@ import org.uqbar.commons.utils.Observable
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
 
-@Observable
-@Accessors
-@Entity
+
 class Celiaco implements CondPreexistente {
-	@Id
-	@GeneratedValue
-	private Long id
+	
+	
 	@Accessors String nombre = "Celiaco"
 
 	override boolean subsanaCondicion(Collection<String> gustos, String rutina, float peso) { true }

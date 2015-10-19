@@ -18,7 +18,7 @@ import javax.persistence.GeneratedValue
 import javax.persistence.Column
 import javax.persistence.OneToMany
 import javax.persistence.FetchType
-import javax.persistence.JoinColumn
+import javax.persistence.GenerationType
 
 @Entity
 @Observable
@@ -42,7 +42,7 @@ class Persona implements ConsultaDecorada {
 	 var Collection<GrupoDePersonas> grupos = newHashSet()
 	 RepoRecetas repoRecetas
 
-	@OneToMany(fetch=FetchType.LAZY)
+	
 	var Collection<Receta> recetasFavoritas = newHashSet()
 	
 	 RepoUsuarios repoUsuarios

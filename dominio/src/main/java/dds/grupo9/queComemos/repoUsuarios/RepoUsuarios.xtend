@@ -4,14 +4,10 @@ import java.util.Collection
 import dds.grupo9.queComemos.Persona
 import dds.grupo9.queComemos.excepciones.NoLoTieneException
 import dds.grupo9.queComemos.excepciones.NoEsValidoException
-import org.hibernate.SessionFactory
-import org.hibernate.cfg.AnnotationConfiguration
-import dds.grupo9.queComemos.Receta
-import java.util.List
-import org.hibernate.HibernateException
 import org.hibernate.criterion.Restrictions
+import org.hibernate.Criteria
 
-class RepoUsuarios {
+class RepoUsuarios extends RepoDefault<Persona> {
 
 	var Collection<Persona> usuariosRegistrados = newHashSet()
 	var Collection<Persona> pendientes = newHashSet
@@ -28,7 +24,7 @@ class RepoUsuarios {
 			throw new NoLoTieneException("El usuario no está registrado")
 	}
 
-	def update(Persona persona) {
+	def registrar(Persona persona) {
 		if (contieneUsuario(buscarPersonaPorNombre(persona))) {
 			usuariosRegistrados.remove(buscarPersonaPorNombre(persona))
 			add(persona)
@@ -100,6 +96,14 @@ class RepoUsuarios {
 			throw new NoEsValidoException("El perfil que desea generar no corresponde a un usuario valido")
 	}
 
-	
+	override getEntityType() {
+		typeof(Persona)
+	}
+
+	override addQueryByExample(Criteria criteria, Persona p) {
+		if (p.id != null) {
+			criteria.add(Restrictions.eq("id", p.id))
+		}
+	}
 
 }
