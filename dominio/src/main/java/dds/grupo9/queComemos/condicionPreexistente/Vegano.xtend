@@ -5,10 +5,18 @@ import dds.grupo9.queComemos.Ingrediente
 import dds.grupo9.queComemos.Receta
 import dds.grupo9.queComemos.Persona
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.utils.Observable
+import javax.persistence.Entity
+import javax.persistence.Id
+import javax.persistence.GeneratedValue
 
+@Observable
 @Accessors
+@Entity
 class Vegano implements CondPreexistente {
-	
+	@Id
+	@GeneratedValue
+	private Long id
 	var Collection<Ingrediente> ingredientesCarnicos = newHashSet()
 	
 	new(){

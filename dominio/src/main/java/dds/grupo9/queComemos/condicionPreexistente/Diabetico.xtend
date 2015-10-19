@@ -5,8 +5,18 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import dds.grupo9.queComemos.Ingrediente
 import dds.grupo9.queComemos.Persona
 import dds.grupo9.queComemos.Receta
+import org.uqbar.commons.utils.Observable
+import javax.persistence.Entity
+import javax.persistence.Id
+import javax.persistence.GeneratedValue
 
+@Observable
+@Accessors
+@Entity
 class Diabetico implements CondPreexistente {
+	@Id
+	@GeneratedValue
+	private Long id
 	@Accessors int cantidadAzucarPermitida
 
 	new(){

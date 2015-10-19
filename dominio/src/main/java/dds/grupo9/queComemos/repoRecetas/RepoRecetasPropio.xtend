@@ -5,33 +5,33 @@ import dds.grupo9.queComemos.excepciones.NoLoTieneException
 import dds.grupo9.queComemos.Receta
 
 class RepoRecetasPropio implements dds.grupo9.queComemos.repoRecetas.RepoRecetas {
-	
-	var Collection <Receta> recetasPublicas = newHashSet()
-	
-	def tieneRecetaPublica(String nombreReceta){
-		recetasPublicas.exists[it.nombre==nombreReceta]
-		
+
+	var Collection<Receta> recetasPublicas = newHashSet()
+
+	def tieneRecetaPublica(String nombreReceta) {
+		recetasPublicas.exists[it.nombre == nombreReceta]
+
 	}
-	
-	def void agregarRecetaPublica(Receta receta){
+
+	def void agregarRecetaPublica(Receta receta) {
 		recetasPublicas.add(receta)
 	}
-	
-		
-	def quitarRecetaPublica(Receta receta){
-		if(tieneRecetaPublica(receta.nombre))
-		recetasPublicas.remove(receta)
-		else throw new NoLoTieneException ("No existe esta receta publica")
-		
+
+	def quitarRecetaPublica(Receta receta) {
+		if (tieneRecetaPublica(receta.nombre))
+			recetasPublicas.remove(receta)
+		else
+			throw new NoLoTieneException("No existe esta receta publica")
+
 	}
-	
-	override Collection<Receta> getRecetas(){
-		
+
+	override Collection<Receta> getRecetas() {
+
 		this.recetasPublicas
 	}
-	
-	override Receta buscarRecetaPorNombre(String nombre){
-		recetasPublicas.findFirst[it.nombre==nombre]
+
+	override Receta buscarRecetaPorNombre(String nombre) {
+		recetasPublicas.findFirst[it.nombre == nombre]
 	}
-	
+
 }

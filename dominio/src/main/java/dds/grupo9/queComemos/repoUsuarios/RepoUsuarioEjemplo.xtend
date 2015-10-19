@@ -9,8 +9,20 @@ import dds.grupo9.queComemos.condicionPreexistente.Hipertenso
 import dds.grupo9.queComemos.consultas.ConsultaPorDisgusto
 import dds.grupo9.queComemos.manejoResultadosConsultas.Busqueda
 import dds.grupo9.queComemos.monitoreoDeConsultas.RecetasMasConsultadas
+import org.hibernate.criterion.Restrictions
+import javax.persistence.Entity
+import org.hibernate.SessionFactory
+import org.hibernate.cfg.AnnotationConfiguration
+import dds.grupo9.queComemos.Receta
+import java.util.List
+import org.hibernate.HibernateException
+import dds.grupo9.queComemos.condicionPreexistente.Celiaco
+import dds.grupo9.queComemos.condicionPreexistente.Vegano
+import dds.grupo9.queComemos.condicionPreexistente.Diabetico
 
+@Entity
 @Observable
+@Accessors
 class RepoUsuarioEjemplo extends RepoUsuarios {
 	
 	@Accessors BuilderPersona builder
@@ -97,5 +109,50 @@ class RepoUsuarioEjemplo extends RepoUsuarios {
 		this.add(persona4)
 		this.add(persona5)
 	}
+	private static final SessionFactory sessionFactory = new AnnotationConfiguration().configure().
+		addAnnotatedClass(Persona)
+		.addAnnotatedClass(Receta)
+		.addAnnotatedClass(Celiaco)
+		.addAnnotatedClass(Vegano)
+		.addAnnotatedClass(Hipertenso)
+		.addAnnotatedClass(Diabetico)
+		.buildSessionFactory()
 
+	def List<Persona> allInstances() {
+		val session = sessionFactory.openSession
+		try {
+			return session.createCriteria(Persona).list()
+		} finally {
+			session.close
+		}
+	}
+
+	def List<Persona> searchByExample(Persona p) {
+		val session = sessionFactory.openSession
+		try {
+			val criteriaZona = session.createCriteria(Persona)
+			if (p.id != null) {
+				criteriaZona.add(Restrictions.eq("id", p.id))
+			}
+			return criteriaZona.list()
+		} catch (HibernateException e) {
+			throw new RuntimeException(e)
+		} finally {
+			session.close
+		}
+	}
+
+	def void create(Persona p) {
+		val session = sessionFactory.openSession
+		try {
+			session.beginTransaction
+			session.save(p)
+			session.getTransaction.commit
+		} catch (HibernateException e) {
+			session.getTransaction.rollback
+			throw new RuntimeException(e)
+		} finally {
+			session.close
+		}
+	}
 }

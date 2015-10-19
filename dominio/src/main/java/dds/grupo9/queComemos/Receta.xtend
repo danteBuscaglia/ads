@@ -11,12 +11,20 @@ import dds.grupo9.queComemos.condicionPreexistente.Hipertenso
 import dds.grupo9.queComemos.condicionPreexistente.Celiaco
 import dds.grupo9.queComemos.condicionPreexistente.Vegano
 import dds.grupo9.queComemos.condicionPreexistente.Diabetico
+import javax.persistence.Id
+import javax.persistence.GeneratedValue
+import javax.persistence.Entity
+import javax.persistence.Column
 
 @Observable
 @Accessors
+@Entity
 abstract class Receta{
+	@Id
+	@GeneratedValue
+	@Property private Long id
 	
-	String nombre /*Nombre del plato */
+ 	 String nombre /*Nombre del plato */	
     String explicacion /*Pasos a seguir en la receta */
     int calorias /*Calorías de la receta (A modificar) */
     Dificultad dificultad /*Dificultad de la receta */
@@ -24,7 +32,7 @@ abstract class Receta{
     var Collection<Ingrediente> ingredientes= newHashSet() /*Ingredientes de la receta */
     var Collection<String> condimentos= newHashSet() /*Ingredientes de la receta */
     var Collection<Estacion> temporadasCorrespondientes = newHashSet() /*Temporadas a las que corresponde la receta */
-    var Collection<CondPreexistente> condiciones = newHashSet() /* Condiciones preexistentes */
+    //var Collection<CondPreexistente> condiciones = newHashSet() /* Condiciones preexistentes */
     var PrivacidadReceta privacidad /* Condición de privacidad de la receta (publica o privada) */
     String nombreDuenio
     
