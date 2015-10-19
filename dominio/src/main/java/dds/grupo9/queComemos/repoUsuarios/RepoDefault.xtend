@@ -7,10 +7,22 @@ import dds.grupo9.queComemos.Receta
 import java.util.List
 import org.hibernate.HibernateException
 import org.hibernate.Criteria
+import dds.grupo9.queComemos.RecetaPrivada
+import dds.grupo9.queComemos.RecetaPublica
+import dds.grupo9.queComemos.Ingrediente
+import dds.grupo9.queComemos.RecetaSimple
+import dds.grupo9.queComemos.RecetaCompuesta
 
 abstract class RepoDefault<T> {
-	private static final SessionFactory sessionFactory = new AnnotationConfiguration().configure().
-		addAnnotatedClass(Persona).buildSessionFactory()
+	private static final SessionFactory sessionFactory = new AnnotationConfiguration().configure()
+		.addAnnotatedClass(Receta)
+		.addAnnotatedClass(Persona)
+		.addAnnotatedClass(RecetaPrivada)
+		.addAnnotatedClass(RecetaPublica)		
+		.addAnnotatedClass(Ingrediente)
+		.addAnnotatedClass(RecetaSimple)
+		.addAnnotatedClass(RecetaCompuesta)
+		.buildSessionFactory()
 
 	def List<T> allInstances() {
 		val session = sessionFactory.openSession

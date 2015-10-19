@@ -17,8 +17,9 @@ import javax.persistence.Id
 import javax.persistence.GeneratedValue
 import javax.persistence.Column
 import javax.persistence.OneToMany
-import javax.persistence.FetchType
-import javax.persistence.GenerationType
+import javax.persistence.ManyToMany
+import javax.persistence.ManyToOne
+import javax.persistence.OneToOne
 
 @Entity
 @Observable
@@ -26,31 +27,42 @@ import javax.persistence.GenerationType
 class Persona implements ConsultaDecorada {
 	@Id
 	@GeneratedValue
-	 private Long id
-	 float peso /* Peso de un Usuario */
-	 float altura /* Altura de un Usuario */
+	private Long id
+	@Column
+	float peso /* Peso de un Usuario */
+	@Column
+	float altura /* Altura de un Usuario */
 	@Column(length=150)
-	 String nombre /* Nombre de un Usuario */
-	 String sexo /* Sexo de un Usuario: M/m: Masculino y F/f: Femenino */
-	 long fechaNacimiento /* Fecha de nacimiento de un Usuario */
-	 var Collection<String> gustos = newHashSet() /* Gustos de un Usuario */
-	 var Collection<String> disgustos = newHashSet() /*Disgustos de un Usuario */	 
-	var Collection<CondPreexistente> condicionesPreexistentes = newHashSet() /* Condicionantes de un Usuario */
-	
-	 String rutina /* Tipo de rutina que lleva a cabo el Usuario */
-	 var Collection<Receta> recetasPropias = newHashSet() /*Recetas de un Usuario */
-	 var Collection<GrupoDePersonas> grupos = newHashSet()
-	 RepoRecetas repoRecetas
+	String nombre /* Nombre de un Usuario */
+	@Column
+	String sexo /* Sexo de un Usuario: M/m: Masculino y F/f: Femenino */
+	@Column
+	long fechaNacimiento /* Fecha de nacimiento de un Usuario */
+	@OneToMany
+	var Collection<String> gustos = newHashSet() /* Gustos de un Usuario */
+	@OneToMany
+	var Collection<String> disgustos = newHashSet() /*Disgustos de un Usuario */
 
-	
+	var Collection<CondPreexistente> condicionesPreexistentes = newHashSet() /* Condicionantes de un Usuario */
+	@Column
+	String rutina /* Tipo de rutina que lleva a cabo el Usuario */
+	@ManyToMany
+	var Collection<Receta> recetasPropias = newHashSet() /*Recetas de un Usuario */
+	@ManyToOne
+	var Collection<GrupoDePersonas> grupos = newHashSet()
+	RepoRecetas repoRecetas
+
+	@ManyToMany
 	var Collection<Receta> recetasFavoritas = newHashSet()
-	
-	 RepoUsuarios repoUsuarios
-	 String motivoRechazo
+
+	RepoUsuarios repoUsuarios
+	String motivoRechazo
 	String mail
-	 int recibeMail
-	 Receta recetaSeleccionada
-	 String contrasegna
+	int recibeMail
+	@OneToOne
+	Receta recetaSeleccionada
+	String contrasegna
+	@ManyToMany
 	Collection<Receta> ultimasRecetasConsultadas = newHashSet()
 
 	new() {

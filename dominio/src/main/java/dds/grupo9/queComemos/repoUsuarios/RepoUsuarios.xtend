@@ -101,8 +101,8 @@ class RepoUsuarios extends RepoDefault<Persona> {
 	}
 
 	override addQueryByExample(Criteria criteria, Persona p) {
-		if (p.id != null) {
-			criteria.add(Restrictions.eq("id", p.id))
+		if (p.nombre != null) {
+			criteria.add(Restrictions.eq("nombre", p.nombre))
 		}
 	}
 

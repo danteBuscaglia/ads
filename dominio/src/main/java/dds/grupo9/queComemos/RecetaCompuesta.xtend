@@ -3,11 +3,17 @@ import java.util.Collection
 import dds.grupo9.queComemos.repoRecetas.RepoRecetas
 import org.uqbar.commons.utils.Observable
 import org.eclipse.xtend.lib.annotations.Accessors
+import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.Id
+import javax.persistence.OneToMany
 
 @Observable
 @Accessors
+@Entity
 class RecetaCompuesta extends Receta {
 	
+	@OneToMany
 	var Collection <Receta> subrecetas = newHashSet()
 	
 	new(RepoRecetas repositorio) {

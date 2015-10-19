@@ -3,10 +3,19 @@ package dds.grupo9.queComemos
 import dds.grupo9.queComemos.modificacionRecetas.Modificacion
 import dds.grupo9.queComemos.excepciones.NoLoTieneException
 import org.eclipse.xtend.lib.annotations.Accessors
+import javax.persistence.Entity
+import org.uqbar.commons.utils.Observable
+import javax.persistence.Id
+import javax.persistence.GeneratedValue
 
+@Entity
+@Observable
+@Accessors
 class RecetaPublica implements PrivacidadReceta {
-	
-	@Accessors Persona creador = new Persona
+		@Id
+		@GeneratedValue
+		private Long id
+	 Persona creador = new Persona
 		
 	override puedeVermeOModificarme(Persona persona){
 		
