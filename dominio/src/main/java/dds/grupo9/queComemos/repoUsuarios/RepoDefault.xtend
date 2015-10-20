@@ -12,17 +12,14 @@ import dds.grupo9.queComemos.RecetaPublica
 import dds.grupo9.queComemos.Ingrediente
 import dds.grupo9.queComemos.RecetaSimple
 import dds.grupo9.queComemos.RecetaCompuesta
+import org.hibernate.FetchMode
+import org.hibernate.criterion.Restrictions
 
 abstract class RepoDefault<T> {
-	private static final SessionFactory sessionFactory = new AnnotationConfiguration().configure()
-		.addAnnotatedClass(Receta)
-		.addAnnotatedClass(Persona)
-		.addAnnotatedClass(RecetaPrivada)
-		.addAnnotatedClass(RecetaPublica)		
-		.addAnnotatedClass(Ingrediente)
-		.addAnnotatedClass(RecetaSimple)
-		.addAnnotatedClass(RecetaCompuesta)
-		.buildSessionFactory()
+	private static final SessionFactory sessionFactory = new AnnotationConfiguration().configure().
+		addAnnotatedClass(Receta).addAnnotatedClass(Persona).addAnnotatedClass(RecetaPrivada).
+		addAnnotatedClass(RecetaPublica).addAnnotatedClass(Ingrediente).addAnnotatedClass(RecetaSimple).
+		addAnnotatedClass(RecetaCompuesta).buildSessionFactory()
 
 	def List<T> allInstances() {
 		val session = sessionFactory.openSession
@@ -72,6 +69,27 @@ abstract class RepoDefault<T> {
 			session.getTransaction.commit
 		} catch (HibernateException e) {
 			session.getTransaction.rollback
+			throw new RuntimeException(e)
+		} finally {
+			session.close
+		}
+	}
+
+	def openSession() {
+		sessionFactory.openSession
+	}
+
+	def Persona searchById(Long id) {
+		val session = openSession
+		try {
+			val zonas = session.createCriteria(Persona).setFetchMode("recetasPropias", FetchMode.JOIN).add(
+				Restrictions.eq("id", id)).list
+			if (zonas.empty) {
+				return null
+			} else {
+				return zonas.head
+			}
+		} catch (HibernateException e) {
 			throw new RuntimeException(e)
 		} finally {
 			session.close
